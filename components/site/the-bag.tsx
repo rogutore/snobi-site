@@ -30,7 +30,7 @@ export function TheBag() {
             Coming Soon.
           </h2>
           <p className="mt-6 max-w-md text-lg leading-loose text-paper/80">
-            東京発のスペシャリティxオーガニックコーヒー。東京から世界へ。
+            東京発のスペシャリティ X オーガニックコーヒー。東京から世界へ。
           </p>
           <div className="mt-8">
             <Link href="#join">

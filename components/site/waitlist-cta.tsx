@@ -43,8 +43,7 @@ export function WaitlistCTA() {
             We&apos;re almost ready.
           </h2>
           <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-ink-soft lg:text-xl">
-            Join the founders list — get the first bags, and the proof, before
-            anyone else.
+            先行予約リストに登録して、最初のロットを手に入れよう。
           </p>
         </Reveal>
 
