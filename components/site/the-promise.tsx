@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 
 /* The promise — anti-snob + radical transparency, on a plum inverse block.
    Pre-launch: we show the CATEGORIES a bag will carry, not invented numbers. */
-const RECEIPTS = ["Origin", "Altitude", "Process", "Roast date", "Farmgate price"];
+const RECEIPTS = ["R&D Lab", "Training", "Importing", "Snobing"];
 
 export function ThePromise() {
   return (
@@ -12,11 +12,10 @@ export function ThePromise() {
       <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-[#587d71] px-8 py-20 text-paper lg:px-20 lg:py-28">
         <Reveal>
           <h2 className="display text-[clamp(2.25rem,6vw,5rem)] leading-[1.04]">
-            Snob name. Anti-snob coffee.
+            What&apos;s cookin.
           </h2>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-paper/80 lg:text-xl">
-            When we launch, every bag will show its work. The receipts, in the
-            open.
+          <p className="mt-8 max-w-2xl text-lg leading-loose text-paper/85 lg:text-xl">
+            笑顔になるような豆。感動の焙煎。ラボ。世界一のオーガニックコーヒー目指して。まあ、見てなって。
           </p>
         </Reveal>
 

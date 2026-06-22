@@ -24,7 +24,7 @@
   /* Fonts — from the Adobe Fonts kit (see app/layout.tsx) */
   --font-display: "fisterra-morte", Georgia, serif; /* wordmark + big display */
   --font-display-sharp: "fisterra-fora", Georgia, serif;
-  --font-sans: "maiola", Georgia, serif; /* body / main text */
+  --font-sans: "maiola", "Zen Kaku Gothic Antique", Georgia, serif; /* Latin = Maiola, JP = Zen Kaku */
   --font-mono: var(--font-geist-mono), ui-monospace, monospace; /* eyebrows */
 
   /* Motion */

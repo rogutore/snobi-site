@@ -17,12 +17,13 @@ export function TheStory() {
             The story
           </p>
           <h2 className="display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] text-plum">
-            We don&apos;t translate Japanese coffee. We are the translation.
+            We&apos;re writing it.
           </h2>
-          <p className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-            Half-Japanese, half-American. Snobi comes out of Tokyo Coffee&apos;s
-            roastery in an old housing complex — precision, restraint, and the
-            seasons (旬), without the gatekeeping.
+          <p className="mt-7 max-w-md whitespace-pre-line text-lg leading-loose text-ink-soft">
+            {`SNOBIのストーリー。
+まあ、見てなって。
+これから一緒に。
+みんなで綴って行こう。`}
           </p>
         </Reveal>
 

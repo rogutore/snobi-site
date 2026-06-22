@@ -32,6 +32,17 @@ export default function RootLayout({
       <head>
         {/* Adobe Fonts kit — fisterra-morte (display/wordmark) + maiola (body) */}
         <link rel="stylesheet" href="https://use.typekit.net/xkh1hrz.css" />
+        {/* Japanese face — Zen Kaku Gothic Antique (Google Fonts) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@400;500;700&display=swap"
+        />
       </head>
       <body className="min-h-full bg-paper text-ink">{children}</body>
     </html>
