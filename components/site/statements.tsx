@@ -6,7 +6,7 @@ import { Reveal } from "@/components/motion/reveal";
    Japanese support line. Generous whitespace (ma). */
 export function TheIdea() {
   return (
-    <section className="bg-lilac px-6 py-28 lg:py-44">
+    <section className="bg-paper px-6 py-28 lg:py-44">
       <div className="mx-auto max-w-4xl text-center">
         <Reveal>
           <p className="display text-[clamp(2rem,5vw,4rem)] leading-[1.08] text-plum">

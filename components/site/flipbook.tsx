@@ -20,7 +20,7 @@ const FRAMES = [
   "/photos/snobi-brewing-1.jpg",
   "/photos/051.jpg",
   "/photos/032.jpg",
-  "/photos/snobi-roastery-2.jpg",
+  "/photos/DSCF1712.jpg",
   "/photos/snobi-brewing-2.jpg",
 ];
 
