@@ -21,18 +21,9 @@ export function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-plum/60 via-plum/25 to-plum/85" />
 
-      {/* Wordmark lockup — real vector boar + Snobi / COFFEE lockup */}
+      {/* Wordmark lockup — Snobi / COFFEE */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-16 text-center">
-        <Image
-          src="/brand/snobi.svg"
-          alt=""
-          width={160}
-          height={140}
-          unoptimized
-          priority
-          className="rise mb-4 h-12 w-auto brightness-0 invert lg:h-16"
-        />
-        <h1 className="rise" style={{ animationDelay: "0.08s" }}>
+        <h1 className="rise">
           <Image
             src="/brand/snobi-coffee-logo.svg"
             alt="Snobi Coffee"
