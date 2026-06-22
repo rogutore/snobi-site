@@ -21,7 +21,7 @@ export function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-plum/60 via-plum/25 to-plum/85" />
 
-      {/* Wordmark lockup — real vector boar + Snobi wordmark + tracked COFFEE */}
+      {/* Wordmark lockup — real vector boar + Snobi / COFFEE lockup */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-16 text-center">
         <Image
           src="/brand/snobi.svg"
@@ -30,25 +30,19 @@ export function Hero() {
           height={140}
           unoptimized
           priority
-          className="rise mb-3 h-16 w-auto brightness-0 invert lg:h-24"
+          className="rise mb-4 h-12 w-auto brightness-0 invert lg:h-16"
         />
         <h1 className="rise" style={{ animationDelay: "0.08s" }}>
           <Image
-            src="/brand/snobi-logo.svg"
-            alt="Snobi"
+            src="/brand/snobi-coffee-logo.svg"
+            alt="Snobi Coffee"
             width={621}
-            height={147}
+            height={238}
             unoptimized
             priority
-            className="h-auto w-[min(80vw,760px)] brightness-0 invert"
+            className="h-auto w-[min(74vw,580px)] brightness-0 invert"
           />
         </h1>
-        <span
-          className="rise spec mt-5 text-xs uppercase tracking-[0.62em] text-paper/70 lg:text-sm"
-          style={{ animationDelay: "0.15s" }}
-        >
-          Coffee
-        </span>
       </div>
 
       {/* Tagline + CTA, lower-left */}
@@ -57,7 +51,7 @@ export function Hero() {
           className="rise display max-w-2xl text-[clamp(1.9rem,4.4vw,3.5rem)] leading-[1.05] text-paper"
           style={{ animationDelay: "0.28s" }}
         >
-          Organic. And actually specialty.
+          Organic x Specialty.
         </p>
         <p
           className="rise mt-4 max-w-md text-lg leading-relaxed text-paper/80"

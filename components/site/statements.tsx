@@ -2,29 +2,18 @@
 
 import { Reveal } from "@/components/motion/reveal";
 
-/* The idea (organic × specialty) + excellence — two centered big-type beats,
-   generous whitespace (ma). Fisterra display, Maiola support. */
+/* The thesis — a single centered big-type beat on the lavender block, with the
+   Japanese support line. Generous whitespace (ma). */
 export function TheIdea() {
   return (
-    <section className="bg-paper px-6 py-28 lg:py-44">
-      <div className="mx-auto max-w-4xl space-y-24 text-center lg:space-y-36">
+    <section className="bg-lilac px-6 py-28 lg:py-44">
+      <div className="mx-auto max-w-4xl text-center">
         <Reveal>
           <p className="display text-[clamp(2rem,5vw,4rem)] leading-[1.08] text-plum">
-            Most organic coffee never makes the cupping table. Most specialty
-            coffee was never grown clean.
+            Changing the way Organic Coffee is done.
           </p>
-          <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-ink-soft lg:text-xl">
-            We&apos;re building the rare thing that&apos;s both.
-          </p>
-        </Reveal>
-
-        <Reveal>
-          <p className="display text-[clamp(2rem,5vw,4rem)] leading-[1.08] text-plum">
-            We won&apos;t release a coffee we wouldn&apos;t score.
-          </p>
-          <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-ink-soft lg:text-xl">
-            Every lot has to earn its place — grown organic, roasted in Tokyo,
-            good enough to prove it.
+          <p className="mx-auto mt-10 max-w-2xl text-lg leading-loose text-plum/80 lg:text-xl">
+            オーガニックコーヒーの革命が起きようとしている。品質もサステナビリティも健康もワールドクラスのこだわりをSNOBIがお届けします。
           </p>
         </Reveal>
       </div>

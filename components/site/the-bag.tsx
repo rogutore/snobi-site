@@ -27,11 +27,10 @@ export function TheBag() {
             The first bag
           </p>
           <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.05]">
-            One bag. Everything on it.
+            Coming Soon.
           </h2>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-paper/80">
-            Organic specialty coffee, roasted in Tokyo. The first three land at
-            launch — this is where it starts.
+          <p className="mt-6 max-w-md text-lg leading-loose text-paper/80">
+            東京発のスペシャリティxオーガニックコーヒー。東京から世界へ。
           </p>
           <div className="mt-8">
             <Link href="#join">

@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
    toggles + transition, not a long tween). Degrades to the first frame under
    prefers-reduced-motion. Uses the six real Snobi photos. */
 const FRAMES = [
-  "/photos/snobi-roastery-1.jpg",
+  "/photos/Z91_9931a.jpg",
   "/photos/snobi-brewing-1.jpg",
   "/photos/051.jpg",
   "/photos/032.jpg",
