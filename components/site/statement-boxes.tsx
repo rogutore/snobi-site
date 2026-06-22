@@ -15,12 +15,17 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const CARDS = [
   {
     n: "01",
-    text: "Snobi is an organic specialty roaster from the Tokyo Coffee family.",
+    text: `TOKYO COFFEE のプレミアムライン
+オーガニックなのに笑っちゃう
+笑顔になるスペシャルティ`,
     pos: "left-0 top-[52vh] justify-start",
   },
   {
     n: "02",
-    text: "We chase the rare beans that are both certified organic and genuinely specialty — then we show the proof.",
+    text: `妥協しない、クオリティ
+世界一を目指してみます
+まだまだ、グループステージ
+応援よろしくお願いします`,
     pos: "right-0 top-[132vh] justify-end",
   },
 ];
@@ -97,12 +102,12 @@ export function StatementBoxes() {
           >
             <div
               data-card
-              className="max-w-sm rounded-3xl border border-green/40 bg-plum/30 p-8 backdrop-blur-md"
+              className="max-w-md rounded-3xl border border-green/40 bg-plum/30 p-8 backdrop-blur-md lg:max-w-lg"
             >
               <span className="spec mb-4 block text-xs uppercase tracking-[0.24em] text-green">
                 {c.n}
               </span>
-              <p className="text-xl leading-relaxed text-paper lg:text-2xl">
+              <p className="whitespace-pre-line text-lg leading-loose text-paper lg:text-xl">
                 {c.text}
               </p>
             </div>

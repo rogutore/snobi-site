@@ -32,8 +32,8 @@ export function TheStory() {
           <Parallax amount={60} className="absolute inset-[-12%]">
             <div className="relative h-full w-full">
               <Image
-                src="/photos/snobi-people-1.jpg"
-                alt="Inside the Tokyo Coffee roastery"
+                src="/photos/DSCF1754.jpg"
+                alt="Masaki's coffee — green beans on the shelf"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
