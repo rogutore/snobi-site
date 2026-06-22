@@ -57,7 +57,7 @@ export function Footer() {
             <span>© {new Date().getFullYear()} Snobi</span>
             {/* placeholders for certification marks */}
             <span className="spec text-[0.7rem] uppercase tracking-[0.14em]">
-              JAS · USDA Organic
+              JAS Organic
             </span>
           </div>
           <div className="flex items-center gap-4">

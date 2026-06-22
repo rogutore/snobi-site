@@ -21,9 +21,7 @@ export function TheStory() {
           </h2>
           <p className="mt-7 max-w-md whitespace-pre-line text-lg leading-loose text-ink-soft">
             {`SNOBIのストーリー。
-まあ、見てなって。
-これから一緒に。
-みんなで綴って行こう。`}
+まあ、見てなって。`}
           </p>
         </Reveal>
 
