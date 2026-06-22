@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Snobi brand design system  (brief §2)                              */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Core palette */
+  --color-plum: #443850; /* primary / ink / dark blocks (logotype color) */
+  --color-lilac: #b49fcc; /* secondary / soft accent / block fills */
+  --color-green: #e5f2c9; /* pale celery accent / light blocks / "the pop" */
+
+  /* Neutrals — warm paper ramp derived from plum */
+  --color-paper: #f7f5f0; /* default background — warm off-white */
+  --color-paper-dim: #efece4;
+  --color-ink: #2a2230; /* plum-black for body text */
+  --color-ink-soft: #5b5167;
+
+  /* Tint ramps for blocks / borders / hovers */
+  --color-plum-700: #382e44;
+  --color-plum-300: #6f6280;
+  --color-lilac-soft: #d8cce6;
+  --color-green-deep: #cfe2a8;
+
+  /* Fonts — from the Adobe Fonts kit (see app/layout.tsx) */
+  --font-display: "fisterra-morte", Georgia, serif; /* wordmark + big display */
+  --font-display-sharp: "fisterra-fora", Georgia, serif;
+  --font-sans: "maiola", Georgia, serif; /* body / main text */
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace; /* eyebrows */
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-lilac);
+  color: var(--color-plum);
+}
+
+/* Big tight-leading display headers — Fisterra Morte (700 only) */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+/* Spec-strip / transparency data device */
+.spec {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Motion — pure CSS, so content is ALWAYS visible without JS.        */
+/*  Default state is visible; animation is a progressive enhancement.  */
+/* ------------------------------------------------------------------ */
+
+/* Hero entrance — runs on load via CSS (no JS needed). */
+.rise {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll reveal — uses native scroll-driven animations where supported,
+   otherwise content is simply visible. Never hidden without JS *or* support. */
+.reveal {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      opacity: 0;
+      animation: reveal both linear;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Kill all motion + autoplay for users who ask for it (brief §4) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
