@@ -31,7 +31,7 @@ export function Hero() {
             height={360}
             unoptimized
             priority
-            className="h-auto w-[min(86vw,760px)] brightness-0 invert"
+            className="h-auto w-[min(68vw,560px)] brightness-0 invert"
           />
         </h1>
       </div>

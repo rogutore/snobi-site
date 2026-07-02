@@ -28,13 +28,13 @@ export function Logo({
         />
       )}
       <Image
-        src="/brand/snobi-logo.svg"
+        src="/brand/snobi_font1.svg"
         alt="Snobi"
-        width={621}
-        height={147}
+        width={1280}
+        height={360}
         unoptimized
         priority
-        className={cn("h-4 w-auto", tint)}
+        className={cn("h-5 w-auto", tint)}
       />
     </span>
   );
