@@ -25,13 +25,13 @@ export function Hero() {
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-16 text-center">
         <h1 className="rise">
           <Image
-            src="/brand/snobi-coffee-logo.svg"
-            alt="Snobi Coffee"
-            width={621}
-            height={238}
+            src="/brand/snobi_font1.svg"
+            alt="Snobi"
+            width={1280}
+            height={360}
             unoptimized
             priority
-            className="h-auto w-[min(74vw,580px)] brightness-0 invert"
+            className="h-auto w-[min(86vw,760px)] brightness-0 invert"
           />
         </h1>
       </div>
