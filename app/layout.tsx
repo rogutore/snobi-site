@@ -11,6 +11,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  /* Required for canonical/hreflang to emit absolute URLs — Google ignores
+     relative hreflang values, which would silently void the ja/en pairing. */
+  metadataBase: new URL("https://snobi.jp"),
   title: "Snobi — Organic. And actually specialty.",
   description:
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
