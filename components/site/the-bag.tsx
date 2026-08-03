@@ -11,13 +11,13 @@ export function TheBag() {
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
         {/* Full bag photo — object-contain so nothing is cut off */}
         <Reveal>
-          <div className="relative mx-auto aspect-[1848/2304] w-full max-w-sm">
+          <div className="relative mx-auto aspect-[1214/1295] w-full max-w-md">
             <Image
-              src="/photos/snobi-bag-hero.jpg"
-              alt="The Snobi coffee bag"
+              src="/photos/snobi-bag.jpg"
+              alt="The Snöbi coffee bag — Colombia Huila, organic specialty by Tokyo Coffee"
               fill
-              sizes="(max-width: 1024px) 90vw, 40vw"
-              className="object-contain"
+              sizes="(max-width: 1024px) 90vw, 45vw"
+              className="object-cover"
             />
           </div>
         </Reveal>
