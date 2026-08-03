@@ -17,6 +17,9 @@ export function ThePromise() {
           <p className="mt-8 max-w-2xl text-lg leading-loose text-paper/85 lg:text-xl">
             笑顔になるような豆。感動の焙煎。ラボ。世界一のオーガニックコーヒー目指して。まあ、見てなって。
           </p>
+          <p className="mt-6 max-w-2xl text-base leading-loose text-paper/70">
+            カップスコア、産地、精製方法、生産者への支払額まで公開します。
+          </p>
         </Reveal>
 
         <Reveal delay={0.12}>
