@@ -69,10 +69,10 @@ export function Footer() {
         {/* Giant wordmark, à la Chisel's oversized footer logo */}
         <div className="select-none pt-10">
           <Image
-            src="/brand/snobi-logo.svg"
+            src="/brand/snobi_font1.svg"
             alt=""
-            width={621}
-            height={147}
+            width={1280}
+            height={360}
             unoptimized
             className="h-auto w-full opacity-[0.08] brightness-0 invert"
           />
