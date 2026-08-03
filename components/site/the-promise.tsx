@@ -9,7 +9,7 @@ const RECEIPTS = ["R&D Lab", "Training", "Importing", "Snobing"];
 export function ThePromise({ en = false }: { en?: boolean }) {
   return (
     <section className="bg-paper px-6 py-12 lg:px-10 lg:py-16">
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-[#587d71] px-8 py-20 text-paper lg:px-20 lg:py-28">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-sage px-8 py-20 text-paper lg:px-20 lg:py-28">
         <Reveal>
           <h2 className="display text-[clamp(2.25rem,6vw,5rem)] leading-[1.04]">
             What&apos;s cookin.

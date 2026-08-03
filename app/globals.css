@@ -7,7 +7,8 @@
   /* Core palette */
   --color-plum: #443850; /* primary / ink / dark blocks (logotype color) */
   --color-lilac: #b49fcc; /* secondary / soft accent / block fills */
-  --color-green: #e5f2c9; /* pale celery accent / light blocks / "the pop" */
+  --color-green: #e5f2c9; /* pale celery accent — for DARK blocks only (unreadable on paper) */
+  --color-sage: #587d71; /* deep green — the accent that works on light backgrounds */
 
   /* Neutrals — warm paper ramp derived from plum */
   --color-paper: #f7f5f0; /* default background — warm off-white */

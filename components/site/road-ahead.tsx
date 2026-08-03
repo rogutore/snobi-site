@@ -37,7 +37,7 @@ export function RoadAhead({ en = false }: { en?: boolean }) {
           {STOPS.map((s, i) => (
             <Reveal key={s.t} delay={0.06 * i}>
               <li className="border-t border-plum/15 pt-5">
-                <span className="spec block text-xs uppercase tracking-[0.24em] text-green">
+                <span className="spec block text-xs uppercase tracking-[0.24em] text-sage">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="display mt-3 text-2xl leading-tight text-plum">
