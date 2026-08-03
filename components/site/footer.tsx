@@ -4,7 +4,7 @@ import { Logo } from "./logo";
 
 /* Quiet endorsed-brand footer — room for JAS + USDA Organic marks, socials,
    EN/JP, boar mark (brief §3). */
-export function Footer() {
+export function Footer({ en = false }: { en?: boolean }) {
   return (
     <footer className="bg-plum px-6 py-16 text-paper lg:px-10">
       <div className="mx-auto max-w-7xl">
@@ -61,8 +61,18 @@ export function Footer() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-paper/70">EN</span>
-            <span className="opacity-50">JP — soon</span>
+            <Link
+              href="/"
+              className={en ? "text-paper/70 hover:text-paper" : "text-paper"}
+            >
+              日本語
+            </Link>
+            <Link
+              href="/en"
+              className={en ? "text-paper" : "text-paper/70 hover:text-paper"}
+            >
+              English
+            </Link>
           </div>
         </div>
 

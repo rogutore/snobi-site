@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Parallax } from "@/components/motion/parallax";
 
 /* The story — text beside a photo that drifts on parallax as it passes. */
-export function TheStory() {
+export function TheStory({ en = false }: { en?: boolean }) {
   return (
     <section
       id="story"
@@ -20,7 +20,16 @@ export function TheStory() {
             We&apos;re writing it.
           </h2>
           <p className="mt-7 max-w-md whitespace-pre-line text-lg leading-loose text-ink-soft">
-            {`SNOBIのストーリー。
+            {en
+              ? `We believe the future of organic specialty coffee hasn't been written yet.
+This is our first chapter.
+If our pursuit resonates with you, we'd be honored to write the next one together.
+
+Just watch us.`
+              : `オーガニックスペシャルティコーヒーの未来は、まだ完成していないと私たちは考えています。
+これは、私たちの第一章。
+もし、この挑戦に共感していただけたなら、次の章を、ぜひご一緒に。
+
 まあ、見てなって。`}
           </p>
         </Reveal>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 /* The product. The only photo with the bag, so it gets its own section and the
    FULL image is shown (object-contain — never cropped). */
-export function TheBag() {
+export function TheBag({ en = false }: { en?: boolean }) {
   return (
     <section id="bag" className="bg-plum px-6 py-24 text-paper lg:px-10 lg:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
@@ -30,7 +30,17 @@ export function TheBag() {
             Coming Soon.
           </h2>
           <p className="mt-6 max-w-md text-lg leading-loose text-paper/80">
-            東京発のスペシャルティ X オーガニックコーヒー。東京から世界へ。
+            {en
+              ? "Specialty × organic coffee, born in Tokyo. From Tokyo to the world."
+              : "東京発のスペシャルティ X オーガニックコーヒー。東京から世界へ。"}
+          </p>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-paper/70">
+            {en
+              ? "Four origins. Four expressions. One uncompromising standard."
+              : "4つの産地。4つの個性。妥協のない、一つの基準。"}
+          </p>
+          <p className="spec mt-3 text-[0.72rem] uppercase tracking-[0.18em] text-green">
+            Peru ・ Ethiopia ・ Mexico Chiapas ・ Colombia Huila
           </p>
           <div className="mt-8">
             <Link href="#join">

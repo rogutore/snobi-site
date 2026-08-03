@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /* Minimal teaser nav: wordmark + join. Light over the hero, darkens on scroll. */
-export function Nav() {
+export function Nav({ en = false }: { en?: boolean }) {
   const [scrolled, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -33,19 +33,18 @@ export function Nav() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
+          <Link
+            href={en ? "/" : "/en"}
             className={cn(
               "hidden text-xs font-medium tracking-tight transition-colors sm:block",
               scrolled
                 ? "text-ink-soft hover:text-plum"
                 : "text-paper/80 hover:text-paper",
             )}
-            aria-label="Switch language (coming soon)"
-            title="日本語 — coming soon"
+            aria-label={en ? "日本語版へ" : "Switch to English"}
           >
-            EN / <span className="opacity-50">JP</span>
-          </button>
+            {en ? "日本語" : "English"}
+          </Link>
           <Link href="#join">
             <Button variant={scrolled ? "ghost" : "light"} className="text-xs">
               Be first in line

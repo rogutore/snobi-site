@@ -6,7 +6,7 @@ import { Reveal } from "@/components/motion/reveal";
    Pre-launch: we show the CATEGORIES a bag will carry, not invented numbers. */
 const RECEIPTS = ["R&D Lab", "Training", "Importing", "Snobing"];
 
-export function ThePromise() {
+export function ThePromise({ en = false }: { en?: boolean }) {
   return (
     <section className="bg-paper px-6 py-12 lg:px-10 lg:py-16">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-[#587d71] px-8 py-20 text-paper lg:px-20 lg:py-28">
@@ -15,10 +15,14 @@ export function ThePromise() {
             What&apos;s cookin.
           </h2>
           <p className="mt-8 max-w-2xl text-lg leading-loose text-paper/85 lg:text-xl">
-            笑顔になるような豆。感動の焙煎。ラボ。世界一のオーガニックコーヒー目指して。
+            {en
+              ? "Beans that make you smile. Roasts that move you. A lab of our own. Chasing the world's best organic coffee."
+              : "笑顔になるような豆。感動の焙煎。ラボ。世界一のオーガニックコーヒー目指して。"}
           </p>
           <p className="mt-6 max-w-2xl text-base leading-loose text-paper/70">
-            カップスコア、産地、精製方法、生産者への支払額まで公開します。
+            {en
+              ? "We publish cup scores, origins, processing — and what the producer was paid."
+              : "カップスコア、産地、精製方法、生産者への支払額まで公開します。"}
           </p>
         </Reveal>
 

@@ -5,6 +5,7 @@ import { Flipbook } from "@/components/site/flipbook";
 import { TheIdea } from "@/components/site/statements";
 import { TheBag } from "@/components/site/the-bag";
 import { TheStory } from "@/components/site/the-story";
+import { RoadAhead } from "@/components/site/road-ahead";
 import { OriginImage } from "@/components/site/origin-image";
 import { ThePromise } from "@/components/site/the-promise";
 import { WaitlistCTA } from "@/components/site/waitlist-cta";
@@ -21,6 +22,7 @@ export default function Home() {
         <TheIdea />
         <TheBag />
         <TheStory />
+        <RoadAhead />
         <OriginImage />
         <ThePromise />
         <WaitlistCTA />

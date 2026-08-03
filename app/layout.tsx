@@ -13,11 +13,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Snobi — Organic. And actually specialty.",
   description:
-    "An organic specialty roaster from the Tokyo Coffee family. Launching soon.",
+    "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
+  alternates: {
+    canonical: "/",
+    languages: { ja: "/", en: "/en" },
+  },
   openGraph: {
     title: "Snobi — Organic. And actually specialty.",
     description:
-      "An organic specialty roaster from the Tokyo Coffee family. Launching soon.",
+      "Organic × Specialty × Japan — from the Tokyo Coffee family. Est. 2026.",
     type: "website",
   },
 };
@@ -28,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistMono.variable} h-full antialiased`}>
+    <html lang="ja" className={`${geistMono.variable} h-full antialiased`}>
       <head>
         {/* Adobe Fonts web project "Snobi" (kit xkh1hrz). The project is set to
             Dynamic embed, so the static .css endpoint 412s — load the faces via

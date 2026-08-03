@@ -48,8 +48,8 @@ export function Hero() {
           className="rise mt-4 max-w-md text-lg leading-relaxed text-paper/80"
           style={{ animationDelay: "0.38s" }}
         >
-          An organic specialty roaster from the Tokyo Coffee family. Launching
-          soon.
+          Organic × Specialty × Japan — from the Tokyo Coffee family. Est.
+          2026.
         </p>
         <div className="rise mt-7" style={{ animationDelay: "0.48s" }}>
           <Link href="#join">

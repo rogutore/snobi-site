@@ -12,12 +12,12 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
    glass statement cards slide in on scroll. The photo drifts/zooms subtly as
    you pass. Green accent index numbers tie it to the palette. Cards are visible
    by default and GSAP only adds the entrance motion — robust without JS. */
-const CARDS = [
+const CARDS_JA = [
   {
     n: "01",
-    text: `TOKYO COFFEE のプレミアムライン
-笑顔になるスペシャルティ
-妥協しないクオリティ`,
+    text: `世界最高峰の品質。オーガニックという信念。地球への責任。
+三つは同時には成り立たない — そう言われてきました。
+SNöBI は、その常識を変えていく。`,
     pos: "left-0 top-[52vh] justify-start",
   },
   {
@@ -29,7 +29,25 @@ const CARDS = [
   },
 ];
 
-export function StatementBoxes() {
+const CARDS_EN = [
+  {
+    n: "01",
+    text: `World-class quality. Organic principles. Care for the environment.
+We've been told you can't have all three.
+SNöBI is here to prove otherwise.`,
+    pos: "left-0 top-[52vh] justify-start",
+  },
+  {
+    n: "02",
+    text: `We're aiming for the best in the world.
+Still in the group stage.
+Cheer us on.`,
+    pos: "right-0 top-[132vh] justify-end",
+  },
+];
+
+export function StatementBoxes({ en = false }: { en?: boolean }) {
+  const CARDS = en ? CARDS_EN : CARDS_JA;
   const root = React.useRef<HTMLElement>(null);
 
   useGSAP(

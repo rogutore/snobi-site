@@ -1,0 +1,102 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - navigation [ref=f1e3]:
+      - link "Snobi — home" [ref=f1e4] [cursor=pointer]:
+        - /url: "#top"
+        - img "Snobi" [ref=f1e6]
+      - generic [ref=f1e7]:
+        - button "Switch language (coming soon)" [ref=f1e8]: EN / JP
+        - link [ref=f1e9] [cursor=pointer]:
+          - /url: "#join"
+          - button "Be first in line" [ref=f1e10]
+  - main [ref=f1e11]:
+    - generic [ref=f1e12]:
+      - img "The Snobi counter in Tokyo" [ref=f1e13]
+      - heading [level=1] [ref=f1e16]:
+        - img "Snobi" [ref=f1e17]
+      - generic [ref=f1e18]:
+        - paragraph [ref=f1e19]: Organic x Specialty.
+        - paragraph [ref=f1e20]: An organic specialty roaster from the Tokyo Coffee family. Launching soon.
+        - link [ref=f1e22] [cursor=pointer]:
+          - /url: "#join"
+          - button "Be first in line" [ref=f1e23]
+    - generic [ref=f1e25]:
+      - generic:
+        - generic:
+          - generic: "01"
+          - paragraph: TOKYO COFFEE のプレミアムライン 笑顔になるスペシャルティ 妥協しないクオリティ
+      - generic:
+        - generic:
+          - generic: "02"
+          - paragraph: 世界一を目指してみます まだまだ、グループステージ 応援よろしくお願いします
+    - generic [ref=f1e29]: 01 / 06
+    - generic [ref=f1e40]:
+      - paragraph [ref=f1e41]: Changing the way Organic Coffee is done.
+      - paragraph [ref=f1e42]: オーガニックコーヒーの革命が起きようとしている。品質もサステナビリティも健康もワールドクラスのこだわりをSNOBIがお届けします。
+    - generic [ref=f1e44]:
+      - img "The Snöbi coffee bag — Colombia Huila, organic specialty by Tokyo Coffee" [ref=f1e47]
+      - generic [ref=f1e48]:
+        - paragraph [ref=f1e49]: The first bag
+        - heading "Coming Soon." [level=2] [ref=f1e50]
+        - paragraph [ref=f1e51]: 東京発のスペシャルティ X オーガニックコーヒー。東京から世界へ。
+        - link [ref=f1e53] [cursor=pointer]:
+          - /url: "#join"
+          - button "Be first in line" [ref=f1e54]
+    - generic [ref=f1e56]:
+      - generic [ref=f1e57]:
+        - paragraph [ref=f1e58]: The story
+        - heading "We're writing it." [level=2] [ref=f1e59]
+        - paragraph [ref=f1e60]: SNOBIのストーリー。 まあ、見てなって。
+      - img "Masaki's coffee — green beans on the shelf" [ref=f1e64]
+    - generic [ref=f1e65]:
+      - img "A farmer holding freshly picked coffee cherries at sunrise" [ref=f1e66]
+      - generic [ref=f1e69]:
+        - paragraph [ref=f1e70]: This image is AI-generated
+        - paragraph [ref=f1e71]: But our coffee is as real and organic as can be.
+    - generic [ref=f1e73]:
+      - generic [ref=f1e74]:
+        - heading "What's cookin." [level=2] [ref=f1e75]
+        - paragraph [ref=f1e76]: 笑顔になるような豆。感動の焙煎。ラボ。世界一のオーガニックコーヒー目指して。
+        - paragraph [ref=f1e77]: カップスコア、産地、精製方法、生産者への支払額まで公開します。
+      - list [ref=f1e79]:
+        - listitem [ref=f1e80]: R&D Lab
+        - listitem [ref=f1e81]: Training
+        - listitem [ref=f1e82]: Importing
+        - listitem [ref=f1e83]: Snobing
+    - generic [ref=f1e85]:
+      - generic [ref=f1e86]:
+        - paragraph [ref=f1e87]: For cafés, retailers & the curious
+        - heading "Try it first." [level=2] [ref=f1e88]
+        - paragraph [ref=f1e89]: カフェ・小売・卸売事業者様へ ― 発売前サンプルと先行卸価格のご案内
+        - paragraph [ref=f1e90]: 現在サンプルロースティングとカッピングを進行中。 ご登録いただいた方から順に、サンプルと発売時期をご案内します。 一般のお客様の先行予約登録もこちらから。
+      - generic [ref=f1e92]:
+        - link "登録フォームへ →" [ref=f1e93] [cursor=pointer]:
+          - /url: https://docs.google.com/forms/d/e/1FAIpQLSc83irDFIv4XziLrsmpVrpq2wmypaNxnE58YKOg_aMH6fs-AA/viewform
+        - paragraph [ref=f1e94]: 約1分で完了 / No spam. Just the launch.
+  - contentinfo [ref=f1e95]:
+    - generic [ref=f1e96]:
+      - generic [ref=f1e97]:
+        - generic [ref=f1e98]:
+          - img "Snobi" [ref=f1e100]
+          - paragraph [ref=f1e101]: An organic specialty line from Tokyo Coffee.
+        - generic [ref=f1e102]:
+          - navigation [ref=f1e103]:
+            - generic [ref=f1e104]: Explore
+            - link "The story" [ref=f1e105] [cursor=pointer]:
+              - /url: "#story"
+            - link "Join the list" [ref=f1e106] [cursor=pointer]:
+              - /url: "#join"
+          - navigation [ref=f1e107]:
+            - generic [ref=f1e108]: Follow
+            - link "Instagram" [ref=f1e109] [cursor=pointer]:
+              - /url: "#"
+            - link "Newsletter" [ref=f1e110] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=f1e111]:
+        - generic [ref=f1e112]:
+          - generic [ref=f1e113]: © 2026 Snobi
+          - generic [ref=f1e114]: JAS Organic
+        - generic [ref=f1e115]:
+          - generic [ref=f1e116]: EN
+          - generic [ref=f1e117]: JP — soon
+  - alert [ref=f1e119]
