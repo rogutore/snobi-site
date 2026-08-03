@@ -22,9 +22,9 @@
   --color-green-deep: #cfe2a8;
 
   /* Fonts — from the Adobe Fonts kit (see app/layout.tsx) */
-  --font-display: "fisterra-morte", Georgia, serif; /* wordmark + big display */
-  --font-display-sharp: "fisterra-fora", Georgia, serif;
-  --font-sans: "maiola", "Zen Kaku Gothic Antique", Georgia, serif; /* Latin = Maiola, JP = Zen Kaku */
+  --font-display: "moret", "dnp-shuei-gothic-gin-std", Georgia, serif; /* big display — Moret (Latin), 秀英角ゴシック銀 for JP */
+  --font-display-sharp: "fisterra-fora", Georgia, serif; /* unused */
+  --font-sans: "maiola", "dnp-shuei-gothic-gin-std", "Zen Kaku Gothic Antique", Georgia, serif; /* Latin = Maiola, JP = 秀英角ゴシック銀 (Zen Kaku fallback) */
   --font-mono: var(--font-geist-mono), ui-monospace, monospace; /* eyebrows */
 
   /* Motion */
