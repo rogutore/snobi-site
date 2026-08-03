@@ -11,24 +11,16 @@
 
   /* Neutrals — warm paper ramp derived from plum */
   --color-paper: #f7f5f0; /* default background — warm off-white */
-  --color-paper-dim: #efece4;
   --color-ink: #2a2230; /* plum-black for body text */
   --color-ink-soft: #5b5167;
 
-  /* Tint ramps for blocks / borders / hovers */
+  /* Tint ramp for hovers */
   --color-plum-700: #382e44;
-  --color-plum-300: #6f6280;
-  --color-lilac-soft: #d8cce6;
-  --color-green-deep: #cfe2a8;
 
   /* Fonts — from the Adobe Fonts kit (see app/layout.tsx) */
   --font-display: "moret", "dnp-shuei-gothic-gin-std", Georgia, serif; /* big display — Moret (Latin), 秀英角ゴシック銀 for JP */
-  --font-display-sharp: "fisterra-fora", Georgia, serif; /* unused */
   --font-sans: "maiola", "dnp-shuei-gothic-gin-std", "Zen Kaku Gothic Antique", Georgia, serif; /* Latin = Maiola, JP = 秀英角ゴシック銀 (Zen Kaku fallback) */
   --font-mono: var(--font-geist-mono), ui-monospace, monospace; /* eyebrows */
-
-  /* Motion */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ------------------------------------------------------------------ */

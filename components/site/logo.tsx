@@ -2,7 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /* Real vector brand assets (outlined, plum #443850):
-   boar  = /brand/snobi.svg,  wordmark = /brand/snobi-logo.svg.
+   boar = /brand/snobi.svg,  wordmark = /brand/snobi_font1.svg (custom SNOBI face).
    `invert` recolors them to cream for dark backgrounds. */
 export function Logo({
   className,
