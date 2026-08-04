@@ -52,18 +52,12 @@ export default function RootLayout({
               '(function(d){var config={kitId:"xkh1hrz",scriptTimeout:3000,async:true},h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src="https://use.typekit.net/"+config.kitId+".js";tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);',
           }}
         />
-        {/* Japanese fallback face — Zen Kaku Gothic Antique (Google Fonts), used
-            if the Adobe JS never loads so JP still renders in a proper gothic. */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@400;500;700&display=swap"
-        />
+        {/* NO webfont fallback by design. Zen Kaku Gothic Antique used to sit
+            here as the JP fallback, but it also carries LATIN glyphs and loaded
+            far faster than Adobe's JS-gated faces — so every visitor saw Latin
+            body copy in a gothic sans before it snapped to Maiola. The fallback
+            is now Georgia for Latin (instant, serif, close to Maiola) and the
+            system JP face for Japanese (instant, no download). */}
       </head>
       <body className="min-h-full bg-paper text-ink">{children}</body>
     </html>

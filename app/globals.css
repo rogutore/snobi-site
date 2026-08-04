@@ -20,7 +20,11 @@
 
   /* Fonts — from the Adobe Fonts kit (see app/layout.tsx) */
   --font-display: "moret", "dnp-shuei-gothic-gin-std", Georgia, serif; /* big display — Moret (Latin), 秀英角ゴシック銀 for JP */
-  --font-sans: "maiola", "dnp-shuei-gothic-gin-std", "Zen Kaku Gothic Antique", Georgia, serif; /* Latin = Maiola, JP = 秀英角ゴシック銀 (Zen Kaku fallback) */
+  /* Latin = Maiola, JP = 秀英角ゴシック銀. Georgia is the Latin fallback so the
+     pre-load flash is serif→serif, not sans→serif; JP falls past Georgia (no JP
+     glyphs) to the instant system face. Do NOT put a JP webfont before Georgia
+     here — JP faces carry Latin glyphs and will hijack Latin body copy. */
+  --font-sans: "maiola", "dnp-shuei-gothic-gin-std", Georgia, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace; /* eyebrows */
 }
 
