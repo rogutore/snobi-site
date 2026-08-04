@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-/* Chisel-style hero: full-bleed photo, the brand wordmark set large in Fisterra
-   (the real logo face), tagline + CTA lower-left. Entrance is pure CSS (`.rise`)
-   so the text is visible even if JS never loads. */
+/* Chisel-style hero: full-bleed photo, the custom SNOBI wordmark (SVG) set
+   large, tagline + CTA lower-left. Entrance is pure CSS (`.rise`) so the text
+   is visible even if JS never loads. */
 export function Hero() {
   return (
     <section

@@ -44,7 +44,7 @@ body {
   color: var(--color-plum);
 }
 
-/* Big tight-leading display headers — Fisterra Morte (700 only) */
+/* Big tight-leading display headers — Moret (Latin) / 秀英角ゴシック銀 (JP) */
 .display {
   font-family: var(--font-display);
   font-weight: 700;
