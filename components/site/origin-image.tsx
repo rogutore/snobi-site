@@ -7,7 +7,7 @@ export function OriginImage() {
   return (
     <section className="relative h-[82vh] min-h-[460px] w-full overflow-hidden">
       <Image
-        src="/photos/origin-cherries-ai.png"
+        src="/photos/origin-cherries-ai.jpg"
         alt="A farmer holding freshly picked coffee cherries at sunrise"
         fill
         sizes="100vw"
