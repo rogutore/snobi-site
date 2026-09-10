@@ -43,3 +43,8 @@ next-env.d.ts
 
 # playwright-mcp scratch output (screenshots, console logs, snapshots)
 .playwright-mcp/
+
+# Local preview QA captures
+/artifacts/
+/test-results/
+/playwright-report/
