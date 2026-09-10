@@ -1,0 +1,318 @@
+import { writeFileSync, existsSync, readFileSync } from "node:fs";
+import { products } from "../content/products";
+import { connectAdmin } from "./shopify-admin";
+
+type Variant = {
+  id: string;
+  sku: string;
+  title: string;
+  price: string;
+  selectedOptions: { name: string; value: string }[];
+  inventoryItem: {
+    id: string;
+    tracked: boolean;
+    inventoryLevel: {
+      id: string;
+      quantities: { name: string; quantity: number }[];
+    } | null;
+  };
+};
+type Product = {
+  id: string;
+  handle: string;
+  vendor: string;
+  tags: string[];
+  variants: { nodes: Variant[] };
+  media: {
+    nodes: {
+      id: string;
+      alt: string;
+      preview: { image: { url: string } | null } | null;
+    }[];
+  };
+  resourcePublications: {
+    nodes: {
+      isPublished: boolean;
+      publication: { id: string; name: string };
+    }[];
+  };
+};
+async function main() {
+  const { query } = await connectAdmin();
+  const preflight = await query<{
+    currentAppInstallation: {
+      app: { id: string };
+      accessScopes: { handle: string }[];
+      publication: { id: string; name: string } | null;
+    };
+    shop: { currencyCode: string; taxesIncluded: boolean };
+    locations: {
+      nodes: {
+        id: string;
+        name: string;
+        isActive: boolean;
+        fulfillsOnlineOrders: boolean;
+      }[];
+    };
+    publications: {
+      nodes: {
+        id: string;
+        name: string;
+        app: { id: string; title: string } | null;
+      }[];
+    };
+  }>(
+    `{currentAppInstallation { app { id } accessScopes { handle } publication { id name } } shop { currencyCode taxesIncluded } locations(first:30){nodes{id name isActive fulfillsOnlineOrders}} publications(first:100){nodes{id name app{id title}}}}`,
+  );
+  const scopes = preflight.currentAppInstallation.accessScopes.map(
+    (s) => s.handle,
+  );
+  for (const scope of [
+    "write_products",
+    "write_publications",
+    "write_inventory",
+    "read_locations",
+    "read_shipping",
+  ])
+    if (!scopes.includes(scope))
+      throw new Error(`STOP — missing scope ${scope}`);
+  if (preflight.shop.currencyCode !== "JPY" || !preflight.shop.taxesIncluded)
+    throw new Error("Expected tax-inclusive JPY shop");
+  const own = preflight.publications.nodes.find(
+    (p) => p.app?.id === preflight.currentAppInstallation.app.id,
+  );
+  // Headless requires Noah's explicit approval of the publication change.
+  const publication = process.argv.includes("--headless")
+    ? preflight.publications.nodes.find(
+        (p) => p.name === "Headless" || p.app?.title === "Headless",
+      )
+    : own;
+  if (!publication || publication.name === "Online Store")
+    throw new Error(
+      "No authorized app publication. Products were not mutated.",
+    );
+  const locations = preflight.locations.nodes.filter(
+    (l) => l.isActive && l.fulfillsOnlineOrders,
+  );
+  if (locations.length !== 1)
+    throw new Error("Default fulfillment location is ambiguous");
+  const locationId = locations[0].id;
+  console.log(
+    "Preview publication:",
+    publication.name,
+    publication.id,
+    "Location:",
+    locations[0].name,
+  );
+  const oldCollection = await query<{
+    collections: { nodes: { id: string; handle: string }[] };
+  }>('query {collections(first:20,query:"handle:snobi"){nodes{id handle}}}');
+  let collection = oldCollection.collections.nodes.find(
+    (c) => c.handle === "snobi",
+  );
+  if (!collection) {
+    const d = await query<{
+      collectionCreate: { collection: { id: string; handle: string } };
+    }>(
+      'mutation {collectionCreate(input:{title:"SNöBI",handle:"snobi"}){collection{id handle} userErrors{field message}}}',
+    );
+    collection = d.collectionCreate.collection;
+    console.log("Created manual collection", collection.id);
+  }
+  const productFields = `id handle vendor tags variants(first:100){nodes{id sku title price selectedOptions{name value} inventoryItem{id tracked inventoryLevel(locationId:"${locationId}"){id quantities(names:["available"]){name quantity}}}}} media(first:30){nodes{id alt preview{image{url}}}} resourcePublications(first:100){nodes{isPublished publication{id name}}}`;
+  for (const p of products) {
+    let found = (
+      await query<{ products: { nodes: Product[] } }>(
+        `query Find($q:String!){products(first:10,query:$q){nodes{${productFields}}}}`,
+        { q: `handle:${p.handle}` },
+      )
+    ).products.nodes.find((x) => x.handle === p.handle);
+    if (
+      found?.resourcePublications.nodes.some(
+        (x) => x.isPublished && x.publication.name === "Online Store",
+      )
+    )
+      throw new Error(
+        `${p.handle} unexpectedly published on Online Store; stopping without changing publication`,
+      );
+    if (found && found.vendor !== "SNöBI")
+      throw new Error(
+        `Unexpected vendor for ${p.handle}; refusing to overwrite`,
+      );
+    const isNew = !found;
+    if (
+      found &&
+      (found.variants.nodes.length !== 2 ||
+        found.variants.nodes.some(
+          (v) => !p.variants.some((w) => w.sku === v.sku),
+        ))
+    )
+      throw new Error(
+        `Unexpected variants for ${p.handle}; refusing a destructive sync`,
+      );
+    const input = {
+      ...(found ? { id: found.id } : {}),
+      title: `SNöBI ${p.title.ja}`,
+      handle: p.handle,
+      vendor: "SNöBI",
+      productType: "Coffee",
+      status: found ? "ACTIVE" : "DRAFT",
+      tags: [
+        ...new Set([
+          ...(found?.tags || []),
+          "snobi",
+          "chapter-one",
+          "placeholder-price",
+        ]),
+      ],
+      descriptionHtml: `<p>${p.title.ja} / ${p.title.en}</p><p>Organic whole-bean coffee. ${p.notes.en.join(" · ")}</p><p>${[p.region, p.process, p.farm, p.elevation].filter(Boolean).join(" / ")}</p>`,
+      productOptions: [
+        {
+          name: "Size",
+          position: 1,
+          values: p.variants.map((v) => ({ name: v.size })),
+        },
+      ],
+      variants: p.variants.map((v) => ({
+        ...(found
+          ? { id: found.variants.nodes.find((w) => w.sku === v.sku)!.id }
+          : {}),
+        optionValues: [{ optionName: "Size", name: v.size }],
+        price: String(v.price),
+        taxable: true,
+        inventoryPolicy: "DENY",
+        inventoryItem: {
+          sku: v.sku,
+          tracked: true,
+          requiresShipping: true,
+          measurement: {
+            weight: { value: v.size === "100g" ? 100 : 200, unit: "GRAMS" },
+          },
+        },
+      })),
+    };
+    const data = await query<{ productSet: { product: Product } }>(
+      `mutation Seed($input:ProductSetInput!){productSet(input:$input,synchronous:true){product{${productFields}} userErrors{field message}}}`,
+      { input },
+    );
+    found = data.productSet.product;
+    console.log(
+      isNew ? "Created product" : "Updated product",
+      p.handle,
+      found.id,
+    );
+    for (const v of p.variants) {
+      const actual = found.variants.nodes.find((w) => w.sku === v.sku)!;
+      v.id = actual.id;
+      // Initialize only new inventory levels. Never reset stock to 100 on reruns.
+      if (!actual.inventoryItem.inventoryLevel) {
+        await query(
+          "mutation Activate($item:ID!,$location:ID!){inventoryActivate(inventoryItemId:$item,locationId:$location,available:100){inventoryLevel{id} userErrors{field message}}}",
+          { item: actual.inventoryItem.id, location: locationId },
+        );
+        console.log("PLACEHOLDER inventory initialized at 100:", v.sku);
+      } else if (isNew) {
+        const current =
+          actual.inventoryItem.inventoryLevel.quantities.find(
+            (q) => q.name === "available",
+          )?.quantity ?? 0;
+        await query(
+          "mutation Stock($input:InventorySetQuantitiesInput!){inventorySetQuantities(input:$input){inventoryAdjustmentGroup{createdAt} userErrors{field message}}}",
+          {
+            input: {
+              name: "available",
+              reason: "correction",
+              referenceDocumentUri: `snobi://preview/seed/${v.sku}`,
+              quantities: [
+                {
+                  inventoryItemId: actual.inventoryItem.id,
+                  locationId,
+                  quantity: 100,
+                  compareQuantity: current,
+                },
+              ],
+            },
+          },
+        );
+        console.log("PLACEHOLDER inventory set to 100:", v.sku);
+      } else console.log("Preserved existing inventory:", v.sku);
+    }
+    const membership = await query<{ collection: { hasProduct: boolean } }>(
+      "query Membership($id:ID!,$product:ID!){collection(id:$id){hasProduct(id:$product)}}",
+      { id: collection.id, product: found.id },
+    );
+    if (!membership.collection.hasProduct) {
+      await query(
+        "mutation Add($id:ID!,$products:[ID!]!){collectionAddProducts(id:$id,productIds:$products){collection{id} userErrors{field message}}}",
+        { id: collection.id, products: [found.id] },
+      );
+    }
+    console.log("Ensured collection membership:", p.handle);
+    if (
+      !found.resourcePublications.nodes.some(
+        (r) => r.isPublished && r.publication.id === publication.id,
+      )
+    ) {
+      await query(
+        "mutation Publish($id:ID!,$input:[PublicationInput!]!){publishablePublish(id:$id,input:$input){publishable{availablePublicationsCount{count}} userErrors{field message}}}",
+        { id: found.id, input: [{ publicationId: publication.id }] },
+      );
+      console.log("Published ONLY to", publication.name, p.handle);
+    }
+    if (isNew) {
+      await query(
+        "mutation ActivateProduct($product:ProductUpdateInput!){productUpdate(product:$product){product{id} userErrors{field message}}}",
+        { product: { id: found.id, status: "ACTIVE" } },
+      );
+      console.log("Activated app-published product:", p.handle);
+    }
+    // Re-run with ASSET_BASE_URL set after preview deployment, using the public immutable URL.
+    const assetBase = process.env.ASSET_BASE_URL;
+    if (assetBase) {
+      const media = p.variants
+        .filter(
+          (v) =>
+            existsSync(`public/products/${p.handle}-${v.size}.jpg`) &&
+            !found!.media.nodes.some(
+              (m) =>
+                m.alt === `SNöBI ${p.title.en} ${v.size} — preview composite`,
+            ),
+        )
+        .map((v) => ({
+          mediaContentType: "IMAGE",
+          alt: `SNöBI ${p.title.en} ${v.size} — preview composite`,
+          originalSource: `${assetBase}/products/${p.handle}-${v.size}.jpg`,
+        }));
+      if (media.length) {
+        await query(
+          "mutation Images($product:ProductUpdateInput!,$media:[CreateMediaInput!]){productUpdate(product:$product,media:$media){product{id} userErrors{field message}}}",
+          { product: { id: found.id }, media },
+        );
+        console.log("Queued product images:", p.handle, media.length);
+      }
+    } else
+      console.log(
+        "Images deferred until ASSET_BASE_URL is available:",
+        p.handle,
+      );
+    const file = "content/products.ts";
+    const source = readFileSync(file, "utf8");
+    const start = source.indexOf("export const products: Coffee[] = ");
+    const end = source.indexOf("\nexport const minimumPrice", start);
+    writeFileSync(
+      file,
+      source.slice(0, start) +
+        "export const products: Coffee[] = " +
+        JSON.stringify(products, null, 2) +
+        ";" +
+        source.slice(end),
+    );
+  }
+  console.log(
+    "Seed completed. Default shipping profile untouched; no menus changed. Prices and inventory are placeholders.",
+  );
+}
+main().catch((e) => {
+  console.error(e.message);
+  process.exitCode = 1;
+});
