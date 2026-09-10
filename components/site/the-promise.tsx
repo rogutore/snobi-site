@@ -9,20 +9,20 @@ const RECEIPTS = ["R&D Lab", "Training", "Importing", "Snobing"];
 export function ThePromise({ en = false }: { en?: boolean }) {
   return (
     <section className="bg-paper px-6 py-12 lg:px-10 lg:py-16">
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-sage px-8 py-20 text-paper lg:px-20 lg:py-28">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-[#46665b] px-8 py-20 text-paper lg:px-20 lg:py-28">
         <Reveal>
           <h2 className="display text-[clamp(2.25rem,6vw,5rem)] leading-[1.04]">
             What&apos;s cookin.
           </h2>
-          <p className="mt-8 max-w-2xl text-lg leading-loose text-paper/85 lg:text-xl">
+          <p className="mt-8 max-w-2xl text-lg leading-loose text-paper lg:text-xl">
             {en
               ? "Beans that make you smile. Roasts that move you. A lab of our own. Chasing the world's best organic coffee."
               : "笑顔になるような豆。感動の焙煎。ラボ。世界一のオーガニックコーヒー目指して。"}
           </p>
-          <p className="mt-6 max-w-2xl text-base leading-loose text-paper/70">
+          <p className="mt-6 max-w-2xl text-base leading-loose text-paper">
             {en
-              ? "We publish cup scores, origins, processing — and what the producer was paid."
-              : "カップスコア、産地、精製方法、生産者への支払額まで公開します。"}
+              ? "Origins and processing are published now. Cup scores and producer payments will follow at launch."
+              : "産地・精製方法を公開中。カップスコアと生産者への支払額は、発売時に公開予定です。"}
           </p>
         </Reveal>
 

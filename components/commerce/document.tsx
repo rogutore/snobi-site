@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-head-element -- Shared root-layout document for the JA/EN route groups. */
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 
 /* Small technical labels / eyebrows = Geist Mono (free). Display + body come
    from the Adobe Fonts kit below. */
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
   /* Required for canonical/hreflang to emit absolute URLs — Google ignores
      relative hreflang values, which would silently void the ja/en pairing. */
   metadataBase: new URL("https://snobi.jp"),
+  robots:
+    process.env.VERCEL_ENV === "production"
+      ? undefined
+      : { index: false, follow: false },
   title: "Snobi — Organic. And actually specialty.",
   description:
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
@@ -29,13 +34,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function Document({
   children,
+  lang,
 }: Readonly<{
   children: React.ReactNode;
+  lang: "ja" | "en";
 }>) {
   return (
-    <html lang="ja" className={`${geistMono.variable} h-full antialiased`}>
+    // Adobe’s preserved loader adds wf-* classes before React hydrates.
+    <html
+      suppressHydrationWarning
+      lang={lang}
+      className={`${geistMono.variable} h-full antialiased`}
+    >
       <head>
         {/* Adobe Fonts web project "Snobi" (kit xkh1hrz). The project is set to
             Dynamic embed, so the static .css endpoint 412s — load the faces via

@@ -18,12 +18,13 @@ export function Footer({ en = false }: { en?: boolean }) {
 
           <div className="flex flex-wrap gap-x-10 gap-y-6">
             <nav className="flex flex-col gap-3">
-              <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/40">
+              <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
                 Explore
               </span>
               {[
-                ["The story", "#story"],
-                ["Join the list", "#join"],
+                ["Shop Chapter One", `${en ? "/en" : "/"}#shop`],
+                ["The story", `${en ? "/en" : "/"}#story`],
+                ["Trade", en ? "/en/trade" : "/trade"],
               ].map(([label, href]) => (
                 <Link
                   key={href}
@@ -36,23 +37,26 @@ export function Footer({ en = false }: { en?: boolean }) {
             </nav>
 
             <nav className="flex flex-col gap-3">
-              <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/40">
+              <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
                 Follow
               </span>
-              {["Instagram", "Newsletter"].map((s) => (
-                <a
-                  key={s}
-                  href="#"
-                  className="text-sm text-paper/75 transition-colors hover:text-paper"
-                >
-                  {s}
-                </a>
-              ))}
+              <a
+                href={`${en ? "/en" : "/"}#join`}
+                className="text-sm text-paper/75"
+              >
+                {en ? "Email updates" : "メールでお知らせ"}
+              </a>
+              <a
+                href="https://tokyocoffee.jp/pages/policy"
+                className="text-sm text-paper/75"
+              >
+                {en ? "Legal & sales terms" : "特定商取引法に基づく表記"}
+              </a>
             </nav>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 py-8 text-sm text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 py-8 text-sm text-paper/65 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <span>© {new Date().getFullYear()} Snobi</span>
             {/* placeholders for certification marks */}
@@ -76,6 +80,13 @@ export function Footer({ en = false }: { en?: boolean }) {
           </div>
         </div>
 
+        <address className="not-italic text-sm leading-loose text-paper/75">
+          株式会社ローグトレード
+          <br />
+          <a href="mailto:info@tokyocoffee.jp">info@tokyocoffee.jp</a>
+          <br />
+          <a href="tel:0424201882">042-420-1882</a>
+        </address>
         {/* Giant wordmark, à la Chisel's oversized footer logo */}
         <div className="select-none pt-10">
           <Image
