@@ -49,6 +49,13 @@ export default function Document({
       className={`${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {/* Discover the hero wordmark before the dynamic font kit starts its requests. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/brand/snobi_font1.svg"
+          fetchPriority="high"
+        />
         {/* Adobe Fonts web project "Snobi" (kit xkh1hrz). The project is set to
             Dynamic embed, so the static .css endpoint 412s — load the faces via
             Adobe's async JS loader instead. Text renders in the fallback stack
