@@ -158,12 +158,15 @@ export function BuyCard({
           className="commerce-button add-button"
           disabled={!available || cart.pending}
           onClick={() => cart.add(variant.id)}
-          aria-label={`${label} ＋ — ${product.title[lang]} ${size} ${yen(price)}`}
+          aria-describedby={`${titleId}-selection`}
         >
           {cart.pending && <LoaderCircle size={18} className="spin" />}
           {label}
           <span aria-hidden="true">＋</span>
         </button>
+        <span id={`${titleId}-selection`} className="sr-only">
+          {product.title[lang]} {size} {yen(price)}
+        </span>
         <div className="receipt-bottom">
           <span>{en ? "Whole bean only" : "豆のまま"}</span>
           {!detail && (
