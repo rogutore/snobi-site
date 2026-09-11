@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 
 /* Small technical labels / eyebrows = Geist Mono (free). Display + body come
    from the Adobe Fonts kit below. */
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
   alternates: {
     canonical: "/",
-    languages: { ja: "/", en: "/en" },
+    languages: { ja: "/", en: "/en", "x-default": "/" },
   },
   openGraph: {
     title: "Snobi — Organic. And actually specialty.",
@@ -29,13 +29,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function Document({
   children,
+  lang,
 }: Readonly<{
   children: React.ReactNode;
+  lang: "ja" | "en";
 }>) {
   return (
-    <html lang="ja" className={`${geistMono.variable} h-full antialiased`}>
+    <html lang={lang} className={`${geistMono.variable} h-full antialiased`}>
       <head>
         {/* Adobe Fonts web project "Snobi" (kit xkh1hrz). The project is set to
             Dynamic embed, so the static .css endpoint 412s — load the faces via
