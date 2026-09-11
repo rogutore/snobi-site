@@ -82,6 +82,7 @@ async function main() {
           .waitFor({ timeout: 20000 });
         await page.locator(".cart-status").waitFor({ state: "detached" });
         await page.locator("a.checkout-button").waitFor({ state: "visible" });
+        await readyImages(page);
         await page
           .getByRole("dialog")
           .screenshot({ path: `${dir}/${lang}-cart-${width}.png` });
