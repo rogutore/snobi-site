@@ -158,7 +158,7 @@ export function BuyCard({
           className="commerce-button add-button"
           disabled={!available || cart.pending}
           onClick={() => cart.add(variant.id)}
-          aria-label={`${label} — ${product.title[lang]} ${size} ${yen(price)}`}
+          aria-label={`${label} ＋ — ${product.title[lang]} ${size} ${yen(price)}`}
         >
           {cart.pending && <LoaderCircle size={18} className="spin" />}
           {label}
