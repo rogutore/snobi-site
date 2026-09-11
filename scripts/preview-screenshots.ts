@@ -49,7 +49,7 @@ async function main() {
           const s = sections.nth(i);
           await s.scrollIntoViewIfNeeded();
           await s.screenshot({
-            style: "nav { visibility: hidden !important; }",
+            style: ".commerce-nav { visibility: hidden !important; }",
             path: `${dir}/${lang}-${(await s.getAttribute("id")) || "trade"}-${width}.png`,
           });
         }
