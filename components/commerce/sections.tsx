@@ -94,7 +94,7 @@ export function ProductHero({ lang = "ja" }: { lang?: Locale }) {
           width={1800}
           height={850}
           sizes="(min-width:1024px) 760px, 100vw"
-          preload
+          loading="eager"
           fetchPriority="high"
         />
       </div>

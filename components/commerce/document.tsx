@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-head-element -- Shared root-layout document for the JA/EN route groups. */
 import type { Metadata } from "next";
+import { getImageProps } from "next/image";
 import { Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 
@@ -9,6 +10,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
+});
+
+const { props: lineupPreload } = getImageProps({
+  src: "/products/chapter-one-lineup.jpg",
+  width: 1800,
+  height: 850,
+  sizes: "(min-width:1024px) 760px, 100vw",
+  alt: "",
 });
 
 export const metadata: Metadata = {
@@ -49,6 +58,15 @@ export default function Document({
       className={`${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {/* Start the hero request before Adobe's dynamic font requests compete for bandwidth. */}
+        <link
+          rel="preload"
+          as="image"
+          href={lineupPreload.src}
+          imageSrcSet={lineupPreload.srcSet}
+          imageSizes={lineupPreload.sizes}
+          fetchPriority="high"
+        />
         {/* Discover the hero wordmark before the dynamic font kit starts its requests. */}
         <link
           rel="preload"
