@@ -1,80 +1,105 @@
 import { chromium } from "@playwright/test";
 import { mkdirSync } from "node:fs";
+import { products } from "../content/products";
+async function readyImages(page: import("@playwright/test").Page) {
+  await page.locator("img").evaluateAll((images) =>
+    images.forEach((img) => {
+      (img as HTMLImageElement).loading = "eager";
+    }),
+  );
+  await page.waitForFunction(
+    () =>
+      [...document.images].every((img) => img.complete && img.naturalWidth > 0),
+    undefined,
+    { timeout: 20000 },
+  );
+  await page.evaluate(() => document.fonts.ready);
+}
 async function main() {
-  const base = process.env.PREVIEW_URL || "http://localhost:3107";
-  const dir = process.env.SCREENSHOT_DIR || "artifacts/preview";
+  const base = process.env.PREVIEW_URL || "http://localhost:3108";
+  const dir = process.env.SCREENSHOT_DIR || "artifacts/hybrid/screenshots";
   mkdirSync(dir, { recursive: true });
-  const browser = await chromium.launch({ channel: "chrome", headless: true });
-  const context = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    deviceScaleFactor: 1,
-    reducedMotion: "reduce",
-  });
-  const page = await context.newPage();
-  const errors: string[] = [];
-  page.on("pageerror", (e) => errors.push(e.message));
-  for (const v of ["a", "b"])
-    for (const cards of [1, 2, 3]) {
-      await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(`${base}/?v=${v}&cards=${cards}`, {
-        waitUntil: "networkidle",
+  const browser = await chromium.launch({ channel: "chrome" });
+  try {
+    const page = await browser.newPage({
+      viewport: { width: 390, height: 844 },
+      reducedMotion: "reduce",
+    });
+    if (process.env.PREVIEW_ACCESS_URL)
+      await page.goto(process.env.PREVIEW_ACCESS_URL, {
+        waitUntil: "domcontentloaded",
       });
-      await page.evaluate(() => document.fonts.ready);
-      await page.screenshot({ path: `${dir}/${v}${cards}-hero-390.png` });
-      await page.locator("#shop").scrollIntoViewIfNeeded();
-      await page.locator(".coffee-card").first().scrollIntoViewIfNeeded();
-      await page.setViewportSize({ width: 390, height: 1000 });
-      await page
-        .locator(".coffee-card")
-        .first()
-        .evaluate((el) => el.scrollIntoView({ block: "center" }));
-      await page.screenshot({ path: `${dir}/${v}${cards}-card-390.png` });
-      const width = await page.evaluate(() => ({
-        viewport: innerWidth,
-        document: document.documentElement.scrollWidth,
-      }));
-      console.log(
-        v,
-        cards,
-        "overflow:",
-        width.document > width.viewport,
-        "cards:",
-        await page.locator(".coffee-card").count(),
-      );
-      if (width.document > width.viewport)
-        throw new Error(`Horizontal overflow ${v}${cards}`);
-      if (v === "a" && cards === 1) {
-        for (const selector of [
-          "#bag",
-          "#story",
-          "#road",
-          "#faq",
-          ".trade-cta",
-          "#join",
-          "main + footer",
-        ]) {
-          await page.locator(selector).scrollIntoViewIfNeeded();
-          await page
-            .locator(selector)
-            .screenshot({
-              path: `${dir}/a1-${selector.replace(/[#.]/g, "")}-390.png`,
-            });
+    for (const lang of ["ja", "en"])
+      for (const width of [390, 1440]) {
+        await page.setViewportSize({
+          width,
+          height: width === 390 ? 844 : 1000,
+        });
+        await page.goto(base + (lang === "en" ? "/en/" : "/"), {
+          waitUntil: "domcontentloaded",
+        });
+        await readyImages(page);
+        await page.screenshot({ path: `${dir}/${lang}-hero-${width}.png` });
+        await page.screenshot({
+          path: `${dir}/${lang}-full-${width}.png`,
+          fullPage: true,
+        });
+        const sections = page.locator("main > section");
+        for (let i = 0; i < (await sections.count()); i++) {
+          const s = sections.nth(i);
+          await s.scrollIntoViewIfNeeded();
+          await s.screenshot({
+            style: "nav { visibility: hidden !important; }",
+            path: `${dir}/${lang}-${(await s.getAttribute("id")) || "trade"}-${width}.png`,
+          });
         }
+        await page
+          .locator("main + footer")
+          .screenshot({ path: `${dir}/${lang}-footer-${width}.png` });
+        for (const p of products) {
+          await page.goto(
+            `${base}${lang === "en" ? "/en" : ""}/origins/${p.slug}`,
+            { waitUntil: "domcontentloaded" },
+          );
+          await readyImages(page);
+          await page.screenshot({
+            path: `${dir}/${lang}-origin-${p.slug}-${width}.png`,
+            fullPage: true,
+          });
+        }
+        await page.goto(base + (lang === "en" ? "/en/" : "/"), {
+          waitUntil: "domcontentloaded",
+        });
+        await page
+          .locator("#origin-colombia-huila")
+          .getByRole("button", {
+            name: lang === "en" ? /Add to cart/ : /カートに入れる/,
+          })
+          .click();
+        await page
+          .locator(".subtotal strong")
+          .filter({ hasText: "¥1,410" })
+          .waitFor({ timeout: 20000 });
+        await page.locator(".cart-status").waitFor({ state: "detached" });
+        await page.locator("a.checkout-button").waitFor({ state: "visible" });
+        await page
+          .getByRole("dialog")
+          .screenshot({ path: `${dir}/${lang}-cart-${width}.png` });
+        await page
+          .locator(".cart-line")
+          .getByRole("button", {
+            name: lang === "en" ? "Remove" : "削除",
+            exact: true,
+          })
+          .click();
+        await page
+          .locator(".cart-line")
+          .waitFor({ state: "detached", timeout: 20000 });
+        console.log(lang, width, "screenshots captured");
       }
-    }
-  await page.goto(`${base}/?v=b&cards=1`, { waitUntil: "networkidle" });
-  await page.screenshot({ path: `${dir}/b1-full-390.png`, fullPage: true });
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  for (const v of ["a", "b"]) {
-    await page.goto(`${base}/?v=${v}&cards=1`, { waitUntil: "networkidle" });
-    await page.screenshot({ path: `${dir}/${v}1-hero-desktop.png` });
-    await page
-      .locator("#shop")
-      .screenshot({ path: `${dir}/${v}1-shop-desktop.png` });
+  } finally {
+    await browser.close();
   }
-  await browser.close();
-  console.log("Page errors:", errors);
-  if (errors.length) process.exitCode = 1;
 }
 main().catch((e) => {
   console.error(e);
