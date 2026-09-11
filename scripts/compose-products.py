@@ -7,7 +7,7 @@ import numpy as np
 import io
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=Path('/Users/kishimakoto/Library/CloudStorage/GoogleDrive-rogutore@gmail.com/My Drive/Tokyo Coffee/Product Development　商品開発/SNOBI/sticker ideas/png')
-PRODUCTS=[('peru','snobi-peru'),('col','snobi-colombia-huila'),('eth','snobi-ethiopia-guji'),('decaf','snobi-mexico-chiapas-decaf')]
+PRODUCTS=[('peru','snobi-peru'),('eth','snobi-ethiopia-guji'),('col','snobi-colombia-huila'),('decaf','snobi-mexico-chiapas-decaf')]
 base=Image.open(ROOT/'public/photos/snobi-bag.jpg').convert('RGBA')
 # Hand-traced silhouette removes the concrete, beans and baked background shadow.
 outline=[(319,955),(326,941),(325,868),(331,727),(345,538),(355,445),(360,432),(373,418),(784,362),(798,366),(805,380),(818,429),(830,506),(855,686),(878,899),(886,923),(882,934),(460,1027),(447,1021),(419,999),(397,983),(351,965)]
