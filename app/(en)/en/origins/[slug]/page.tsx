@@ -8,8 +8,16 @@ export async function generateMetadata({
 }
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ size?: string }>;
 }) {
-  return <OriginPage slug={(await params).slug} lang="en" />;
+  return (
+    <OriginPage
+      slug={(await params).slug}
+      lang="en"
+      size={(await searchParams).size}
+    />
+  );
 }

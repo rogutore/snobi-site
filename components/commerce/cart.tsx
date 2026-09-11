@@ -17,6 +17,7 @@ import {
   updateLine,
   removeLine,
 } from "@/lib/shopify/actions";
+import { ShippingProgress } from "./shipping-progress";
 import type { Cart } from "@/lib/shopify/client";
 type Context = {
   add: (id: string) => void;
@@ -254,19 +255,16 @@ export function CartProvider({
               <span>{en ? "Subtotal (tax included)" : "小計（税込）"}</span>
               <strong>{yen(subtotal)}</strong>
             </div>
-            <p>
-              {subtotal >= 3000
-                ? en
-                  ? "Your order qualifies for free shipping."
-                  : "送料無料でお届けします。"
-                : en
-                  ? `${yen(3000 - subtotal)} more for free shipping.`
-                  : `あと${yen(3000 - subtotal)}で送料無料。`}
-            </p>
+            <ShippingProgress subtotal={subtotal} lang={lang} />
             <p className="small-print">
               {en
                 ? "Below ¥3,000: ¥500 standard / ¥700 Kyushu / ¥800 Hokkaido & Okinawa. Remote islands quoted separately. Final shipping shown at checkout."
                 : "¥3,000未満：通常¥500・九州¥700・北海道/沖縄¥800。離島は別途。送料はレジで確定します。"}
+            </p>
+            <p className="checkout-handoff">
+              {en
+                ? "Payment continues on Tokyo Coffee’s checkout page, our operating company. Your selected coffees and sizes will carry over."
+                : "お支払いは、運営会社 Tokyo Coffee の決済ページに進みます。選んだ豆とサイズは、そのまま引き継がれます。"}
             </p>
             <a
               className={`commerce-button checkout-button ${pending ? "disabled" : ""}`}
@@ -275,11 +273,6 @@ export function CartProvider({
             >
               {en ? "Continue to checkout" : "レジへ進む"} <span>↗</span>
             </a>
-            <p className="small-print">
-              {en
-                ? "Secure checkout by Tokyo Coffee."
-                : "Tokyo Coffeeの決済ページへ進みます。"}
-            </p>
             <p className="small-print">
               {en
                 ? "Roasted Tue / Fri. Shipped the next business day."

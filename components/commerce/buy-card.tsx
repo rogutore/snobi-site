@@ -9,19 +9,19 @@ import { useCart } from "./cart";
 export function BuyCard({
   product,
   index = 0,
-  treatment = 1,
   lang = "ja",
   stock,
   detail = false,
+  initialSize = "100g",
 }: {
   product: Coffee;
   index?: number;
-  treatment?: number;
   lang?: Locale;
   stock: StockMap;
   detail?: boolean;
+  initialSize?: "100g" | "200g";
 }) {
-  const [size, setSize] = useState("100g");
+  const [size, setSize] = useState(initialSize);
   const cart = useCart();
   const en = lang === "en";
   const variant = product.variants.find((v) => v.size === size)!;
@@ -35,11 +35,26 @@ export function BuyCard({
       ? Number(availability.price.amount)
       : variant.price;
   const titleId = `coffee-${detail ? "detail-" : ""}${product.slug}`;
+  const label = cart.pending
+    ? en
+      ? "Updating…"
+      : "更新中…"
+    : available
+      ? en
+        ? "Add to cart"
+        : "カートに入れる"
+      : availability
+        ? en
+          ? "Sold out"
+          : "完売"
+        : en
+          ? "Stock unavailable"
+          : "在庫を確認できません";
   return (
     <article
       id={`origin-${product.slug}`}
       aria-labelledby={titleId}
-      className={`coffee-card treatment-${treatment} ${detail ? "detail-card" : ""}`}
+      className={`coffee-card ${detail ? "detail-card" : "label-card"}`}
       style={
         {
           "--label-color": product.color,
@@ -47,76 +62,40 @@ export function BuyCard({
         } as CSSProperties
       }
     >
-      {treatment === 3 && (
-        <div className="editorial-heading">
-          <span className="chapter-number display">0{index + 1}</span>
-          <div>
-            <p className="eyebrow">{product.region}</p>
-            <h3 id={titleId} className="display">
-              {product.country}
-              <em>{product.decaf ? "Decaf." : "Organic."}</em>
-            </h3>
+      {!detail && (
+        <div className="coffee-art">
+          <Image
+            src={`/labels/${product.handle}.webp`}
+            alt={`${product.title[lang]} ${en ? "label artwork" : "ラベルアート"}`}
+            width={640}
+            height={1440}
+            sizes="(min-width:1024px) 260px, 200px"
+            className="flat-label"
+          />
+          <div className="art-side">
+            <p className="vertical-spec spec">
+              CHAPTER ONE — 0{index + 1} / 04
+            </p>
+            <Image
+              src={`/products/${product.handle}-cutout.webp`}
+              alt=""
+              width={514}
+              height={600}
+              sizes="(min-width:1024px) 160px,115px"
+              className="small-pack"
+            />
           </div>
+          {product.decaf && <span className="decaf-stamp spec">DECAF</span>}
         </div>
       )}
-      <div className="coffee-art">
-        {treatment === 2 ? (
-          <Image
-            src={`/products/${product.handle}-${size}.jpg`}
-            alt={`${product.title[lang]} ${size} ${en ? "bag mockup" : "パッケージイメージ"}`}
-            width={1600}
-            height={1600}
-            sizes="(min-width:1024px) 44vw, 100vw"
-            className="packshot"
-          />
-        ) : (
-          <>
-            <Image
-              src={`/labels/${product.handle}.webp`}
-              alt={`${product.title[lang]} ${en ? "label artwork" : "ラベルアート"}`}
-              width={640}
-              height={1440}
-              sizes="(min-width:1024px) 300px, 230px"
-              className="flat-label"
-            />
-            <div className="art-side">
-              <p className="vertical-spec spec">
-                CHAPTER ONE — 0{index + 1} / 04
-              </p>
-              <Image
-                src={`/products/${product.handle}-cutout.webp`}
-                alt=""
-                width={514}
-                height={600}
-                sizes="(min-width:1024px) 170px, 115px"
-                className="small-pack"
-              />
-              {treatment === 3 && (
-                <p className="editorial-note">
-                  {product.notes[lang].map((n) => (
-                    <span key={n}>{n}</span>
-                  ))}
-                </p>
-              )}
-            </div>
-          </>
-        )}
-        {product.decaf && <span className="decaf-stamp spec">DECAF</span>}
-      </div>
       <div className="coffee-receipt">
         <div className="coffee-name">
           <div>
-            <p className="eyebrow">
-              {treatment === 3
-                ? product.process
-                : `CHAPTER ONE / 0${index + 1}`}
-            </p>
-            {treatment !== 3 && (
-              <h3 id={titleId} className="display">
-                {product.country}
-                {product.decaf && <span> Decaf</span>}
-              </h3>
-            )}
+            <p className="eyebrow">CHAPTER ONE / 0{index + 1}</p>
+            <h3 id={titleId} className="display">
+              {product.country}
+              {product.decaf && <span> Decaf</span>}
+            </h3>
             <p className="origin-jp">{product.title[lang]}</p>
           </div>
           <span className="origin-status">
@@ -130,32 +109,26 @@ export function BuyCard({
                   ? "Sold out"
                   : "完売"
               : en
-                ? "Checking stock"
-                : "在庫確認中"}
+                ? "Stock unavailable"
+                : "在庫未確認"}
           </span>
         </div>
-        <p className="flavor-notes">{product.notes[lang].join(" / ")}</p>
-        {treatment === 3 && (
-          <details className="origin-extra">
-            <summary>
-              {en ? "Read the field notes" : "この豆のデータを見る"}{" "}
-              <PlusMark />
-            </summary>
-            <dl>
-              <div>
-                <dt>{en ? "Process" : "精製"}</dt>
-                <dd>{product.process}</dd>
-              </div>
-              <div>
-                <dt>{en ? "Farm" : "農園"}</dt>
-                <dd>{product.farm || "—"}</dd>
-              </div>
-              <div>
-                <dt>{en ? "Elevation" : "標高"}</dt>
-                <dd>{product.elevation || "—"}</dd>
-              </div>
-            </dl>
-          </details>
+        {!detail && (
+          <>
+            <ul
+              className="coffee-chips"
+              aria-label={en ? "Coffee profile" : "豆のプロフィール"}
+            >
+              {product.chips[lang].filter(Boolean).map((chip) => (
+                <li key={chip}>{chip}</li>
+              ))}
+            </ul>
+            <p className="flavor-notes">{product.notes[lang].join(" / ")}</p>
+            <p className="coffee-best">
+              <span>{en ? "FOR YOU" : "こんな人に"}</span>
+              {product.bestFor[lang]}
+            </p>
+          </>
         )}
         <div className="buy-row">
           <fieldset
@@ -185,35 +158,19 @@ export function BuyCard({
           className="commerce-button add-button"
           disabled={!available || cart.pending}
           onClick={() => cart.add(variant.id)}
-          aria-describedby={titleId}
+          aria-label={`${label} — ${product.title[lang]} ${size} ${yen(price)}`}
         >
-          {cart.pending ? (
-            <>
-              <LoaderCircle size={18} className="spin" />
-              {en ? "Updating…" : "更新中…"}
-            </>
-          ) : (
-            <>
-              {available
-                ? en
-                  ? "Add to bag"
-                  : "カートに入れる"
-                : availability
-                  ? en
-                    ? "Sold out"
-                    : "完売"
-                  : en
-                    ? "Stock unavailable"
-                    : "在庫を確認できません"}
-              <span>＋</span>
-            </>
-          )}
+          {cart.pending && <LoaderCircle size={18} className="spin" />}
+          {label}
+          <span aria-hidden="true">＋</span>
         </button>
         <div className="receipt-bottom">
           <span>{en ? "Whole bean only" : "豆のまま"}</span>
           {!detail && (
-            <Link href={`${en ? "/en" : ""}/origins/${product.slug}`}>
-              {en ? "Meet the origin" : "産地を読む"}
+            <Link
+              href={`${en ? "/en" : ""}/origins/${product.slug}?size=${size}`}
+            >
+              {en ? "Read the origin" : "産地を読む"}
               <ArrowUpRight size={14} />
             </Link>
           )}
@@ -221,7 +178,4 @@ export function BuyCard({
       </div>
     </article>
   );
-}
-function PlusMark() {
-  return <span aria-hidden="true">＋</span>;
 }

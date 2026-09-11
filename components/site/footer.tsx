@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FORM_URL } from "@/content/products";
 import { Logo } from "./logo";
 
 /* Quiet endorsed-brand footer — room for JAS + USDA Organic marks, socials,
@@ -40,11 +41,10 @@ export function Footer({ en = false }: { en?: boolean }) {
               <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
                 Follow
               </span>
-              <a
-                href={`${en ? "/en" : "/"}#join`}
-                className="text-sm text-paper/75"
-              >
-                {en ? "Email updates" : "メールでお知らせ"}
+              <a href={FORM_URL} className="text-sm text-paper/75">
+                {en
+                  ? "Launch information & enquiries ↗"
+                  : "発売案内・お問い合わせ ↗"}
               </a>
               <a
                 href="https://tokyocoffee.jp/pages/policy"
