@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Nav } from "@/components/site/nav";
 import { Hero } from "@/components/site/hero";
 import { StatementBoxes } from "@/components/site/statement-boxes";
@@ -19,19 +18,13 @@ export const metadata: Metadata = {
     "Organic × Specialty × Japan. An organic specialty line from the Tokyo Coffee family, roasted in Tokyo. Est. 2026.",
   alternates: {
     canonical: "/en",
-    languages: { ja: "/", en: "/en" },
+    languages: { ja: "/", en: "/en", "x-default": "/" },
   },
 };
 
-/* Full-English page. Root layout is lang="ja" (JP-primary site); this page
-   corrects the document language on the client — good enough until a
-   route-group layout split. */
 export default function HomeEN() {
   return (
     <>
-      <Script id="lang-en" strategy="afterInteractive">
-        {`document.documentElement.lang = "en";`}
-      </Script>
       <Nav en />
       <main>
         <Hero />
