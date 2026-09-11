@@ -342,18 +342,27 @@ async function main() {
         !previousPublications.has(r.publication.id) &&
         !publications.some((p) => p.id === r.publication.id),
     );
-    if (extra.length) {
+    for (const r of extra) {
+      // Catalog-level removal is required here: publishableUnpublish returned
+      // success while the automatic Meta/Copilot publications remained active.
       await query(
-        "mutation LimitChannels($id:ID!,$input:[PublicationInput!]!){publishableUnpublish(id:$id,input:$input){userErrors{field message}}}",
-        {
-          id: found.id,
-          input: extra.map((r) => ({ publicationId: r.publication.id })),
-        },
+        "mutation LimitCatalog($id:ID!,$input:PublicationUpdateInput!){publicationUpdate(id:$id,input:$input){publication{id} userErrors{field message}}}",
+        { id: r.publication.id, input: { publishablesToRemove: [found.id] } },
       );
+      const check = await query<{
+        product: { publishedOnPublication: boolean };
+      }>(
+        "query VerifyPublication($id:ID!,$publication:ID!){product(id:$id){publishedOnPublication(publicationId:$publication)}}",
+        { id: found.id, publication: r.publication.id },
+      );
+      if (check.product.publishedOnPublication)
+        throw new Error(
+          `Extra channel still published: ${p.handle} / ${r.publication.name}`,
+        );
       console.log(
-        "Removed automatic extra-channel publications:",
+        "Removed automatic extra-channel publication:",
         p.handle,
-        extra.map((r) => r.publication.name),
+        r.publication.name,
       );
     }
     const file = "content/products.ts";
