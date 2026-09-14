@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: {
             ja: `https://snobi.jp${path}`,
+            "x-default": `https://snobi.jp${path}`,
             en: `https://snobi.jp/en${path}`,
           },
         },

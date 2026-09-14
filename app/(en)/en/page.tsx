@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "SNöBI — Organic. And actually specialty.",
   description:
     "Four organic coffees from Tokyo Coffee. Whole bean, roasted Tuesdays and Fridays in Tokyo.",
-  alternates: { canonical: "/en", languages: { ja: "/", en: "/en" } },
+  alternates: { canonical: "/en", languages: { ja: "/", en: "/en", "x-default": "/" } },
 };
 export default function Page() {
   return <Landing lang="en" />;

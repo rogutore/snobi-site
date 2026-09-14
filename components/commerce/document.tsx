@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
   alternates: {
     canonical: "/",
-    languages: { ja: "/", en: "/en" },
+    languages: { ja: "/", en: "/en", "x-default": "/" },
   },
   openGraph: {
     title: "Snobi — Organic. And actually specialty.",

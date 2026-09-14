@@ -13,7 +13,7 @@ export function Footer({ en = false }: { en?: boolean }) {
           <div>
             <Logo invert className="mb-6" />
             <p className="max-w-sm text-lg leading-relaxed text-paper/70">
-              An organic specialty line from Tokyo Coffee.
+              An organic specialty line from <a href="https://tokyocoffee.jp/" className="underline underline-offset-4 hover:text-paper">Tokyo Coffee</a>.
             </p>
           </div>
 
@@ -64,7 +64,8 @@ export function Footer({ en = false }: { en?: boolean }) {
               JAS Organic
             </span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <a href={en ? "https://rogutore.com/en/company" : "https://rogutore.com/company"} className="text-paper/70 hover:text-paper">{en ? "Rogutore · Our company" : "運営会社 · 株式会社ローグトレード"}</a>
             <Link
               href="/"
               className={en ? "text-paper/70 hover:text-paper" : "text-paper"}
