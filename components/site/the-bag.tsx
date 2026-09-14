@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button";
    FULL image is shown (object-contain — never cropped). */
 export function TheBag({ en = false }: { en?: boolean }) {
   return (
-    <section id="bag" className="bg-plum px-6 py-24 text-paper lg:px-10 lg:py-32">
+    <section
+      id="bag"
+      className="bg-plum px-6 py-24 text-paper lg:px-10 lg:py-32"
+    >
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
         {/* Full bag photo — object-contain so nothing is cut off */}
         <Reveal>
@@ -27,7 +30,7 @@ export function TheBag({ en = false }: { en?: boolean }) {
             The first bag
           </p>
           <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.05]">
-            Coming Soon.
+            Chapter One.
           </h2>
           <p className="mt-6 max-w-md text-lg leading-loose text-paper/80">
             {en
@@ -43,8 +46,10 @@ export function TheBag({ en = false }: { en?: boolean }) {
             Peru ・ Ethiopia ・ Mexico Chiapas ・ Colombia Huila
           </p>
           <div className="mt-8">
-            <Link href="#join">
-              <Button variant="light">Be first in line</Button>
+            <Link href="#shop">
+              <Button variant="light">
+                {en ? "Meet the four origins ↓" : "4つの産地を選ぶ ↓"}
+              </Button>
             </Link>
           </div>
         </Reveal>

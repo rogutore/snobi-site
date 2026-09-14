@@ -3,21 +3,36 @@ import { Reveal } from "@/components/motion/reveal";
 /* The Road Ahead — six-stop roadmap lifted from the CAFERES pamphlet.
    Pre-launch honesty as momentum: the plan IS the product for now. */
 const STOPS_JA = [
-  { t: "Caferes", d: "カフェレスで限定公開。業務用・小売用、予約販売開始。" },
+  { t: "Caferes", d: "カフェレスで限定公開。第一章の出発点。" },
   { t: "Official Launch", d: "ウェブサイト公開、一般注文受付開始。" },
-  { t: "Product Development", d: "商品開発 Round 2。世界のベスト ORGANIC × SPECIALTY の追求。" },
+  {
+    t: "Product Development",
+    d: "商品開発 Round 2。世界のベスト ORGANIC × SPECIALTY の追求。",
+  },
   { t: "Coffee Lab", d: "コーヒーラボ（研究所）工事開始。" },
-  { t: "Training & Research", d: "リサーチ・トレーニング・セミナーを社内・社外向けに実施。" },
-  { t: "Community", d: "常にチャレンジし続ける。ゴールはない。ただコミュニティを築くこと。" },
+  {
+    t: "Training & Research",
+    d: "リサーチ・トレーニング・セミナーを社内・社外向けに実施。",
+  },
+  {
+    t: "Community",
+    d: "常にチャレンジし続ける。ゴールはない。ただコミュニティを築くこと。",
+  },
 ];
 
 const STOPS_EN = [
-  { t: "Caferes", d: "Limited debut: trade & retail pre-orders open." },
+  { t: "Caferes", d: "Our limited debut, and the start of Chapter One." },
   { t: "Official Launch", d: "Site live, orders open to everyone." },
-  { t: "Product Development", d: "Round 2: chasing the world's best organic × specialty." },
+  {
+    t: "Product Development",
+    d: "Round 2: chasing the world's best organic × specialty.",
+  },
   { t: "Coffee Lab", d: "Construction begins on our own lab." },
   { t: "Training & Research", d: "In-house and public seminars." },
-  { t: "Community", d: "No finish line. Keep challenging. Build the community." },
+  {
+    t: "Community",
+    d: "No finish line. Keep challenging. Build the community.",
+  },
 ];
 
 export function RoadAhead({ en = false }: { en?: boolean }) {
@@ -35,8 +50,8 @@ export function RoadAhead({ en = false }: { en?: boolean }) {
         </Reveal>
         <ol className="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {STOPS.map((s, i) => (
-            <Reveal key={s.t} delay={0.06 * i}>
-              <li className="border-t border-plum/15 pt-5">
+            <li key={s.t} className="border-t border-plum/15 pt-5">
+              <Reveal delay={0.06 * i}>
                 <span className="spec block text-xs uppercase tracking-[0.24em] text-sage">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -46,8 +61,8 @@ export function RoadAhead({ en = false }: { en?: boolean }) {
                 <p className="mt-3 max-w-xs text-base leading-relaxed text-ink-soft">
                   {s.d}
                 </p>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ol>
       </div>

@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-head-element -- Shared root-layout document for the JA/EN route groups. */
 import type { Metadata } from "next";
+import { getImageProps } from "next/image";
 import { Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 
 /* Small technical labels / eyebrows = Geist Mono (free). Display + body come
    from the Adobe Fonts kit below. */
@@ -10,10 +12,22 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const { props: lineupPreload } = getImageProps({
+  src: "/products/chapter-one-lineup.jpg",
+  width: 1800,
+  height: 850,
+  sizes: "(min-width:1024px) 760px, 100vw",
+  alt: "",
+});
+
 export const metadata: Metadata = {
   /* Required for canonical/hreflang to emit absolute URLs — Google ignores
      relative hreflang values, which would silently void the ja/en pairing. */
   metadataBase: new URL("https://snobi.jp"),
+  robots:
+    process.env.VERCEL_ENV === "production"
+      ? undefined
+      : { index: false, follow: false },
   title: "Snobi — Organic. And actually specialty.",
   description:
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
@@ -29,14 +43,37 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function Document({
   children,
+  lang,
 }: Readonly<{
   children: React.ReactNode;
+  lang: "ja" | "en";
 }>) {
   return (
-    <html lang="ja" className={`${geistMono.variable} h-full antialiased`}>
+    // Adobe’s preserved loader adds wf-* classes before React hydrates.
+    <html
+      suppressHydrationWarning
+      lang={lang}
+      className={`${geistMono.variable} h-full antialiased`}
+    >
       <head>
+        {/* Start the hero request before Adobe's dynamic font requests compete for bandwidth. */}
+        <link
+          rel="preload"
+          as="image"
+          href={lineupPreload.src}
+          imageSrcSet={lineupPreload.srcSet}
+          imageSizes={lineupPreload.sizes}
+          fetchPriority="high"
+        />
+        {/* Discover the hero wordmark before the dynamic font kit starts its requests. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/brand/snobi_font1.svg"
+          fetchPriority="high"
+        />
         {/* Adobe Fonts web project "Snobi" (kit xkh1hrz). The project is set to
             Dynamic embed, so the static .css endpoint 412s — load the faces via
             Adobe's async JS loader instead. Text renders in the fallback stack
