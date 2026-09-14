@@ -202,8 +202,8 @@ export function CompactStory({ lang = "ja" }: { lang?: Locale }) {
           src="/photos/237.jpg"
           alt={
             en
-              ? "The Tokyo Coffee café counter"
-              : "Tokyo Coffeeのカフェカウンター"
+              ? "Preparing coffee"
+              : "コーヒーを淹れる様子"
           }
           fill
           sizes="(min-width:1024px) 50vw,100vw"
@@ -315,10 +315,6 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
           "Tokyo Coffee handles checkout and payment. You will leave this site for the Tokyo Coffee checkout, with your selected coffees and sizes. Available payment methods are shown there.",
         ],
         [
-          "Where can I try it?",
-          "Ask our team at COMMONS Tachikawa or Hoya about the current SNöBI offering before visiting. Availability can change.",
-        ],
-        [
           "Can my café stock SNöBI?",
           "Yes. The Chapter One stockist programme is accepting enquiries. Details and the application form are on the Trade page.",
         ],
@@ -349,10 +345,6 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
           "決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。ご利用いただける支払方法は決済画面に表示されます。",
         ],
         [
-          "お店で飲める？",
-          "COMMONS立川・保谷でのSNöBIの提供状況は、ご来店前に店舗へお問い合わせください。時期により内容が変わります。",
-        ],
-        [
           "自分のお店で取り扱いたい。",
           "「取扱店 第一章」プログラムへのご相談を受け付けています。取扱店向けページで詳細と申込フォームをご案内しています。",
         ],
@@ -365,7 +357,6 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
     questions[4],
     questions[3],
     questions[6],
-    questions[7],
   ];
   return (
     <section id="faq" className="faq-section">
