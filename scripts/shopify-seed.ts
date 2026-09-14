@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { format } from "prettier";
 import { writeFileSync, existsSync, readFileSync } from "node:fs";
 import { products } from "../content/products";
@@ -39,8 +39,123 @@ type Product = {
     }[];
   };
 };
+// Explicit inventory-only mode; bypasses product, media and publication seeding.
+async function zeroInventory(
+  query: Awaited<ReturnType<typeof connectAdmin>>["query"],
+) {
+  type InventoryVariant = {
+    id: string;
+    sku: string;
+    price: string;
+    inventoryPolicy: string;
+    product: { handle: string; vendor: string; status: string; tags: string[] };
+    inventoryItem: {
+      id: string;
+      tracked: boolean;
+      inventoryLevels: {
+        nodes: {
+          location: { id: string };
+          quantities: { name: string; quantity: number }[];
+        }[];
+      };
+    };
+  };
+  const expected = products.flatMap((p) =>
+    p.variants.map((v) => ({ ...v, handle: p.handle })),
+  );
+  if (expected.length !== 8 || new Set(expected.map((v) => v.id)).size !== 8)
+    throw new Error("Expected exactly eight distinct seeded Snobi variants");
+  const read = async () => {
+    const result = await query<{ nodes: (InventoryVariant | null)[] }>(
+      `query InventoryOnly($ids:[ID!]!){nodes(ids:$ids){...on ProductVariant{id sku price inventoryPolicy product{handle vendor status tags} inventoryItem{id tracked inventoryLevels(first:100){nodes{location{id} quantities(names:["available"]){name quantity}}}}}}}`,
+      { ids: expected.map((v) => v.id) },
+    );
+    return result.nodes.map((v, i) => {
+      if (
+        !v ||
+        v.id !== expected[i].id ||
+        v.sku !== expected[i].sku ||
+        v.product.handle !== expected[i].handle ||
+        v.product.vendor !== "SNöBI" ||
+        !v.inventoryItem.tracked ||
+        v.inventoryPolicy !== "DENY" ||
+        !v.inventoryItem.inventoryLevels.nodes.length
+      )
+        throw new Error(
+          `Unexpected inventory identity or tracking for ${expected[i].sku}`,
+        );
+      return v;
+    });
+  };
+  const before = await read();
+  const quantities = before
+    .flatMap((v) =>
+      v.inventoryItem.inventoryLevels.nodes.map((level) => {
+        const current = level.quantities.find(
+          (q) => q.name === "available",
+        )?.quantity;
+        if (current === undefined)
+          throw new Error(`Missing available quantity for ${v.sku}`);
+        return {
+          inventoryItemId: v.inventoryItem.id,
+          locationId: level.location.id,
+          quantity: 0,
+          changeFromQuantity: current,
+        };
+      }),
+    )
+    .filter((q) => q.changeFromQuantity !== 0);
+  if (quantities.length) {
+    const key = randomUUID();
+    await query(
+      "mutation ZeroStock($input:InventorySetQuantitiesInput!,$key:String!){inventorySetQuantities(input:$input) @idempotent(key:$key){inventoryAdjustmentGroup{createdAt} userErrors{field message}}}",
+      {
+        key,
+        input: {
+          name: "available",
+          reason: "correction",
+          referenceDocumentUri: `snobi://inventory/zero/${key}`,
+          quantities,
+        },
+      },
+    );
+  }
+  const after = await read();
+  for (const [i, v] of after.entries()) {
+    if (
+      v.inventoryItem.inventoryLevels.nodes.some((l) =>
+        l.quantities.some((q) => q.quantity !== 0),
+      )
+    )
+      throw new Error(`Inventory is not zero for ${v.sku}`);
+    if (
+      JSON.stringify({
+        price: before[i].price,
+        policy: before[i].inventoryPolicy,
+        product: before[i].product,
+      }) !==
+      JSON.stringify({
+        price: v.price,
+        policy: v.inventoryPolicy,
+        product: v.product,
+      })
+    )
+      throw new Error(`Non-inventory data changed for ${v.sku}`);
+    console.log(
+      `${v.sku}: ${before[i].inventoryItem.inventoryLevels.nodes.map((l) => l.quantities[0].quantity).join(",")} → 0 (${v.inventoryItem.inventoryLevels.nodes.length} location)`,
+    );
+  }
+  console.log(
+    "Verified all eight variants at zero. Inventory-only mode completed.",
+  );
+}
+
 async function main() {
   const { query } = await connectAdmin();
+  if (process.argv.includes("--zero-inventory")) {
+    await zeroInventory(query);
+    return;
+  }
   const preflight = await query<{
     currentAppInstallation: {
       app: { id: string };
