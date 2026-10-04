@@ -201,7 +201,13 @@ Feasibility, checked 2026-10-05:
 
 Steps (one branch; Vercel stays live until cutover):
 1. ~~Owner: Cloudflare account + Workers Paid ($5)~~ **done 2026-10-05** (account rogutore@gmail.com). Deploy access **done 2026-10-05**: `wrangler login` → account `Rogutore@gmail.com's Account` (6bdeb451…); credentials in `~/Library/Preferences/.wrangler/`, outside the repo.
-   - Zone **blocked**: the dashboard's "Connect a domain" flow hangs for snobi.jp. Its registrar check `registrar/domains/batch_check?id=snobi.jp` returns 422 "Unable to check" (Cloudflare Registrar doesn't handle .jp) and the UI never moves on. Verified 2026-10-05; no zone was created.
+   - **Zone created 2026-10-05 via API** (the dashboard bug is bypassed with a narrow API token, Zone:Edit + DNS:Edit, stored in `_secrets/cloudflare-snobi.env`, to be **revoked after cutover**).
+     - Zone `b98f9a14…`, Free plan, pending.
+     - Nameservers: **priscilla.ns.cloudflare.com, sage.ns.cloudflare.com**.
+     - Transition records: DNS-only A records to Vercel (apex 216.198.79.1 / 64.29.17.1; www 216.198.79.65 / 64.29.17.65), so the NS switch changes nothing visible.
+     - No DNSSEC (no DS at .jp). Parent NS TTL is 86400, so resolvers move over within 24 h.
+     - Registrar: **ムームードメイン** (ID rogutore). The NS change is the owner's step (login).
+   - Zone (history) **blocked**: the dashboard's "Connect a domain" flow hangs for snobi.jp. Its registrar check `registrar/domains/batch_check?id=snobi.jp` returns 422 "Unable to check" (Cloudflare Registrar doesn't handle .jp) and the UI never moves on. Verified 2026-10-05; no zone was created.
    - The zone is **not needed until cutover**; build and QA on `*.workers.dev`.
    - Before cutover, add the zone by one of: retry the dashboard (bug may be fixed), ask Cloudflare support, or have the owner create a scoped API token (Zone:Edit) for one `POST /zones` call.
 2. Add `@opennextjs/cloudflare` + `wrangler.jsonc` with an R2 bucket for video and a frame-sequence binding. Move `SHOPIFY_STORE_DOMAIN` / `SHOPIFY_STOREFRONT_TOKEN` to Worker secrets. Drop the Vercel-only config.

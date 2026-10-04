@@ -17,6 +17,16 @@
   "images": {
     "binding": "IMAGES"
   },
+  // Production hosts. Routes only act on proxied DNS records, so they were
+  // deployed before the records were switched to proxied (zero-gap cutover).
+  // www is redirected to snobi.jp by next.config.ts.
+  // Keep snobi-site.rogutore.workers.dev for testing (noindex via lib/site.ts).
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "snobi.jp/*", "zone_name": "snobi.jp" },
+    { "pattern": "www.snobi.jp/*", "zone_name": "snobi.jp" }
+  ],
   // SHOPIFY_STORE_DOMAIN and SHOPIFY_STOREFRONT_TOKEN are Worker secrets, set
   // from the Admin API by scripts/with-storefront-env.ts — never committed.
   // The API version default lives in lib/shopify/client.ts.
