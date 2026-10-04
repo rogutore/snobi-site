@@ -6,10 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cf:build": "tsx scripts/with-storefront-env.ts -- opennextjs-cloudflare build",
+    "cf:preview": "tsx scripts/with-storefront-env.ts -- sh -c 'opennextjs-cloudflare build && opennextjs-cloudflare preview'",
+    "cf:deploy": "tsx scripts/with-storefront-env.ts -- sh -c 'opennextjs-cloudflare build && opennextjs-cloudflare deploy'",
+    "cf:secrets": "tsx scripts/with-storefront-env.ts -- sh -c 'printf %s \"$SHOPIFY_STORE_DOMAIN\" | wrangler secret put SHOPIFY_STORE_DOMAIN && printf %s \"$SHOPIFY_STOREFRONT_TOKEN\" | wrangler secret put SHOPIFY_STOREFRONT_TOKEN'",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@opennextjs/cloudflare": "^1.20.8",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.40.0",
@@ -32,6 +38,7 @@
     "prettier": "^3.9.6",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.147.0"
   }
 }

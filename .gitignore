@@ -48,3 +48,8 @@ next-env.d.ts
 /artifacts/
 /test-results/
 /playwright-report/
+
+# Cloudflare (OpenNext / wrangler)
+/.open-next/
+/.wrangler/
+.dev.vars*

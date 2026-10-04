@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "snobi-site",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "snobi-site"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  // SHOPIFY_STORE_DOMAIN and SHOPIFY_STOREFRONT_TOKEN are Worker secrets, set
+  // from the Admin API by scripts/with-storefront-env.ts — never committed.
+  // The API version default lives in lib/shopify/client.ts.
+  "observability": {
+    "enabled": true
+  }
+}

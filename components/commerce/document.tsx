@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { getImageProps } from "next/image";
 import { Geist_Mono } from "next/font/google";
+import { isIndexedHost } from "@/lib/site";
 import "@/app/globals.css";
 
 /* Small technical labels / eyebrows = Geist Mono (free). Display + body come
@@ -20,14 +21,11 @@ const { props: lineupPreload } = getImageProps({
   alt: "",
 });
 
-export const metadata: Metadata = {
+export const generateMetadata = async (): Promise<Metadata> => ({
   /* Required for canonical/hreflang to emit absolute URLs — Google ignores
      relative hreflang values, which would silently void the ja/en pairing. */
   metadataBase: new URL("https://snobi.jp"),
-  robots:
-    process.env.VERCEL_ENV === "production"
-      ? undefined
-      : { index: false, follow: false },
+  robots: (await isIndexedHost()) ? undefined : { index: false, follow: false },
   title: "Snobi — Organic. And actually specialty.",
   description:
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
@@ -41,7 +39,7 @@ export const metadata: Metadata = {
       "Organic × Specialty × Japan — from the Tokyo Coffee family. Est. 2026.",
     type: "website",
   },
-};
+});
 
 export default function Document({
   children,
