@@ -1,5 +1,5 @@
 "use client";
-/* 「富士登山」— home section 4, the owner's "Combine. Surprise me." (2026-10-08). Three proven references in one:
+/* 「富士山」(was 富士登山; owner 2026-10-09) — home section 4, the owner's "Combine. Surprise me." (2026-10-08). Three proven references in one:
    - the look: an antique comparative-heights plate (Darton & Gardner, 1823): framed, hand-tinted, engraved, numbered;
    - the mechanic: neal.fun "The Deep Sea", upside down: native scroll climbs, a big live altimeter counts;
    - the reward: Fuji's 金剛杖 焼印: as the boar passes each farm's true height, that coffee is branded onto the staff.
@@ -148,10 +148,10 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
               <circle cx={CX} cy={y(FUJI) + 10} r={190} fill="url(#fc-sun)" className="sun" style={{ opacity: summit ? 1 : 0 }} />
               <rect x={10} y={10} width={W - 20} height={H - 20} className="rule" />
               <rect x={17} y={17} width={W - 34} height={H - 34} className="rule thin" />
-              <g className="cartouche">
-                <path d="M300,34 Q500,22 700,34 L692,82 Q500,92 308,82 Z" />
-                <text x={500} y={60} textAnchor="middle" className="ct-t">富 士 登 山</text>
-                <text x={500} y={76} textAnchor="middle" className="ct-s">第一章の4つの畑と、富士山の高さくらべ</text>
+              {/* title, set vertically in the open sky like a print's title (owner 2026-10-09: no frame, 「富士山」) */}
+              <g className="ttl" aria-hidden>
+                <text x={128} y={112} className="ttl-main" style={{ writingMode: "vertical-rl" }}>富士山</text>
+                <text x={90} y={116} className="ttl-sub" style={{ writingMode: "vertical-rl" }}>第一章　四つの畑の高さ</text>
               </g>
               {/* scale in the margin */}
               <line x1={58} x2={58} y1={y(0)} y2={y(4000)} className="ink" />
@@ -188,7 +188,7 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
                 <line x1={xAt(2305, 1) + 4} x2={xAt(2305, 1) + 18} y1={y(2305)} y2={y(2305)} className="ink" />
                 <text x={xAt(2305, 1) + 22} y={y(2305) + 4} className="lbl">五合目 2,305m</text>
               </g>
-              <text x={CX} y={y(FUJI) - 34} textAnchor="middle" className="lbl strong">富士山 3,776m</text>
+              <text x={CX} y={y(FUJI) - 34} textAnchor="middle" className="lbl strong">山頂 3,776m</text>
               {/* foreground hills, trees and the two Tokyo towers (to scale) */}
               <path d={`M20,${GROUND} C160,${GROUND - 20} 300,${GROUND - 6} 420,${GROUND - 16} S700,${GROUND - 4} 820,${GROUND - 14} S960,${GROUND - 6} 980,${GROUND - 10} L980,${GROUND} Z`} className="hills" />
               {g.trees.map(([tx, ty], i) => <path key={i} d={`M${tx},${ty - 10} l4.5,10 h-9 Z`} className="tree" />)}

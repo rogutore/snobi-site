@@ -70,7 +70,7 @@
 @media (max-width: 860px) {
   .v3-bag { left: 0; width: 100%; height: 100%; object-fit: cover; transform: none; }
   .v3-st { max-width: calc(100% - 2 * var(--gutter)); left: var(--gutter) !important; right: auto !important; text-align: left !important; top: 6vh !important; }
-  .v3-big, .v3-mid, .v3-ja, .v3-st .eyebrow { color: var(--color-paper); text-shadow: 0 1px 18px rgb(42 34 48 / .45); }
+  .v3-st .v3-big, .v3-st .v3-mid, .v3-st .v3-ja, .v3-st .eyebrow { color: var(--color-paper); text-shadow: 0 1px 18px rgb(42 34 48 / .45); }
   .v3-lj, .v3-ls { display: none; } .v3-lc { font-size: 1.05rem; }
   .v3-lineup { object-fit: contain; object-position: 50% 12%; background: #efe9df; }
   /* phones: the four labels become a 2×2 buy grid under the photo */
@@ -240,7 +240,7 @@
   .v3-hand { grid-template-columns: minmax(0, 1fr); }
   .v3-hand-media { display: none; }
   .v3-hand-step { min-height: 0; opacity: 1; padding-block: 48px; border-top: 1px solid var(--color-line); }
-  .v3-hand-inline { display: block; width: calc(100% + 2 * clamp(24px, 5vw, 80px)); margin-inline: calc(-1 * clamp(24px, 5vw, 80px)); aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 12px; }
+  .v3-hand-inline { display: block; max-width: none; width: calc(100% + 2 * clamp(24px, 5vw, 80px)); margin-inline: calc(-1 * clamp(24px, 5vw, 80px)); aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .v3-hand-media img, .v3-hand-step { transition: none; } }
 
@@ -329,9 +329,8 @@
 .v3-climb-plate { min-height: 0; display: flex; align-items: center; justify-content: center; }
 .v3-climb-plate svg { display: block; max-width: 100%; max-height: 100%; width: auto; height: 100%; aspect-ratio: 1000 / 760; filter: drop-shadow(0 18px 40px rgb(42 34 48 / .12)); border-radius: 3px; }
 .v3-climb-plate .rule { fill: none; stroke: #5a4632; stroke-width: 1.6; } .v3-climb-plate .rule.thin { stroke-width: .7; }
-.v3-climb-plate .cartouche path { fill: #efe3c6; stroke: #5a4632; stroke-width: 1; }
-.v3-climb-plate .ct-t { font-family: "Hiragino Mincho ProN", "Yu Mincho", var(--font-display); font-size: 22px; fill: #3b2a1c; letter-spacing: .1em; }
-.v3-climb-plate .ct-s { font-family: "Hiragino Mincho ProN", "Yu Mincho", var(--font-display); font-size: 11px; fill: #5a4632; }
+.v3-climb-plate .ttl-main { font-family: "Hiragino Mincho ProN", "Yu Mincho", var(--font-display); font-size: 46px; font-weight: 600; fill: #3b2a1c; letter-spacing: .32em; }
+.v3-climb-plate .ttl-sub { font-family: "Hiragino Mincho ProN", "Yu Mincho", var(--font-display); font-size: 12.5px; fill: #5a4632; letter-spacing: .28em; }
 .v3-climb-plate .ink { stroke: #4a3b2c; stroke-width: 1; fill: none; }
 .v3-climb-plate .fuji-edge { stroke-width: 1.4; }
 .v3-climb-plate .staff-body { stroke: #8a6440; stroke-width: 1; }
@@ -397,7 +396,7 @@
 .v3-climb-side .card.all { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .v3-climb-side .card.all h3 { font-size: 1.3rem; }
 .v3-climb-side .card.all .minis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.v3-climb-side .card.all .minis img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; display: block; }
+.v3-climb-side .card.all .minis img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 82%; border-radius: 3px; display: block; }
 .v3-climb-side .card.all .small { font-size: 12.5px; color: var(--color-ink-soft); }
 .v3-climb-note { font-family: var(--font-mono); font-size: 11.5px; color: var(--color-ink-soft); line-height: 1.6; }
 @media (max-width: 900px) {

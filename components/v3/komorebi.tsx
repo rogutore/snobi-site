@@ -13,7 +13,9 @@ export function Komorebi() {
     const read = () => { target = scrollY; };
     const tick = () => {
       cur += (target - cur) * 0.06;
-      ref.current?.style.setProperty("--sy", (cur * -0.035).toFixed(1) + "px");
+      // a slow sway with scroll (±4vh), never a one-way slide — the layer is inset −6vh, so the page stays covered top to
+      // bottom at any depth (owner 2026-10-09: "the daylight covers top 80% of page not the bottom")
+      ref.current?.style.setProperty("--sy", (Math.sin(cur / 900) * 0.04 * innerHeight).toFixed(1) + "px");
       raf = requestAnimationFrame(tick);
     };
     addEventListener("scroll", read, { passive: true }); read();
