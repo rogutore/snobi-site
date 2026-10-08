@@ -3,6 +3,7 @@ import Link from "next/link";
 import { products, minimumPrice, yen, type Locale } from "@/content/products";
 import { getStock } from "@/lib/shopify/client";
 import { BuyCard } from "./buy-card";
+import { orderingSummary, orderingSchedule, freeShippingLine } from "@/content/ordering";
 export async function ShopSection({ lang = "ja" }: { lang?: Locale }) {
   const { stock, error } = await getStock();
   const en = lang === "en";
@@ -24,9 +25,7 @@ export async function ShopSection({ lang = "ja" }: { lang?: Locale }) {
               : "4つの産地、4つの個性。すべてオーガニック。"}
           </p>
           <p className="small-print">
-            {en
-              ? "Whole bean · 100g / 200g · All prices include tax · Free shipping on orders of ¥3,000 or more"
-              : "豆のまま · 100g / 200g · 価格はすべて税込 · ¥3,000以上で送料無料"}
+            <strong>{freeShippingLine[lang]}</strong>
           </p>
         </div>
       </div>
@@ -49,9 +48,7 @@ export async function ShopSection({ lang = "ja" }: { lang?: Locale }) {
         ))}
       </div>
       <p className="shop-footnote">
-        {en
-          ? "Roasted Tue / Fri. Order by noon the day before; shipped the next business day. Roast date on every bag."
-          : "火・金焙煎。前日正午締切、翌営業日発送。焙煎日を袋に記載。"}
+        {orderingSchedule[lang].join("")}
       </p>
     </section>
   );
@@ -79,8 +76,8 @@ export function ProductHero({ lang = "ja" }: { lang?: Locale }) {
         </h1>
         <p className="hero-jp">
           {en
-            ? `Only JAS-certified organic beans, roasted in Tokyo. Roasted Tuesdays and Fridays, shipped the next business day. Roast date on every bag. Start with 100g, from ${yen(minimumPrice)} including tax.`
-            : `JAS有機認証の豆だけを、東京で焙煎。火曜・金曜に焼いて、翌営業日に発送。焙煎日は袋に。まずは100g、${yen(minimumPrice)}（税込）から。`}
+            ? `Only JAS-certified organic beans, roasted in Tokyo. Start with 100g, from ${yen(minimumPrice)} including tax.`
+            : `JAS有機認証の豆だけを、東京で焙煎。まずは100g、${yen(minimumPrice)}（税込）から。`}
         </p>
       </div>
       <div className="hero-lineup">
@@ -108,9 +105,7 @@ export function ProductHero({ lang = "ja" }: { lang?: Locale }) {
           <span>↓</span>
         </a>
         <p className="hero-microline">
-          {en
-            ? "Tax included · Free shipping ¥3,000+ · Roasted Tue / Fri → shipped the next business day · Whole bean"
-            : "税込表示 · ¥3,000以上で送料無料 · 火・金焙煎 → 翌営業日発送 · 豆のまま"}
+          {orderingSummary[lang]}
         </p>
       </div>
     </section>
@@ -300,11 +295,11 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "Organic? Roast level? Whole bean?",
-          "Chapter One is JAS Organic and whole bean only. Peru and Ethiopia are light roasts. Confirmed roast information is listed on each origin page; unverified details are left blank.",
+          "Chapter One is specialty coffee from four origins. Every one is light-roasted so you can taste the bean itself. JAS Organic, whole bean only.",
         ],
         [
           "When will my coffee ship?",
-          "We roast on Tuesdays and Fridays. The cutoff for each roast is noon the day before. Coffee ships the next business day. Roast date on every bag. Orders after cutoff move to the next roast day.",
+          orderingSchedule.en.join(" "),
         ],
         [
           "How much is shipping?",
@@ -322,7 +317,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
     : [
         [
           "SNöBIって、Tokyo Coffeeとどう違う？",
-          "SNöBIはTokyo Coffeeがつくる、オーガニック・スペシャルティライン。第一章はペルー、コロンビア・ウィラ、エチオピア・グジ、メキシコ・チアパスのデカフェです。",
+          "SNöBIはTokyo Coffeeがつくる、オーガニック・スペシャルティライン。第一章はペルー、コロンビア・ウィラ、エチオピア・グジ、メキシコ・チアパスのデカフェ。カッピングスコア80点以上の「スペシャルティコーヒー」の豆を使用しています。",
         ],
         [
           "価格とサイズについて教えて。",
@@ -330,11 +325,11 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "有機？ 焙煎度は？ 粉でも買える？",
-          "第一章はJASオーガニック、豆のままでのお届けです。ペルーとエチオピアは浅煎り。確認できている焙煎情報は各産地ページに記載し、未確認の項目は空欄にしています。",
+          "第一章は四つの産地からの、スペシャルティコーヒー。全種類、豆の味を堪能出来る様に、「浅煎り」で焙煎。JASオーガニック、豆のままでのお届けです。",
         ],
         [
           "いつ焙煎して、いつ届く？",
-          "焙煎日は毎週火曜・金曜。各焙煎日の前日正午までのご注文が対象です。焙煎日翌営業日に発送し、袋に焙煎日を記載します。締切後のご注文は次の焙煎日に回ります。到着日は地域によって異なります。",
+          orderingSchedule.ja.join(""),
         ],
         [
           "送料はいくら？",

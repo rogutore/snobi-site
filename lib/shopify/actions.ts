@@ -81,14 +81,18 @@ export async function getCart(lang: Locale = "ja"): Promise<Result> {
   }
 }
 export async function addLine(
-  variantId: string,
+  variant: string | string[], // one variant, or several in one call (e.g. "all four" from the Fuji section)
   lang: Locale = "ja",
 ): Promise<Result> {
   lang = lang === "en" ? "en" : "ja";
+  const ids = Array.isArray(variant) ? variant : [variant];
   if (
-    !products.some((p) => p.variants.some((v) => v.id === variantId && !!v.id))
+    !ids.length ||
+    ids.length > 8 ||
+    !ids.every((id) => products.some((p) => p.variants.some((v) => v.id === id && !!v.id)))
   )
     return { cart: null, error: message(lang) };
+  const lines = ids.map((id) => ({ merchandiseId: id, quantity: 1 }));
   try {
     const cart = await readCart();
     const attrs = [
@@ -102,7 +106,7 @@ export async function addLine(
           input: {
             buyerIdentity: { countryCode: "JP" },
             attributes: attrs,
-            lines: [{ merchandiseId: variantId, quantity: 1 }],
+            lines,
           },
         },
       );
@@ -117,7 +121,7 @@ export async function addLine(
       return unpack(attributes.cartAttributesUpdate, lang);
     const data = await storefront<{ cartLinesAdd: Payload }>(
       `mutation Add($id:ID!,$lines:[CartLineInput!]!) @inContext(country:JP) { cartLinesAdd(cartId:$id,lines:$lines) { ${mutationFields} } }`,
-      { id: cart.id, lines: [{ merchandiseId: variantId, quantity: 1 }] },
+      { id: cart.id, lines },
     );
     return unpack(data.cartLinesAdd, lang);
   } catch {

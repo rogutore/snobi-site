@@ -19,11 +19,13 @@ import {
 } from "@/lib/shopify/actions";
 import { ShippingProgress } from "./shipping-progress";
 import type { Cart } from "@/lib/shopify/client";
+import { orderingSchedule } from "@/content/ordering";
 type Context = {
-  add: (id: string) => void;
+  add: (id: string | string[]) => void;
   open: () => void;
   pending: boolean;
   count: number;
+  subtotal: number; // cart subtotal in yen (for the free-shipping countdown)
 };
 const CartContext = createContext<Context | null>(null);
 export function useCart() {
@@ -114,6 +116,7 @@ export function CartProvider({
         open: () => run(() => getCart(lang)),
         pending,
         count: cart?.totalQuantity || 0,
+        subtotal,
       }}
     >
       {children}
@@ -274,9 +277,7 @@ export function CartProvider({
               {en ? "Continue to checkout" : "レジへ進む"} <span>↗</span>
             </a>
             <p className="small-print">
-              {en
-                ? "Roasted Tue / Fri. Shipped the next business day."
-                : "火・金焙煎。焙煎日翌営業日に発送。"}
+              {orderingSchedule[en ? "en" : "ja"].join(en ? " " : "")}
             </p>
           </div>
         )}

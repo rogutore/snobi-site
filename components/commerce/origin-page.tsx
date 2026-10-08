@@ -8,6 +8,7 @@ import { CartProvider } from "./cart";
 import { BuyCard } from "./buy-card";
 import { Nav } from "@/components/site/nav";
 import { Footer } from "@/components/site/footer";
+import { orderingSchedule } from "@/content/ordering";
 export function originMetadata(slug: string, lang: Locale): Metadata {
   const p = products.find((p) => p.slug === slug);
   if (!p) return {};
@@ -164,9 +165,7 @@ export async function OriginPage({
             initialSize={size === "200g" ? "200g" : "100g"}
           />
           <p className="small-print">
-            {en
-              ? "Roasted Tue / Fri. Order by noon the day before; shipped the next business day. Roast date on every bag. Both sizes ship by Nekopos."
-              : "火・金焙煎、前日正午締切、翌営業日発送。焙煎日を袋に記載。100g・200gともネコポスで発送。"}
+            {orderingSchedule[en ? "en" : "ja"].join(en ? " " : "")}
           </p>
           <Link href={`${en ? "/en" : "/"}#faq`} className="text-link">
             {en ? "Shipping & ordering" : "送料・ご注文について"} ↗

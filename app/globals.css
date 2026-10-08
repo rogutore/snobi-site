@@ -448,6 +448,15 @@ section[id] {
   margin: 18px 0 22px;
   color: var(--color-ink-soft);
 }
+/* freshness window under the flavour notes (Davy 2026-10-08) */
+.flavor-notes:has(+ .enjoy-within) {
+  margin-bottom: 6px;
+}
+.enjoy-within {
+  font-size: 13px;
+  margin: 0 0 22px;
+  color: var(--color-sage);
+}
 .buy-row {
   display: flex;
   justify-content: space-between;
