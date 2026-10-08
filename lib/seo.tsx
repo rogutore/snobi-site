@@ -78,7 +78,7 @@ export function breadcrumb(items: [string, string][]) {
 const returnsText = legalRows.find((r) => r.k === "返品・交換について")?.v.join(" ");
 
 /** ProductGroup with live price + stock. A variant without readable stock gets no Offer (never a guessed price). */
-export function productGroup(p: Coffee, stock: StockMap, image: string) {
+export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
   const url = `${SITE}/origins/${p.slug}`;
   return {
     "@context": "https://schema.org",
@@ -88,7 +88,7 @@ export function productGroup(p: Coffee, stock: StockMap, image: string) {
     brand: { "@type": "Brand", name: BRAND },
     manufacturer: { "@id": ORG_ID },
     description: p.narrative.ja.join(" "),
-    image: [`${SITE}${image}`],
+    image: images.map((x) => `${SITE}${x}`),
     url,
     countryOfOrigin: p.country,
     variesBy: "https://schema.org/size",

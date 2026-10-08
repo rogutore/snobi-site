@@ -7,6 +7,7 @@ import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule, freeShippingLine } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
+import { OriginGallery } from "@/components/v3/pages/origin-gallery";
 import { FujiMini } from "@/components/v3/fuji-mini";
 import "@/components/v3/pages/origins.css";
 
@@ -72,13 +73,17 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
   const facts = [...p.facts.ja, ...(MORE_FACTS[p.slug] ?? [])];
   return (
     <div className="v3p-origins" style={{ "--rink": p.ink } as React.CSSProperties}>
-      <JsonLd data={[productGroup(p, stock, `/v2/photos/${f.hero}-l.webp`), breadcrumb([["ホーム", "/"], ["産地", "/origins"], [p.title.ja, `/origins/${p.slug}`]])]} />
+      <JsonLd data={[productGroup(p, stock, [f.hero, f.beans, f.cup, f.brew, f.table, f.waist].map((id) => `/v2/photos/${id}-l.webp`)), breadcrumb([["ホーム", "/"], ["産地", "/origins"], [p.title.ja, `/origins/${p.slug}`]])]} />
       {/* hero: the bag in the dappled light + the copy and buy box (Mockup D .ohero) */}
       <section className="v3p-origins-hero" aria-labelledby="o-h1">
-        <div className="ph">
-          {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-          <img {...img(f.hero)} sizes="(min-width:860px) 52vw, 100vw" alt={`SNöBI ${p.title.ja}の袋、朝の光`} fetchPriority="high" />
-        </div>
+        <OriginGallery shots={[
+          { id: f.hero, alt: `SNöBI ${p.title.ja}の袋、木漏れ日のテーブル`, position: "50% 70%" },
+          { id: f.beans, alt: `${p.title.ja}の焙煎豆` },
+          { id: f.cup, alt: `${p.title.ja}の袋と、グラスに注いだコーヒー` },
+          { id: f.brew, alt: `${p.title.ja}をハンドドリップで淹れる` },
+          { id: f.table, alt: `暗いテーブルの上の${p.title.ja}の袋` },
+          { id: f.waist, alt: `${p.title.ja}の袋を両手で持つ` },
+        ]} />
         <div className="copy">
           <p className="eyebrow">第一章 — {String(i + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")}{p.decaf ? " · DECAF" : ""}</p>
           <p className="country" lang="en">{p.country}</p>
@@ -136,13 +141,6 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
         <FujiMini p={p} />
       </section>
 
-      {/* the pair (Mockup D .pair): the cup, then the beans */}
-      <section className="v3p-origins-pair" aria-label="カップと豆">
-        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-        <img {...img(f.cup)} sizes="(min-width:600px) 46vw, 100vw" alt={`${p.title.ja}の袋とカップ`} loading="lazy" />
-        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-        <img {...img(f.beans)} sizes="(min-width:600px) 46vw, 100vw" alt={`${p.title.ja}の焙煎豆`} loading="lazy" />
-      </section>
 
       {/* other origins (Mockup D: releases on white; the bags in the dappled light, as on home) */}
       <section className="v3-sec v3p-origins-others" style={{ paddingTop: 0 }} aria-labelledby="o-others">
