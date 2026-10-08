@@ -26,15 +26,13 @@ export const generateMetadata = async (): Promise<Metadata> => ({
      relative hreflang values, which would silently void the ja/en pairing. */
   metadataBase: new URL("https://snobi.jp"),
   robots: (await isIndexedHost()) ? undefined : { index: false, follow: false },
-  title: "Snobi — Organic. And actually specialty.",
+  /* No default canonical/hreflang here: every page sets its own (lib/seo.tsx pageMeta). A default "/" canonical
+     made every page claim to be the home page (audit 2026-10-08, V1). */
+  title: "SNöBI — Organic. And actually specialty.",
   description:
     "Organic × Specialty × Japan。東京コーヒー発のオーガニック・スペシャルティライン。Est. 2026.",
-  alternates: {
-    canonical: "/",
-    languages: { ja: "/", en: "/en", "x-default": "/" },
-  },
   openGraph: {
-    title: "Snobi — Organic. And actually specialty.",
+    title: "SNöBI — Organic. And actually specialty.",
     description:
       "Organic × Specialty × Japan — from the Tokyo Coffee family. Est. 2026.",
     type: "website",
@@ -57,14 +55,14 @@ export default function Document({
     >
       <head>
         {/* Start the hero request before Adobe's dynamic font requests compete for bandwidth. */}
-        <link
+        {lang === "en" ? <link
           rel="preload"
           as="image"
           href={lineupPreload.src}
           imageSrcSet={lineupPreload.srcSet}
           imageSizes={lineupPreload.sizes}
           fetchPriority="high"
-        />
+        /> : null}
         {/* Discover the hero wordmark before the dynamic font kit starts its requests. */}
         <link
           rel="preload"

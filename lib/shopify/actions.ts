@@ -68,6 +68,7 @@ export async function getCart(lang: Locale = "ja"): Promise<Result> {
         {
           id: cart.id,
           attributes: [
+            ...cart.attributes.filter((a) => a.key === "ref_host" || a.key === "utm_source"),
             { key: "source", value: "snobi.jp" },
             { key: "lang", value: lang },
           ],
@@ -80,20 +81,38 @@ export async function getCart(lang: Locale = "ja"): Promise<Result> {
     return { cart: null, error: message(lang) };
   }
 }
+/* Where the visitor first came from (T6, plan seo-aeo-plan.md): referrer host + utm_source, sanitised to plain
+   tokens so nothing personal or arbitrary reaches the order. Orders then show chatgpt.com / perplexity.ai / google… */
+export type Ref = { host?: string; utm?: string };
+function refAttrs(ref?: Ref) {
+  const host = ref?.host?.toLowerCase().slice(0, 64);
+  const utm = ref?.utm?.toLowerCase().slice(0, 40);
+  return [
+    ...(host && /^[a-z0-9.-]+$/.test(host) ? [{ key: "ref_host", value: host }] : []),
+    ...(utm && /^[a-z0-9._-]+$/.test(utm) ? [{ key: "utm_source", value: utm }] : []),
+  ];
+}
+
 export async function addLine(
-  variantId: string,
+  variant: string | string[], // one variant, or several in one call (e.g. "all four" from the Fuji section)
   lang: Locale = "ja",
+  ref?: Ref,
 ): Promise<Result> {
   lang = lang === "en" ? "en" : "ja";
+  const ids = Array.isArray(variant) ? variant : [variant];
   if (
-    !products.some((p) => p.variants.some((v) => v.id === variantId && !!v.id))
+    !ids.length ||
+    ids.length > 8 ||
+    !ids.every((id) => products.some((p) => p.variants.some((v) => v.id === id && !!v.id)))
   )
     return { cart: null, error: message(lang) };
+  const lines = ids.map((id) => ({ merchandiseId: id, quantity: 1 }));
   try {
     const cart = await readCart();
     const attrs = [
       { key: "source", value: "snobi.jp" },
       { key: "lang", value: lang },
+      ...refAttrs(ref),
     ];
     if (!cart) {
       const data = await storefront<{ cartCreate: Payload }>(
@@ -102,7 +121,7 @@ export async function addLine(
           input: {
             buyerIdentity: { countryCode: "JP" },
             attributes: attrs,
-            lines: [{ merchandiseId: variantId, quantity: 1 }],
+            lines,
           },
         },
       );
@@ -117,7 +136,7 @@ export async function addLine(
       return unpack(attributes.cartAttributesUpdate, lang);
     const data = await storefront<{ cartLinesAdd: Payload }>(
       `mutation Add($id:ID!,$lines:[CartLineInput!]!) @inContext(country:JP) { cartLinesAdd(cartId:$id,lines:$lines) { ${mutationFields} } }`,
-      { id: cart.id, lines: [{ merchandiseId: variantId, quantity: 1 }] },
+      { id: cart.id, lines },
     );
     return unpack(data.cartLinesAdd, lang);
   } catch {

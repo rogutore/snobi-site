@@ -1,0 +1,186 @@
+/* /v3 About (ストーリー), FAQ and Journal — Mockup D story.html, faq.html and journal.html, ported 1:1 in proportions
+   from artifacts/mockup-d/site.css (.statement, .photos, .lists, .cal-box rules, .faq, .page-head, .toc) onto the repo
+   tokens. Japanese headings: Maiola/Shuei 600 with palt, never negative tracking. Mono captions at v3's 12px floor.
+   Rules that set weight or margin on h1–h3/p are scoped under .v3 to outrank v3.css's `.v3 h2 { font-weight: 400 }`. */
+
+.v3 .v3p-story-h { font-family: var(--font-sans); font-weight: 600; letter-spacing: .01em; font-feature-settings: "palt"; line-height: 1.45; word-break: auto-phrase; }
+
+/* figures (Mockup D .photos figure) */
+.v3p-story-fig { margin: 0; display: grid; gap: 8px; min-width: 0; align-content: start; }
+.v3p-story-fig img { display: block; width: 100%; height: auto; object-fit: cover; border-radius: 3px; }
+.v3p-story-fig figcaption { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; line-height: 1.6; color: var(--color-ink-soft); }
+
+/* statement block (Mockup D .statement) */
+.v3p-story-statement { padding: clamp(60px, 14vh, 160px) var(--gutter); display: grid; justify-items: center; text-align: center; gap: 24px; }
+.v3p-story-statement.next { padding-top: 0; padding-bottom: clamp(40px, 8vh, 100px); }
+.v3p-story-statement.end { border-top: 1px solid var(--color-line); }
+.v3p-story-statement .display { font-size: clamp(1.8rem, 4vw, 3.6rem); max-width: 16em; }
+.v3 .v3p-story-said { display: grid; gap: .2em; max-width: 30em; font-family: var(--font-sans); font-weight: 400; font-size: clamp(1.45rem, 3vw, 2.6rem);
+  line-height: 1.55; letter-spacing: .01em; font-feature-settings: "palt"; color: var(--color-ink); word-break: auto-phrase; }
+.v3 .v3p-story-said span:first-child { font-weight: 600; color: var(--color-plum); }
+.v3p-story-ja { display: grid; gap: .6em; max-width: 34em; font-size: 15.5px; }
+.v3p-story-quote { font-size: 1.25rem; color: var(--color-ink-soft); letter-spacing: .02em; }
+
+/* the place: two landscapes over three portraits (Mockup D .photos grid and gaps) */
+.v3p-story-place { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(12px, 2vw, 28px); padding: 0 var(--gutter) clamp(60px, 12vh, 140px); align-items: start; }
+.v3p-story-place > :nth-child(-n+2) { grid-column: span 3; }
+.v3p-story-place > :nth-child(n+3) { grid-column: span 2; }
+.v3p-story-place > :nth-child(-n+2) img { aspect-ratio: 4 / 3; }
+.v3p-story-place > :nth-child(n+3) img { aspect-ratio: 3 / 4; }
+@media (max-width: 700px) {
+  .v3p-story-place { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v3p-story-place > :nth-child(-n+3) { grid-column: 1 / -1; }
+  .v3p-story-place > :nth-child(n+4) { grid-column: span 1; }
+}
+
+/* road ahead (Mockup D .lists) */
+.v3p-story-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 6vw, 100px); padding: 0 var(--gutter) clamp(60px, 12vh, 140px); align-items: start; }
+.v3 .v3p-story-lists h2 { font-size: clamp(1.3rem, 2.2vw, 1.8rem); margin: 8px 0 18px; }
+.v3p-story-lists ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.v3p-story-lists li { padding: 16px 0; border-top: 1px solid var(--color-line); display: grid; gap: 4px; }
+.v3p-story-lists li:last-child { border-bottom: 1px solid var(--color-line); }
+.v3 .v3p-story-lists h3 { font-size: 1rem; font-weight: 600; letter-spacing: .01em; }
+.v3p-story-lists li p:not(.eyebrow) { font-size: 13.5px; color: var(--color-ink-soft); max-width: 30em; }
+.v3p-story-lists .v3p-story-fig img { aspect-ratio: 4 / 3; }
+@media (max-width: 860px) { .v3p-story-lists { grid-template-columns: minmax(0, 1fr); } }
+
+/* Tokyo Coffee lineage */
+.v3p-story-lineage { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(24px, 5vw, 80px); align-items: center;
+  padding: clamp(48px, 10vh, 120px) var(--gutter) clamp(24px, 4vh, 44px); border-top: 1px solid var(--color-line); }
+.v3p-story-lineage .copy { display: grid; gap: 16px; justify-items: start; min-width: 0; }
+.v3 .v3p-story-lineage h2 { font-size: clamp(1.4rem, 2.6vw, 2.2rem); max-width: 18em; }
+.v3p-story-fact { font-size: 15.5px; }
+.v3p-story-slot { border: 1px dashed var(--color-plum); border-radius: 3px; padding: 12px 16px; font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: .06em; line-height: 1.7; color: var(--color-plum); }
+.v3p-story-lineage .v3p-story-fig img { aspect-ratio: 3 / 2; }
+@media (max-width: 860px) { .v3p-story-lineage { grid-template-columns: minmax(0, 1fr); } }
+
+/* three figures in a row (Mockup D .photos) */
+.v3p-story-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 28px); padding: 0 var(--gutter) clamp(60px, 12vh, 140px); }
+.v3p-story-trio img { aspect-ratio: 4 / 3; }
+@media (max-width: 700px) { .v3p-story-trio { grid-template-columns: minmax(0, 1fr); } }
+
+/* the one dark band: full bleed, copy on the black drum at left */
+.v3p-story-band { position: relative; background: var(--color-ink); }
+.v3p-story-band .v3p-story-fig img { aspect-ratio: 16 / 7; border-radius: 0; }
+.v3p-story-band::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-ink) 60%, transparent), transparent 60%); }
+.v3 .v3p-story-band p { position: absolute; left: var(--gutter); top: 50%; transform: translateY(-50%); z-index: 36; text-shadow: 0 1px 14px rgb(20 14 24 / .35); color: var(--color-paper);
+  font-size: clamp(1.8rem, 4vw, 3.6rem); line-height: 1.3; }
+@media (max-width: 760px) {
+  .v3p-story-band .v3p-story-fig img { aspect-ratio: 4 / 5; }
+  .v3p-story-band::after { background: linear-gradient(0deg, color-mix(in srgb, var(--color-ink) 60%, transparent), transparent 60%); }
+  .v3 .v3p-story-band p { top: auto; bottom: 28px; transform: none; }
+}
+
+/* JAS organic: the numbers between Mockup D's plum rules (its .cal-box frame) */
+/* S4 (owner 2026-10-08): the sack's JAS mark (161) beside the numbers, instead of a second photo row */
+.v3p-story-jas { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 5vw, 80px); align-items: center;
+  padding: clamp(60px, 14vh, 160px) var(--gutter); scroll-margin-top: var(--nav); }
+.v3p-story-jas .copy { display: grid; gap: 20px; justify-items: start; min-width: 0; }
+.v3p-story-jas .v3p-story-fig img { aspect-ratio: 4 / 5; object-position: 50% 45%; }
+.v3 .v3p-story-jas h2 { font-size: clamp(1.6rem, 3vw, 2.6rem); max-width: 20em; }
+/* beside the photo the numbers become rows (DESIGN.md facts list), so 13OGP-2001 never breaks */
+.v3p-story-jas .v3p-story-nums { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0; }
+.v3p-story-jas .v3p-story-nums li { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: baseline; gap: 16px; padding: 18px 0; }
+.v3p-story-jas .v3p-story-nums li + li { border-top: 1px solid var(--color-line); }
+.v3p-story-jas .v3p-story-nums b { white-space: nowrap; font-size: clamp(1.5rem, 2.6vw, 2.5rem); }
+@media (max-width: 860px) { .v3p-story-jas { grid-template-columns: minmax(0, 1fr); } .v3p-story-jas .v3p-story-fig img { aspect-ratio: 3 / 2; } }
+
+/* S1 (owner 2026-10-08): the walk in — the home hand chapter's pinned photo (components/v3/sticky-photos.tsx) */
+.v3-hand.walk .v3-hand-step { min-height: calc(85svh - var(--nav)); }
+.v3 .v3-walk-h { font-size: clamp(2.4rem, 4.6vw, 4.8rem); line-height: .98; color: var(--color-plum); }
+.v3-walk-cap { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; color: var(--color-ink-soft); }
+.v3-walk-cap.big { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.3rem, 2.2vw, 1.9rem); letter-spacing: .01em; line-height: 1.5; color: var(--color-plum); }
+.v3p-story-nums { list-style: none; margin: 8px 0 0; padding: 28px 0; width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 4vw, 60px); border-top: 1px solid var(--color-plum); border-bottom: 1px solid var(--color-plum); }
+.v3p-story-nums li { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.v3p-story-nums b { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 3.2vw, 3rem); line-height: 1; letter-spacing: -.01em;
+  color: var(--color-plum); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.v3p-story-nums span { font-size: 13.5px; color: var(--color-ink-soft); }
+@media (max-width: 700px) { .v3p-story-nums { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+
+/* FAQ (Mockup D .faq) */
+.v3p-story-faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(20px, 5vw, 100px); padding: clamp(40px, 8vh, 100px) var(--gutter); align-items: start; }
+.v3 .v3p-story-faq h1 { font-size: clamp(1.8rem, 3.4vw, 2.8rem); line-height: 1.4; }
+.v3p-story-faq-groups { display: grid; gap: 36px; min-width: 0; }
+.v3 .v3p-story-faq-g h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; color: var(--color-ink-soft); padding-bottom: 8px; }
+.v3p-story-faq details { border-top: 1px solid var(--color-line); padding: 16px 0; }
+.v3p-story-faq details:last-child { border-bottom: 1px solid var(--color-line); }
+.v3p-story-faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; font-size: 15.5px; }
+.v3p-story-faq summary::-webkit-details-marker { display: none; }
+.v3p-story-faq summary::after { content: "＋"; font-family: var(--font-mono); color: var(--color-ink-soft); flex: none; }
+.v3p-story-faq details[open] summary::after { content: "－"; }
+.v3p-story-faq .a { padding-top: 10px; font-size: 14px; color: var(--color-ink-soft); max-width: 60ch; }
+.v3p-story-faq .a a { color: var(--color-plum); text-underline-offset: 4px; }
+@media (max-width: 860px) { .v3p-story-faq { grid-template-columns: minmax(0, 1fr); } }
+
+/* journal page head (Mockup D .page-head) and contents (.toc) */
+.v3p-story-head { padding: clamp(28px, 6vh, 64px) var(--gutter) clamp(16px, 3vh, 28px); display: grid; gap: 10px; justify-items: start; }
+.v3 .v3p-story-head h1 { font-size: clamp(2rem, 4.6vw, 4rem); line-height: 1.25; }
+.v3p-story-head p:not(.eyebrow):not(.v3p-story-draft) { color: var(--color-ink-soft); font-size: 14.5px; max-width: 34em; }
+.v3p-story-head .eyebrow a { text-decoration: none; } .v3p-story-head .eyebrow a:hover { color: var(--color-plum); }
+.v3p-story-toc { display: grid; border-top: 1px solid var(--color-plum); margin: 0 var(--gutter) clamp(40px, 10vh, 120px); }
+.v3p-story-toc .row { display: grid; grid-template-columns: 9ch 12ch minmax(0, 1fr) 90px; gap: 16px; align-items: center; padding: 16px 0;
+  border-bottom: 1px solid var(--color-line); text-decoration: none; font-size: 15px; min-width: 0; }
+.v3p-story-toc a.row { transition: background var(--duration-fast); }
+.v3p-story-toc a.row:hover { background: var(--color-paper-2); }
+.v3p-story-toc .d, .v3p-story-toc .c { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; color: var(--color-ink-soft); }
+.v3p-story-toc .soon .t { color: var(--color-ink-soft); }
+.v3p-story-thumb { margin: 0; }
+.v3p-story-thumb img { display: block; width: 90px; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 2px; }
+@media (max-width: 700px) {
+  .v3p-story-toc .row { grid-template-columns: minmax(0, 1fr) 70px; gap: 4px 16px; }
+  .v3p-story-toc .d, .v3p-story-toc .c, .v3p-story-toc .t { grid-column: 1; }
+  .v3p-story-thumb { grid-row: 1 / span 3; grid-column: 2; }
+  .v3p-story-thumb img { width: 70px; }
+}
+
+/* the Roastery photo essay */
+.v3p-story-draft { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; line-height: 1.6; color: var(--color-plum);
+  border: 1px dashed var(--color-plum); border-radius: 999px; padding: 6px 14px; }
+.v3p-story-essay { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(28px, 6vh, 72px) clamp(12px, 2vw, 28px);
+  padding: clamp(24px, 4vh, 44px) var(--gutter) clamp(48px, 10vh, 120px); }
+.v3p-story-essay .one { grid-column: 2 / span 10; }
+.v3p-story-essay .one img { aspect-ratio: 3 / 2; }
+.v3p-story-essay .half { grid-column: span 6; }
+.v3p-story-essay .half img { aspect-ratio: 4 / 3; }
+@media (max-width: 700px) { .v3p-story-essay .one, .v3p-story-essay .half { grid-column: 1 / -1; } }
+.v3p-story-postfoot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  margin: 0 var(--gutter); padding: 28px 0 clamp(60px, 12vh, 140px); border-top: 1px solid var(--color-line); }
+.v3p-story-back { font-size: 13.5px; text-underline-offset: 5px; color: var(--color-ink-soft); }
+/* v3.css's `.v3 a { color: inherit }` outranks `.v3-btn`'s paper text on a filled link button; restore it here. */
+.v3 .v3p-story-postfoot .v3-btn { color: var(--color-paper); }
+
+/* ---------- journal post (content/journal) — one reading column, Mockup D's head ---------- */
+.v3p-post-dates { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; color: var(--color-ink-soft); }
+.v3p-post-cover { margin: 0 auto; width: min(820px, calc(100% - 2 * var(--gutter))); }
+.v3p-post-cover img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; }
+.v3p-post-body { width: min(40em, calc(100% - 2 * var(--gutter))); margin: 0 auto; padding: clamp(28px, 5vh, 56px) 0; display: grid; gap: clamp(28px, 4vh, 44px); font-size: 16px; line-height: 1.95; }
+.v3p-post-body section { display: grid; gap: 14px; min-width: 0; }
+.v3 .v3p-post-body h2 { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.25rem, 2.2vw, 1.6rem); line-height: 1.5; letter-spacing: .01em; color: var(--color-plum); }
+.v3p-post-lead { font-size: 1.12rem; line-height: 1.9; padding: 18px 0; border-block: 1px solid var(--color-plum); }
+.v3p-post-body ul, .v3p-post-body ol { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+.v3p-post-body .note { background: var(--color-paper-2); padding: 14px 18px; border-radius: 3px; font-size: 14.5px; }
+.v3p-post-body .tbl { overflow-x: auto; }
+.v3p-post-body table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; line-height: 1.7; }
+.v3p-post-body th { text-align: left; font-weight: 600; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--color-plum); }
+.v3p-post-body td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+.v3p-post-faq dl { margin: 0; display: grid; }
+.v3p-post-faq dl > div { padding: 14px 0; border-top: 1px solid var(--color-line); display: grid; gap: 6px; }
+.v3p-post-faq dt { font-weight: 600; }
+.v3p-post-faq dd { margin: 0; color: var(--color-ink-soft); font-size: 15px; }
+.v3p-post-coffees { width: min(1100px, calc(100% - 2 * var(--gutter))); margin: 0 auto; padding: 8px 0 clamp(28px, 5vh, 56px); display: grid; gap: 14px; }
+.v3p-post-coffees .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.v3p-post-coffees .card { display: grid; gap: 6px; text-decoration: none; }
+.v3p-post-coffees .ph { margin: 0; }
+.v3p-post-coffees .ph img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; transition: transform .6s var(--ease-house); }
+.v3p-post-coffees .card:hover img { transform: translateY(-4px); }
+.v3p-post-coffees .t { font-weight: 600; }
+.v3p-post-coffees .s { font-size: 13px; color: var(--color-ink-soft); }
+.v3p-post-coffees .pr { font-family: var(--font-mono); font-size: 12.5px; color: var(--color-plum); }
+.v3p-post-sources { width: min(40em, calc(100% - 2 * var(--gutter))); margin: 0 auto; display: grid; gap: 10px; }
+.v3 .v3p-post-sources h2 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; color: var(--color-ink-soft); }
+.v3p-post-sources ol { margin: 0; padding-left: 1.4em; font-size: 13px; color: var(--color-ink-soft); display: grid; gap: 4px; overflow-wrap: anywhere; }
+.v3p-post-sources a { color: inherit; text-underline-offset: 3px; }
+.v3p-post-sources .v3p-story-postfoot { margin: 18px 0 0; }

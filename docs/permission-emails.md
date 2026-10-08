@@ -1,41 +1,96 @@
-# SNöBI — photo requests to importers & producers (drafts, not sent)
+# SNöBI — photo requests along our real supply chain (drafts, not sent)
 
-2026-10-05.
-- **Main ask: high-quality photos + permission.**
-- **Video is one "by the way" line.** No supplier has drone footage online (searched 2026-10-05). The inspirational farm section will use stock/generated drone footage regardless.
-- Fill the `[ ]` brackets and add a shared folder link. Suggested: Drive `RTU/premium-line/origin-media/<origin>/`.
+Rewritten 2026-10-08 (owner: "request from our supplier and potentially their supplier or the exporter/importer or the
+farm, NOT from a random company we are not purchasing from"). Replaces the 2026-10-05 drafts (git `50a981b`), which led
+with Sucafina — a company we have never bought from.
 
-| # | To | Address |
-|---|---|---|
-| 1 | Sucafina Japan (send first; covers 3 producers) | office 03-6871-8607, Nishi-Shinjuku; SalesJapan@sucafina.com (from a search listing; confirm) |
-| 2 | 海ノ向こうコーヒー | usual contact |
-| 3 | 小川珈琲 | usual contact |
-| 4 | オリジンコーヒートレーダーズ | usual contact |
-| 5 | Colombia supplier (双日食料 or whoever sold us lot 3/0104/00023) | confirm |
-| 6 | CAC La Prosperidad de Chirinos | industrializacion@cac-laprosperidad.com |
-| 7 | Descamex | contacto@descamex.com.mx |
-| 8 | Café Colsuaves / El Bombo | no public email; route via 1 or 5 |
+Evidence: order/invoice mail in info@tokyocoffee.jp, invoices and certificates in Drive (`My Drive/SNOBI/`, vendor
+folders), public web pages. Marks: VERIFIED (source named) / INFERRED / UNKNOWN.
+
+**Status 2026-10-08: ON HOLD — confirm with the purchasing team before anything is sent (owner).** Questions for them:
+1. Are the four vendors in §1 the ones SNöBI's beans come from (not other stock of the same origin)?
+2. Colombia: is SNöBI roasted only from コーヒー流通センター 7005A, never from the むそう Colombia?
+3. Decaf: when the オリジン lot 1121 runs out, does SNöBI decaf switch to the 健友 lot (016/2222/0722), or do we keep some オリジン stock?
+4. Who should sign each email (the person who orders from that vendor)?
+
+## 1. Who we actually buy from (the chain, farm → our vendor)
+
+| Lot | Farm / producer | Exporter | Importer into Japan | **Our vendor (we pay them)** |
+|---|---|---|---|---|
+| Peru Chirinos Geisha washed G1 | Miguel Esteban Ramírez Agurto, CAC La Prosperidad de Chirinos | the co-op exports itself (VERIFIED, cac-laprosperidad.com) | UNKNOWN (not on the vendor's pages) | **株式会社坂ノ途中 海ノ向こうコーヒー事業部**. VERIFIED: orders 17720944740 (2026-02-26) and 17852069205 (2026-07-28), 30 kg each, item U899-260K300-0, ¥4,720/kg |
+| Ethiopia Guji G1 Tade GG natural | Tade GG farm, Tesfaye Bekele | Tade GG PLC, Tesfaye's own export company (VERIFIED, slurp.coffee) | probably 丸紅 (INFERRED: Marubeni's coffee report names Tade GG and "Mr. Tasfaye") | **小川珈琲株式会社**. VERIFIED: web-shop order 11122 (2026-05-19, 5 kg, ¥2,944/kg), orders 11382 and 13272 (60 kg each); JAS certificate addressed to us 2026-06-05 |
+| Colombia Huila organic | Cooperativa de Caficultores El Bombo – Núcleo 2 (Pitalito) | Café Colsuaves S.A.S., Pereira (VERIFIED: organic certificate) | 双日食料 (VERIFIED: organic certificate) | **コーヒー流通センター（清光コーヒー株式会社）**. VERIFIED: item 7005A 「コロンビア ウイラ 有機栽培（麻袋）」, order E-226200 (2026-01-21, 4 × 30 kg), 124015068047 (2026-07-22, 1 × 30 kg). That our Drive certificate (lot 3/0104/00023) is theirs: INFERRED (they mailed the certificate + product sheet 2026-07-28; same product, 30 kg bags) |
+| Mexico Chiapas organic decaf ("Honey Chiapas" HG EP) | GRAPOS co-op smallholders, Chiapas | Agroindustrias Unidas de México, Beneficio Seco Dos Ríos, Veracruz, named as seller on the transaction certificate (VERIFIED: `JAS Decaf Mexico#1121.pdf`); decaf plant Descamex per our spec sheet only (UNKNOWN which is right) | **ECOM JAPAN LTD** (consignee on the same certificate, VERIFIED) | **オリジンコーヒートレーダーズジャパン株式会社**. VERIFIED: invoices D11811 (2026-07-14) and D12140 (2026-09-02), 120 kg each at ¥2,270/kg; web order #31696 (2026-09-17), 120 kg of lot 1121 at ¥2,340/kg |
+
+**Sucafina is not in any of our chains** (no order, invoice or mail with Sucafina, Trabocca or Colsuaves in any mailbox or
+Drive folder). Sucafina Japan is a one-person sales office for Sucafina SA, not an importer (VERIFIED,
+group.sucafina.com/network/sucafina-japan). Sucafina does trade the same producers in other markets: Chirinos (Miguel's
+Geisha, via its North American arm Sustainable Harvest), Tade GG (EU, NA, APAC) and El Bombo (buyer + co-funder of the
+"Women in Coffee" programme). **It owns the Tade GG photos we hold** (`DSCF6643/6751/6762`, `Tesfaye Bekele Owner of Tade
+GG.jpg` sit on Sucafina's image server), and **snobi.jp shows one of them today** (`/producers/tesfaye.jpg` on
+/origins/ethiopia-guji, VERIFIED 2026-10-08). So Sucafina gets one honest email (§5), not the lead role.
+
+**Two things that change products, not just emails:**
+- **Decaf supplier changes from October.** On 2026-09-18 we contracted 健友交易 for MWP decaf, lot 016/2222/0722, Oct 2026–Jan
+  2027, ¥2,330/kg (VERIFIED, mail). Its producer and plant are UNKNOWN. The exporter code 2222 matches the OCT lot
+  016-2222-1121, so the same Mexican exporter is likely (INFERRED). **Owner decision:** keep SNöBI decaf on the OCT/GRAPOS
+  stock, or switch it to the 健友 lot once its facts are known (then the Mexico page changes).
+- **Our bulk Colombia (むそう商事, 35 kg, lots 3/265/00130 and 003-0354-00691) is a different coffee.** SNöBI Colombia must be
+  roasted from the コーヒー流通センター 7005A stock only, or the El Bombo facts on the site are wrong.
+
+## 2. How to send
+
+- **Order:** step 1 = our vendors (§3). Step 2 = their importers/exporters (§4), only after the vendor replies OK or
+  introduces us, and with the vendor in CC. Sucafina (§5) is separate and can go any time.
+- **From:** info@tokyocoffee.jp (where all supplier mail lives), signed by whoever usually orders from that vendor.
+- **Fill in:** `[氏名]`, `[連絡先]`, `[共有フォルダURL]` (suggested Drive `RTU/premium-line/origin-media/<origin>/` — owner OK
+  needed to create it).
+- Ask for photos first; video/drone is one "by the way" line. No stock or generated footage will stand in for a farm
+  (DESIGN.md: real photography only).
+
+| # | To | Address (source) | Step |
+|---|---|---|---|
+| 1 | 海ノ向こうコーヒー 矢野 翔大様 | yanos@on-the-slope.com, TEL 075-205-5380 (his signature) | 1 |
+| 2 | 小川珈琲 鈴木 晴人様（第1営業部 業務2課） | h-suzuki@oc-ogawa.co.jp, Tokyo office 03-5464-1531 (his signature) | 1 |
+| 3 | コーヒー流通センター | coffee@cafe.co.jp, 0823-27-5071 (their mail) | 1 |
+| 4 | オリジンコーヒートレーダーズ 田久保様 | info@origincoffeetradersjp.com, 03-4400-9505 (their mail) | 1 |
+| 5 | 健友交易 千本様 | shinkenyu.2020@gmail.com, 072-804-0050 (their mail) | 1, only if the owner wants the decaf switch option |
+| 6 | 双日食料 コーヒーご担当 | form https://www.sofco.sojitz.com/inquiry/products/input.html (official site) | 2, after #3 |
+| 7 | ECOM JAPAN | ask 田久保様 for the contact (#4) | 2, after #4 |
+| 8 | CAC La Prosperidad de Chirinos | gerencia@cac-laprosperidad.com, +51 959 904 263 (cac-laprosperidad.com/contacto) | 2, after #1 |
+| 9 | Café Colsuaves (El Bombo's exporter) | info@colsuaves.com (colsuaves.com) | 2, after #3/#6 |
+| 10 | Descamex | contacto@descamex.com.mx (descamex.com.mx) | HOLD until #4 confirms the decaf plant |
+| 11 | Sucafina (Japan / APAC) | salesasia@sucafina.com (sucafina.com/apac/About/Team); Japan office +81 3 6871 8607; MD Japan & Korea Felice Chay | any time |
+
+Ethiopia's and Peru's importers are not known yet; when 鈴木様 / 矢野様 name them, reuse #6 with the names swapped. Tade GG
+PLC has no working public address, so go through the importer.
 
 ---
 
-## 1. Sucafina Japan
+## 3. Step 1 — our vendors
 
-件名：SNöBI（Tokyo Coffee）— 生産者写真のご提供と使用許諾のお願い
+### #1 海ノ向こうコーヒー（坂ノ途中）
 
-Sucafina Japan ご担当者様
+件名：ペルー チリノス ゲイシャ（U899-260K300-0）— 写真のご提供と産地へのご紹介のお願い
 
-株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
-新ライン「SNöBI」（https://snobi.jp）で、タデGG（エチオピア）、チリノス（ペルー）、エル ボンボ（コロンビア）のコーヒーを販売しております。
+矢野様
 
-各産地ページに使うため、貴社サイト掲載の写真の高解像度データをお送りいただけますでしょうか。
-例：タデGGのDSCFシリーズ、チリノスのIMG_2627・DSC03115、エル ボンボの写真。
-あわせて、snobi.jp・SNS・印刷物での使用許諾と、ご希望のクレジット表記をお知らせください。
+いつもお世話になっております。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
+2月と7月にご注文したチリノス組合 ゲイシャ ウォッシュ G1（U899-260K300-0）を、新ライン「SNöBI」（https://snobi.jp）で販売しております。
 
-なお、現在snobi.jpで、貴社サイトにも掲載されているタスファイ・ベケレ氏のポートレートを使用しております。
-ご許可いただけない場合は差し替えますので、あわせてご確認ください。
+産地ページ（https://snobi.jp/origins/peru）を充実させたく、3点ご相談させてください。
 
-ちなみに、空撮（ドローン）や動画素材もお持ちでしたら、ぜひ拝見したいです。
-Vimeoの「El Bombo & Sucafina: Women in Coffee Project 2025」も素敵でした。
+1. 写真のご提供
+ミゲルさん、農園、チリノスの写真をお持ちでしたら、高解像度データをお送りいただけますでしょうか。
+snobi.jp・SNS・印刷物での使用許諾と、ご希望のクレジット表記もあわせてお知らせください。
+
+2. 掲載中の写真の確認
+現在、ミゲルさんのお写真を1点掲載しております。貴社の商品資料にあったものと認識しておりますが、使用に問題がないかご確認いただけますでしょうか。
+
+3. 産地へのつながり
+このロットの輸出・輸入の流れを教えていただけますか。チリノス組合に直接写真をお願いしてもよろしければ、ご紹介いただけると大変助かります。貴社のご迷惑にならない形で進めます。
+
+ちなみに、農園の空撮（ドローン）や動画もお持ちでしたら、ぜひ拝見したいです。
 
 送付先：[共有フォルダURL]
 よろしくお願いいたします。
@@ -45,115 +100,154 @@ Vimeoの「El Bombo & Sucafina: Women in Coffee Project 2025」も素敵でし�
 
 ---
 
-## 2. 海ノ向こうコーヒー
+### #2 小川珈琲
 
-件名：ペルー チリノス ゲイシャ — 写真のご提供のお願い（SNöBI）
+件名：エチオピア グジ タデGG農園 ナチュラル — 写真と輸入元についてのご相談（SNöBI）
 
-[ご担当者名]様
+鈴木様
 
 いつもお世話になっております。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
-貴社のチリノス組合 ゲイシャを、新ライン「SNöBI」（https://snobi.jp）で販売しております。
+グジ G1 タデGG農園 ナチュラルを、新ライン「SNöBI」（https://snobi.jp）で販売しております。
 
-産地ページに使うため、ミゲルさん・チリノスの写真の高解像度データをお送りいただけますでしょうか。
-例：商品ページのDSC0739・0753・0794など。
-あわせて、snobi.jp・SNS・印刷物での使用許諾と、ご希望のクレジット表記をお知らせください。
+産地ページ（https://snobi.jp/origins/ethiopia-guji）について、ご相談させてください。
 
-ちなみに、農園の空撮（ドローン）や動画もお持ちでしたら、ぜひ拝見したいです。
+1. 写真のご提供
+タスファイ・ベケレ氏や農園の写真をお持ちでしたら、高解像度データと、snobi.jp・SNS・印刷物での使用許諾、ご希望のクレジット表記をお願いできますでしょうか。
+現在掲載している写真は貴社経由のものではないため、差し替えたいと考えております。
+
+2. 輸入元
+このロットの輸入元（商社）を教えていただけますか。お手元に写真がない場合は、輸入元へのご紹介か、ご依頼の取り次ぎをお願いできれば幸いです。
+
+3. 確認2点
+・「GG」は「Green Gold」の意味で合っていますか。
+・標高は1,800〜2,200mで掲載してよろしいでしょうか。
+
+ちなみに、空撮（ドローン）や動画もあれば、ぜひ拝見したいです。
 
 送付先：[共有フォルダURL]
 よろしくお願いいたします。
 
 [氏名]
-株式会社ローグトレード（Tokyo Coffee / SNöBI）
+株式会社ローグトレード（Tokyo Coffee / SNöBI）[連絡先]
 
 ---
 
-## 3. 小川珈琲
+### #3 コーヒー流通センター（清光コーヒー）
 
-件名：エチオピア タデGG農園 — 写真のご提供と使用許諾のお願い（SNöBI）
+件名：コロンビア ウイラ 有機栽培（7005A）— 資料の掲載と輸入元へのご連絡について
 
-[ご担当者名]様
+コーヒー流通センター ご担当者様
 
 いつもお世話になっております。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
-貴社のタデGG農園 ナチュラルを、新ライン「SNöBI」（https://snobi.jp）で販売しております。
+7005A「コロンビア ウイラ 有機栽培（麻袋）」を、新ライン「SNöBI」（https://snobi.jp）で販売しております。
+7月28日には有機証明書と商品資料をお送りいただき、ありがとうございました。画像のご用意がないことも承知いたしました。
 
-産地ページに使うため、タスファイ・ベケレ氏と農園の写真の高解像度データをお送りいただけますでしょうか。
-あわせて、snobi.jp・SNS・印刷物での使用許諾と、ご希望のクレジット表記をお知らせください。
-他社提供の写真の場合は、提供元を教えていただけますと助かります。
+1. 資料の掲載
+資料にある生産者名・標高・品種・精製などの情報を、snobi.jpの産地ページと印刷物に掲載してもよろしいでしょうか。
 
-ちなみに、農園の空撮（ドローン）や動画もお持ちでしたら、ぜひ拝見したいです。
+2. ロットの確認
+現在の在庫は LOT 3/0104/00023（生産 Cooperativa de Caficultores El Bombo、輸出 Café Colsuaves、輸入 双日食料）で合っていますか。
 
-追伸：2点だけ確認させてください。
-- 「GG」は「Green Gold」の意味で合っていますか。
-- 標高は1,800〜2,200mで掲載してよろしいでしょうか。
+3. 生産者の写真
+生産者組合の写真を、輸入元の双日食料様にお願いしたいと考えております。直接ご連絡してもよろしいでしょうか。ご紹介いただけるようでしたら、なお助かります。
+
+よろしくお願いいたします。
+
+[氏名]
+株式会社ローグトレード（Tokyo Coffee / SNöBI）[連絡先]
+
+---
+
+### #4 オリジンコーヒートレーダーズ
+
+件名：メキシコ チアパス グラポス デカフェ（#1121）— 写真と産地情報のお願い（SNöBI）
+
+田久保様
+
+いつもお世話になっております。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
+【デカフェ有機栽培】メキシコ チアパスHG EP グラポス（ロット1121）を、新ライン「SNöBI」（https://snobi.jp）で販売しております。
+
+産地ページ（https://snobi.jp/origins/mexico-chiapas-decaf）について、ご相談させてください。
+
+1. 写真のご提供
+グラポスの生産者・農園、デカフェ工程の写真をお持ちでしたら、高解像度データと、snobi.jp・SNS・印刷物での使用許諾、ご希望のクレジット表記をお願いできますでしょうか。
+
+2. 産地情報の確認
+・デカフェ処理は Descamex社（マウンテンウォーター）で合っていますか。証明書では Agroindustrias Unidas de México（Beneficio Seco Dos Ríos）のお名前を拝見しました。
+・組合員数「3,253名（うち女性832名）」で掲載してよろしいでしょうか。
+
+3. 輸入元へのご紹介
+証明書の荷受人は ECOM JAPAN様でした。お手元に写真がない場合、ECOM JAPAN様をご紹介いただくか、ご連絡先を教えていただけますでしょうか。
+
+ちなみに、空撮（ドローン）や動画もあれば、ぜひ拝見したいです。
 
 送付先：[共有フォルダURL]
 よろしくお願いいたします。
 
 [氏名]
-株式会社ローグトレード（Tokyo Coffee / SNöBI）
+株式会社ローグトレード（Tokyo Coffee / SNöBI）[連絡先]
 
 ---
 
-## 4. オリジンコーヒートレーダーズ
+### #5 健友交易（only if the owner wants the decaf switch option)
 
-件名：メキシコ チアパス デカフェ（グラポス）— 写真のご提供のお願い（SNöBI）
+件名：MWPデカフェ（LOT 016/2222/0722）— 産地情報と資料のお願い
 
-[ご担当者名]様
+千本様
 
 いつもお世話になっております。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
-貴社の有機JAS メキシコ "ハニーチアパス" デカフェを、新ライン「SNöBI」（https://snobi.jp）で販売しております。
+9月にご契約いただいたMWPデカフェ（LOT 016/2222/0722、10月〜1月）について、ご相談です。
 
-産地ページに使うため、グラポス農協の生産者・農園の写真の高解像度データをお送りいただけますでしょうか。
-デスカメックス社の工程写真もあれば助かります。
-あわせて、snobi.jp・SNS・印刷物での使用許諾と、ご希望のクレジット表記をお知らせください。
+このデカフェを、新ライン「SNöBI」（https://snobi.jp）でも使う可能性があります。
+産地ページに載せるため、次の情報と資料をいただけますでしょうか。
+・生産者（農協・農園）、地域、標高、品種、精製
+・デカフェ工場（Descamex社のマウンテンウォーターかどうか）
+・有機JAS証明書（通関後で構いません）
+・生産者や工程の写真（あれば、高解像度データと使用許諾・クレジット表記）
 
-ちなみに、空撮（ドローン）や動画もお持ちでしたら、ぜひ拝見したいです。
-
-追伸：組合員数「3,253名（うち女性832名）」で掲載してよろしいでしょうか。
-
-送付先：[共有フォルダURL]
 よろしくお願いいたします。
 
 [氏名]
-株式会社ローグトレード（Tokyo Coffee / SNöBI）
+株式会社ローグトレード（Tokyo Coffee / SNöBI）[連絡先]
 
 ---
 
-## 5. Colombia supplier (双日食料 or our actual seller)
+## 4. Step 2 — importers and origin (after the vendor's OK; CC the vendor)
 
-件名：コロンビア ウィラ 有機（LOT 3/0104/00023）— 生産者写真のお願い（SNöBI）
+### #6 双日食料（product inquiry form）
 
-[ご担当者名]様
+件名：コロンビア ウィラ 有機（El Bombo / Café Colsuaves）— 生産者写真のお願い
 
-いつもお世話になっております。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
-貴社経由のコロンビア ウィラ 有機栽培（生産者：Cooperativa de Caficultores El Bombo）を、新ライン「SNöBI」（https://snobi.jp）で販売しております。
+双日食料株式会社 コーヒーご担当者様
 
-産地ページに使うため、生産者組合の写真の高解像度データをお送りいただけますでしょうか。
-あわせて、snobi.jp・SNS・印刷物での使用許諾と、ご希望のクレジット表記をお知らせください。
-お手元にない場合は、輸出者 Café Colsuaves様へのご紹介でも大変助かります。
+突然のご連絡、失礼いたします。株式会社ローグトレード（Tokyo Coffee）の[氏名]です。
+貴社が輸入されたコロンビア ウィラ 有機栽培（生産 Cooperativa de Caficultores El Bombo、輸出 Café Colsuaves、LOT 3/0104/00023）を、コーヒー流通センター様（清光コーヒー）から購入し、新ライン「SNöBI」（https://snobi.jp）で販売しております。コーヒー流通センター様には、ご連絡することをお伝えしております。
 
-ちなみに、空撮（ドローン）や動画もお持ちでしたら、ぜひ拝見したいです。
+産地ページを充実させたく、生産者組合・農園の写真をお持ちでしたら、高解像度データと、snobi.jp・SNS・印刷物での使用許諾、ご希望のクレジット表記をいただけますでしょうか。
+お手元にない場合は、Café Colsuaves様へのご紹介でも大変助かります。
 
-追伸：表記を「エル・ボンボ生産者協同組合（旧ASOBOMBO）」としてよろしいでしょうか。
-
-送付先：[共有フォルダURL]
 よろしくお願いいたします。
 
 [氏名]
-株式会社ローグトレード（Tokyo Coffee / SNöBI）
+株式会社ローグトレード（Tokyo Coffee / SNöBI）[連絡先]
 
----
+### #7 ECOM JAPAN
 
-## 6. CAC La Prosperidad de Chirinos (ES, EN below)
+Use #6 with: 「メキシコ チアパス 有機 デカフェ（GRAPOS、ロット 016-2222-1121）を、オリジンコーヒートレーダーズ様から購入し…」 and ask for GRAPOS
+and decaf-process photos; mention 田久保様 knows we are writing.
+
+### #8 CAC La Prosperidad de Chirinos (ES, EN below)
 
 Asunto: SNöBI (Tokyo Coffee, Japón) — Fotos de Chirinos y de Miguel Ramírez
 
 Estimado equipo de la Cooperativa La Prosperidad de Chirinos:
 
-Les escribe [Nombre] de Rogutore Co., Ltd. (Tokyo Coffee), en Tokio. En nuestra línea **SNöBI** (https://snobi.jp) vendemos el Geisha lavado de **Miguel Esteban Ramírez Agurto**, importado a Japón por 海ノ向こうコーヒー.
+Les escribe [Nombre] de Rogutore Co., Ltd. (Tokyo Coffee), en Tokio. Compramos el Geisha lavado de **Miguel Esteban
+Ramírez Agurto** a través de 海ノ向こうコーヒー (Sakanotochu Co., Kioto), que está en copia, y lo vendemos en nuestra
+línea **SNöBI** (https://snobi.jp/origins/peru).
 
-¿Podrían enviarnos fotos en alta resolución de la finca de Miguel y de Chirinos, con su autorización para usarlas en snobi.jp, redes sociales y material impreso? Por favor indíquennos cómo desean que los mencionemos.
+¿Podrían enviarnos fotos en alta resolución de la finca de Miguel y de Chirinos, con su autorización para usarlas en
+snobi.jp, redes sociales y material impreso? Por favor indíquennos cómo desean que los mencionemos.
 
 Por cierto, si tienen tomas con dron o videos, nos encantaría verlos.
 
@@ -163,41 +257,24 @@ Muchas gracias,
 [Nombre]
 Rogutore Co., Ltd. (Tokyo Coffee / SNöBI)
 
-> **EN:** We sell Miguel Ramírez's washed Geisha in Japan under SNöBI. Could you send high-res photos of his farm and Chirinos, with permission to use them on snobi.jp, social media and print, and tell us how you'd like to be credited? By the way, if you have any drone or video footage, we'd love to see it.
+> **EN:** We buy Miguel Ramírez Agurto's washed Geisha through Uminomukou Coffee (Sakanotochu, Kyoto; in CC) and sell it
+> in Japan under SNöBI. Could you send high-res photos of his farm and Chirinos, with permission to use them on snobi.jp,
+> social media and print, and tell us how you'd like to be credited? By the way, if you have drone or video footage,
+> we'd love to see it.
 
----
-
-## 7. Descamex (ES, EN below)
-
-Asunto: SNöBI (Tokyo Coffee, Japón) — Fotos del proceso Mountain Water
-
-Estimado equipo de Descamex:
-
-Les escribe [Nombre] de Rogutore Co., Ltd. (Tokyo Coffee), en Tokio. En **SNöBI** (https://snobi.jp) vendemos el descafeinado orgánico de Chiapas (GRAPOS) procesado con Mountain Water Process.
-
-¿Podrían enviarnos fotos en alta resolución de la planta, del proceso y del Pico de Orizaba, con su autorización para usarlas en snobi.jp, redes sociales y material impreso, y el crédito que prefieran?
-
-Por cierto, si tienen videos o tomas con dron, nos encantaría verlos.
-
-Archivos: [enlace de carpeta compartida]
-
-Muchas gracias,
-[Nombre]
-Rogutore Co., Ltd. (Tokyo Coffee / SNöBI)
-
-> **EN:** We sell your Mountain Water decaf (GRAPOS, Chiapas) in Japan under SNöBI. Could you send high-res photos of the plant, the process and Pico de Orizaba, with permission for web/social/print use and your preferred credit? By the way, if you have video or drone footage, we'd love to see it.
-
----
-
-## 8. Café Colsuaves / Cooperativa El Bombo (ES, EN below)
+### #9 Café Colsuaves / Cooperativa El Bombo (ES, EN below)
 
 Asunto: SNöBI (Tokyo Coffee, Japón) — Fotos de la Cooperativa El Bombo
 
 Estimados:
 
-Les escribe [Nombre] de Rogutore Co., Ltd. (Tokyo Coffee), en Tokio. En **SNöBI** (https://snobi.jp) vendemos el café orgánico de la **Cooperativa de Caficultores El Bombo – Núcleo 2** (Pitalito, Huila), exportado por Café Colsuaves.
+Les escribe [Nombre] de Rogutore Co., Ltd. (Tokyo Coffee), en Tokio. Vendemos en nuestra línea **SNöBI**
+(https://snobi.jp/origins/colombia-huila) el café orgánico de la **Cooperativa de Caficultores El Bombo – Núcleo 2**
+(Pitalito, Huila), exportado por ustedes e importado a Japón por Sojitz Foods (双日食料).
 
-¿Podrían enviarnos fotos en alta resolución de las fincas y de los productores, con su autorización para usarlas en snobi.jp, redes sociales y material impreso, y el crédito que prefieran? ¿Y podemos presentarlos como «Cooperativa de Caficultores El Bombo (antes ASOBOMBO)»?
+¿Podrían enviarnos fotos en alta resolución de las fincas y de los productores, con su autorización para usarlas en
+snobi.jp, redes sociales y material impreso, y el crédito que prefieran? ¿Y podemos presentarlos como «Cooperativa de
+Caficultores El Bombo (antes ASOBOMBO)»?
 
 Por cierto, si tienen tomas con dron o videos, nos encantaría verlos.
 
@@ -207,4 +284,44 @@ Muchas gracias,
 [Nombre]
 Rogutore Co., Ltd. (Tokyo Coffee / SNöBI)
 
-> **EN:** We sell El Bombo – Núcleo 2's organic coffee in Japan under SNöBI. Could you send high-res photos of the farms and growers with permission for web/social/print use and your preferred credit, and may we present you as "El Bombo coffee growers' cooperative (formerly ASOBOMBO)"? By the way, if you have drone or video footage, we'd love to see it.
+> **EN:** We sell El Bombo – Núcleo 2's organic coffee in Japan under SNöBI; you export it and Sojitz Foods imports it.
+> Could you send high-res photos of the farms and growers with permission for web/social/print use and your preferred
+> credit, and may we present them as "El Bombo coffee growers' cooperative (formerly ASOBOMBO)"? By the way, if you have
+> drone or video footage, we'd love to see it.
+
+### #10 Descamex — HOLD until 田久保様 confirms the decaf plant
+
+If confirmed, send the 2026-10-05 draft (git `50a981b`, §7) with one change in the first paragraph: «Compramos el
+descafeinado orgánico de Chiapas (GRAPOS) a través de Origin Coffee Traders Japan…».
+
+---
+
+## 5. Sucafina — not in our chain (any time)
+
+To: salesasia@sucafina.com — Attn. Felice Chay, Managing Director Japan & Korea (Sucafina Japan, +81 3 6871 8607)
+
+Subject: Tade GG, Chirinos and El Bombo — photo permission, and a question about buying from you
+
+Dear Felice Chay,
+
+I'm [Name] at Rogutore Co., Ltd. (Tokyo Coffee), a roaster in Tokyo. Our new line SNöBI (https://snobi.jp) sells three
+coffees from producers you also work with: Tade GG (Tesfaye Bekele), Miguel Ramírez Agurto's Geisha from Prosperidad de
+Chirinos, and the El Bombo cooperative. We buy them through Japanese suppliers, and we don't know whether Sucafina is
+anywhere in those chains.
+
+Three things:
+
+1. **Your Tesfaye Bekele portrait.** Our Ethiopia page used your photo "Tesfaye Bekele Owner of Tade GG" from
+   sucafina.com. We should have asked first, and we're sorry. [We have taken it down. / It is still up.] May we use it,
+   and how would you like it credited?
+2. **Marketing materials.** Would you share photos (and video, such as the El Bombo "Women in Coffee" film) of these
+   producers that we may use on snobi.jp, social media and print, with credit?
+3. **Buying from you.** If any of these lots, or similar organic (JAS) specialty lots, can be bought through Sucafina for
+   delivery to Japan, we'd like to see your offer list.
+
+Best regards,
+[Name]
+Rogutore Co., Ltd. (Tokyo Coffee / SNöBI) [contact]
+
+> **Before sending:** decide the bracket in point 1. Recommended: take `/producers/tesfaye.jpg` off live snobi.jp first
+> (needs the owner's OK for a production change), then send with "We have taken it down."

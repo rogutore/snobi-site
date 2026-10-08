@@ -22,6 +22,7 @@ export type Coffee = {
   chips: Localized<string[]>;
   notes: Localized<string[]>;
   bestFor: Localized;
+  enjoyWithin: Localized; // Davy's notes 2026-10-08: how long the flavour holds after roasting
   narrative: Localized<string[]>;
   facts: Localized<string[]>;
   decaf: boolean;
@@ -71,6 +72,10 @@ export const products: Coffee[] = [
     bestFor: {
       ja: "紅茶のように軽やかに飲みたい人へ。ミルクなしで、朝の一杯に。",
       en: "For a light, tea-like cup. A morning coffee without milk.",
+    },
+    enjoyWithin: {
+      ja: "１ヶ月半まで、味をお楽しみいただけます！",
+      en: "Enjoy it at its best for up to six weeks.",
     },
     narrative: {
       ja: [
@@ -160,6 +165,10 @@ export const products: Coffee[] = [
       ja: "果実感と甘さをとりたい人へ。ベリーとドライフルーツ。",
       en: "For fruit and sweetness. Berries and dried fruit.",
     },
+    enjoyWithin: {
+      ja: "１ヶ月半まで、味をお楽しみいただけます！",
+      en: "Enjoy it at its best for up to six weeks.",
+    },
     narrative: {
       ja: [
         "オロミア州グジ、シャキッソ村、農学者でもあるタスファイ・ベケレさんのタデGG農園。",
@@ -232,10 +241,13 @@ export const products: Coffee[] = [
       ja: "ウォッシュド・天日乾燥",
       en: "Washed, sun-dried",
     },
-    roast: null,
+    roast: {
+      ja: "浅煎り",
+      en: "Light",
+    },
     chips: {
-      ja: ["ウォッシュド", "カトゥーラ・コロンビア種", "1,700m"],
-      en: ["Washed", "Caturra / Colombia", "1,700m"],
+      ja: ["浅煎り", "ウォッシュド", "カトゥーラ・コロンビア種", "1,700m"],
+      en: ["Light roast", "Washed", "Caturra / Colombia", "1,700m"],
     },
     notes: {
       ja: ["シトラス", "キャラメル", "バランス"],
@@ -244,6 +256,10 @@ export const products: Coffee[] = [
     bestFor: {
       ja: "毎日の一杯に。キャラメルとオレンジ、ちょうどいいバランス。",
       en: "For your everyday cup. Caramel and orange, in balance.",
+    },
+    enjoyWithin: {
+      ja: "２ヶ月まで、味をお楽しみいただけます！",
+      en: "Enjoy it at its best for up to two months.",
     },
     narrative: {
       ja: [
@@ -311,10 +327,13 @@ export const products: Coffee[] = [
       ja: "ウォッシュド → マウンテンウォーター製法（薬品不使用のデカフェ）",
       en: "Washed → Mountain Water Process (chemical-free decaf)",
     },
-    roast: null,
+    roast: {
+      ja: "浅煎り",
+      en: "Light",
+    },
     chips: {
-      ja: ["デカフェ", "ウォッシュド", "マウンテンウォーター", "1,400–1,700m"],
-      en: ["Decaf", "Washed", "Mountain Water", "1,400–1,700m"],
+      ja: ["浅煎り", "デカフェ（マウンテンウォーター）", "ブルボン・ムンドノーボ・カトゥーラ", "1,400–1,700m"],
+      en: ["Light roast", "Decaf (Mountain Water)", "Bourbon / Mundo Novo / Caturra", "1,400–1,700m"],
     },
     notes: {
       ja: ["スイートポテト", "黒糖", "やさしい酸味"],
@@ -323,6 +342,10 @@ export const products: Coffee[] = [
     bestFor: {
       ja: "夜にも、もう一杯。スイートポテトの甘さ、そのまま。",
       en: "Another cup, even at night. The same sweet-potato sweetness.",
+    },
+    enjoyWithin: {
+      ja: "２ヶ月まで、味をお楽しみいただけます！",
+      en: "Enjoy it at its best for up to two months.",
     },
     narrative: {
       ja: [

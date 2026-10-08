@@ -10,7 +10,15 @@ const nextConfig: NextConfig = {
   // rules because OpenNext leaves an empty `:path*` unsubstituted on "/".
   redirects: async () => {
     const www = [{ type: "host" as const, value: `www.${SITE_HOST}` }];
+    // The /v3 preview became the site on 2026-10-09: send its page URLs (never its media under /v3/*.mp4|webp|jpg)
+    // to the real routes.
+    const v3 = [
+      { source: "/v3", destination: "/", permanent: true },
+      { source: "/v3/:page(coffee|origins|about|faq|journal|specialty|contact|legal)", destination: "/:page", permanent: true },
+      { source: "/v3/:page(origins|journal)/:slug", destination: "/:page/:slug", permanent: true },
+    ];
     return [
+      ...v3,
       {
         source: "/",
         has: www,

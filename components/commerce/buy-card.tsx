@@ -124,6 +124,7 @@ export function BuyCard({
               ))}
             </ul>
             <p className="flavor-notes">{product.notes[lang].join(" / ")}</p>
+            <p className="enjoy-within">{product.enjoyWithin[lang]}</p>
             <p className="coffee-best">
               <span>{en ? "FOR YOU" : "こんな人に"}</span>
               {product.bestFor[lang]}
@@ -173,7 +174,7 @@ export function BuyCard({
             <Link
               href={`${en ? "/en" : ""}/origins/${product.slug}?size=${size}`}
             >
-              {en ? "Read the origin" : "産地を読む"}
+              {en ? "More about this origin" : "産地について詳しく読みたい方"}
               <ArrowUpRight size={14} />
             </Link>
           )}

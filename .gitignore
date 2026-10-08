@@ -53,3 +53,7 @@ next-env.d.ts
 /.open-next/
 /.wrangler/
 .dev.vars*
+
+# Lab media (large; hosted with the preview build, not committed)
+/public/lab/film/frames/
+/public/lab/film/poster.jpg

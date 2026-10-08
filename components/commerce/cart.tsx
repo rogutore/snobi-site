@@ -19,11 +19,13 @@ import {
 } from "@/lib/shopify/actions";
 import { ShippingProgress } from "./shipping-progress";
 import type { Cart } from "@/lib/shopify/client";
+import { orderingSchedule } from "@/content/ordering";
 type Context = {
-  add: (id: string) => void;
+  add: (id: string | string[]) => void;
   open: () => void;
   pending: boolean;
   count: number;
+  subtotal: number; // cart subtotal in yen (for the free-shipping countdown)
 };
 const CartContext = createContext<Context | null>(null);
 export function useCart() {
@@ -45,6 +47,23 @@ export function CartButton({ light = false }: { light?: boolean }) {
     </button>
   );
 }
+/* T6: remember where this visit came from (referrer host + utm_source), once per tab session. Host only. */
+function firstRef(): { host?: string; utm?: string } {
+  try {
+    const saved = sessionStorage.getItem("snobi_ref");
+    if (saved) return JSON.parse(saved);
+  } catch {}
+  let host: string | undefined;
+  try {
+    const h = document.referrer ? new URL(document.referrer).hostname : "";
+    host = h && h !== location.hostname ? h : undefined;
+  } catch {}
+  const utm = new URLSearchParams(location.search).get("utm_source") ?? undefined;
+  const ref = { host, utm };
+  try { sessionStorage.setItem("snobi_ref", JSON.stringify(ref)); } catch {}
+  return ref;
+}
+
 export function CartProvider({
   children,
   lang = "ja",
@@ -59,6 +78,7 @@ export function CartProvider({
   const [pending, startTransition] = useTransition();
   const busy = useRef(false);
   const dialog = useRef<HTMLDialogElement>(null);
+  useEffect(() => { firstRef(); }, []);
   useEffect(() => {
     let active = true;
     getCart(lang).then((r) => {
@@ -110,10 +130,11 @@ export function CartProvider({
   return (
     <CartContext.Provider
       value={{
-        add: (id) => run(() => addLine(id, lang)),
+        add: (id) => run(() => addLine(id, lang, firstRef())),
         open: () => run(() => getCart(lang)),
         pending,
         count: cart?.totalQuantity || 0,
+        subtotal,
       }}
     >
       {children}
@@ -274,9 +295,7 @@ export function CartProvider({
               {en ? "Continue to checkout" : "レジへ進む"} <span>↗</span>
             </a>
             <p className="small-print">
-              {en
-                ? "Roasted Tue / Fri. Shipped the next business day."
-                : "火・金焙煎。焙煎日翌営業日に発送。"}
+              {orderingSchedule[en ? "en" : "ja"].join(en ? " " : "")}
             </p>
           </div>
         )}

@@ -6,6 +6,7 @@ export type Stock = {
   availableForSale: boolean;
   quantityAvailable: number | null;
   price: Money;
+  sku?: string | null;
 };
 export type StockMap = Record<string, Stock>;
 export type Cart = {
@@ -64,7 +65,7 @@ export async function getStock(): Promise<{ stock: StockMap; error: boolean }> {
   if (!ids.length) return { stock: {}, error: true };
   try {
     const data = await storefront<{ nodes: (Stock | null)[] }>(
-      `query Stock($ids:[ID!]!) @inContext(country:JP) { nodes(ids:$ids) { ... on ProductVariant { id availableForSale quantityAvailable price { amount currencyCode } } } }`,
+      `query Stock($ids:[ID!]!) @inContext(country:JP) { nodes(ids:$ids) { ... on ProductVariant { id sku availableForSale quantityAvailable price { amount currencyCode } } } }`,
       { ids },
     );
     return {

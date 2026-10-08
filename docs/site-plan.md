@@ -200,6 +200,7 @@ Feasibility, checked 2026-10-05:
 - DNS: snobi.jp uses Vercel DNS (ns1/ns2.vercel-dns.com). Only A/wildcard records, **no MX/TXT, so no email to break**. VERIFIED: dig. Registrant 株式会社ローグトレード.
 
 Steps (one branch; Vercel stays live until cutover):
+**Status 2026-10-05: LIVE on Cloudflare.** Zone active 03:04 JST, A records proxied 03:06:52 JST, Workers Paid. Verified from the edge and from the office Mac: `server: cloudflare` (NRT), robots Allow + sitemap, no noindex, www → 308 apex, http → 301 https, stock 49, 12 sitemap URLs. Always Use HTTPS on; Cloudflare Web Analytics on. Vercel project kept until 2026-10-19 for rollback.
 1. ~~Owner: Cloudflare account + Workers Paid ($5)~~ **done 2026-10-05** (account rogutore@gmail.com). Deploy access **done 2026-10-05**: `wrangler login` → account `Rogutore@gmail.com's Account` (6bdeb451…); credentials in `~/Library/Preferences/.wrangler/`, outside the repo.
    - **Zone created 2026-10-05 via API** (the dashboard bug is bypassed with a narrow API token, Zone:Edit + DNS:Edit, stored in `_secrets/cloudflare-snobi.env`, to be **revoked after cutover**).
      - Zone `b98f9a14…`, Free plan, pending.
@@ -231,5 +232,6 @@ Steps (one branch; Vercel stays live until cutover):
      - Also hides `*.vercel.app` previews, which were indexable before.
    - Not done: the real paid order + refund (owner).
 4. Analytics on Cloudflare: Cloudflare Web Analytics (free on all plans; VERIFIED) replaces Vercel Web Analytics. Search Console stays as is.
-5. Cutover: owner switches nameservers at the registrar → watch → keep the Vercel project 2 weeks for rollback (switch NS back).
+5. Cutover: owner switches nameservers at the registrar → watch → keep the Vercel project 2 weeks for rollback (switch NS back). **Done 2026-10-05.**
 6. After cutover: delete the Vercel project, and update `docs/` + the vault launch-plan.
+   Pending: revoke the API token "snobi-zone-setup (revoke after cutover)" and delete `~/Documents/RTU/_secrets/cloudflare-snobi.env`; browser cart test on snobi.jp; delete the Vercel project after 2026-10-19.

@@ -1,0 +1,314 @@
+/* Film prototype (/lab/film). Light paper and plum everywhere — no dark
+   scrims. Tokens come from app/globals.css (@theme → :root custom props). */
+
+/* ---------------------------------------------------------------- */
+/*  Shared                                                          */
+/* ---------------------------------------------------------------- */
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+/* ---------------------------------------------------------------- */
+/*  Beat 1 — pinned canvas scrub over the drone frames              */
+/* ---------------------------------------------------------------- */
+.hero {
+  position: relative;
+  height: 300vh;
+  background: var(--color-paper);
+  color: var(--color-plum);
+}
+.heroStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-paper);
+}
+.heroPoster,
+.heroCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.heroPoster {
+  z-index: 0;
+}
+.heroCanvas {
+  z-index: 1;
+}
+.heroCard {
+  position: absolute;
+  z-index: 2;
+  left: clamp(1rem, 5vw, 4rem);
+  bottom: clamp(1.5rem, 8vh, 5rem);
+  max-width: 36rem;
+  padding: 1.6rem 1.8rem;
+  background: rgba(247, 245, 240, 0.84);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 4px;
+  color: var(--color-plum);
+}
+.heroCardFirst {
+  /* GSAP scrubs this out around 45–60% of the hero. */
+}
+.heroCardLate {
+  /* GSAP fades this in around 62–78%; hidden until then so there is no
+     flash before hydration. */
+  opacity: 0;
+  visibility: hidden;
+}
+.heroTitle {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 6.4rem);
+  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-plum);
+}
+.heroTitle em {
+  font-style: italic;
+}
+.heroJa {
+  margin: 0.8rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-ink);
+}
+.heroLink {
+  display: inline-block;
+  margin-top: 0.9rem;
+  color: var(--color-plum);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+.heroLink:hover {
+  color: var(--color-plum-700);
+}
+.footageNote {
+  position: absolute;
+  z-index: 2;
+  right: 1rem;
+  bottom: 0.8rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* film-hero.tsx skips the scrub; show the poster and the first card once. */
+  .hero {
+    height: 100vh;
+  }
+  .heroCanvas {
+    display: none;
+  }
+  .heroCardLate {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/*  Beats 3–6 — sticky media, stepping copy                          */
+/* ---------------------------------------------------------------- */
+.beats {
+  position: relative;
+  padding: 10vh 0;
+  background: var(--color-paper);
+  color: var(--color-plum);
+}
+.beatMedia {
+  display: none;
+}
+.beatFigure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.beatFigure[data-active="true"] {
+  opacity: 1;
+}
+.beatImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.beatInline {
+  position: relative;
+  margin: 0 0 1.5rem;
+  aspect-ratio: 4 / 5;
+  max-height: 60vh;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.beatList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.beatStep {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(1rem, 6vw, 5rem);
+}
+.beatLine {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--color-plum);
+}
+.slot {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+}
+.beatFigure .slot {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.8rem;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  background: rgba(247, 245, 240, 0.84);
+  border-radius: 2px;
+}
+
+@media (min-width: 900px) {
+  .beats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .beatMedia {
+    display: block;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .beatInline {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/*  Releases — one full-height spread per Chapter One coffee         */
+/* ---------------------------------------------------------------- */
+.release {
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  padding: 12vh clamp(1rem, 6vw, 5rem);
+}
+.releaseInner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+}
+.releaseArt {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.releaseArt img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+}
+/* Framed shoot photo (portrait 3:4, cropped to fill). Declared after
+   `.releaseArt img` so the fill rules win at equal specificity. */
+.releasePhoto {
+  aspect-ratio: 3 / 4;
+  max-height: 80vh;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.releasePhoto img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  display: block;
+}
+.releaseCountry {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.releaseTitle {
+  margin: 1rem 0 0;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+.releaseNotes {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.releaseBest {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.releaseBody {
+  margin: 1.4rem 0 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.95;
+}
+.releaseFact {
+  margin: 1rem 0 0;
+  max-width: 34rem;
+  padding-left: 1rem;
+  border-left: 1px solid currentColor;
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+.releaseBuy {
+  margin-top: 2rem;
+  max-width: 32rem;
+  color: var(--color-ink);
+}
+
+@media (min-width: 900px) {
+  .releaseInner {
+    grid-template-columns: 5fr 7fr;
+    gap: 4rem;
+  }
+  .releaseArt {
+    position: sticky;
+    top: 15vh;
+  }
+}

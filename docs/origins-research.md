@@ -13,14 +13,12 @@ Marks: VERIFIED (primary or cited source), INFERRED, UNKNOWN.
 
 ## The supply map (who to ask)
 
-| Origin | Japan importer (we buy from) | Global trader / exporter | Producer |
-|---|---|---|---|
-| Peru | 海ノ向こうコーヒー (Sakanoshita) | Sucafina also sells this co-op | **CAC La Prosperidad de Chirinos** → Miguel Ramírez Agurto |
-| Ethiopia | 小川珈琲 (ogawa-pro.jp) | **Sucafina** (our photos are theirs); Trabocca (Tesfaye's other farm) | **Tade GG**, Tesfaye Bekele Degaga |
-| Mexico | オリジンコーヒートレーダーズ | Royal Coffee, Mercanta also sell it; decaf by **Descamex** | **GRAPOS** (Grupo de Agricultores Positivos) |
-| Colombia | **双日食料 (Sojitz Foods)**. VERIFIED: certificate in Drive | **Café Colsuaves S.A.S.**, Pereira (exporter). VERIFIED: certificate | **Cooperativa de Caficultores El Bombo – Núcleo 2**. VERIFIED: certificate |
-
-**The key finding:** **Sucafina** trades three of our four producers (Chirinos, Tade GG, El Bombo) and holds field photo libraries for all three. One relationship could unlock most of the imagery.
+**Superseded 2026-10-08.** The verified chain (farm → exporter → importer → the vendor we pay, from our order mail and
+invoices) now lives in `docs/permission-emails.md` §1 — one place only. Corrections to the 2026-10-05 table that stood
+here: we buy Colombia from コーヒー流通センター（清光コーヒー）, not 双日食料 (双日 is the importer on the certificate);
+Peru's vendor is 坂ノ途中 (brand 海ノ向こうコーヒー), not "Sakanoshita"; Mexico's importer of record is ECOM JAPAN; and
+Sucafina is in none of our chains (no order, invoice or mail) — it trades the same producers in other markets and owns
+the Tade GG photos we hold, so it gets one separate email, not the lead role.
 
 ---
 
