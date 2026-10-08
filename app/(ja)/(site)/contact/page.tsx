@@ -1,5 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
+import { trade } from "@/content/trade";
 import { FORM_URL } from "@/content/products";
 import { company, legalRows } from "@/content/legal";
 import { orderingSchedule, freeShippingLine } from "@/content/ordering";
@@ -47,7 +48,7 @@ export default function Contact() {
           <p className="eyebrow">For cafés &amp; retailers</p>
           <h2>お店で扱いたい方</h2>
           <p className="big"><Link href="/trade">取扱店のご相談 →</Link></p>
-          <p className="hint">「取扱店 第一章」プログラムのご案内です。</p>
+          <p className="hint">{trade.contactHint}</p>
         </div>
       </section>
 

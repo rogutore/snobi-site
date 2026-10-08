@@ -1,3 +1,4 @@
+import { trade } from "@/content/trade";
 import Image from "next/image";
 import Link from "next/link";
 import { products, minimumPrice, yen, type Locale } from "@/content/products";
@@ -311,7 +312,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "Can my café stock SNöBI?",
-          "Yes. The Chapter One stockist programme is accepting enquiries. Details and the application form are on the Trade page.",
+          "We take wholesale enquiries. The coffees and how to start are on the Trade page.",
         ],
       ]
     : [
@@ -341,7 +342,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "自分のお店で取り扱いたい。",
-          "「取扱店 第一章」プログラムへのご相談を受け付けています。取扱店向けページで詳細と申込フォームをご案内しています。",
+          trade.faqAnswer,
         ],
       ];
   const ordered = [
@@ -381,20 +382,18 @@ export function TradeCTA({ lang = "ja" }: { lang?: Locale }) {
     <section className="trade-cta">
       <p className="eyebrow">FOR CAFÉS & RETAILERS</p>
       <h2 className="display">
-        The next chapter
-        <br />
-        has room for you.
+        {en ? "Stock SNöBI." : "お店で扱う。"}
       </h2>
       <p>
         {en
-          ? "25 founding stockists. Let’s put good coffee on your counter."
-          : "取扱店 第一章。最初の25店舗を募集します。あなたのお店から、次の一杯を。"}
+          ? "Four organic specialty coffees from Tokyo Coffee, for your counter. Prices on request."
+          : "Tokyo Coffeeがつくる4つのオーガニック・スペシャルティコーヒーを、あなたのお店へ。"}
       </p>
       <Link
         href={en ? "/en/trade" : "/trade"}
         className="commerce-button light"
       >
-        {en ? "Become a stockist" : "取扱店プログラムを見る"}
+        {en ? "Wholesale enquiries" : "お店で扱う"}
         <span>↗</span>
       </Link>
     </section>

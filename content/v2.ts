@@ -3,6 +3,7 @@
    or ✅ facts from design/plan/COPY-INVENTORY.md, cited per line. Captions are DRAFTS for the owner (plan Q4).
    When v2 replaces the live pages, sections.tsx's copies of these lines are deleted, not kept (SINGLE_SOURCE). */
 
+import { trade } from "./trade";
 import { orderingSchedule } from "./ordering";
 
 export const SHOOT = "東京, 2026年10月1日";
@@ -68,14 +69,9 @@ export const faqGroups: { title: string; items: { q: string; a: string }[] }[] =
   },
   {
     title: "お店で扱う",
-    items: [{ q: "自分のお店で取り扱いたい。", a: "「取扱店 第一章」プログラムへのご相談を受け付けています。取扱店向けページで詳細と申込フォームをご案内しています。" }],
+    items: [{ q: "自分のお店で取り扱いたい。", a: trade.faqAnswer }],
   },
 ];
 
 /* Trade — live copy (trade-page.tsx:36-49, 65, 79-80, 100). */
-export const tradeBenefits: [string, string][] = [
-  ["最初の25店舗", "コーヒーへの好奇心を共有するカフェ・小売店と、小さな第一章を。"],
-  ["第二章まで、価格を固定", "合意した卸価格を第二章まで固定します。価格はお問い合わせください。"],
-  ["ロースタリーで、一緒に飲む", "豆を知っていただくための、ロースタリーでのカッピングへご招待。"],
-  ["お店で伝えるための道具", "店頭POPキットをご用意。snobi.jpに取扱店として掲載します。"],
-];
+export const tradeBenefits: [string, string][] = trade.facts.slice(0, 4); // old founding-25 offer removed 2026-10-09

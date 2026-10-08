@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
       { source: "/v3", destination: "/", permanent: true },
       { source: "/v3/:page(coffee|origins|about|faq|journal|specialty|contact|legal)", destination: "/:page", permanent: true },
       { source: "/v3/:page(origins|journal)/:slug", destination: "/:page/:slug", permanent: true },
+      // Older previews (/v2, /lab) carried rejected designs and the dropped founding-25 offer: send their pages home.
+      { source: "/v2", destination: "/", permanent: true },
+      { source: "/v2/:page(coffee|origins|about|faq|journal|trade)", destination: "/:page", permanent: true },
+      { source: "/v2/origins/:slug", destination: "/origins/:slug", permanent: true },
+      { source: "/lab/:path*", destination: "/", permanent: true },
     ];
     return [
       ...v3,

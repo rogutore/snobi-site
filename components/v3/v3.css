@@ -532,3 +532,40 @@
 .v3-legal-back { margin-top: 28px !important; }
 .v3-legal-preview { margin-top: 18px !important; font-family: var(--font-mono); font-size: 12px; color: var(--color-ink-soft); border: 1px dashed var(--color-line); padding: 10px 12px; max-width: 980px; }
 @media (max-width: 560px) { .v3-tag { bottom: auto; left: auto; right: 12px; top: calc(var(--nav) + 8px); } }
+
+/* ---- 取扱店 /trade (owner 2026-10-09; copy content/trade.ts) ---- */
+.v3-trade-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(24px, 5vw, 80px); align-items: center; padding: clamp(32px, 6vh, 72px) var(--gutter) clamp(48px, 9vh, 110px); }
+.v3-trade-hero .copy { display: grid; gap: 16px; justify-items: start; min-width: 0; }
+.v3 .v3-trade-hero h1 { font-family: var(--font-sans); font-weight: 600; font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: 1.2; letter-spacing: .01em; color: var(--color-plum); }
+.v3-trade-hero .lead { font-size: 1.1rem; max-width: 28em; }
+.v3-trade-hero .sub { font-size: 14px; color: var(--color-ink-soft); max-width: 34em; }
+.v3-trade-hero .ph { margin: 0; }
+.v3-trade-hero .ph img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
+.v3-trade-coffees ul { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid var(--color-line); }
+.v3-trade-coffees li a { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-line); text-decoration: none; align-items: baseline; }
+.v3-trade-coffees li a:hover b { color: var(--color-plum); }
+.v3-trade-coffees li span { font-size: 13.5px; color: var(--color-ink-soft); }
+.v3-trade-coffees li .n { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--color-plum); }
+.v3-trade-coffees .line { margin-top: 16px; font-weight: 600; }
+.v3-trade-facts dl, .v3-trade-faq dl { margin: 20px 0 0; display: grid; border-top: 1px solid var(--color-line); max-width: 52rem; }
+.v3-trade-facts dl > div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--color-line); }
+.v3-trade-facts dt { font-size: 13px; color: var(--color-ink-soft); }
+.v3-trade-facts dd, .v3-trade-faq dd { margin: 0; }
+.v3-trade-who p { max-width: 36em; margin-top: 14px; }
+.v3-trade-steps ol { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 40px); }
+.v3-trade-steps li { display: grid; gap: 8px; align-content: start; border-top: 1px solid var(--color-plum); padding-top: 14px; }
+.v3-trade-steps .no { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; color: var(--color-ink-soft); }
+.v3-trade-steps b { font-size: 1.15rem; }
+.v3-trade-steps p { font-size: 14.5px; color: var(--color-ink-soft); }
+.v3-trade-faq dl > div { padding: 16px 0; border-bottom: 1px solid var(--color-line); display: grid; gap: 6px; }
+.v3-trade-faq dt { font-weight: 600; }
+.v3-trade-faq dd { color: var(--color-ink-soft); font-size: 15px; }
+.v3-trade-enquiry { display: grid; gap: 14px; justify-items: start; }
+.v3-trade-enquiry > p:not(.eyebrow) { max-width: 40em; }
+.v3-trade-enquiry .contact, .v3-trade-enquiry .closing { font-size: 13.5px; color: var(--color-ink-soft); }
+@media (max-width: 860px) {
+  .v3-trade-hero { grid-template-columns: minmax(0, 1fr); }
+  .v3-trade-coffees li a { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .v3-trade-steps ol { grid-template-columns: minmax(0, 1fr); }
+  .v3-trade-facts dl > div { grid-template-columns: 6.5rem minmax(0, 1fr); }
+}
