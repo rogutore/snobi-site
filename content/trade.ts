@@ -5,7 +5,7 @@
    no price lock, no slot cap. Prices/minimums/roast day/shipping/payment are "explained on enquiry" until the owner sets
    them (§4.8 terms table held). Coffee rows render from content/products.ts; contact from content/legal.ts. */
 import { FORM_URL, yen } from "./products";
-import { FREE_SHIPPING_YEN, shippingRatesShort } from "./ordering";
+import { FREE_SHIPPING_YEN, orderingSchedule, shippingRatesShort } from "./ordering";
 
 /* Verified public Google Form fields (trade-page.md §3): interest = 631131549; requests = 1093102172. */
 export const tradeFormUrl =
@@ -37,7 +37,9 @@ export const trade = {
        2026-10-09 (free from ¥3,000; below that the same regional rates as retail). */
     ["ご注文", "Tokyo Coffeeの卸売アカウントから。"],
     ["袋", "1kg。1袋からご注文いただけます。"],
-    ["焙煎・発送", "平日14時までのご注文は、基本的に当日焙煎・発送。"],
+    /* SNöBI beans are roasted on SNöBI's schedule for every channel (content/ordering.ts). TC wholesale's weekday-14:00 rule
+       was shown here briefly on 2026-10-09 and contradicted the FAQ (Masaki). */
+    ["焙煎・発送", orderingSchedule.ja.slice(0, 2).join("")],
     ["送料", `${yen(FREE_SHIPPING_YEN)}以上で送料無料。${shippingRatesShort.ja}`],
     ["卸価格", "卸売アカウントの登録後にご案内します。"],
   ] as [string, string][],
@@ -53,7 +55,7 @@ export const trade = {
   faq: [
     { q: "卸価格、最低注文量、袋のサイズは？", a: "袋は1kgで、1袋からご注文いただけます。卸価格は、卸売アカウントの登録後にご案内します。" },
     { q: "どこから注文する？", a: "Tokyo Coffeeの卸売アカウントからご注文いただけます。登録の方法は、お問い合わせのあとにご案内します。" },
-    { q: "焙煎と配送は？", a: `Tokyo Coffeeが焙煎し、発送します。平日14時までのご注文は、基本的に当日焙煎・発送です。${yen(FREE_SHIPPING_YEN)}以上で送料無料、${shippingRatesShort.ja}` },
+    { q: "焙煎と配送は？", a: `Tokyo Coffeeが焙煎し、発送します。${orderingSchedule.ja.slice(0, 2).join("")}${yen(FREE_SHIPPING_YEN)}以上で送料無料、${shippingRatesShort.ja}` },
     { q: "粉でも注文できる？", a: "豆のままでのお届けです。" },
     { q: "有機JASは、どう確かめられる？", a: "4種すべて有機JAS認証品です。焙煎するTokyo Coffeeの焙煎所は、有機加工食品の認定を受けています。" },
     { q: "支払い方法は？", a: "お取引の開始時にご案内します。" },

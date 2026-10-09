@@ -22,16 +22,16 @@ const prices = `100g / 200gの税込価格は、${products
   .map((p) => `${p.title.ja.split(" ")[0]}${p.decaf ? " デカフェ" : ""} ${price(p, "100g")} / ${price(p, "200g")}`)
   .join("、")}。豆のままでのお届けです。`;
 
-/* 「スペシャルティコーヒー」 in the "what is SNöBI" answer links to the page that explains it. */
-const TERM = "スペシャルティコーヒー";
+/* Words in an answer that link to the page explaining them (first occurrence only). 取扱店向けページ: Masaki 2026-10-09. */
+const LINKS: [string, string][] = [["スペシャルティコーヒー", "/specialty"], ["取扱店向けページ", "/trade"]];
 
 function Answer({ text }: { text: string }) {
   if (text === "__PRICES__") return <>{prices}</>;
-  const at = text.indexOf(`「${TERM}」`);
-  if (at < 0) return <>{text}</>;
+  const hit = LINKS.map(([term, href]) => ({ term, href, at: text.indexOf(term) })).find((x) => x.at >= 0);
+  if (!hit) return <>{text}</>;
   return (
     <>
-      {text.slice(0, at)}「<Link href="/specialty">{TERM}</Link>」{text.slice(at + TERM.length + 2)}
+      {text.slice(0, hit.at)}<Link href={hit.href}>{hit.term}</Link>{text.slice(hit.at + hit.term.length)}
     </>
   );
 }
