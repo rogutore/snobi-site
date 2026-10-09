@@ -1,5 +1,5 @@
 /* Home section 2, option A (owner 2026-10-08, replacing the table chapter): Daylight-style split.
-   Left: one photo held in place — the bag passed hand to hand (046–049, same set-up per origin), changing per step.
+   Left: one photo held in place, changing per step (each point its own photo, see STEPS).
    Right: four short steps, each a door to its page. Mechanics: components/v3/sticky-photos.tsx (shared with Story). */
 import { Fragment } from "react";
 import Link from "next/link";
@@ -7,13 +7,14 @@ import { freeShippingLine } from "@/content/ordering";
 import { ScoreScale } from "@/components/v3/score-scale";
 import { StickyPhotos } from "@/components/v3/sticky-photos";
 
-/* Each point opens on the hand-off and switches to its own shot (owner 2026-10-09, after Masaki: the four hand-off
-   frames alone looked alike). 161 JAS sack · 131 the pour · 149 beans in the opened bag · 130 the bags together. */
+/* Each point has its own photo (owner 2026-10-10, after Masaki: the four hand-off frames looked alike). 161 the JAS mark
+   on the green-bean sack · 006 roasting (a hand at the roaster over the cooling tray) · 152 roasted beans close up ·
+   030 the four bags on the desk by the window. */
 const STEPS = [
-  { frame: "047", alt: "ペルーの袋を手渡す", then: "161", thenAlt: "有機JASマークのある生豆の麻袋" },
-  { frame: "049", alt: "エチオピアの袋を手渡す", then: "131", thenAlt: "淹れたコーヒーをカップに注ぐ" },
-  { frame: "046", alt: "コロンビアの袋を手渡す", then: "149", thenAlt: "袋を開けて、豆を見せる" },
-  { frame: "048", alt: "メキシコの袋を手渡す", then: "130", thenAlt: "4つの産地の袋とコーヒー" },
+  { frame: "161", alt: "有機JASマークのある生豆の麻袋" },
+  { frame: "006", alt: "焙煎機の前で、冷却中の豆を見る" },
+  { frame: "152", alt: "焙煎した豆" },
+  { frame: "030", alt: "窓辺の机に並ぶ4つの産地の袋" },
 ];
 
 export function HandChapter() {
