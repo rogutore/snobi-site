@@ -40,7 +40,7 @@ export default function Contact() {
         <div className="way trade">
           <p className="eyebrow">For cafés &amp; retailers</p>
           <h2>お店で扱いたい方</h2>
-          <p className="big"><Link href="/trade#enquiry">取扱店のご相談 →</Link></p>
+          <p className="big"><Link href="/trade#enquiry">ホールセールのご相談 →</Link></p>
           <p className="hint">{trade.contactHint}</p>
         </div>
       </section>

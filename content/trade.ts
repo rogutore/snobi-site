@@ -16,7 +16,7 @@ export const tradeFormUrl =
   encodeURIComponent("SNöBI / trade — 取扱いについて相談したい");
 
 export const trade = {
-  title: "取扱店｜有機JASのスペシャルティコーヒーを、お店で",
+  title: "ホールセール（業務用・卸）｜有機JASのスペシャルティコーヒーを、お店で",
   description: "Tokyo Coffeeが焙煎する、有機JASのスペシャルティコーヒー4種。カフェ・小売店からの取扱いのご相談を受け付けています。",
   eyebrow: "For cafés & retailers",
   h1: "お店で扱う。",
@@ -65,7 +65,7 @@ export const trade = {
   enquiry: "担当者から、卸価格とお取引の進め方をメールでご連絡します。",
   closing: "このページでは、取扱いのご相談を受け付けています。ご注文は、Tokyo Coffeeの卸売で承ります。",
   /* the FAQ answer on /faq and the contact-page hint point here */
-  faqAnswer: "取扱いのご相談を受け付けています。扱える豆とお問い合わせの流れは、取扱店向けページでご案内しています。",
+  faqAnswer: "取扱いのご相談を受け付けています。扱える豆とお問い合わせの流れは、ホールセールのページでご案内しています。",
   contactHint: "扱える豆と、ご相談の流れのご案内です。",
 };
 

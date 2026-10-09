@@ -15,7 +15,7 @@ export const metadata = pageMeta({ path: "/trade", en: "/en/trade", title: trade
 export default function Trade() {
   return (
     <>
-      <JsonLd data={[faqPage(trade.faq), breadcrumb([["ホーム", "/"], ["取扱店", "/trade"]])]} />
+      <JsonLd data={[faqPage(trade.faq), breadcrumb([["ホーム", "/"], ["ホールセール", "/trade"]])]} />
       <section className="v3-trade-hero" aria-labelledby="tr-h1">
         <div className="copy">
           <p className="eyebrow" lang="en">{trade.eyebrow}</p>

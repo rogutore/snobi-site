@@ -242,7 +242,14 @@
   .v3-hand-step { min-height: 0; opacity: 1; padding-block: 48px; border-top: 1px solid var(--color-line); }
   .v3-hand-inline { display: block; max-width: none; width: calc(100% + 2 * clamp(24px, 5vw, 80px)); margin-inline: calc(-1 * clamp(24px, 5vw, 80px)); aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 12px; }
 }
-@media (prefers-reduced-motion: reduce) { .v3-hand-media img, .v3-hand-step { transition: none; } }
+/* second shot per step (owner 2026-10-09): dissolve in while easing out of a slight zoom */
+.v3-hand-media img.then, .v3-hand-inline img.then { opacity: 0; transform: scale(1.14); transition: opacity .8s var(--ease-house), transform 2.4s var(--ease-house); }
+.v3-hand-media img.then.in, .v3-hand-inline img.then.in { opacity: 1; transform: scale(1); }
+@media (max-width: 860px) {
+  .v3-hand-inline { position: relative; overflow: hidden; }
+  .v3-hand-inline img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+}
+@media (prefers-reduced-motion: reduce) { .v3-hand-media img, .v3-hand-step, .v3-hand-inline img.then { transition: none; } .v3-hand-media img.then, .v3-hand-inline img.then { transform: none; } }
 
 /* releases as the home shop */
 .v3-rel .ph { display: block; }

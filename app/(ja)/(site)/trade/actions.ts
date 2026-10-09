@@ -14,7 +14,7 @@ function message(fd: FormData): string {
   const coffees = many(fd, "coffee", products.map((p) => p.title.ja));
   const via = [one(fd, "refHost"), one(fd, "refUtm") && `utm_source=${one(fd, "refUtm")}`].filter(Boolean).join(" / ");
   const lines = [
-    "SNöBI 取扱店フォーム（snobi.jp/trade）",
+    "SNöBI ホールセールフォーム（snobi.jp/trade）",
     PREFECTURES.includes(pref as (typeof PREFECTURES)[number]) && `都道府県：${pref}`,
     F.status.options.includes(status) && `営業状況：${status}${status === "開業準備中" && opening ? `（開業予定：${opening}）` : ""}`,
     one(fd, "url") && `お店のURL・Instagram：${one(fd, "url")}`,

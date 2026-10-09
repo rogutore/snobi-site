@@ -7,22 +7,22 @@ import { freeShippingLine } from "@/content/ordering";
 import { ScoreScale } from "@/components/v3/score-scale";
 import { StickyPhotos } from "@/components/v3/sticky-photos";
 
+/* Each point opens on the hand-off and switches to its own shot (owner 2026-10-09, after Masaki: the four hand-off
+   frames alone looked alike). 161 JAS sack · 131 the pour · 149 beans in the opened bag · 130 the bags together. */
 const STEPS = [
-  { frame: "047", alt: "ペルーの袋を手渡す" },
-  { frame: "049", alt: "エチオピアの袋を手渡す" },
-  { frame: "046", alt: "コロンビアの袋を手渡す" },
-  { frame: "048", alt: "メキシコの袋を手渡す" },
+  { frame: "047", alt: "ペルーの袋を手渡す", then: "161", thenAlt: "有機JASマークのある生豆の麻袋" },
+  { frame: "049", alt: "エチオピアの袋を手渡す", then: "131", thenAlt: "淹れたコーヒーをカップに注ぐ" },
+  { frame: "046", alt: "コロンビアの袋を手渡す", then: "149", thenAlt: "袋を開けて、豆を見せる" },
+  { frame: "048", alt: "メキシコの袋を手渡す", then: "130", thenAlt: "4つの産地の袋とコーヒー" },
 ];
 
 export function HandChapter() {
   return (
-    <StickyPhotos frames={STEPS} label="オーガニックのまま、スペシャルティ。" caption="撮影：2026年10月1日、東京" steps={[
+    <StickyPhotos frames={STEPS} label="有機も、味も。妥協しない。" caption="撮影：2026年10月1日、東京" steps={[
         <Fragment key="organic">
           <p className="eyebrow">01 · Organic</p>
           <p className="v3-big" lang="en">Organic.</p>
           <p className="v3-ja">JAS有機認証の豆だけを、東京で焙煎。</p>
-          {/* eslint-disable-next-line @next/next/no-img-element -- inset proof photo */}
-          <img className="v3-hand-inset" src="/v2/photos/161-s.webp" alt="有機JASの表示がある生豆の麻袋" loading="lazy" />
           <Link className="v3-more" href="/about#jas">有機JASについて →</Link>
         </Fragment>,
         <Fragment key="specialty">

@@ -22,8 +22,8 @@ const prices = `100g / 200gの税込価格は、${products
   .map((p) => `${p.title.ja.split(" ")[0]}${p.decaf ? " デカフェ" : ""} ${price(p, "100g")} / ${price(p, "200g")}`)
   .join("、")}。豆のままでのお届けです。`;
 
-/* Words in an answer that link to the page explaining them (first occurrence only). 取扱店向けページ: Masaki 2026-10-09. */
-const LINKS: [string, string][] = [["スペシャルティコーヒー", "/specialty"], ["取扱店向けページ", "/trade"]];
+/* Words in an answer that link to the page explaining them (first occurrence only). ホールセールのページ: Masaki 2026-10-09. */
+const LINKS: [string, string][] = [["スペシャルティコーヒー", "/specialty"], ["ホールセールのページ", "/trade"]];
 
 function Answer({ text }: { text: string }) {
   if (text === "__PRICES__") return <>{prices}</>;

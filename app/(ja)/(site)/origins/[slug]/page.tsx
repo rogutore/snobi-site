@@ -76,12 +76,12 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
       <JsonLd data={[productGroup(p, stock, [f.hero, f.beans, f.cup, f.brew, f.table, f.waist].map((id) => `/v2/photos/${id}-l.webp`)), breadcrumb([["ホーム", "/"], ["産地", "/origins"], [p.title.ja, `/origins/${p.slug}`]])]} />
       {/* hero: the bag in the dappled light + the copy and buy box (Mockup D .ohero) */}
       <section className="v3p-origins-hero" aria-labelledby="o-h1">
+        {/* Four shots that each show something different (Masaki 2026-10-09: the cup and dark-table frames repeated the
+            bag-on-table hero). The farm photos join here when the producers reply (docs/permission-emails.md). */}
         <OriginGallery shots={[
           { id: f.hero, alt: `SNöBI ${p.title.ja}の袋、木漏れ日のテーブル`, position: "50% 70%" },
           { id: f.beans, alt: `${p.title.ja}の焙煎豆` },
-          { id: f.cup, alt: `${p.title.ja}の袋と、グラスに注いだコーヒー` },
           { id: f.brew, alt: `${p.title.ja}をハンドドリップで淹れる` },
-          { id: f.table, alt: `暗いテーブルの上の${p.title.ja}の袋` },
           { id: f.waist, alt: `${p.title.ja}の袋を両手で持つ` },
         ]} />
         <div className="copy">
