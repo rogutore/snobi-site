@@ -5,6 +5,14 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09/10 — Masaki's review round
+- LIVE: version d0fdfbbe-2842-46c9-bab6-1ac8c685546d (previous 4a0eb6ed, 0188238d).
+- Done from Masaki's list: FAQ ペルー→ペルー・ゲイシャ; 有機/焙煎度/粉 split into 3 QAs; 「ホールセールのページ」 linked; wholesale roast schedule = SNöBI's Tue/Fri noon (one source; TC's weekday-14:00 line removed).
+- Owner yes (2, 3): Home four points — each step opens on its hand-off frame (047/049/046/048), holds 0.9 s, then dissolves into its own shot with a 1.14→1 zoom-out: 161 JAS sack · 131 pour · 149 beans in the opened bag · 130 bags together (`StickyPhotos` optional `then`; Story unaffected; replays on every entry; reduced motion = second shot at once). The duplicate 161 inset in step 1 removed. Origin gallery 6 → 4 distinct shots (hero, beans, brew, waist; cup + dark table dropped).
+- Owner: 取扱店 → ホールセール (nav, footer, contact, breadcrumb, page title 「ホールセール（業務用・卸）｜…」, FAQ link, form header).
+- HOLD (owner): Story page (Masaki: no content — it says "We're writing it."); scheduled task `snobi-gsc-indexing-2026-10-10` DISABLED until Masaki's article fixes. Re-enable with a new fireAt.
+- Not approved: hero film change (#1).
+
 ## 2026-10-09 (night, last) — wholesale terms, www redirect, COD fee check, Peru Geisha overlap
 - LIVE: version 0188238d-25ca-43f5-89a1-a2e688b85326 (previous 9726eadb).
 - /trade terms = Tokyo Coffee's (owner: "same deal as tc"): 1kg, 1 bag minimum, weekday 14:00 same-day roast/ship (TC wholesale FAQ), free shipping from ¥3,000 (VERIFIED Shopify "Wholesale" delivery profile; the ¥5,000 on one TC page is wrong), wholesale price shown after account registration. FAQ answers updated. NOTE: SNöBI 1kg SKUs are not in TC's wholesale catalog (its Peru Geisha / Guji 1kg are TC's own lots, owner) — staff must add them for "same deal" to be orderable.
