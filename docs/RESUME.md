@@ -5,6 +5,9 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-10 (night) — four points fixed properly
+- LIVE: version f13cadcb-113b-4041-be99-b3d8f6b382c0. Owner: "you left it half fixed" — the hand-off-then-switch effect is removed (sticky-photos.tsx reverted to 7886ef5; `.then` CSS gone). Each point now has its own photo: 01 Organic 161 (JAS sack) · 02 Specialty 006 (roasting, hand at the roaster over the cooling tray; no cupping photo exists) · 03 Whole bean 152 (roasted beans) · 04 Chapter One 030 (four bags on the desk). Sheet: design/four-points-2026-10-10.jpg.
+
 ## 2026-10-10 (later) — rotation v2 + Story interim lines
 - LIVE: version 28230f83-4670-4523-8890-721b4fc34e57. Owner: v1 "not up to par … switching in order, left to right". v2 (`components/v3/shot-cycle.tsx`): a `ShotRotation` conductor per row changes ONE card at a time, chosen by weighted chance (last-changed card sits out, the one before and the last card's neighbours less likely), every 2.2–3.8 s (/coffee 2.6–4.2 s); the next shot avoids what other visible cards show and the card's last two; image decoded before showing; 1.8 s dissolve over the outgoing photo + 9 s centred drift from 1.06; hovered cards wait; off-screen/hidden tab = no change. Measured over 40 s: order 4 1 3 1 4 2 3 2 4 3 2 4 3 1; after the opening, never two cards on the same shot type. Brew crop 50% (Mexico 126 at 62%) so dripper + bag both show (owner).
 - Story (owner: temporary state = idea 2): one line per walk step from content/v2.ts `storyWritingJa` (このページも、いま書いている途中です。/ 物語の主役は、この場所と、ここで働く私たち。/ コーヒーが好きな仲間と、新しい章を始めました。/ 農園の写真と話が届いたら、ここに書き足していきます。). Layout and photos untouched.
