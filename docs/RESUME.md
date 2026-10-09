@@ -5,6 +5,13 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09 (evening) — owner picks + state for the next session
+- LIVE: version baea774b-106e-437e-9bc1-a4290fa2004d (Fuji plate vertical 富士山 title, no frame, 山頂 label; summit thumbs show bags; phone hand-chapter text fixed + full-bleed photos; leaf layer sways). Commit 2ddbf52. Rollback to the pre-swap site: 6588359a…@100%.
+- HEADLINE — LIVE in version d8785f10-1442-42fc-aaa4-e019c2926267 (owner 2026-10-09): JA hero line 「有機も、味も。妥協しない。」 (replaces 「オーガニックのまま、スペシャルティ。」); EN stays "Organic. And actually specialty."; subline 「認証は、有機JAS。評価は、スペシャルティ。」. Past lines inventory: research-outputs/2026-10-09-snobi-headlines/past-lines.md. Update DESIGN.md "Belief" line to match.
+- TRADEMARK (owner: "We have a PC, recommend fastest path"): fastest = Toreru files electronically (Brand Registry applicable ≈day 29–31, ≈¥49k); self-electronic on the PC ≈day 31–38 (needs 商業登記電子証明書 file type + インターネット出願ソフト + 申請人利用登録). Amazon brand string must be `SNOBI`. Report: research-outputs/2026-10-09-trademark-registry/report.md. Vault: brain/Handoffs/premium-line/trademark.md, brain/Handoffs/tokyo-coffee/trademarks.md (HIGH: 6580020 ¥51,600 due 2027-06-29 on Jefe calendar; no US/EU filing; US Reg. 7546460 「THE TOKYO COFFEE」 conflict; pending JP 商願2026-045619 TOKYO COFFEE 35/41/43).
+- AMAZON research done (01-economics, 02-market, 03-listing-brand-marketing + listings-ja.md in research-outputs/2026-10-09-snobi-amazon/): NEXT = one synthesis plan page.
+- Other NEXT: GSC indexing requests for Colombia, /journal, posts; recheck sitemap "Couldn't fetch"; Bing WMT (owner sign-in); launch kit sends (owner); purchasing-team confirmation for the permission emails; wholesale terms (owner).
+
 ## 2026-10-09 (later) — galleries, ¥3,000 fix, new /trade, Amazon research started
 - LIVE version 7fbad872-dfe1-402a-b552-4b9c2f902430 (rollback to old site: 6588359a…@100%). Commits 98fd8a5, 070800d.
 - Origin pages: `components/v3/pages/origin-gallery.tsx` — 6 photos (hero, beans, cup, brew, table, waist; studio packshot left out: small off-centre bag); "passed by hand" stays in the bag section; the cup+beans pair section removed. ProductGroup JSON-LD lists all 6 images.

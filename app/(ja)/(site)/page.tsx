@@ -42,7 +42,9 @@ export default async function Home() {
         <div className="v3-filmcopy">
           <p className="eyebrow" style={{ color: "var(--color-paper)" }}>Organic × Specialty × Japan — Est. 2026</p>
           <h1 className="display" lang="en">Organic.<br /><em>And actually specialty.</em></h1>
-          <p className="ja">オーガニックのまま、スペシャルティ。</p>
+          {/* owner 2026-10-09: JA line + proof subline; EN h1 unchanged */}
+          <p className="ja">有機も、味も。妥協しない。</p>
+          <p className="ja proof">認証は、有機JAS。評価は、スペシャルティ。</p>
           <div className="v3-filmcta">
             <Link className="v3-btn light" href="/coffee">4つの産地から選ぶ</Link>
             <span className="price">{yen(minPrice)}〜（税込）・豆のまま</span>
