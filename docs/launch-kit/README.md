@@ -14,7 +14,7 @@ Everything here is a **draft**. Nothing was sent, posted, submitted or paid; no 
 | `tc-links.md` | tokyocoffee.jp: footer link, product-page link, OPTIONAL canonical (K3), TC blog post, `brand` JSON-LD, Peru Geisha meta fix | **Shopify login**; apply on a duplicated theme; publish the post | ¥0 |
 | `gbp-posts.md` | Google Business Profile: launch post + four origin posts, 「詳細」 URLs, menu entries | **GBP login**; confirm which profiles exist and whether the cafés sell SNöBI | ¥0 |
 | `social-profiles.md` | Entity sentence (JP+EN), Instagram bio, LinkedIn company + Showcase, note.com, YouTube channel + 2 video descriptions | **Approve the entity sentence**; create accounts only after K7 / T32 / T48 decisions | ¥0 |
-| `trademark-application.md` | 商標登録願 (標準文字 ＳＮＯＢＩ, 第30類) + 早期審査に関する事情説明書 (対象3) + evidence list | **Decide** (self or Toreru), **buy stamps**, **submit**, later **pay** fees | ¥12,000 at filing, ≈ ¥3,200 電子化手数料, then ¥17,200 (5 yr) or ¥32,900 (10 yr) |
+| `trademark-application.md` → **moved to `brain/Handoffs/snobi-amazon/`** (work package: `trademark-filing.md` there) | 商標登録願 (標準文字 ＳＮＯＢＩ, 第30類) + 早期審査に関する事情説明書 (対象3) + evidence list | **Decide** (self or Toreru), **buy stamps**, **submit**, later **pay** fees | ¥12,000 at filing, ≈ ¥3,200 電子化手数料, then ¥17,200 (5 yr) or ¥32,900 (10 yr) |
 
 **Cash for the launch kit:**
 - 33,000 (PR) + 21,555 (samples, retail value) + 32,400 (trademark, 5-yr) = **¥86,955**;

@@ -43,6 +43,7 @@ export function Footer() {
           {/* eslint-disable-next-line @next/next/no-img-element -- brand SVG */}
           <img className="wm" src="/brand/snobi_font1.svg" alt="SNöBI" width={128} height={36} />
         </p>
+        {/* Keep the plain 「Snobi」 until 「ＳＮＯＢＩ」 registers: it is the use evidence for 早期審査 (brain/Handoffs/snobi-amazon/trademark-filing.md). */}
         <p className="small">ORGANIC SPECIALTY BY TOKYO COFFEE<br />JAS有機認証の豆だけを、東京で焙煎。<br />© 2026 Snobi · 株式会社ローグトレード</p>
       </div>
       <ul>{NAV.map(([l, h]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul>

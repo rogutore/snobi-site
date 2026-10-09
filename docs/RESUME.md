@@ -5,6 +5,13 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09 (night) — favicon live, SNöBI Amazon handoff, wholesale form options
+- LIVE: version 1639c11b-090d-4c65-b363-738aae2d37f0 = favicon (was the default Next.js triangle). `scripts/make-favicon.py` builds `app/icon.svg`, `app/favicon.ico` (16/32/48) and `app/apple-icon.png` (180) from `public/brand/snobi.svg` + the plum/paper tokens in globals.css: plum square, paper boar. VERIFIED 200 + `<link rel="icon">` tags on /, /en, /origins/peru. Previous: d8785f10.
+- Deploy note: `wrangler versions upload/deploy` uses wrangler's own login. Run it WITHOUT sourcing `_secrets/cloudflare-snobi.env` (that token is zone/DNS only and returns "No access to the specified service").
+- AMAZON HANDOFF (owner: "save a handoff specifically for the Snobi Amazon project… next agent should… prep and apply for the trademark… chatgpt or claude"): `brain/Handoffs/snobi-amazon/_index.md` + `trademark-filing.md` (work package). `trademark-application.md` MOVED from `docs/launch-kit/` into that folder (repo file is now a pointer). ChatGPT-readable research snapshot: Drive `RTU/snobi-amazon/research-2026-10-09/`. Footer 「© 2026 Snobi」 now carries a keep-until-registration comment (`components/v3/shell.tsx`).
+- WHOLESALE FORM: options given to owner (fix the Google Form copy now; later an on-page /trade form that posts into the same Google Form). Waiting on owner + item F (samples yes/no, terms). After any form edit, re-read entry ids before touching `content/trade.ts` prefill.
+- Still pending: DESIGN.md "Belief" line → new headline; Amazon one-page plan; GSC indexing (Colombia, /journal, posts).
+
 ## 2026-10-09 (evening) — owner picks + state for the next session
 - LIVE: version baea774b-106e-437e-9bc1-a4290fa2004d (Fuji plate vertical 富士山 title, no frame, 山頂 label; summit thumbs show bags; phone hand-chapter text fixed + full-bleed photos; leaf layer sways). Commit 2ddbf52. Rollback to the pre-swap site: 6588359a…@100%.
 - HEADLINE — LIVE in version d8785f10-1442-42fc-aaa4-e019c2926267 (owner 2026-10-09): JA hero line 「有機も、味も。妥協しない。」 (replaces 「オーガニックのまま、スペシャルティ。」); EN stays "Organic. And actually specialty."; subline 「認証は、有機JAS。評価は、スペシャルティ。」. Past lines inventory: research-outputs/2026-10-09-snobi-headlines/past-lines.md. Update DESIGN.md "Belief" line to match.
