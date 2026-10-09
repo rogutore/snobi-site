@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { products } from "@/content/products";
 import { company } from "@/content/legal";
-import { trade, tradeFormUrl } from "@/content/trade";
+import { trade } from "@/content/trade";
+import { TradeForm } from "@/components/v3/pages/trade-form";
 import { Photo } from "@/components/v2/photo";
 import { pageMeta, JsonLd, faqPage, breadcrumb } from "@/lib/seo";
 
 /* 取扱店 (owner 2026-10-09): the "最初の25店舗" offer is gone; the page asks for enquiries and promises nothing we have not
    decided. Copy: content/trade.ts (synthesis of LIGHT UP, ONIBUS, Kurasu, La Cabra, Onyx + Tokyo Coffee wholesale facts).
-   Coffee rows render from products.ts; the phone/mail line from legal.ts. Hand-off frame 049 (PHOTO-INVENTORY §7). */
+   Coffee rows render from products.ts; the phone/mail line from legal.ts. Hand-off frame 049 (PHOTO-INVENTORY §7).
+   The enquiry form is on the page (owner 2026-10-09) and posts into the existing Google Form: components/v3/pages/trade-form.tsx. */
 export const metadata = pageMeta({ path: "/trade", en: "/en/trade", title: trade.title, description: trade.description, image: "/v2/photos/049-l.webp" });
 
 export default function Trade() {
@@ -20,7 +22,7 @@ export default function Trade() {
           <h1 id="tr-h1">{trade.h1}</h1>
           <p className="lead">{trade.lead}</p>
           <p className="sub">{trade.sub}</p>
-          <a className="v3-btn" href={tradeFormUrl} target="_blank" rel="noopener">{trade.cta}</a>
+          <a className="v3-btn" href="#enquiry">{trade.cta}</a>
         </div>
         <Photo className="ph" id="049" alt="SNöBIの袋を手渡す" sizes="(min-width:860px) 44vw, 100vw" priority />
       </section>
@@ -61,13 +63,15 @@ export default function Trade() {
         <dl>{trade.faq.map((x) => <div key={x.q}><dt>{x.q}</dt><dd>{x.a}</dd></div>)}</dl>
       </section>
 
-      <section className="v3-sec v3-trade-enquiry" aria-labelledby="tr-enq">
-        <p className="eyebrow" lang="en">{trade.enquiryEyebrow}</p>
-        <h2 id="tr-enq" className="v3-def-h">{trade.enquiryH2}</h2>
-        <p>{trade.enquiry}</p>
-        <a className="v3-btn" href={tradeFormUrl} target="_blank" rel="noopener">{trade.cta}</a>
-        <p className="contact">お電話・メールでも承ります。{company.tel} · {company.email}（{company.name}）</p>
-        <p className="closing">{trade.closing}</p>
+      <section id="enquiry" className="v3-sec v3-trade-enquiry" aria-labelledby="tr-enq">
+        <div className="aside">
+          <p className="eyebrow" lang="en">{trade.enquiryEyebrow}</p>
+          <h2 id="tr-enq" className="v3-def-h">{trade.enquiryH2.replace("、", "、\n")}</h2>
+          <p>{trade.enquiry}</p>
+          <p className="contact">お電話・メールでも承ります。<br />{company.tel} · {company.email}<br />（{company.name}）</p>
+          <p className="closing">{trade.closing}</p>
+        </div>
+        <TradeForm coffees={products.map((p) => ({ name: p.title.ja, detail: `${p.process.ja} · ${p.elevation}` }))} />
       </section>
     </>
   );

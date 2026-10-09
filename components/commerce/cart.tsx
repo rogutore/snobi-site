@@ -48,7 +48,7 @@ export function CartButton({ light = false }: { light?: boolean }) {
   );
 }
 /* T6: remember where this visit came from (referrer host + utm_source), once per tab session. Host only. */
-function firstRef(): { host?: string; utm?: string } {
+export function firstRef(): { host?: string; utm?: string } {
   try {
     const saved = sessionStorage.getItem("snobi_ref");
     if (saved) return JSON.parse(saved);

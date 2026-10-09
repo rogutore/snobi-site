@@ -7,6 +7,18 @@ with Sucafina — a company we have never bought from.
 Evidence: order/invoice mail in info@tokyocoffee.jp, invoices and certificates in Drive (`My Drive/SNOBI/`, vendor
 folders), public web pages. Marks: VERIFIED (source named) / INFERRED / UNKNOWN.
 
+**Status 2026-10-09 (owner: "Shouldn't we ask farms first/simultaneously? There is no conflict there. Write up emails to each of the
+farms and exporters if they are clear. Save drafts for the version we discussed to our vendors in info drafts."):**
+- **Six Gmail drafts saved in info@tokyocoffee.jp (not sent):** #1 矢野様, #2 鈴木様, #3 コーヒー流通センター, #4 田久保様, #8 CAC La
+  Prosperidad de Chirinos (ES + EN), #9 Café Colsuaves (ES + EN). The drafts are the current text; sections below are the 2026-10-08 record.
+- Changes from the 2026-10-08 text: farms/exporters are asked **at the same time** as the vendors, not after; #1 and #3 now tell the vendor
+  we are writing to the co-op / exporter directly; #8/#9 no longer CC the vendor and name the vendor we buy through; `[共有フォルダURL]` is
+  replaced by "reply with attachments or a GigaFile/Google Drive link". Still to fill: `[氏名]` / `[Nombre]` (who signs).
+- **Not drafted (contact not clear, 2026-10-09 search):** Tade GG / Tesfaye Bekele (two Gmail addresses appear only in a search summary, not
+  on a page; go through 小川珈琲 / the importer), Cooperativa El Bombo itself (directory phone only; reached via Colsuaves), GRAPOS (no email;
+  site fails), Agroindustrias Unidas de México (phones only), Descamex (plant unconfirmed). #5 健友交易 not drafted (decaf switch undecided).
+- The purchasing-team questions below are still open but no longer block sending (owner).
+
 **Status 2026-10-08: ON HOLD — confirm with the purchasing team before anything is sent (owner).** Questions for them:
 1. Are the four vendors in §1 the ones SNöBI's beans come from (not other stock of the same origin)?
 2. Colombia: is SNöBI roasted only from コーヒー流通センター 7005A, never from the むそう Colombia?

@@ -5,6 +5,13 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09 (late night) — favicon un-inverted, /trade form live, photo-permission drafts saved
+- LIVE: version 7c664189-9686-46bc-a4c5-4781bde8a388 (previous 1639c11b).
+- FAVICON (owner: "not inverted"): plum boar on transparent, as the logo is printed; in a dark browser theme icon.svg turns the boar paper so it stays visible on dark tab bars (VERIFIED: fill #443850 light / #f7f5f0 dark). apple-icon = plum boar on paper. `scripts/make-favicon.py`.
+- /trade FORM (owner: "make a beautiful form for us now"): on-page form in three numbered groups (お店 / ご担当者 / ご相談), posts server-side into the EXISTING Google Form so answers land in the same response sheet. Copy + Google contract (entry ids, option labels VERIFIED 2026-10-09) in `content/trade.ts`; `lib/trade-enquiry.ts` (validation), `app/(ja)/(site)/trade/actions.ts`, `components/v3/pages/trade-form.tsx`. Extra fields (都道府県, 営業状況/開業予定, URL, 気になる豆, ref) go into the free-text answer. Spam: honeypot + 3 s minimum. Sample / launch-notice options not offered. VERIFIED: validation, phone layout, honeypot path on Workers, Google rejects an incomplete post (400). NOT VERIFIED: one real submission landing in the sheet (needs owner OK to send a test).
+- Footer link 「発売案内を受け取る ↗」 (components/v3/shell.tsx) still opens the Google Form with the CAFERES description: proposed to owner, not changed.
+- PHOTO EMAILS: 6 Gmail drafts in info@ (not sent): 4 vendors + Chirinos co-op + Café Colsuaves; detail in `docs/permission-emails.md` status block.
+
 ## 2026-10-09 (night) — favicon live, SNöBI Amazon handoff, wholesale form options
 - LIVE: version 1639c11b-090d-4c65-b363-738aae2d37f0 = favicon (was the default Next.js triangle). `scripts/make-favicon.py` builds `app/icon.svg`, `app/favicon.ico` (16/32/48) and `app/apple-icon.png` (180) from `public/brand/snobi.svg` + the plum/paper tokens in globals.css: plum square, paper boar. VERIFIED 200 + `<link rel="icon">` tags on /, /en, /origins/peru. Previous: d8785f10.
 - Deploy note: `wrangler versions upload/deploy` uses wrangler's own login. Run it WITHOUT sourcing `_secrets/cloudflare-snobi.env` (that token is zone/DNS only and returns "No access to the specified service").

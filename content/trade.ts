@@ -21,7 +21,7 @@ export const trade = {
   h1: "お店で扱う。",
   lead: "Tokyo Coffeeがつくる4つのオーガニック・スペシャルティコーヒーを、あなたのお店へ。",
   sub: "ご注文は、Tokyo Coffeeの卸売で承ります。このページでは、取扱いのご相談を受け付けています。",
-  cta: "取扱店について相談する ↗",
+  cta: "取扱いについて相談する",
   coffeesH2: "4種、すべて有機JAS。",
   coffeesLine: "デカフェも、有機JASのスペシャルティです。",
   factsH2: "お届けするもの。",
@@ -53,9 +53,65 @@ export const trade = {
   ],
   enquiryEyebrow: "Prices on request",
   enquiryH2: "あなたのお店のことを、教えてください。",
-  enquiry: "フォームは「卸価格のご案内」を選んだ状態で開きます。店舗名、ご担当者名、メールアドレス、業種、月間使用量の目安をご記入ください。",
+  enquiry: "担当者から、卸価格とお取引の進め方をメールでご連絡します。",
   closing: "このページでは、取扱いのご相談を受け付けています。ご注文は、Tokyo Coffeeの卸売で承ります。",
   /* the FAQ answer on /faq and the contact-page hint point here */
   faqAnswer: "取扱いのご相談を受け付けています。扱える豆とお問い合わせの流れは、取扱店向けページでご案内しています。",
   contactHint: "扱える豆と、ご相談の流れのご案内です。",
 };
+
+/* The enquiry form on /trade (owner 2026-10-09: "make a beautiful form for us now"). It posts into the existing Google
+   Form, so answers land in the response sheet the team already reads. Entry ids and option labels VERIFIED from the form's
+   public load data on 2026-10-09; after ANY edit to the Google Form, re-read them before changing these. Choice values
+   must equal the Google labels character for character. Fields the Google Form lacks (prefecture, opening status, shop
+   URL, coffees, where the visit came from) are written into its free-text answer by the server action. */
+export const GOOGLE_FORM = {
+  action: FORM_URL.replace(/\/viewform$/, "/formResponse"),
+  shop: "entry.1950460192",
+  name: "entry.961228833",
+  email: "entry.1361471",
+  type: "entry.170928151",
+  interest: "entry.631131549",
+  usage: "entry.1219200011",
+  tel: "entry.1328587829",
+  message: "entry.1093102172",
+} as const;
+
+export const tradeForm = {
+  groups: { shop: "お店のこと", person: "ご担当者", ask: "ご相談の内容" },
+  required: "必須",
+  shop: { label: "店名・会社名", placeholder: "例）喫茶ひだまり" },
+  type: { label: "業態", options: ["カフェ", "ロースター", "小売", "卸・商社", "ホテル・レストラン", "その他"] },
+  pref: { label: "都道府県", placeholder: "選んでください" },
+  status: { label: "営業状況", options: ["営業中", "開業準備中"], openingLabel: "開業予定の時期", openingPlaceholder: "例）2027年春" },
+  url: { label: "お店のURL・Instagram", placeholder: "https:// または @アカウント名" },
+  name: { label: "お名前", placeholder: "例）山田 花子" },
+  email: { label: "メールアドレス", placeholder: "例）hanako@example.jp" },
+  tel: { label: "電話番号", placeholder: "例）03-1234-5678" },
+  coffees: { label: "気になる豆", hint: "いくつでも選べます。" },
+  /* subset of the Google options: 「発売前サンプル請求」 and 「発売案内のみ希望」 are not offered (no samples promised; launched) */
+  interest: { label: "ご相談の内容", hint: "いくつでも選べます。", options: ["卸価格のご案内", "OEM・プライベートブランド", "Tokyo Coffee 既存商品"] },
+  usage: { label: "月間の豆の使用量（目安）", options: ["〜5kg", "5〜20kg", "20〜50kg", "50kg以上", "未定"] },
+  message: { label: "ご質問・ご要望", placeholder: "メニューのこと、使い始めたい時期、気になることなど。" },
+  privacy: "ご記入の内容は、取扱いのご連絡にのみ使います。",
+  privacyLink: "プライバシーポリシー",
+  privacyUrl: "https://tokyocoffee.jp/policies/privacy-policy", // VERIFIED 200, 「プライバシーポリシー」, 2026-10-09
+  submit: "この内容で送る",
+  sending: "送信しています",
+  errors: {
+    summary: "入力内容をご確認ください。",
+    shop: "店名・会社名をご記入ください。",
+    type: "業態を選んでください。",
+    name: "お名前をご記入ください。",
+    email: "メールアドレスの形式をご確認ください。",
+    interest: "ご相談の内容を、1つ以上選んでください。",
+    tooLong: "文字数が多すぎます。短くしてください。",
+    send: "送信できませんでした。時間をおいてもう一度お試しいただくか、お電話・メールでご連絡ください。",
+  },
+  done: {
+    h: "受け付けました。",
+    body: (email: string) => `担当者から、${email} あてにご連絡します。`,
+    thanks: "ありがとうございました。",
+  },
+};
+

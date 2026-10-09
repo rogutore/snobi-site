@@ -2,9 +2,10 @@
 """Build the site icons from the real boar mark (public/brand/snobi.svg) and the colour tokens in app/globals.css.
 
 Outputs (Next.js metadata file conventions, app/ root so every route gets them):
-  app/icon.svg        plum square, paper boar (browsers that take SVG; Google's search favicon)
-  app/favicon.ico     16 / 32 / 48 px raster of the same
-  app/apple-icon.png  180 px, boar a little smaller because iOS rounds the corners
+  app/icon.svg        the plum boar as the logo is printed, transparent ground; in a dark browser theme the boar turns
+                      paper so it stays visible on a dark tab bar (owner 2026-10-09: "not inverted")
+  app/favicon.ico     16 / 32 / 48 px, plum boar on transparent (fallback for browsers without SVG icons)
+  app/apple-icon.png  180 px, plum boar on paper (iOS needs an opaque ground and rounds the corners)
 
 Run after the logo or the plum/paper tokens change:  python3 scripts/make-favicon.py
 """
@@ -42,17 +43,18 @@ def boar() -> tuple[list[str], tuple[float, float, float, float]]:
     return paths, (vb[0] + x0 * k, vb[1] + y0 * k, vb[0] + x1 * k, vb[1] + y1 * k)
 
 
-def icon_svg(width_frac: float) -> str:
+def icon_svg(width_frac: float, ground: str | None = None, dark_swap: bool = False) -> str:
     plum, paper = token("plum"), token("paper")
     paths, (bx0, by0, bx1, by1) = boar()
     s = SIZE * width_frac / (bx1 - bx0)
     tx = SIZE / 2 - s * (bx0 + bx1) / 2
     ty = SIZE / 2 - s * (by0 + by1) / 2
     body = "".join(f'<path d="{d}"/>' for d in paths)
+    style = f"<style>@media (prefers-color-scheme: dark){{.b{{fill:{paper}}}}}</style>" if dark_swap else ""
+    rect = f'<rect width="{SIZE}" height="{SIZE}" fill="{ground}"/>' if ground else ""
     return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SIZE} {SIZE}">'
-        f'<rect width="{SIZE}" height="{SIZE}" fill="{plum}"/>'
-        f'<g fill="{paper}" transform="translate({tx:.2f} {ty:.2f}) scale({s:.5f})">{body}</g></svg>\n'
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SIZE} {SIZE}">{style}{rect}'
+        f'<g class="b" fill="{plum}" transform="translate({tx:.2f} {ty:.2f}) scale({s:.5f})">{body}</g></svg>\n'
     )
 
 
@@ -61,10 +63,9 @@ def png(svg: str, px: int) -> Image.Image:
 
 
 def main() -> None:
-    tab = icon_svg(0.70)  # fits inside Google's circular crop
-    (ROOT / "app/icon.svg").write_text(tab)
-    png(tab, 256).save(ROOT / "app/favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
-    png(icon_svg(0.62), 180).convert("RGB").save(ROOT / "app/apple-icon.png", optimize=True)
+    (ROOT / "app/icon.svg").write_text(icon_svg(0.88, dark_swap=True))  # legs stay inside Google's round crop
+    png(icon_svg(0.94), 256).save(ROOT / "app/favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    png(icon_svg(0.66, ground=token("paper")), 180).convert("RGB").save(ROOT / "app/apple-icon.png", optimize=True)
     print("wrote app/icon.svg, app/favicon.ico (16/32/48), app/apple-icon.png (180)")
 
 
