@@ -65,7 +65,7 @@ components:
 
 **Surface and reader:** snobi.jp, the Japanese-first store. The reader is deciding on a phone which 100g bag of organic specialty to try. The second door is for café owners (取扱店).
 
-**Belief:** 「オーガニックのまま、スペシャルティ。」 / "Organic. And actually specialty.": organic can be actually specialty. This is the live copy (site-plan D8) and the only headline line. The roast date is **not** a selling point (owner, 2026-10-06): it is never a headline and never appears on the homepage.
+**Belief:** 「有機も、味も。妥協しない。」 / "Organic. And actually specialty.": organic can be actually specialty. This is the live copy and the only headline line (owner 2026-10-09; it replaced 「オーガニックのまま、スペシャルティ。」, site-plan D8). The home hero adds one proof line under it: 「認証は、有機JAS。評価は、スペシャルティ。」 The roast date is **not** a selling point (owner, 2026-10-06): it is never a headline and never appears on the homepage.
 
 **Named direction:** Daylight × Oryzo × Kettl, "a bag in Tokyo morning light": calm, tactile (owner, 2026-10-05 and 2026-10-06).
 
@@ -119,7 +119,7 @@ So **Japanese headings are 600; 700 would be faux bold.** Never ship a stand-in 
 | `--text-step-4` | 33.2 | 43.9 | page h1 |
 | `--text-step-5` | 39.8 | 54.9 | section display |
 | `--text-display` | 44 | 80 | the one Latin hero line per page |
-| `.t-ja-hero` (step-5) | 39.8 | 54.9 | 「オーガニックのまま、スペシャルティ。」 in Shuei 600 |
+| `.t-ja-hero` (step-5) | 39.8 | 54.9 | 「有機も、味も。妥協しない。」 in Shuei 600 |
 
 The Latin display line is about 4.4× body at 1440, deliberately below Mockup D's 115px. The references run 2.3–2.9×; this one line is allowed more because it is the only display line on the page, while boldness still belongs to the bag (RULES D4). Display tracking is −0.035em at 0.98 line-height, inside the doctrine band for 72px and up. Re-measure on the served Moret at the first port and record the result here.
 
@@ -141,7 +141,7 @@ The Latin display line is about 4.4× body at 1440, deliberately below Mockup D'
 ```
 [header: boar+wordmark · nav · 取扱店 · CART]                       64px, always
 [bag chapter, sticky stage ~4 viewports]                             paper + sun
-   line beside the bag: Organic. / オーガニックのまま、スペシャルティ。 + 4種を見る
+   line beside the bag: Organic. / 有機も、味も。妥協しない。 + 4種を見る
    drop → one turn → beans pour and pile → lineup of four with proof labels
 [releases: 4 square photos on paper · name · notes · price · buy]   paper-2
 [coffee-belt map: 4 numbered origins → origin pages]                paper

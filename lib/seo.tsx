@@ -104,6 +104,8 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
       return {
         "@type": "Product",
         name: `${BRAND} ${p.title.ja} ${v.size}`,
+        image: images.map((x) => `${SITE}${x}`), // Google Merchant listings: required on each variant (GSC 2026-10-09)
+        description: p.narrative.ja.join(" "),
         sku: s?.sku || v.sku,
         size: v.size,
         url,
@@ -122,7 +124,9 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
                   shippingDestination: { "@type": "DefinedRegion", addressCountry: "JP" },
                   freeShippingThreshold: { "@type": "MonetaryAmount", value: FREE_SHIPPING_YEN, currency: "JPY" },
                 },
-                ...(returnsText ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7, description: returnsText } } : {}),
+                ...(returnsText ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7,
+                  /* 特商法 返品・交換: 「送料着払いにてご返品」 = returned by post, carriage paid by us */
+                  returnMethod: "https://schema.org/ReturnByMail", returnFees: "https://schema.org/FreeReturn", description: returnsText } } : {}),
               },
             }
           : {}),

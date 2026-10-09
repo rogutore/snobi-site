@@ -5,6 +5,17 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09 (later still) — form verified end to end, Bing live, GSC, merchant-listing fix
+- LIVE: version df24b333-4677-48c1-a200-3b1fc2a7244f (previous 7c664189).
+- FORM VERIFIED end to end (owner OK): test enquiry 「【テスト】SNöBIフォーム動作確認（削除してください）」 landed in the Google Form's Responses (2 responses total: an older TESTING one + ours), extra fields in ご質問・ご要望. Owner to delete both test rows. The form has NO email alert yet (owner: Responses → ⋮ → Get email notifications) — form owner is rogutore@gmail.com (Chrome "Browser 3").
+- Footer 「発売案内を受け取る ↗」 (old Google Form) → 「取扱店のご相談」 → /trade#enquiry (owner yes).
+- BING: snobi.jp added + verified (CNAME fabd60f19746b52304839c551fe8d4f9.snobi.jp → verify.bing.com, DNS only, via the Cloudflare API), sitemap submitted ("successfully submitted"); IndexNow re-pinged (200, 36 URLs).
+- GSC (Chrome "Browser 2" = info@tokyocoffee.jp owns the property): sitemap resubmitted (old status "Couldn't fetch"; Googlebot gets 200/xml/36 URLs). Colombia already indexed. Indexing requested today: /trade, /journal, /journal/organic-coffee, /journal/organic-specialty, /journal/organic-decaf-light-roast — then "Quota exceeded". NEXT (2026-10-10+): organic-geisha-peru, jas-mark, organic-coffee-gift, mountain-water-decaf, colombia-huila-organic, mexico-chiapas-organic, ethiopia-guji-natural, natural-vs-washed, light-roast-hand-drip, why-geisha-expensive, specialty-80-points, why-not-munoyaku, roastery. In the search box: click it, cmd+a, type, Return, check the URL before clicking REQUEST INDEXING.
+- MERCHANT LISTINGS (GSC critical: variant missing "image") fixed in `lib/seo.tsx`: each size variant now carries the 6 images + description; return policy gets returnMethod ReturnByMail + returnFees FreeReturn (特商法: 送料着払い). Still optional/missing: shippingRate + deliveryTime — the regional rates (¥500/700/800) are hand-typed in SIX places (legal.ts, v2.ts, sections.tsx, contact page, cart.tsx, journal organic-coffee-gift); put them in content/ordering.ts first, then add shippingRate.
+- Photos/film/brand files now cache 1 day + 7 days stale (`public/_headers`); were revalidated on every visit.
+- NOT DONE: Japanese 404 (multiple root layouts → needs experimental `global-not-found`; test with OpenNext first). http://www → apex is 2 hops (CF Always-HTTPS then Next); needs a CF Single Redirect rule (API token has no ruleset permission → owner dashboard).
+- DESIGN.md Belief/hero lines now 「有機も、味も。妥協しない。」.
+
 ## 2026-10-09 (late night) — favicon un-inverted, /trade form live, photo-permission drafts saved
 - LIVE: version 7c664189-9686-46bc-a4c5-4781bde8a388 (previous 1639c11b).
 - FAVICON (owner: "not inverted"): plum boar on transparent, as the logo is printed; in a dark browser theme icon.svg turns the boar paper so it stays visible on dark tab bars (VERIFIED: fill #443850 light / #f7f5f0 dark). apple-icon = plum boar on paper. `scripts/make-favicon.py`.

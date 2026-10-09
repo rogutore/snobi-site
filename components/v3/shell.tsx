@@ -2,7 +2,6 @@
 /* Mockup D header/footer, ported with the real marks. */
 import Link from "next/link";
 import { useCart } from "@/components/commerce/cart";
-import { FORM_URL } from "@/content/products";
 
 /* /v3 pages are Mockup D's pages ported with the real fonts. Trade stays on the old preview until the owner and Davy decide. */
 export const NAV: [string, string][] = [
@@ -47,7 +46,7 @@ export function Footer() {
         <p className="small">ORGANIC SPECIALTY BY TOKYO COFFEE<br />JAS有機認証の豆だけを、東京で焙煎。<br />© 2026 Snobi · 株式会社ローグトレード</p>
       </div>
       <ul>{NAV.map(([l, h]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul>
-      <ul><li><Link href="/contact">お問い合わせ</Link></li><li><Link href="/legal">特定商取引法に基づく表記</Link></li><li><a href={FORM_URL}>発売案内を受け取る ↗</a></li></ul>
+      <ul><li><Link href="/contact">お問い合わせ</Link></li><li><Link href="/legal">特定商取引法に基づく表記</Link></li><li><Link href="/trade#enquiry">取扱店のご相談</Link></li></ul>
     </footer>
   );
 }
