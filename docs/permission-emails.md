@@ -14,6 +14,11 @@ farms and exporters if they are clear. Save drafts for the version we discussed 
 - Changes from the 2026-10-08 text: farms/exporters are asked **at the same time** as the vendors, not after; #1 and #3 now tell the vendor
   we are writing to the co-op / exporter directly; #8/#9 no longer CC the vendor and name the vendor we buy through; `[共有フォルダURL]` is
   replaced by "reply with attachments or a GigaFile/Google Drive link". Still to fill: `[氏名]` / `[Nombre]` (who signs).
+- **SENT 2026-10-09 (owner: "send the farms and exporter emails"):** #8 → gerencia@cac-laprosperidad.com (Gmail id 1a11e7281e6f6047),
+  #9 → info@colsuaves.com (1a11e729e1ab2ebe), from info@, signed "Equipo de Tokyo Coffee / SNöBI" (no named signer yet). Their two Gmail
+  drafts are still in Drafts: delete them by hand so nobody sends them twice. Replies: Gmail filter (from either domain → label
+  "Noah/SNöBI 産地写真", star, important, never spam) + scheduled task `snobi-origin-photo-replies` (09:00 and 18:00 daily; notifies
+  Noah, logs below under "Replies log"). No bounce as of sending.
 - **Not drafted (contact not clear, 2026-10-09 search):** Tade GG / Tesfaye Bekele (two Gmail addresses appear only in a search summary, not
   on a page; go through 小川珈琲 / the importer), Cooperativa El Bombo itself (directory phone only; reached via Colsuaves), GRAPOS (no email;
   site fails), Agroindustrias Unidas de México (phones only), Descamex (plant unconfirmed). #5 健友交易 not drafted (decaf switch undecided).
