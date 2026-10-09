@@ -5,6 +5,14 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09 (end of day) — form alerts on, 404, shipping single source
+- LIVE: version 9726eadb-6d71-4d35-83be-2fec279744ee (previous df24b333).
+- Google Form "Snobi｜業務用サンプル・先行卸のご登録" (owner rogutore@gmail.com): email notifications for new responses ON (owner yes, VERIFIED checkmark). The form is linked to a response sheet.
+- Japanese 404 for every unmatched URL: `app/global-not-found.tsx` + `experimental.globalNotFound` (VERIFIED 404 status + page on Workers, /nope and /en/nope).
+- Shipping rates now ONE source: `content/ordering.ts` SHIPPING_YEN / SHIPPING_REGIONS / shippingRates(Short); the six hand-typed copies (legal.ts, v2.ts, sections.tsx JA+EN, contact page, cart, journal gift post) read it. Product JSON-LD has one shippingDetails per rate (¥500 ×38 prefectures, ¥700 Kyushu ×7, ¥800 Hokkaido+Okinawa) with the ¥3,000 free threshold. deliveryTime still omitted (ship days/cutoff are prose in orderingSchedule).
+- /contact: the "Form" block (old Google Form, 「発売案内」) removed; three ways remain; trade link → /trade#enquiry.
+- Scheduled one-time task `snobi-gsc-indexing-2026-10-10` (10:00) requests indexing for the 13 remaining journal URLs via Chrome "Browser 2"; it appends its result line to the end of this file.
+
 ## 2026-10-09 (later still) — form verified end to end, Bing live, GSC, merchant-listing fix
 - LIVE: version df24b333-4677-48c1-a200-3b1fc2a7244f (previous 7c664189).
 - FORM VERIFIED end to end (owner OK): test enquiry 「【テスト】SNöBIフォーム動作確認（削除してください）」 landed in the Google Form's Responses (2 responses total: an older TESTING one + ours), extra fields in ご質問・ご要望. Owner to delete both test rows. The form has NO email alert yet (owner: Responses → ⋮ → Get email notifications) — form owner is rogutore@gmail.com (Chrome "Browser 3").
