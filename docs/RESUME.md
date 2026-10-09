@@ -5,6 +5,10 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-10 — 写真 switch → self-playing sequence
+- LIVE: version deee6e6d-def6-46cc-ab66-2fac63c9bb70. Owner clarified: the "gif type thing" was for the 「写真」 switch (光の中・白背景…) on Home and /coffee, not the hero. Both switches removed; each card/row plays hero → beans → cup → brew → hand (`components/v3/shot-cycle.tsx`, frames from content/v2.ts originFrames; 2.6 s per shot, 0.45 s stagger per card, dissolve + 1.1→1 zoom-out; only while on screen; later shots load once started; reduced motion = first shot). `.v3-switch` CSS deleted. The four-points change (Masaki #2, owner yes) stays.
+- Courtyard film (~/Downloads/courtyard-film-v01.mp4, 14 s 1080p, AI illustration of the Colombia label art → real brew photo): reviewed, not used on the site. Opinion in the 2026-10-10 reply (product appears at ~11 s; label lettering looks generated — check against the real bag before any use; invented "farmer"; better as a social piece).
+
 ## 2026-10-09/10 — Masaki's review round
 - LIVE: version d0fdfbbe-2842-46c9-bab6-1ac8c685546d (previous 4a0eb6ed, 0188238d).
 - Done from Masaki's list: FAQ ペルー→ペルー・ゲイシャ; 有機/焙煎度/粉 split into 3 QAs; 「ホールセールのページ」 linked; wholesale roast schedule = SNöBI's Tue/Fri noon (one source; TC's weekday-14:00 line removed).
