@@ -1,9 +1,8 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { trade } from "@/content/trade";
-import { FORM_URL } from "@/content/products";
 import { company, legalRows } from "@/content/legal";
-import { orderingSchedule, freeShippingLine } from "@/content/ordering";
+import { orderingSchedule, freeShippingLine, shippingRates } from "@/content/ordering";
 import { Copy } from "@/components/v3/copy";
 
 /* お問い合わせ — modeled on Daylight's support hub (support.daylightcomputer.com, read 2026-10-08): a warm one-line
@@ -38,16 +37,10 @@ export default function Contact() {
           <p className="hint">東京コーヒー（株式会社ローグトレード）がお受けします。</p>
           <Copy text={company.tel} label="番号をコピー" />
         </div>
-        <div className="way">
-          <p className="eyebrow">Form</p>
-          <h2>フォーム</h2>
-          <p className="big"><a href={FORM_URL}>発売案内・お問い合わせ ↗</a></p>
-          <p className="hint">新しい産地の発売案内も、こちらから受け取れます。</p>
-        </div>
         <div className="way trade">
           <p className="eyebrow">For cafés &amp; retailers</p>
           <h2>お店で扱いたい方</h2>
-          <p className="big"><Link href="/trade">取扱店のご相談 →</Link></p>
+          <p className="big"><Link href="/trade#enquiry">取扱店のご相談 →</Link></p>
           <p className="hint">{trade.contactHint}</p>
         </div>
       </section>
@@ -61,7 +54,7 @@ export default function Contact() {
           </div>
           <dl>
             <div><dt>いつ届く？</dt><dd>{orderingSchedule.ja.join("")}本州であれば翌日配達。</dd></div>
-            <div><dt>送料は？</dt><dd>{freeShippingLine.ja}。未満の場合は通常¥500、九州¥700、北海道・沖縄¥800。離島は別途お見積りとなります。</dd></div>
+            <div><dt>送料は？</dt><dd>{freeShippingLine.ja}。{shippingRates.ja}</dd></div>
             <div><dt>どこで決済するの？</dt><dd>決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。</dd></div>
           </dl>
         </div>

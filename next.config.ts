@@ -3,6 +3,8 @@ import { SITE_HOST } from "./lib/site-host";
 
 const nextConfig: NextConfig = {
   turbopack: { root: process.cwd() },
+  // One 404 for unmatched URLs across both root layouts (app/global-not-found.tsx).
+  experimental: { globalNotFound: true },
   // Allow loading the dev JS bundles when visiting via these hosts (not just
   // localhost) — otherwise scripts are blocked and the page renders blank.
   allowedDevOrigins: ["127.0.0.1", "10.0.0.70"],

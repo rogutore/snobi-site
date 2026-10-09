@@ -1,4 +1,5 @@
 import type { Post } from "../types";
+import { shippingRates } from "../../ordering";
 
 /* Keyword: オーガニック コーヒー 豆 ギフト. No gift wrapping or のし exists yet — never promise one.
    Facts: content/products.ts, content/ordering.ts, content/v2.ts (ネコポス); dose and storage from 全日本コーヒー協会;
@@ -117,7 +118,7 @@ const post: Post = {
           },
         },
         { p: "SNöBIの豆は焙煎後に少し寝かせる（エイジング）と味がなじむため、焙煎当日から焙煎後2週間までの豆を発送します。100g・200gとも、ネコポスで発送します。" },
-        { p: "¥3,000未満の場合の送料は、通常¥500、九州¥700、北海道・沖縄¥800。離島は別途お見積りです。最終的な送料はレジでご確認いただけます。" },
+        { p: `${shippingRates.ja}最終的な送料はレジでご確認いただけます。` },
         { note: "いまのところ、ギフト包装とのしは承っていません。" },
       ],
     },

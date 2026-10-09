@@ -4,6 +4,8 @@
    When v2 replaces the live pages, sections.tsx's copies of these lines are deleted, not kept (SINGLE_SOURCE). */
 
 import { trade } from "./trade";
+import { FREE_SHIPPING_YEN, shippingRates } from "./ordering";
+import { yen } from "./products";
 import { orderingSchedule } from "./ordering";
 
 export const SHOOT = "東京, 2026年10月1日";
@@ -62,7 +64,7 @@ export const faqGroups: { title: string; items: { q: string; a: string }[] }[] =
     title: "注文と発送",
     items: [
       { q: "価格とサイズについて教えて。", a: "__PRICES__" },
-      { q: "送料はいくら？", a: "¥3,000以上のご注文で送料無料。未満の場合は通常¥500、九州¥700、北海道・沖縄¥800。離島は別途お見積りとなります。100g・200gともネコポスで発送します。最終的な送料はレジでご確認いただけます。" },
+      { q: "送料はいくら？", a: `${yen(FREE_SHIPPING_YEN)}以上のご注文で送料無料。${shippingRates.ja}100g・200gともネコポスで発送します。最終的な送料はレジでご確認いただけます。` },
       { q: "いつ焙煎して、いつ届く？", a: `${orderingSchedule.ja.join("")}本州であれば翌日配達。` },
       { q: "どこで決済するの？", a: "決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。ご利用いただける支払方法は決済画面に表示されます。" },
     ],

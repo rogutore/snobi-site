@@ -4,9 +4,28 @@
    Facts changed by those notes: roast AND ship on Tue/Fri; cutoff is noon the same day (was "noon the day before",
    "next business day"); next-day delivery within Honshu; coffee ships within 2 weeks of roasting.
    EN lines are translations of the JA (English site has its own session, D5). TODO(registry): system.toml. */
-import type { Localized } from "./products";
+import { yen, type Localized } from "./products";
 
 export const FREE_SHIPPING_YEN = 3000; // Shopify general shipping profile (site-plan §1.2)
+
+/* Shipping below FREE_SHIPPING_YEN, by region: the 特商法 page of the shared Shopify checkout
+   (tokyocoffee.jp/pages/policy, read 2026-10-08). Remote islands are quoted separately. The legal page, FAQ, contact page,
+   cart, journal and the product JSON-LD all read these (2026-10-09: they were hand-typed in six places). */
+export const SHIPPING_YEN = { standard: 500, kyushu: 700, hokkaidoOkinawa: 800 } as const;
+/* ISO 3166-2:JP codes (no "JP-" prefix), for the JSON-LD shipping regions. Standard = every other prefecture. */
+export const SHIPPING_REGIONS = {
+  kyushu: ["40", "41", "42", "43", "44", "45", "46"],
+  hokkaidoOkinawa: ["01", "47"],
+} as const;
+
+export const shippingRates: Localized = {
+  ja: `${yen(FREE_SHIPPING_YEN)}未満の場合は通常${yen(SHIPPING_YEN.standard)}、九州${yen(SHIPPING_YEN.kyushu)}、北海道・沖縄${yen(SHIPPING_YEN.hokkaidoOkinawa)}。離島は別途お見積りとなります。`,
+  en: `Below ${yen(FREE_SHIPPING_YEN)}: ${yen(SHIPPING_YEN.standard)} standard / ${yen(SHIPPING_YEN.kyushu)} Kyushu / ${yen(SHIPPING_YEN.hokkaidoOkinawa)} Hokkaido & Okinawa. Remote islands quoted separately.`,
+};
+export const shippingRatesShort: Localized = {
+  ja: `${yen(FREE_SHIPPING_YEN)}未満：通常${yen(SHIPPING_YEN.standard)}・九州${yen(SHIPPING_YEN.kyushu)}・北海道/沖縄${yen(SHIPPING_YEN.hokkaidoOkinawa)}。離島は別途。`,
+  en: shippingRates.en,
+};
 
 /* One-line summary under heroes and buy cards. */
 export const orderingSummary: Localized = {

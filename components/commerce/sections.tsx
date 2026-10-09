@@ -4,7 +4,7 @@ import Link from "next/link";
 import { products, minimumPrice, yen, type Locale } from "@/content/products";
 import { getStock } from "@/lib/shopify/client";
 import { BuyCard } from "./buy-card";
-import { orderingSummary, orderingSchedule, freeShippingLine } from "@/content/ordering";
+import { orderingSummary, orderingSchedule, freeShippingLine, FREE_SHIPPING_YEN, shippingRates } from "@/content/ordering";
 export async function ShopSection({ lang = "ja" }: { lang?: Locale }) {
   const { stock, error } = await getStock();
   const en = lang === "en";
@@ -304,7 +304,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "How much is shipping?",
-          "Shipping is free for orders of ¥3,000 or more. Below that: ¥500 standard, ¥700 Kyushu, ¥800 Hokkaido/Okinawa; remote islands quoted separately. Both 100g and 200g ship by Nekopos. The checkout confirms the final charge.",
+          `Shipping is free for orders of ${yen(FREE_SHIPPING_YEN)} or more. ${shippingRates.en} Both 100g and 200g ship by Nekopos. The checkout confirms the final charge.`,
         ],
         [
           "Where do I pay?",
@@ -334,7 +334,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "送料はいくら？",
-          "¥3,000以上のご注文で送料無料。未満の場合は通常¥500、九州¥700、北海道・沖縄¥800。離島は別途お見積りとなります。100g・200gともネコポスで発送します。最終的な送料はレジでご確認いただけます。",
+          `${yen(FREE_SHIPPING_YEN)}以上のご注文で送料無料。${shippingRates.ja}100g・200gともネコポスで発送します。最終的な送料はレジでご確認いただけます。`,
         ],
         [
           "どこで決済するの？",

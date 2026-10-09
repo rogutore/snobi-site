@@ -6,7 +6,7 @@
 import type { Metadata } from "next";
 import { products, type Coffee } from "@/content/products";
 import { company, legalRows } from "@/content/legal";
-import { FREE_SHIPPING_YEN } from "@/content/ordering";
+import { FREE_SHIPPING_YEN, SHIPPING_YEN, SHIPPING_REGIONS } from "@/content/ordering";
 import type { StockMap } from "@/lib/shopify/client";
 
 export const SITE = "https://snobi.jp";
@@ -77,6 +77,23 @@ export function breadcrumb(items: [string, string][]) {
 
 const returnsText = legalRows.find((r) => r.k === "返品・交換について")?.v.join(" ");
 
+/* Shipping for Merchant listings: one entry per rate, regions as ISO 3166-2:JP codes (Google supports JP subdivisions).
+   Rates and regions: content/ordering.ts. Remote islands (quoted separately) cannot be expressed and are left out. */
+const PREFECTURE_CODES = Array.from({ length: 47 }, (_, i) => String(i + 1).padStart(2, "0"));
+const nonStandard: readonly string[] = [...SHIPPING_REGIONS.kyushu, ...SHIPPING_REGIONS.hokkaidoOkinawa];
+const SHIPPING_DETAILS = (
+  [
+    [SHIPPING_YEN.standard, PREFECTURE_CODES.filter((c) => !nonStandard.includes(c))],
+    [SHIPPING_YEN.kyushu, SHIPPING_REGIONS.kyushu],
+    [SHIPPING_YEN.hokkaidoOkinawa, SHIPPING_REGIONS.hokkaidoOkinawa],
+  ] as [number, readonly string[]][]
+).map(([rate, regions]) => ({
+  "@type": "OfferShippingDetails",
+  shippingDestination: { "@type": "DefinedRegion", addressCountry: "JP", addressRegion: regions },
+  shippingRate: { "@type": "MonetaryAmount", value: rate, currency: "JPY" },
+  freeShippingThreshold: { "@type": "MonetaryAmount", value: FREE_SHIPPING_YEN, currency: "JPY" },
+}));
+
 /** ProductGroup with live price + stock. A variant without readable stock gets no Offer (never a guessed price). */
 export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
   const url = `${SITE}/origins/${p.slug}`;
@@ -119,11 +136,7 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
                 availability: s.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
                 itemCondition: "https://schema.org/NewCondition",
                 seller: { "@id": ORG_ID },
-                shippingDetails: {
-                  "@type": "OfferShippingDetails",
-                  shippingDestination: { "@type": "DefinedRegion", addressCountry: "JP" },
-                  freeShippingThreshold: { "@type": "MonetaryAmount", value: FREE_SHIPPING_YEN, currency: "JPY" },
-                },
+                shippingDetails: SHIPPING_DETAILS,
                 ...(returnsText ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7,
                   /* 特商法 返品・交換: 「送料着払いにてご返品」 = returned by post, carriage paid by us */
                   returnMethod: "https://schema.org/ReturnByMail", returnFees: "https://schema.org/FreeReturn", description: returnsText } } : {}),

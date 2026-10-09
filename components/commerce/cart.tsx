@@ -19,7 +19,7 @@ import {
 } from "@/lib/shopify/actions";
 import { ShippingProgress } from "./shipping-progress";
 import type { Cart } from "@/lib/shopify/client";
-import { orderingSchedule } from "@/content/ordering";
+import { orderingSchedule, shippingRatesShort } from "@/content/ordering";
 type Context = {
   add: (id: string | string[]) => void;
   open: () => void;
@@ -279,8 +279,8 @@ export function CartProvider({
             <ShippingProgress subtotal={subtotal} lang={lang} />
             <p className="small-print">
               {en
-                ? "Below ¥3,000: ¥500 standard / ¥700 Kyushu / ¥800 Hokkaido & Okinawa. Remote islands quoted separately. Final shipping shown at checkout."
-                : "¥3,000未満：通常¥500・九州¥700・北海道/沖縄¥800。離島は別途。送料はレジで確定します。"}
+                ? `${shippingRatesShort.en} Final shipping shown at checkout.`
+                : `${shippingRatesShort.ja}送料はレジで確定します。`}
             </p>
             <p className="checkout-handoff">
               {en
