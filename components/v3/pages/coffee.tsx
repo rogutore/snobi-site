@@ -1,49 +1,29 @@
 "use client";
 /* /coffee — Mockup D's coffee.html rows (.photoswitch + .crow + .buy), on the live cart.
    Changed from Mockup D (owner/Davy 2026-10-08): enjoyWithin under the notes, 焙煎度 for all four, a 品種 row (Mexico's
-   variety was missing), live price + real cart, the schedule line from content/ordering.ts, the origin link label. */
+   variety was missing), live price + real cart, the schedule line from content/ordering.ts, the origin link label.
+   2026-10-09: the 「写真」 switch is gone; each row plays its own photos (components/v3/shot-cycle.tsx, owner after Masaki). */
 import Link from "next/link";
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule } from "@/content/ordering";
-import { originFrames } from "@/content/v2";
+import { ShotCycle } from "@/components/v3/shot-cycle";
 import type { StockMap } from "@/lib/shopify/client";
 import { useCart } from "@/components/commerce/cart";
 
-/* Mockup D's 近く set = the tighter dappled frames (PHOTO-INVENTORY §2; dHash match to mockup-d *-close.webp, VERIFIED).
-   Not in originFrames yet: proposed as a shared addition to content/v2.ts, then delete this map. */
-const CLOSE: Record<string, string> = { peru: "141", "ethiopia-guji": "142", "colombia-huila": "138", "mexico-chiapas-decaf": "140" };
-
-type SetKey = "studio" | "hero" | "table" | "close" | "hand" | "waist" | "cup" | "brew";
-/* Mockup D's order, labels and object-positions (site.js POS); its dapple/pour sets are originFrames hero/brew. */
-const SETS: [SetKey, string, string][] = [
-  ["studio", "白背景", "50% 55%"], ["hero", "光の中", "50% 62%"], ["table", "机の上", "50% 62%"], ["close", "近く", "50% 66%"],
-  ["hand", "手に", "60% 45%"], ["waist", "腰の高さ", "50% 58%"], ["cup", "カップと", "62% 60%"], ["brew", "ドリップ", "74% 55%"],
-];
-
-function frameFor(slug: string, set: SetKey) {
-  const id = set === "close" ? CLOSE[slug] : originFrames[slug]?.[set];
-  if (!id) throw new Error(`v3/coffee: no "${set}" frame for ${slug}`);
-  return id;
-}
-
-function Row({ p, i, set, pos, stock }: { p: Coffee; i: number; set: SetKey; pos: string; stock: StockMap }) {
+function Row({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
   const [size, setSize] = useState<"100g" | "200g">("100g");
   const cart = useCart();
   const v = p.variants.find((x) => x.size === size)!;
   const s = stock[v.id];
   const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
   const label = ok ? "カートに入れる" : s ? "完売" : "在庫確認中";
-  const id = frameFor(p.slug, set);
   const n = (k: number) => String(k).padStart(2, "0");
   return (
     <article className="v3p-coffee-row" id={p.slug} style={{ "--rink": p.ink } as React.CSSProperties} aria-labelledby={`c-${p.slug}`}>
       <div className="v3p-coffee-ph">
-        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-        <img src={`/v2/photos/${id}-s.webp`} srcSet={`/v2/photos/${id}-s.webp 700w, /v2/photos/${id}-l.webp 1400w`}
-          sizes="(min-width: 861px) 40vw, calc(100vw - 32px)" alt={`SNöBI ${p.title.ja}`} style={{ objectPosition: pos }}
-          loading={i === 0 ? "eager" : "lazy"} />
+        <ShotCycle slug={p.slug} index={i} alt={`SNöBI ${p.title.ja}`} sizes="(min-width: 861px) 40vw, calc(100vw - 32px)" eager={i === 0} />
       </div>
       <div className="v3p-coffee-copy">
         <p className="eyebrow">第一章 — {n(i + 1)} / {n(products.length)}{p.decaf ? " · DECAF" : ""}</p>
@@ -87,17 +67,9 @@ function Row({ p, i, set, pos, stock }: { p: Coffee; i: number; set: SetKey; pos
 }
 
 export function CoffeeRows({ stock }: { stock: StockMap }) {
-  const [set, setSet] = useState<SetKey>("hero");
-  const pos = SETS.find(([k]) => k === set)![2];
   return (
     <div className="v3p-coffee-wrap">
-      <div className="v3-switch" role="group" aria-label="袋の写真を切り替える">
-        <span className="eyebrow">写真</span>
-        {SETS.map(([k, l]) => (
-          <button key={k} type="button" aria-pressed={set === k} onClick={() => setSet(k)}>{l}</button>
-        ))}
-      </div>
-      {products.map((p, i) => <Row key={p.slug} p={p} i={i} set={set} pos={pos} stock={stock} />)}
+      {products.map((p, i) => <Row key={p.slug} p={p} i={i} stock={stock} />)}
     </div>
   );
 }

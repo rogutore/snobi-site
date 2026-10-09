@@ -1,32 +1,26 @@
 "use client";
-/* Mockup D's releases row (Kettl: releases on paper) with its photo switch; default = in the light (dapple).
-   2026-10-08: it is the home shop — each card adds Davy's freshness line, size, live price and add to cart. */
+/* Mockup D's releases row (Kettl: releases on paper). 2026-10-08: it is the home shop — each card adds Davy's freshness
+   line, size, live price and add to cart. 2026-10-09: the 「写真」 switch is gone; each card plays its own photos
+   (components/v3/shot-cycle.tsx, owner after Masaki). */
 import Link from "next/link";
 import { useState } from "react";
+import { ShotCycle } from "@/components/v3/shot-cycle";
 import { LoaderCircle } from "lucide-react";
 import { products, yen, type Coffee } from "@/content/products";
-import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
 import { useCart } from "@/components/commerce/cart";
 
-type SetKey = keyof (typeof originFrames)["peru"];
-const SETS: [SetKey, string][] = [
-  ["hero", "光の中"], ["studio", "白背景"], ["table", "机の上"], ["hand", "手に"], ["waist", "腰の高さ"], ["cup", "カップと"], ["brew", "ドリップ"],
-];
-
-function Card({ p, i, set, stock }: { p: Coffee; i: number; set: SetKey; stock: StockMap }) {
+function Card({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
   const [size, setSize] = useState<"100g" | "200g">("100g");
   const cart = useCart();
   const v = p.variants.find((x) => x.size === size)!;
   const s = stock[v.id];
   const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
   const price = s?.price.currencyCode === "JPY" ? Number(s.price.amount) : v.price;
-  const id = originFrames[p.slug][set];
   return (
     <article className="v3-rel" aria-labelledby={`rel-${p.slug}`}>
       <Link href={`/origins/${p.slug}`} className="ph" aria-label={`${p.title.ja}の産地ページへ`}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-        <img src={`/v2/photos/${id}-s.webp`} srcSet={`/v2/photos/${id}-s.webp 700w, /v2/photos/${id}-l.webp 1400w`} sizes="(min-width:1000px) 23vw, 70vw" alt={`SNöBI ${p.title.ja}`} loading="lazy" />
+        <ShotCycle slug={p.slug} index={i} alt={`SNöBI ${p.title.ja}`} sizes="(min-width:1000px) 23vw, 70vw" />
       </Link>
       <p className="n">{String(i + 1).padStart(2, "0")} — {p.country.toUpperCase()}</p>
       <h3 id={`rel-${p.slug}`} className="t">{p.title.ja}</h3>
@@ -51,18 +45,9 @@ function Card({ p, i, set, stock }: { p: Coffee; i: number; set: SetKey; stock: 
 }
 
 export function Releases({ stock = {} }: { stock?: StockMap }) {
-  const [set, setSet] = useState<SetKey>("hero");
   return (
-    <>
-      <div className="v3-switch" role="group" aria-label="袋の写真を切り替える">
-        <span className="eyebrow">写真</span>
-        {SETS.map(([k, l]) => (
-          <button key={k} type="button" aria-pressed={set === k} onClick={() => setSet(k)}>{l}</button>
-        ))}
-      </div>
-      <div className="v3-releases">
-        {products.map((p, i) => <Card key={p.slug} p={p} i={i} set={set} stock={stock} />)}
-      </div>
-    </>
+    <div className="v3-releases">
+      {products.map((p, i) => <Card key={p.slug} p={p} i={i} stock={stock} />)}
+    </div>
   );
 }
