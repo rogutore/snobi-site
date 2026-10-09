@@ -29,6 +29,14 @@ export const producerNumbers: Record<string, [string, string][]> = {
 /* About (ストーリー) — the five agreed chapters, live copy (sections.tsx line refs). */
 export const statementJa = ["世界最高峰の品質。オーガニックという信念。地球への責任。", "三つは同時には成り立たない — そう言われてきました。", "SNöBI は、その常識を変えていく。"]; // :133-137
 export const storyJa = ["オーガニックスペシャルティコーヒーの未来は、まだ完成していないと私たちは考えています。これは、私たちの第一章。", "もし、この挑戦に共感していただけたなら、次の章を、ぜひご一緒に。"]; // :219, :224
+/* The walk's interim lines (owner 2026-10-10: Story's temporary state is idea 2, "the story is being written — join us";
+   layout and photos unchanged, a few lines so the reader gets that message). One line per walk step. */
+export const storyWritingJa = [
+  "このページも、いま書いている途中です。",
+  "物語の主役は、この場所と、ここで働く私たち。",
+  "コーヒーが好きな仲間と、新しい章を始めました。",
+  "農園の写真と話が届いたら、ここに書き足していきます。",
+];
 export const signOff = "まあ、見てなって。"; // :227
 export const roadAhead: [string, string, string][] = [
   ["01 / NOW", "第一章", "4つの産地。妥協のない、一つの基準。"],

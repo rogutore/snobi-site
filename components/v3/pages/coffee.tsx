@@ -8,7 +8,7 @@ import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule } from "@/content/ordering";
-import { ShotCycle } from "@/components/v3/shot-cycle";
+import { ShotCycle, ShotRotation } from "@/components/v3/shot-cycle";
 import type { StockMap } from "@/lib/shopify/client";
 import { useCart } from "@/components/commerce/cart";
 
@@ -68,8 +68,10 @@ function Row({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
 
 export function CoffeeRows({ stock }: { stock: StockMap }) {
   return (
-    <div className="v3p-coffee-wrap">
-      {products.map((p, i) => <Row key={p.slug} p={p} i={i} stock={stock} />)}
-    </div>
+    <ShotRotation count={products.length} pace={[2600, 4200]}>
+      <div className="v3p-coffee-wrap">
+        {products.map((p, i) => <Row key={p.slug} p={p} i={i} stock={stock} />)}
+      </div>
+    </ShotRotation>
   );
 }

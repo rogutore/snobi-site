@@ -658,9 +658,10 @@
 .v3-404 > p:not(.eyebrow) { color: var(--color-ink-soft); }
 .v3-404 .links { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 8px; }
 
-/* photo sequence on Home + /coffee cards (components/v3/shot-cycle.tsx) */
+/* photo sequence on Home + /coffee cards (components/v3/shot-cycle.tsx): a long dissolve over the outgoing photo, then a
+   slow drift out of a 6% zoom from the centre (Ken Burns, kept subtle) */
 .v3-cycle { position: relative; width: 100%; height: 100%; overflow: hidden; }
-.v3 .v3-cycle img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; opacity: 0; z-index: 0; transform: scale(1.1); }
+.v3 .v3-cycle img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; opacity: 0; z-index: 0; transform: scale(1.06); transform-origin: 50% 50%; will-change: opacity, transform; }
 .v3 .v3-cycle img.out { opacity: 1; z-index: 1; transform: scale(1); }
-.v3 .v3-cycle img.in { opacity: 1; z-index: 2; transform: scale(1); transition: opacity .9s var(--ease-house), transform 3.2s var(--ease-house); }
+.v3 .v3-cycle img.in { opacity: 1; z-index: 2; transform: scale(1); transition: opacity 1.8s cubic-bezier(.45, 0, .2, 1), transform 9s cubic-bezier(.16, 1, .3, 1); }
 @media (prefers-reduced-motion: reduce) { .v3 .v3-cycle img.in { transition: none; } }

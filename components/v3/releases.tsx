@@ -4,7 +4,7 @@
    (components/v3/shot-cycle.tsx, owner after Masaki). */
 import Link from "next/link";
 import { useState } from "react";
-import { ShotCycle } from "@/components/v3/shot-cycle";
+import { ShotCycle, ShotRotation } from "@/components/v3/shot-cycle";
 import { LoaderCircle } from "lucide-react";
 import { products, yen, type Coffee } from "@/content/products";
 import type { StockMap } from "@/lib/shopify/client";
@@ -46,8 +46,10 @@ function Card({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
 
 export function Releases({ stock = {} }: { stock?: StockMap }) {
   return (
-    <div className="v3-releases">
-      {products.map((p, i) => <Card key={p.slug} p={p} i={i} stock={stock} />)}
-    </div>
+    <ShotRotation count={products.length}>
+      <div className="v3-releases">
+        {products.map((p, i) => <Card key={p.slug} p={p} i={i} stock={stock} />)}
+      </div>
+    </ShotRotation>
   );
 }

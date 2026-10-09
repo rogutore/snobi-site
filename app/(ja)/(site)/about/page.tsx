@@ -2,7 +2,7 @@ import { pageMeta } from "@/lib/seo";
 import { Fragment } from "react";
 import Link from "next/link";
 import { getStock } from "@/lib/shopify/client";
-import { statementJa, storyJa, roadAhead, jas, signOff } from "@/content/v2";
+import { statementJa, storyJa, storyWritingJa, roadAhead, jas, signOff } from "@/content/v2";
 import { Photo } from "@/components/v2/photo";
 import { StickyPhotos } from "@/components/v3/sticky-photos";
 import { BuyBar } from "@/components/v3/buy-bar";
@@ -45,12 +45,20 @@ export default async function About() {
           <p className="eyebrow">02 · The story</p>
           <h2 className="display v3-walk-h" lang="en">We’re writing it.</h2>
           <p className="v3-ja">{storyJa[0]}</p>
+          <p className="v3-ja">{storyWritingJa[0]}</p>
           <p className="v3-walk-cap">01 — 東京の屋根と電線</p>
         </Fragment>,
-        <p key="building" className="v3-walk-cap big">02 — 白い波板の建物と、自転車</p>,
-        <p key="door" className="v3-walk-cap big">03 — 戸口の向こう</p>,
+        <Fragment key="building">
+          <p className="v3-walk-cap big">02 — 白い波板の建物と、自転車</p>
+          <p className="v3-ja">{storyWritingJa[1]}</p>
+        </Fragment>,
+        <Fragment key="door">
+          <p className="v3-walk-cap big">03 — 戸口の向こう</p>
+          <p className="v3-ja">{storyWritingJa[2]}</p>
+        </Fragment>,
         <Fragment key="roastery">
           <p className="v3-walk-cap big">04 — 焙煎所の中</p>
+          <p className="v3-ja">{storyWritingJa[3]}</p>
           <p className="v3-ja">{storyJa[1]}</p>
         </Fragment>,
       ]} />
