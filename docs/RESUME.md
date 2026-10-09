@@ -5,6 +5,14 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-09 (night, last) — wholesale terms, www redirect, COD fee check, Peru Geisha overlap
+- LIVE: version 0188238d-25ca-43f5-89a1-a2e688b85326 (previous 9726eadb).
+- /trade terms = Tokyo Coffee's (owner: "same deal as tc"): 1kg, 1 bag minimum, weekday 14:00 same-day roast/ship (TC wholesale FAQ), free shipping from ¥3,000 (VERIFIED Shopify "Wholesale" delivery profile; the ¥5,000 on one TC page is wrong), wholesale price shown after account registration. FAQ answers updated. NOTE: SNöBI 1kg SKUs are not in TC's wholesale catalog (its Peru Geisha / Guji 1kg are TC's own lots, owner) — staff must add them for "same deal" to be orderable.
+- Shopify Wholesale profile anomaly: zone 800 (Hokkaido/Okinawa) 通常配送 condition is ≤ ¥4,999 while free starts ≥ ¥3,000 (overlap; other zones ≤ ¥2,999). Staff fix.
+- www → apex: Cloudflare Single Redirect "WWW からルートにリダイレクト" (host eq www.snobi.jp → concat("https://snobi.jp", path), 301, keep query), deployed in the owner's dashboard. VERIFIED http://www and https://www → https://snobi.jp in 1 hop.
+- 代引き手数料 ¥324 (owner: "you do that"): Shopify checkout does NOT add it — COD order #29658 subtotal ¥3,590 = total ¥3,590, no fee line; none of the 8 recent COD orders shows one (VERIFIED Admin read). Whether staff add ¥324 at Yamato is UNKNOWN → ask the shipping staff; if not, remove the line on snobi.jp and tokyocoffee.jp; if yes, it should read ¥330 at 10% tax (INFERRED: 324 = 300 × 1.08). 特商法 text left unchanged until then (over-disclosure is the safe side).
+- Peru Geisha overlap (owner: "different products, how do we differentiate?"): TC 「オーガニック ゲイシャ スペシャリティーコーヒー豆 ペルー ゲイシャ」 = same producer (Miguel Esteban Ramírez Agurto, Chirinos), City Roast 中浅煎り, cup 84.25, ¥2,150/100g, ¥4,000/200g, 400g + grind options. SNöBI = 浅煎り, whole bean, ¥2,560/100g. Recommendation given: rename the TC product around its roast; keep SNöBI's name (printed bags, URLs, SEO).
+
 ## 2026-10-09 (end of day) — form alerts on, 404, shipping single source
 - LIVE: version 9726eadb-6d71-4d35-83be-2fec279744ee (previous df24b333).
 - Google Form "Snobi｜業務用サンプル・先行卸のご登録" (owner rogutore@gmail.com): email notifications for new responses ON (owner yes, VERIFIED checkmark). The form is linked to a response sheet.
