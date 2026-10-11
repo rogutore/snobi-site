@@ -5,6 +5,17 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-11 — the 12-hour push
+- LIVE: version 0e67ce6c-3633-4f5a-9ec8-f043c75c48d9. Branch `claude/v2-pages` now PUSHED to GitHub (owner yes; backup only, no merge). History scanned for keys: none.
+- `scripts/verify-site.py [base]`: post-deploy check (every sitemap URL: 200, lang, one h1/main, own canonical, no noindex, title/description/og:image, JSON-LD parses incl. ProductGroup variant image/price/shipping; every internal link + image; 404; robots; www one hop). Run on the version preview before promoting and on snobi.jp after. PASS on live.
+- Analytics: Cloudflare Web Analytics IS on (beacon token cf7c2e89… injected for browsers; curl without a browser UA doesn't see it). AI crawlers: Googlebot, bingbot, GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended, Applebot all get 200 (UA test; CF dashboard AI Crawl Control setting not seen — CF dashboard session expired, owner must sign in).
+- 代引き: 特商法 now 「代引き手数料は無料です」 (owner "figure it out"; the 8 COD orders 08-28..10-08 were charged exactly the total; all 8 still PENDING in Shopify → team Q2).
+- Journal audit `research-outputs/2026-10-11-journal-audit/report.md`: 2 fixed (gift free-shipping pairs; 「自然の力で」), 26 need people; high: 80+ for all four (only Peru 84.25 / Colombia 82.67 documented), Mexico decaf lot, Leafearth vs JASCERT on bags. `{ read: slug }` block added + 3 links. GSC indexing task stays PAUSED.
+- Speed audit `research-outputs/2026-10-11-snobi-speed/report.md` (Lighthouse local; PSI quota 429): pages 3.3–7.7 MB, 62–95 % Adobe fonts; all 13 kit faces load, 5 unused (Shuei 500, Maiola 400i/700i, Moret 600i/700i). Done in code: phones no longer fetch the hidden desktop stage photo; /about lead photo eager+high; buy-bar dots lazy; ShotCycle first photo high priority, other shots after load; sage text → ink-soft; cart aria-label contains "CART n". OPEN (owner): trim the Adobe kit + font-display swap; load kit after paint; hero poster-first on phones; stock cache seconds; Ethiopia ink colour.
+- Origin pages: 「◯◯の読みもの」 (3 related posts, derived from post.products). EN pages: share image + offers carry shipping/returns (shared `OFFER_TERMS` in lib/seo.tsx). PR TIMES draft headline updated. DESIGN.md: ホールセール + photo-motion exception.
+- Search baseline `brain/Handoffs/seo-geo/reports/2026-10-11-snobi-baseline.md`: snobi.jp 0/16 queries; top recurring domain coffee-labo.co.jp (7/16) = the one email pitch target.
+- Team questions: `docs/team-questions-2026-10-11.md` (17).
+
 ## 2026-10-10 (night) — four points fixed properly
 - LIVE: version f13cadcb-113b-4041-be99-b3d8f6b382c0. Owner: "you left it half fixed" — the hand-off-then-switch effect is removed (sticky-photos.tsx reverted to 7886ef5; `.then` CSS gone). Each point now has its own photo: 01 Organic 161 (JAS sack) · 02 Specialty 006 (roasting, hand at the roaster over the cooling tray; no cupping photo exists) · 03 Whole bean 152 (roasted beans) · 04 Chapter One 030 (four bags on the desk). Sheet: design/four-points-2026-10-10.jpg.
 
