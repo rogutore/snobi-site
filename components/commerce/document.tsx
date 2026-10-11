@@ -74,7 +74,10 @@ export default function Document({
         {/* Adobe Fonts web project "Snobi" (kit xkh1hrz). The project is set to
             Dynamic embed, so the static .css endpoint 412s — load the faces via
             Adobe's async JS loader instead. Text renders in the fallback stack
-            immediately and the web faces swap in on load (FOUT, never hidden). */}
+            immediately and the web faces swap in on load (FOUT, never hidden).
+            2026-10-11 (owner, speed audit fix 2): the kit starts after window load or 2.5 s, whichever comes first,
+            so its font downloads no longer compete with the first paint; the project is trimmed to 8 faces with
+            font-display: swap (fonts.adobe.com, same day). */}
         <link
           rel="preconnect"
           href="https://use.typekit.net"
@@ -83,7 +86,7 @@ export default function Document({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(d){var config={kitId:"xkh1hrz",scriptTimeout:3000,async:true},h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src="https://use.typekit.net/"+config.kitId+".js";tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);',
+              '(function(d,w){var go=false;function run(){if(go)return;go=true;var config={kitId:"xkh1hrz",scriptTimeout:3000,async:true},h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src="https://use.typekit.net/"+config.kitId+".js";tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)}if(d.readyState==="complete")run();else{w.addEventListener("load",run);setTimeout(run,2500)}})(document,window);',
           }}
         />
         {/* NO webfont fallback by design. Zen Kaku Gothic Antique used to sit

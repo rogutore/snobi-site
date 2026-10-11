@@ -58,7 +58,21 @@ export async function storefront<T>(
     throw new Error("Shopify could not complete this request");
   return body.data;
 }
+/* Stock is cached for STOCK_TTL_MS per Worker isolate (owner 2026-10-11, speed audit fix 7: the uncached call added
+   100–600 ms to every page). Only complete answers are cached; checkout on tokyocoffee.jp re-checks stock anyway.
+   No shared in-flight promise: a Worker may cancel one request's I/O when that request ends, which would strand a
+   second request awaiting it. Two cold requests at once simply both fetch. */
+const STOCK_TTL_MS = 60_000;
+let stockCache: { at: number; value: { stock: StockMap; error: boolean } } | null = null;
+
 export async function getStock(): Promise<{ stock: StockMap; error: boolean }> {
+  if (stockCache && Date.now() - stockCache.at < STOCK_TTL_MS) return structuredClone(stockCache.value); // a fresh copy per request
+  const value = await fetchStock();
+  if (!value.error) stockCache = { at: Date.now(), value: structuredClone(value) };
+  return value;
+}
+
+async function fetchStock(): Promise<{ stock: StockMap; error: boolean }> {
   const ids = products
     .flatMap((p) => p.variants.map((v) => v.id))
     .filter(Boolean);

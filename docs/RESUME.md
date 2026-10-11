@@ -3,7 +3,20 @@
 Read this first after compaction. Supporting docs:
 - `docs/site-plan.md` (decisions D1–D10, §11 migration checklist — now marked live)
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
-- Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / オーガニックのまま、スペシャルティ。), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
+- Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / 「有機も、味も。妥協しない。」 since 2026-10-09, DESIGN.md), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
+
+## 2026-10-11 (late) — speed fixes 2/4/7/8 shipped, launch-kit decisions
+- LIVE: version 348a8781-c30e-4084-85d1-11580d6bd913 (verify-site PASS on snobi.jp; IndexNow /). Owner "3. okay but test it extensively".
+  - Adobe kit xkh1hrz trimmed in the owner's Adobe login: 8 faces (Maiola 400/700, Shuei 400/600, Moret 400/400i/600/700), font-display swap on all three families. VERIFIED in the served kit JS.
+  - Kit loader (`components/commerce/document.tsx`) starts on window load or after 2.5 s. VERIFIED on 15 page types at 1440 and 390: kit requested after the load event, `wf-active` set, no faux bold, no missing face. Pre-existing, not new: JP cup notes in italic get a synthetic oblique (Shuei has no italic). Proposed one-line fix `.v3 { font-synthesis-style: none; }`, awaiting the owner.
+  - Home hero (`components/v3/hero-film.tsx`): a still `<img>` is the LCP (phone `hero-pour-m.webp`, 608×1080 crop of the pour at 14.2 s; wide 1600×900 four bags at 21.8 s). The first phone choice (17.0 s) put the headline over the Colombia label; on a phone every bag frame sits in the text band, so the bags now arrive in motion after the pour; the film is attached after load and starts at the still's moment, fades in when playing, loops to 3.2 s (skips the chaff shot), reduced motion = still. Served by `app/api/media/[name]` with byte ranges (static assets on Workers answer Range with 200, which iPhone Safari will not play). VERIFIED: 206 for `0-1`, the tail and open ranges; 416; 404; MP4s are faststart. iPhone/Safari playback itself NOT VERIFIED (Safari access declined; no Xcode). The `muted` attribute is now set as well as the property.
+  - Stock cache (`lib/shopify/client.ts`): 60 s per isolate, complete answers only, a fresh copy per request, no shared in-flight promise (a Worker can cancel one request's I/O). Warm TTFB median 344 → 192 ms (/coffee), 298 → 180 ms (/origins/peru).
+  - Ethiopia ink #417fa3 → #386e8d (5.09:1 on paper).
+  - Lighthouse A/B (mobile, live vs preview): `research-outputs/2026-10-11-snobi-speed/ab-2026-10-11.md`. Real-throttle home LCP 4.3–4.6 s → 2.0 s; /about unchanged; simulated outliers are a font-in-graph artifact.
+- Owner decisions recorded: K3 = yes (canonical on TC's four SNöBI pages, team Q9); K7 = claim the Instagram handle + TC highlight (team Q18); EN name "ROGUE TRADE K.K." (also accepts "Rogue Trade Inc."). The 80-point claim is team Q11 with a default: no record by 2026-10-18 → reword to Peru and Colombia only.
+- Launch kit: コーヒー豆研究所 email = Gmail draft in info@ (not sent). CAFEND, 号外NET and 立川経済新聞 forms filled in the owner's Chrome, not submitted (号外NET needs 3 photos + 2 consent ticks; 立川 has two ★要確認★ lines). mybest: no open route (form closed; ads only). Retired headline 「オーガニックのまま、スペシャルティ。」 removed from the kit.
+- PR TIMES: a separate session was offered to the owner as a task chip ("Finish the SNöBI PR TIMES release").
+- linkcheck scan (no registry yet): one real copy, `G_PER_CUP = 12` in three journal posts; not changed.
 
 ## 2026-10-11 — the 12-hour push
 - LIVE: version 0e67ce6c-3633-4f5a-9ec8-f043c75c48d9. Branch `claude/v2-pages` now PUSHED to GitHub (owner yes; backup only, no merge). History scanned for keys: none.

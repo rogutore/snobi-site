@@ -1,8 +1,8 @@
 # tokyocoffee.jp → snobi.jp: exact changes (DRAFT; the owner applies them in Shopify)
 
 **Status:** draft, 2026-10-09. Nothing edited on tokyocoffee.jp.
-**Plan tasks:** T8 (footer link, brand JSON-LD, Peru Geisha meta), T7 / decision K3 (canonical, **pending**). 05 row E2.
-**Caution:** changes to tokyocoffee.jp sit under the 2026-09-17 STOP and the rogutore note "no cross-domain canonicals". Every item here needs the owner's OK. (b-2) is **OPTIONAL** until K3 is decided.
+**Plan tasks:** T8 (footer link, brand JSON-LD, Peru Geisha meta), T7 / decision K3 (canonical: **yes, owner 2026-10-11**). 05 row E2.
+**Caution:** changes to tokyocoffee.jp sit under the 2026-09-17 STOP and the rogutore note "no cross-domain canonicals". Every item here needs the owner's OK. K3 is decided (yes, 2026-10-11), which overrides the earlier "no cross-domain canonicals" note for these four pages only.
 
 ## What I checked on the live site (VERIFIED, 2026-10-09)
 - Theme: **Kingdom 5.3.3**, live theme name 「kingdom6　9/11-  卸売ページ修正のコピー　ブログページ修正」 (`Shopify.theme` on the product page). **Duplicate the theme first** and edit the copy.
@@ -57,7 +57,7 @@ Two ways to add it. Pick one.
 ```
 On any non-SNöBI product the snippet prints nothing, so the line does not appear.
 
-### (b-2) Cross-domain canonical: **OPTIONAL. Owner decision K3 pending.**
+### (b-2) Cross-domain canonical: **do it (K3 = yes, owner 2026-10-11).**
 In `layout/theme.liquid`, find the existing line (in Shopify themes it is usually `<link rel="canonical" href="{{ canonical_url }}">`) and **replace** it. There must be exactly one canonical per page:
 
 ```liquid
@@ -82,7 +82,7 @@ In `layout/theme.liquid`, find the existing line (in Shopify themes it is usuall
 
 > 東京コーヒーから、有機JASのスペシャルティコーヒー豆のライン「SNöBI」の公式サイト、snobi.jp を公開しました。
 >
-> オーガニックのまま、スペシャルティ。
+> 有機も、味も。妥協しない。
 > SNöBIは、東京コーヒーがつくるオーガニック・スペシャルティラインです。第一章は、4つの産地の有機JASコーヒー豆。すべて浅煎り、豆のまま、100gと200gでお届けします。
 >
 > ■ ペルー チリノス ゲイシャ

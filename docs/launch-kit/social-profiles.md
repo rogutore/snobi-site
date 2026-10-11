@@ -13,20 +13,20 @@
 
 - **Name strings:** display `SNöBI`; alternates `Snobi`, `SNOBI`, `スノビ` (K4, decided 2026-10-08; `lib/seo.tsx` `BRAND_ALT`). Write 「SNöBI（スノビ）」 once per profile or page.
 - **Source:** this is the snobi.jp Organization `description` in `lib/seo.tsx` (「オーガニック（有機JAS）のスペシャルティコーヒー豆。東京コーヒー（株式会社ローグトレード）が東京で焙煎。」) recast as one sentence. **Single source:** the owner approves this string once. Then the site session sets `lib/seo.tsx` to the same text (or reads it from the registry when one exists), so the site and the profiles say the same thing.
-- **EN company name:** `company.md` says "ROGUE TRADE K.K."; COPY-INVENTORY §4.1 says "Rogue Trade Co., Ltd.". **Owner picks one**, then it replaces the name in every EN line in this kit.
+- **EN company name: "ROGUE TRADE K.K."** (owner, 2026-10-11: "sure, or Rogue Trade Inc."; K.K. kept because `company.md` already uses it). COPY-INVENTORY §4.1's "Rogue Trade Co., Ltd." is superseded. If the bank or registry shows a different registered English name, that one wins; change it in every EN line here at once.
 - 「東京で焙煎」 is the live site's claim (「JAS有機認証の豆だけを、東京で焙煎。」). The 東久留米 address is not used for SNöBI until COPY-INVENTORY §7 q8 is answered.
 
 **Profile links (sameAs).** Add a profile to snobi.jp's `sameAs` only once it is live and posting (05 D3). A dead profile is a weak entity signal.
 
 ---
 
-## 2. Instagram (decision K7 pending: own handle only if staff post weekly)
-- **Handle:** `[@snobi.jp / @snobi_coffee]`. Availability UNKNOWN; claim one only after K7.
+## 2. Instagram (K7 decided 2026-10-11: claim the handle now, and run SNöBI as a highlight on @tokyocoffeejp)
+- **Handle:** `@snobi.jp`, else `@snobi_coffee`. Availability UNKNOWN; staff claim it (team question 18). Add it to `sameAs` only once it posts.
 - **Name field (searchable, 20 characters):** `SNöBI（スノビ）有機JASコーヒー豆`
 - **Category:** 食品・飲料 / Product/service (owner's pick).
 - **Bio (83 characters; limit 150, INFERRED):**
 ```
-オーガニックのまま、スペシャルティ。
+有機も、味も。妥協しない。
 有機JASのコーヒー豆、4産地。浅煎り、豆のまま、100g / 200g。
 東京コーヒー（株式会社ローグトレード）が東京で焙煎。
 ```
@@ -42,7 +42,7 @@
 ### 3a. Company page: 株式会社ローグトレード
 | Field | Text |
 |---|---|
-| Name | 株式会社ローグトレード (EN localisation: `[ROGUE TRADE K.K. / Rogue Trade Co., Ltd.]`) |
+| Name | 株式会社ローグトレード (EN localisation: `ROGUE TRADE K.K.`) |
 | Public URL | `linkedin.com/company/[rogue-trade]` (availability UNKNOWN) |
 | Tagline JP (58) | `コーヒーの焙煎と販売。ブランドは東京コーヒーと、有機JASのスペシャルティコーヒー豆 SNöBI。東京都東久留米市。` |
 | Tagline EN (113; limit 120, INFERRED) | `Coffee roasters in Higashikurume, Tokyo. Brands: Tokyo Coffee and SNöBI (JAS-certified organic specialty coffee).` |
@@ -83,7 +83,7 @@ Not written: 「オーガニック専門」 or "organic-only". The roastery is c
 | Field | Text |
 |---|---|
 | Name | SNöBI |
-| Tagline JP (43) | `オーガニックのまま、スペシャルティ。有機JASのスペシャルティコーヒー豆。東京で焙煎。` |
+| Tagline JP (38) | `有機も、味も。妥協しない。有機JASのスペシャルティコーヒー豆。東京で焙煎。` |
 | Tagline EN (90) | `Organic. And actually specialty. JAS-certified organic specialty coffee, roasted in Tokyo.` |
 | Website | https://snobi.jp |
 | Industry | same as the parent |

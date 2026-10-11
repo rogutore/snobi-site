@@ -1,6 +1,6 @@
 import { pageMeta, allFromPrice } from "@/lib/seo";
 import Link from "next/link";
-import { preload } from "react-dom";
+import { HeroFilm } from "@/components/v3/hero-film";
 import { getStock } from "@/lib/shopify/client";
 import { products, yen } from "@/content/products";
 import { freeShippingLine } from "@/content/ordering";
@@ -18,7 +18,7 @@ export const metadata = pageMeta({
   absolute: true,
   title: "SNöBI｜オーガニック スペシャルティコーヒー豆（有機JAS）",
   description: `有機JASのスペシャルティコーヒー豆。ペルーのゲイシャ、エチオピア・グジ、コロンビア・ウィラ、メキシコの有機デカフェ。すべて浅煎り、豆のまま100g ${yen(allFromPrice)}から。${freeShippingLine.ja}。`,
-  image: "/v3/hero-poster.jpg",
+  image: "/v3/hero-still-og.jpg", // the four bags (was the chaff-sack frame)
 });
 
 const minPrice = Math.min(...products.flatMap((p) => p.variants.map((v) => v.price)));
@@ -27,18 +27,14 @@ const minPrice = Math.min(...products.flatMap((p) => p.variants.map((v) => v.pri
    Only the owner-rejected parts are replaced: the 3D bag → HandChapter (option A, 2026-10-08), the belt map →
    FujiAltitude (section 4, owner pick 2026-10-08). Davy's copy fixes (2026-10-08) apply where Mockup D used those lines. */
 export default async function Home() {
-  preload("/v3/hero-poster.webp", { as: "image", fetchPriority: "high" });
   const { stock } = await getStock();
   return (
     <>
       {/* improvement 1: real leaf light over the whole page (from frame 146) */}
       {/* hero film (Mockup D, 22 s from the 2026-10-01 stills) */}
       <section className="v3-film" aria-label="SNöBI — 東京の焙煎所から">
-        {/* 2026-10-09: 6.4 MB → 0.7 MB on phones / 2.2 MB elsewhere (ffmpeg re-encode of hero.mp4); WebP poster preloaded */}
-        <video className="v3-filmv" poster="/v3/hero-poster.webp" autoPlay muted loop playsInline preload="metadata">
-          <source src="/v3/hero-960.mp4" type="video/mp4" media="(max-width: 760px)" />
-          <source src="/v3/hero-1600.mp4" type="video/mp4" />
-        </video>
+        {/* still first, film after load, byte-ranged, chaff shot skipped: components/v3/hero-film.tsx (2026-10-11) */}
+        <HeroFilm />
         <div className="v3-filmcopy">
           <p className="eyebrow" style={{ color: "var(--color-paper)" }}>Organic × Specialty × Japan — Est. 2026</p>
           <h1 className="display" lang="en">Organic.<br /><em>And actually specialty.</em></h1>

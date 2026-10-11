@@ -27,15 +27,15 @@ Everything here is a **draft**. Nothing was sent, posted, submitted or paid; no 
 
 **Owner decisions that unblock the rest:**
 2. Title A or B in the release: was Chapter One already on sale before this weekend?
-3. K3: cross-domain canonical on the four TC SNöBI pages (yes / no). The visible link goes in either way.
-4. K7: own SNöBI Instagram or a TC highlight.
-5. EN company name: "ROGUE TRADE K.K." (company.md) or "Rogue Trade Co., Ltd." (COPY-INVENTORY).
+3. ~~K3~~ **Decided 2026-10-11: yes**, cross-domain canonical on the four TC SNöBI pages (team question 9).
+4. ~~K7~~ **Decided 2026-10-11: both**: claim the SNöBI handle now and run a 「SNöBI」 highlight on @tokyocoffeejp (team question 18).
+5. ~~EN company name~~ **Decided 2026-10-11: "ROGUE TRADE K.K."** (owner also accepts "Rogue Trade Inc."; a registered English name, if one exists, wins).
 6. Publish 13OGP-2001 on SNöBI surfaces (yes / no; optional lines are marked).
 7. Cafés: which GBP profiles exist, and does either café sell or serve SNöBI? Also: is SNöBI roasted at 滝山, and may we say so?
 
 **Launch day, after the T20 post-deploy checks pass:**
 8. **File the trademark** (T37 says "before PR spend").
-9. **TC changes** (owner in Shopify): (a) footer link, (b-1) product-page link, (d) JSON-LD, (e) Peru Geisha meta fix; (b-2) the canonical only if K3 = yes; (c) publish the blog post.
+9. **TC changes** (owner in Shopify): (a) footer link, (b-1) product-page link, (d) JSON-LD, (e) Peru Geisha meta fix; (b-2) the canonical (K3 = yes); (c) publish the blog post.
 10. **PR TIMES:** pay and submit.
 11. **GBP:** launch post on the confirmed profiles.
 

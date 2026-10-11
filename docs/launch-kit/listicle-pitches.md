@@ -1,6 +1,9 @@
 # Listicle pitches: mybest, コーヒー豆研究所, CAFEND (DRAFTS, not sent)
 
-**Status:** drafts, 2026-10-09. Nothing sent, no form submitted.
+**Status (2026-10-11):** nothing sent, no form submitted.
+- コーヒー豆研究所: **Gmail draft in info@tokyocoffee.jp** (to info@coffee-labo.co.jp, address re-checked on the site today; cites their 「オーガニックコーヒーのおすすめ人気ランキング」 article; facts sheet in the body; name 「SNöBI担当」). Owner reviews and sends.
+- CAFEND: form **filled in the owner's Chrome, 送信 not pressed** (facts sheet pasted under the message).
+- mybest: **no open route.** The 2024 Google Form now answers 「You need access」 (checked signed in as rogutore@gmail.com); my-best.com offers only paid advertising (/ad_placement), which this kit rules out. Dropped unless mybest opens a route.
 **Plan task:** T28 (`seo-aeo-plan.md` §5); 05 row L4. **Rule:** no request for a ranking, a score or paid placement. Samples are offered as information; the editors decide.
 **Facts read from:** `content/products.ts` (`b2a3f4eddbed…`), `content/ordering.ts` (`5fb9a6dfd176…`), `content/legal.ts` (`61db5bf46b43…`). Re-check the prices on the send date.
 

@@ -1,6 +1,8 @@
 # Local news tips: 号外NET 東久留米・清瀬, 立川経済新聞 (DRAFTS, not submitted)
 
-**Status:** drafts, 2026-10-09. No form submitted.
+**Status (2026-10-11):** no form submitted. Both forms are **filled in the owner's Chrome, not sent** (publish date written as 「2026年10月」, name 「SNöBI担当」).
+- 号外NET: the roasting-place line and the shop-sales line were left out (team questions 13 and 14). Still needed before sending: **3+ photos (required)** and the two consent checkboxes (the owner ticks them).
+- 立川経済新聞: two lines marked ★要確認★ in the text (the café's name; whether COMMONS sells or serves SNöBI). Send only if the café sells or serves it (team question 14); otherwise close the tab.
 **Plan task:** T43 (P2 in the plan; it can go in launch week if the owner prefers). 05 row L10.
 **Facts:** `content/products.ts`, `content/ordering.ts`, `content/legal.ts`. Lines marked `[要確認]` are not established in any source; delete them or confirm them before sending.
 

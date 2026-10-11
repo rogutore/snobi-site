@@ -193,7 +193,7 @@ export const products: Coffee[] = [
     },
     decaf: false,
     color: "#f8f3e4",
-    ink: "#417fa3",
+    ink: "#386e8d", // was #417fa3 (4.02:1 on paper); darkened to 5.09:1 / 4.67:1 on paper-2 for text (owner 2026-10-11)
     photo: {
       src: "/producers/tesfaye.jpg",
       caption: {
