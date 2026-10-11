@@ -1,29 +1,15 @@
 import type { Post } from "../types";
-import { products, yen, type Coffee } from "../../products";
-import { orderingSchedule, freeShippingLine, FREE_SHIPPING_YEN } from "../../ordering";
+import { yen } from "../../products";
+import { orderingSchedule, freeShippingLine, nextDayLine, FREE_SHIPPING_YEN } from "../../ordering";
+import { coffee, price, roastOf } from "../facts";
+import { AJCA_DRIP, ajcaDripNote, cupsIn, cupYen } from "../brew";
 
 /* Product facts and prices are read from content/products.ts, never retyped (SINGLE_SOURCE rule 2).
-   A missing product or size is a visible build error, not a silent fallback. */
-function coffee(slug: string): Coffee {
-  const c = products.find((p) => p.slug === slug);
-  if (!c) throw new Error(`journal/organic-geisha-peru: no product "${slug}" in content/products.ts`);
-  return c;
-}
-function price(c: Coffee, size: "100g" | "200g"): number {
-  const v = c.variants.find((x) => x.size === size);
-  if (!v) throw new Error(`journal/organic-geisha-peru: no ${size} price for "${c.slug}"`);
-  return v.price;
-}
-
+   A missing product or size is a visible build error, not a silent fallback (../facts). The paper-drip dose, cup
+   count and per-cup yen come from ../brew (general guidance, not a tested SNöBI recipe). */
 const peru = coffee("peru");
 const p100 = price(peru, "100g");
 const p200 = price(peru, "200g");
-
-/* 目安: 全日本コーヒー協会「ペーパードリップ式」1杯140mL分＝中細挽きの粉12g・湯160mL (source below).
-   General guidance, not a tested SNöBI recipe. Per-cup yen is derived here, never typed. */
-const G_PER_CUP = 12;
-const cups100 = Math.round(100 / G_PER_CUP);
-const cupYen = (yenPrice: number, grams: number) => Math.round((yenPrice * G_PER_CUP) / grams);
 const freeAt200 = p200 >= FREE_SHIPPING_YEN;
 
 const post: Post = {
@@ -31,12 +17,12 @@ const post: Post = {
   category: "産地",
   title: "オーガニックのゲイシャ。ペルー チリノスの一杯",
   metaTitle: "オーガニック ゲイシャ｜ペルー チリノスの有機JASコーヒー豆",
-  description: `ペルー・カハマルカ県チリノスで、ミゲル・ラミレスさんが標高1,731mで育てた有機JASのゲイシャ。ウォッシュド・天日乾燥、浅煎り。100g ${yen(p100)}（税込）。`,
+  description: `ペルー・カハマルカ県チリノスで、ミゲル・ラミレスさんが標高${peru.elevation}で育てた有機JASのゲイシャ。${peru.process.ja}、${roastOf(peru)}。100g ${yen(p100)}（税込）。`,
   keyword: "オーガニック ゲイシャ",
   related: ["有機 ゲイシャ", "ペルー 有機 コーヒー", "ペルー オーガニック コーヒー 豆", "ペルー チリノス ゲイシャ"],
   published: "2026-10-10",
   updated: "2026-10-10",
-  lead: "SNöBIのオーガニック ゲイシャは、ペルー・カハマルカ県チリノスでミゲル・エステバン・ラミレス・アグルトさんが標高1,731mで育てた有機JASのゲイシャ種を、ウォッシュドと天日乾燥で仕上げ、浅煎りにした豆です。",
+  lead: `SNöBIのオーガニック ゲイシャは、ペルー・カハマルカ県チリノスでミゲル・エステバン・ラミレス・アグルトさんが標高${peru.elevation}で育てた有機JASのゲイシャ種を、ウォッシュドと天日乾燥で仕上げ、${roastOf(peru)}にした豆です。`,
   sections: [
     {
       h2: "オーガニック ゲイシャとは",
@@ -58,7 +44,7 @@ const post: Post = {
       ],
     },
     {
-      h2: "標高1,731m、ウォッシュド、天日乾燥",
+      h2: `標高${peru.elevation}、ウォッシュド、天日乾燥`,
       blocks: [
         {
           table: {
@@ -69,7 +55,7 @@ const post: Post = {
               ["標高", peru.elevation],
               ["品種", peru.variety.ja],
               ["精製", peru.process.ja],
-              ["焙煎度", peru.roast?.ja ?? "—"],
+              ["焙煎度", roastOf(peru)],
               ["認証", "有機JAS"],
               ["日本への入港", "2025年11月"],
             ],
@@ -79,20 +65,20 @@ const post: Post = {
       ],
     },
     {
-      h2: "味は、フローラル、みかん、紅茶",
+      h2: `味は、${peru.notes.ja.join("、")}`,
       blocks: [
         { p: `カップの印象は、${peru.notes.ja.join("、")}。花の香りがあり、みかんのようにやさしく、紅茶のように軽い一杯です。` },
         { p: peru.bestFor.ja },
         { p: "SNöBIの豆は4種とも浅煎りです。豆のままでお届けします。焙煎後1ヶ月半まで、味を楽しめます。" },
-        { note: `淹れ方の目安：全日本コーヒー協会のペーパードリップの例では、1杯140mL分に中細挽きの粉${G_PER_CUP}g、湯160mL。SNöBIで検証したレシピではなく、一般的な目安です。` },
+        { note: ajcaDripNote },
       ],
     },
     {
       h2: "価格と届け方",
       blocks: [
         { p: `ペルー チリノス ゲイシャは、100g ${yen(p100)}、200g ${yen(p200)}（どちらも税込）。` },
-        { p: `上の目安（1杯${G_PER_CUP}g）で数えると、100gは約${cups100}杯分。1杯あたり約${cupYen(p100, 100)}円です。200gなら、1杯あたり約${cupYen(p200, 200)}円になります。` },
-        { list: [...orderingSchedule.ja, "本州であれば翌日配達。", `${freeShippingLine.ja}。${freeAt200 ? "200gなら、それだけで送料無料になります。" : ""}`] },
+        { p: `上の目安（1杯${AJCA_DRIP.grams}g）で数えると、100gは約${cupsIn(100)}杯分。1杯あたり約${cupYen(p100, 100)}円です。200gなら、1杯あたり約${cupYen(p200, 200)}円になります。` },
+        { list: [...orderingSchedule.ja, `${nextDayLine.ja}。`, `${freeShippingLine.ja}。${freeAt200 ? "200gなら、それだけで送料無料になります。" : ""}`] },
       ],
     },
   ],
@@ -100,7 +86,7 @@ const post: Post = {
     { q: "オーガニックのゲイシャは、普通のゲイシャと何が違う？", a: "品種は同じゲイシャです。違うのは育て方と認証。有機JASの基準で育てられ、認証を受けたものだけが「有機」と表示できます。" },
     { q: "粉でも買える？", a: "豆のままでのお届けです。100gと200gから選べます。" },
     { q: "どれくらいで飲みきればいい？", a: "焙煎後1ヶ月半まで、味を楽しめます。" },
-    { q: "いつ届く？", a: `${orderingSchedule.ja.join("")}本州であれば翌日配達。` },
+    { q: "いつ届く？", a: `${orderingSchedule.ja.join("")}${nextDayLine.ja}。` },
   ],
   products: ["peru"],
   cover: "144",
@@ -116,7 +102,7 @@ const post: Post = {
     { label: "農林水産省「有機食品の検査認証制度」（有機・オーガニック表示の禁止、登録認証機関）", url: "https://www.maff.go.jp/j/jas/jas_kikaku/yuuki.html" },
     { label: "農林水産省 日本農林規格「有機農産物」JAS 1605:2024（4 生産の原則、5.1.2 多年生の植物は最初の収穫前3年以上）", url: "https://www.maff.go.jp/j/jas/jas_kikaku/attach/pdf/yuuki-437.pdf" },
     { label: "全日本コーヒー協会「加工処理・選別」（水洗式＝ウォッシュドの定義）", url: "https://coffee.ajca.or.jp/column/4476/" },
-    { label: "全日本コーヒー協会「ペーパードリップ式」（1杯140mL分＝粉12g・湯160mL）", url: "https://coffee.ajca.or.jp/column/4468/" },
+    { label: `全日本コーヒー協会「ペーパードリップ式」（1杯${AJCA_DRIP.yieldMl}mL分＝粉${AJCA_DRIP.grams}g・湯${AJCA_DRIP.waterMl}mL）`, url: AJCA_DRIP.url },
     { label: "焙煎所の有機加工食品 生産行程管理者の認定：content/v2.ts（jas）" },
     { label: "発送と送料：content/ordering.ts" },
   ],

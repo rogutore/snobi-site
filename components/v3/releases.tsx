@@ -8,15 +8,15 @@ import { ShotCycle, ShotRotation } from "@/components/v3/shot-cycle";
 import { LoaderCircle } from "lucide-react";
 import { products, yen, type Coffee } from "@/content/products";
 import type { StockMap } from "@/lib/shopify/client";
+import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 
 function Card({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
   const [size, setSize] = useState<"100g" | "200g">("100g");
   const cart = useCart();
   const v = p.variants.find((x) => x.size === size)!;
-  const s = stock[v.id];
-  const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
-  const price = s?.price.currencyCode === "JPY" ? Number(s.price.amount) : v.price;
+  const ok = canBuy(stock, v.id);
+  const price = livePrice(stock, v);
   return (
     <article className="v3-rel" aria-labelledby={`rel-${p.slug}`}>
       <Link href={`/origins/${p.slug}`} className="ph" aria-label={`${p.title.ja}の産地ページへ`}>
@@ -37,7 +37,7 @@ function Card({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
       </div>
       <button type="button" className="v3-btn v3-rel-add" disabled={!ok || cart.pending} onClick={() => cart.add(v.id)}>
         {cart.pending ? <LoaderCircle size={15} className="v3-spin" aria-hidden /> : null}
-        {ok ? "カートに入れる" : s ? "完売" : "在庫確認中"}
+        {buyLabel(stock, v.id)}
       </button>
       <Link href={`/origins/${p.slug}`} className="v3-rel-more">産地について詳しく読みたい方 →</Link>
     </article>

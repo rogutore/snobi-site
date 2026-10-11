@@ -27,10 +27,28 @@ export const shippingRatesShort: Localized = {
   en: shippingRates.en,
 };
 
+/* Free shipping from FREE_SHIPPING_YEN, no full stop (callers add one). Read by the summary below and exported as
+   freeShippingLine at its old place (2026-10-11: "¥3,000" was typed in both). */
+const freeShipping: Localized = {
+  ja: `${yen(FREE_SHIPPING_YEN)}以上で送料無料`,
+  en: `Free shipping over ${yen(FREE_SHIPPING_YEN)}`,
+};
+
+/* Delivery time and the short form of the roast/ship days, no full stop (callers add one). The summary below and the
+   journal read them (2026-10-11: "本州であれば翌日配達" was typed in 11 journal lines and here). */
+export const nextDayLine: Localized = {
+  ja: "本州であれば翌日配達",
+  en: "Next-day delivery within Honshu",
+};
+export const roastShipShort: Localized = {
+  ja: "火・金焙煎・発送",
+  en: "Roasted and shipped Tue / Fri",
+};
+
 /* One-line summary under heroes and buy cards. */
 export const orderingSummary: Localized = {
-  ja: "税込表示 · ¥3,000以上で送料無料 · 火・金焙煎・発送。本州であれば翌日配達。",
-  en: "Tax included · Free shipping over ¥3,000 · Roasted and shipped Tue / Fri. Next-day delivery within Honshu.",
+  ja: `税込表示 · ${freeShipping.ja} · ${roastShipShort.ja}。${nextDayLine.ja}。`,
+  en: `Tax included · ${freeShipping.en} · ${roastShipShort.en}. ${nextDayLine.en}.`,
 };
 
 /* The schedule, as three short lines (FAQ, origin pages, cart). */
@@ -39,7 +57,4 @@ export const orderingSchedule: Localized<string[]> = {
   en: ["Roasted and shipped on Tuesdays and Fridays.", "Orders by noon on the day are included.", "SNöBI beans settle with a little rest after roasting (aging), so we ship them anywhere from roast day to two weeks after roasting."],
 };
 
-export const freeShippingLine: Localized = {
-  ja: "¥3,000以上で送料無料",
-  en: "Free shipping over ¥3,000",
-};
+export const freeShippingLine: Localized = freeShipping;

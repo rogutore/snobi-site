@@ -26,11 +26,15 @@ export type Coffee = {
   narrative: Localized<string[]>;
   facts: Localized<string[]>;
   decaf: boolean;
+  caffeineCut?: string; // decaf only: the share of caffeine removed, as printed ("99.9%"); journal and narrative read it
   color: string;
   ink: string;
   photo: { src: string; caption: Localized } | null;
   variants: CoffeeVariant[];
 };
+/* The Mexico decaf's caffeine cut, stored once: its narrative below and the journal read it (the journal through the
+   product's `caffeineCut`), SINGLE_SOURCE 2026-10-11. */
+const MEXICO_CAFFEINE_CUT = "99.9%";
 export const products: Coffee[] = [
   {
     handle: "snobi-peru",
@@ -350,11 +354,11 @@ export const products: Coffee[] = [
     narrative: {
       ja: [
         "チアパス州、エル・トリウンフォ生物圏保護区のすぐそば、平均約3haの小さな農園を3,253軒が持ち寄るグラポス農協の豆。",
-        "ブルボン、ムンドノーボ、カトゥーラ、薬品を使わないマウンテンウォーター製法で、カフェインは99.9%カット。",
+        `ブルボン、ムンドノーボ、カトゥーラ、薬品を使わないマウンテンウォーター製法で、カフェインは${MEXICO_CAFFEINE_CUT}カット。`,
       ],
       en: [
         "Beside the El Triunfo biosphere reserve in Chiapas, 3,253 smallholders of the GRAPOS co-op grow coffee on farms averaging 3ha.",
-        "Bourbon, Mundo Novo and Caturra are decaffeinated by the chemical-free Mountain Water Process — 99.9% caffeine-free.",
+        `Bourbon, Mundo Novo and Caturra are decaffeinated by the chemical-free Mountain Water Process — ${MEXICO_CAFFEINE_CUT} caffeine-free.`,
       ],
     },
     facts: {
@@ -370,6 +374,7 @@ export const products: Coffee[] = [
       ],
     },
     decaf: true,
+    caffeineCut: MEXICO_CAFFEINE_CUT,
     color: "#f8e29b",
     ink: "#64502a",
     photo: null,

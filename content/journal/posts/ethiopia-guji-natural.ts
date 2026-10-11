@@ -1,24 +1,14 @@
 import type { Post } from "../types";
-import { products, yen, type Coffee } from "../../products";
-import { orderingSchedule, freeShippingLine } from "../../ordering";
+import { products, yen } from "../../products";
+import { orderingSchedule, freeShippingLine, nextDayLine } from "../../ordering";
+import { coffee, price, roastOf } from "../facts";
 
 /* Product facts, notes and prices are read from content/products.ts and the shipping lines from content/ordering.ts,
-   never retyped here (SINGLE_SOURCE rule 2). A missing product or variant stops the build instead of printing a gap. */
-function coffee(slug: string): Coffee {
-  const c = products.find((p) => p.slug === slug);
-  if (!c) throw new Error(`journal/ethiopia-guji-natural: "${slug}" is not in content/products.ts`);
-  return c;
-}
-function price(c: Coffee, size: "100g" | "200g"): string {
-  const v = c.variants.find((x) => x.size === size);
-  if (!v) throw new Error(`journal/ethiopia-guji-natural: ${c.slug} has no ${size} variant in content/products.ts`);
-  return yen(v.price);
-}
-
+   never retyped here (SINGLE_SOURCE rule 2). A missing product, variant or roast stops the build instead of printing
+   a gap (../facts). */
 const eth = coffee("ethiopia-guji");
 const notes = eth.notes.ja.join("、");
-const roast = eth.roast?.ja;
-if (!roast) throw new Error("journal/ethiopia-guji-natural: ethiopia-guji has no roast in content/products.ts");
+const roast = roastOf(eth);
 /* "ナチュラルはグジだけ" and "ベリーとドライフルーツはグジだけ" are only printed while products.ts says so. */
 const others = products.filter((p) => p.slug !== eth.slug);
 if (!eth.process.ja.includes("ナチュラル") || others.some((p) => p.process.ja.includes("ナチュラル")))
@@ -31,12 +21,12 @@ const post: Post = {
   category: "産地",
   title: "エチオピアのオーガニックコーヒー、グジのナチュラル",
   metaTitle: "エチオピア グジ ナチュラル｜オーガニックコーヒー豆（有機JAS）",
-  description: `オロミア州グジ、シャキッソ村のタデGG農園で育ったエチオピア在来種を、果肉ごと天日で乾かしたナチュラル。有機JASの${roast}で、ノートは${notes}。100g ${price(eth, "100g")}（税込）。`,
+  description: `${eth.region.ja}のタデGG農園で育った${eth.variety.ja}を、果肉ごと天日で乾かしたナチュラル。有機JASの${roast}で、ノートは${notes}。100g ${yen(price(eth, "100g"))}（税込）。`,
   keyword: "エチオピア オーガニック コーヒー",
   related: ["エチオピア グジ ナチュラル", "エチオピア グジ", "グジ タデGG"],
   published: "2026-10-11",
   updated: "2026-10-11",
-  lead: "SNöBI（スノビ）のエチオピアのオーガニックコーヒーは、オロミア州グジ、シャキッソ村のタデGG農園で育ったエチオピア在来種を、果肉をつけたまま天日で乾かしたナチュラルの有機JASコーヒー豆です。",
+  lead: `SNöBI（スノビ）のエチオピアのオーガニックコーヒーは、${eth.region.ja}のタデGG農園で育った${eth.variety.ja}を、果肉をつけたまま天日で乾かしたナチュラルの有機JASコーヒー豆です。`,
   sections: [
     {
       h2: "グジのナチュラルとは",
@@ -113,8 +103,8 @@ const post: Post = {
     {
       h2: "価格と届き方",
       blocks: [
-        { p: `100g ${price(eth, "100g")}、200g ${price(eth, "200g")}（いずれも税込）。豆のままでお届けします。` },
-        { list: [...orderingSchedule.ja, `${freeShippingLine.ja}。`, "本州であれば翌日配達。"] },
+        { p: `100g ${yen(price(eth, "100g"))}、200g ${yen(price(eth, "200g"))}（いずれも税込）。豆のままでお届けします。` },
+        { list: [...orderingSchedule.ja, `${freeShippingLine.ja}。`, `${nextDayLine.ja}。`] },
       ],
     },
   ],

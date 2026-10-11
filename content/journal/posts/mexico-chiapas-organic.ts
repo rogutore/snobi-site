@@ -1,19 +1,27 @@
 import type { Post } from "../types";
+import { yen } from "../../products";
+import { freeShippingLine, nextDayLine } from "../../ordering";
+import { coffee, price, roastOf, caffeineCut, roastDaysLine, cutoffLine } from "../facts";
 
 /* Keyword: メキシコ オーガニック コーヒー. Producer facts only from products.ts and the ✅ items in
-   product-facts-chapter-one.md / docs/origins-research.md; members = 3,253 (products.ts). */
+   product-facts-chapter-one.md / docs/origins-research.md; members = 3,253 (products.ts).
+   Elevation, producer, variety, process, roast, notes, caffeine cut and prices are read from content/products.ts and
+   the delivery lines from content/ordering.ts (SINGLE_SOURCE rule 2); a missing field stops the build (../facts). */
+const mex = coffee("mexico-chiapas-decaf");
+const notes = mex.notes.ja.join("、");
+
 const post: Post = {
   slug: "mexico-chiapas-organic",
   category: "産地",
   title: "メキシコのオーガニックコーヒー。チアパスとグラポス農協",
   metaTitle: "メキシコ オーガニック コーヒー｜チアパス、グラポス農協のデカフェ",
   description:
-    "メキシコは有機コーヒーの主な生産国のひとつで、最大の産地はチアパス州です。SNöBIのメキシコは、チアパス州のグラポス農協に集う3,253軒の小規模生産者の豆。有機JASのデカフェで、標高1,400–1,700m。",
+    `メキシコは有機コーヒーの主な生産国のひとつで、最大の産地はチアパス州です。SNöBIのメキシコは、チアパス州のグラポス農協に集う3,253軒の小規模生産者の豆。有機JASのデカフェで、標高${mex.elevation}。`,
   keyword: "メキシコ オーガニック コーヒー",
   related: ["メキシコ チアパス デカフェ", "メキシコ オーガニック デカフェ"],
   published: "2026-10-10",
   updated: "2026-10-10",
-  lead: "メキシコは有機コーヒーの主な生産国のひとつで、SNöBI（スノビ）が扱うメキシコの有機コーヒーは、最大の産地チアパス州のグラポス農協（GRAPOS）の小規模生産者が育てた豆です。",
+  lead: `メキシコは有機コーヒーの主な生産国のひとつで、SNöBI（スノビ）が扱うメキシコの有機コーヒーは、最大の産地チアパス州の${mex.producer.ja}が育てた豆です。`,
   sections: [
     {
       h2: "メキシコ オーガニック コーヒーの産地、チアパス州",
@@ -67,7 +75,7 @@ const post: Post = {
       h2: "畑と、収穫のあいだの暮らし",
       blocks: [
         {
-          p: "畑は標高1,400–1,700m。品種は、ブルボン、ムンドノーボ、カトゥーラです。",
+          p: `畑は標高${mex.elevation}。品種は、ブルボン、ムンドノーボ、カトゥーラです。`,
         },
         {
           p: "収穫は11月から3月。それ以外の季節は、同じ家族がバナナやカカオ、ランブータンを育てています。カボチャや豆、トウモロコシをつくる家族もいます。手仕事で布製品をつくる家族もいます。",
@@ -81,7 +89,7 @@ const post: Post = {
           p: "SNöBIは、Tokyo Coffeeがつくるオーガニック・スペシャルティのコーヒーです。第一章のメキシコは、デカフェです。",
         },
         {
-          p: "グラポス農協の豆をウォッシュドで精製し、マウンテンウォーター製法でカフェインを抜いています。商品資料では、カフェインを抜く水はメキシコ最高峰オリサバ山（5,636m）の氷河の水で、薬品は使いません。カフェインは99.9%カットです。",
+          p: `グラポス農協の豆をウォッシュドで精製し、マウンテンウォーター製法でカフェインを抜いています。商品資料では、カフェインを抜く水はメキシコ最高峰オリサバ山（5,636m）の氷河の水で、薬品は使いません。カフェインは${caffeineCut(mex)}カットです。`,
         },
         {
           p: "マウンテンウォーター製法は、メキシコで行われている水を使う製法です。この製法を行う加工会社は、生豆に蒸気をあて、コーヒー豆から得た成分を飽和させた水溶液でカフェインを抽出し、3段階で乾燥させる、と説明しています。",
@@ -90,27 +98,27 @@ const post: Post = {
           p: "有機JASの豆で、2024/25年のクロップです。有機JASマークは、登録認証機関の検査を受けて認証された事業者だけが貼れるマークです（農林水産省）。",
         },
         {
-          p: "SNöBIは、豆の味を楽しんでいただけるように、全種類を浅煎りで焙煎しています。メキシコ チアパス デカフェの味は、スイートポテト、黒糖、やさしい酸味です。",
+          p: `SNöBIは、豆の味を楽しんでいただけるように、全種類を浅煎りで焙煎しています。${mex.title.ja}の味は、${notes}です。`,
         },
         {
           note: "袋のラベルにある「Honey Chiapas」は、ロットの名前です。精製方法のハニープロセスではありません。精製はウォッシュドです。",
         },
         {
           table: {
-            head: ["項目", "メキシコ チアパス デカフェ"],
+            head: ["項目", mex.title.ja],
             rows: [
-              ["産地", "メキシコ、チアパス州"],
-              ["生産者", "グラポス農協（GRAPOS）の小規模生産者"],
-              ["標高", "1,400–1,700m"],
-              ["品種", "ブルボン・ムンドノーボ・カトゥーラ"],
-              ["精製", "ウォッシュド → マウンテンウォーター製法（薬品不使用のデカフェ）"],
-              ["焙煎", "浅煎り"],
-              ["価格", "100g ¥1,610、200g ¥2,820（税込）"],
+              ["産地", `メキシコ、${mex.region.ja}`],
+              ["生産者", mex.producer.ja],
+              ["標高", mex.elevation],
+              ["品種", mex.variety.ja],
+              ["精製", mex.process.ja],
+              ["焙煎", roastOf(mex)],
+              ["価格", `100g ${yen(price(mex, "100g"))}、200g ${yen(price(mex, "200g"))}（税込）`],
             ],
           },
         },
         {
-          p: "豆のままお届けします。火曜日と金曜日に焙煎、発送。当日の正午までのご注文が対象。本州であれば翌日配達。¥3,000以上で送料無料。",
+          p: `豆のままお届けします。${roastDaysLine}${cutoffLine}${nextDayLine.ja}。${freeShippingLine.ja}。`,
         },
       ],
     },
@@ -126,7 +134,7 @@ const post: Post = {
     },
     {
       q: "メキシコ チアパス デカフェのカフェインは？",
-      a: "薬品を使わないマウンテンウォーター製法で、カフェインを99.9%カットしています。",
+      a: `薬品を使わないマウンテンウォーター製法で、カフェインを${caffeineCut(mex)}カットしています。`,
     },
     {
       q: "ラベルの「Honey」は、ハニープロセスのことですか？",

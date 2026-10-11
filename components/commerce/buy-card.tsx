@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LoaderCircle, ArrowUpRight } from "lucide-react";
 import { yen, type Coffee, type Locale } from "@/content/products";
 import type { StockMap } from "@/lib/shopify/client";
+import { canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "./cart";
 export function BuyCard({
   product,
@@ -26,14 +27,8 @@ export function BuyCard({
   const en = lang === "en";
   const variant = product.variants.find((v) => v.size === size)!;
   const availability = stock[variant.id];
-  const available =
-    !!availability?.availableForSale &&
-    (availability.quantityAvailable === null ||
-      availability.quantityAvailable > 0);
-  const price =
-    availability?.price.currencyCode === "JPY"
-      ? Number(availability.price.amount)
-      : variant.price;
+  const available = canBuy(stock, variant.id);
+  const price = livePrice(stock, variant);
   const titleId = `coffee-${detail ? "detail-" : ""}${product.slug}`;
   const label = cart.pending
     ? en

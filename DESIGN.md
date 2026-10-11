@@ -97,10 +97,12 @@ Animatic v1 (proxy, 14 s): `artifacts/footage/four-arrive-animatic-v1.mp4`; the 
 
 ## Typography
 
-**Faces:** Moret (Latin display), Maiola (Latin text) and 秀英角ゴシック銀 (Japanese), all from Adobe kit `xkh1hrz` via the JS loader, plus Geist Mono for labels, prices and eyebrows. Weights in the kit (VERIFIED from `xkh1hrz.js`, 2026-10-06):
-- Moret: 400, 600, 700 (+ italics).
-- Maiola: 400, 700 (+ italics).
-- Shuei Gin: 400, 500, 600.
+**Faces:** Moret (Latin display), Maiola (Latin text) and 秀英角ゴシック銀 (Japanese), all from Adobe kit `xkh1hrz` via the JS loader, plus Geist Mono for labels, prices and eyebrows. Weights in the kit (VERIFIED from the served `xkh1hrz.js`, 2026-10-11, after the owner trimmed the project to 8 faces with font-display swap; 2026-10-06 had 13):
+- Moret: 400, 400 italic, 600, 700.
+- Maiola: 400, 700 (no italics).
+- Shuei Gin: 400, 600 (no italics; Japanese is never set in italic).
+
+The kit loads after the page's load event (or after 2.5 s), so text first paints in the fallback serif and swaps (`components/commerce/document.tsx`). A style or weight outside this list renders as a fake: re-run the face check in `research-outputs/2026-10-11-snobi-speed/ab-2026-10-11.md` §4 after any type change.
 
 So **Japanese headings are 600; 700 would be faux bold.** Never ship a stand-in face; a page that cannot load the kit says so on screen.
 
@@ -139,7 +141,7 @@ The Latin display line is about 4.4× body at 1440, deliberately below Mockup D'
 
 **Home skeleton** (recommended order; the film's place is the open owner question):
 ```
-[header: boar+wordmark · nav · 取扱店 · CART]                       64px, always
+[header: boar+wordmark · nav (… ホールセール) · CART]                       64px, always
 [bag chapter, sticky stage ~4 viewports]                             paper + sun
    line beside the bag: Organic. / 有機も、味も。妥協しない。 + 4種を見る
    drop → one turn → beans pour and pile → lineup of four with proof labels
@@ -231,7 +233,7 @@ Hand-rolled (no shadcn).
 - Every text/surface pair is a component entry and passes `npx @google/design.md lint` at 4.5:1 (0 errors, 0 contrast warnings, 2026-10-06; the 3 orphan warnings are non-text tokens: `sage`, `accent`, `line`).
 - Focus is the sage ring. It is non-text, so `python3 scripts/contrast.py` checks it at 3:1 (4.20:1 on `paper`, 3.85:1 on `paper-2`).
 - Targets are at least 44px; skip link; one H1 and one `main` per page; `lang="ja"` on the root.
-- Content is readable without JS: every film has a poster still in the HTML (the final frame of the four arriving), and the video upgrades it. Reduced motion shows the poster only.
+- Content is readable without JS: every film has a poster still in the HTML, and the video upgrades it after the page has loaded. Home hero (`components/v3/hero-film.tsx`): wide screens show the final frame of the four arriving; phones show the pour (14.2 s), because on a phone the headline covers the lower half of the frame, where every bag frame has its label (owner to confirm, 2026-10-11). Reduced motion shows the poster only.
 
 ## Japanese
 

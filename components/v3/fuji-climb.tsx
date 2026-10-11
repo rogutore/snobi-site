@@ -12,6 +12,7 @@ import { products, yen } from "@/content/products";
 import { FUJI, coffeeAltitudes, compare } from "@/content/altitude";
 import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
+import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 
 const W = 1000, H = 760, GROUND = 690, TOP = 96, CX = 560, CW = 22, XL = 196, XR = 924, P = 1.9;
@@ -118,12 +119,11 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
 
   const p = latest ? products.find((x) => x.slug === latest.slug)! : null;
   const v = p?.variants.find((x) => x.size === size);
-  const st = v ? stock[v.id] : undefined;
-  const ok = !!st?.availableForSale && (st.quantityAvailable === null || st.quantityAvailable > 0);
-  const price = v ? (st?.price.currencyCode === "JPY" ? Number(st.price.amount) : v.price) : 0;
+  const ok = v ? canBuy(stock, v.id) : false;
+  const price = v ? livePrice(stock, v) : 0;
   const allIds = products.map((x) => x.variants.find((vv) => vv.size === "100g")!.id);
-  const allOk = allIds.every((id) => { const s = stock[id]; return !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0); });
-  const allPrice = products.reduce((sum, x) => { const vv = x.variants.find((z) => z.size === "100g")!; const s = stock[vv.id]; return sum + (s?.price.currencyCode === "JPY" ? Number(s.price.amount) : vv.price); }, 0);
+  const allOk = allIds.every((id) => canBuy(stock, id));
+  const allPrice = products.reduce((sum, x) => sum + livePrice(stock, x.variants.find((z) => z.size === "100g")!), 0);
 
   return (
     <section ref={sec} id="fuji" className={`v3-climb ${reduced ? "is-static" : ""}`} aria-labelledby="climb-h">
@@ -265,7 +265,7 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
                     <b className="price">{yen(price)}</b>
                   </div>
                   <button type="button" className="v3-btn add" disabled={!ok || cart.pending} onClick={() => v && cart.add(v.id)}>
-                    {cart.pending ? <LoaderCircle size={15} className="v3-spin" aria-hidden /> : null}{ok ? "カートに入れる" : st ? "完売" : "在庫確認中"}
+                    {cart.pending ? <LoaderCircle size={15} className="v3-spin" aria-hidden /> : null}{v ? buyLabel(stock, v.id) : "在庫確認中"}
                   </button>
                 </div>
               </div>

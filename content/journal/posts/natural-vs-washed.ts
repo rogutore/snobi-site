@@ -1,13 +1,9 @@
 import type { Post } from "../types";
 import { products, type Coffee } from "../../products";
+import { coffee, caffeineCut } from "../facts";
 
-/* Process, variety, elevation, notes and "こんな人に" lines are read from content/products.ts, never retyped here
-   (SINGLE_SOURCE rule 2). A missing product stops the build instead of printing a gap. */
-function coffee(slug: string): Coffee {
-  const c = products.find((p) => p.slug === slug);
-  if (!c) throw new Error(`journal/natural-vs-washed: "${slug}" is not in content/products.ts`);
-  return c;
-}
+/* Process, variety, elevation, notes, "こんな人に" lines and the decaf's caffeine cut are read from content/products.ts,
+   never retyped here (SINGLE_SOURCE rule 2). A missing product or field stops the build instead of printing a gap. */
 
 const eth = coffee("ethiopia-guji");
 const peru = coffee("peru");
@@ -130,7 +126,7 @@ const post: Post = {
     },
     {
       q: "SNöBIのデカフェの精製は？",
-      a: `${mex.title.ja}の精製と製法は、${mex.process.ja}です。カフェインは99.9%カットしています。`,
+      a: `${mex.title.ja}の精製と製法は、${mex.process.ja}です。カフェインは${caffeineCut(mex)}カットしています。`,
     },
   ],
   products: ["ethiopia-guji", "peru", "colombia-huila"],

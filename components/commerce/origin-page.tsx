@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { products, type Locale } from "@/content/products";
 import { getStock } from "@/lib/shopify/client";
+import { canBuy } from "@/lib/shopify/stock";
 import { CartProvider } from "./cart";
 import { BuyCard } from "./buy-card";
 import { Nav } from "@/components/site/nav";
@@ -72,9 +73,7 @@ export async function OriginPage({
               url: `${url}?size=${v.size}`,
               price: stock[v.id].price.amount,
               priceCurrency: stock[v.id].price.currencyCode,
-              availability:
-                stock[v.id].availableForSale &&
-                (stock[v.id].quantityAvailable ?? 1) > 0
+              availability: canBuy(stock, v.id)
                   ? "https://schema.org/InStock"
                   : "https://schema.org/OutOfStock",
               itemCondition: "https://schema.org/NewCondition",

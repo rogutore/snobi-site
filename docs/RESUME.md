@@ -5,6 +5,14 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / 「有機も、味も。妥協しない。」 since 2026-10-09, DESIGN.md), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-11 (night) — single-source sweep (no visible change)
+- LIVE: version f8c52aa2-d646-4e83-ad76-15ce39e9477b. verify-site PASS on snobi.jp. 18 pages (home, coffee, the 5 origin pages, trade, 10 journal posts) compared against the pre-change live HTML: visible text, JSON-LD and buttons identical (comparer checked against deliberate edits).
+- Stock rule: every buy surface (v3 shop/releases/fuji/fuji-climb, v2 buy, commerce buy-card, origin-page JSON-LD) calls `lib/shopify/stock.ts` canBuy/livePrice/buyLabel; the TODO there is closed.
+- Journal: posts read prices, ranges, the free-shipping line, the schedule, producer/region/elevation/process/notes and the decaf 「99.9%」 from `content/products.ts` / `content/ordering.ts`; the AJCA 12 g dose and cup maths from `content/journal/brew.ts`; shared readers in `content/journal/facts.ts` (throw on missing data). New: `ordering.ts` `nextDayLine`, `roastShipShort` (orderingSummary/freeShippingLine now derive ¥3,000 from FREE_SHIPPING_YEN); `products.ts` `caffeineCut` (Mexico "99.9%"). The gift claim 「どの組み合わせでも送料無料」 is computed and throws if prices make it false. Gate: all 15 post objects byte-identical before/after (tsc-compiled snapshot). Left as prose (no source field): keep-until lines (焙煎後2ヶ月 etc.), 3,253軒 / 5,636m / 814軒 / 1995年, the gift order-time→ship-day table, `content/v2.ts:26` (99.9%, 5,636m, 3,253), Tue/Fri still in both roastShipShort and orderingSchedule.
+- DESIGN.md: kit faces = the trimmed 8 (no JP italic), kit loads after paint, header ホールセール, phone hero poster = the pour (owner to confirm). sync --check OK; lint 0 errors.
+- Cart drawer face check: no fake bold, no missing face. 「あなたのカート。」 asks 700 via legacy `.display` and renders the real Shuei 600; left as is (changing `.display` would thin Latin headings elsewhere).
+- OPEN (owner yes/no): Tesfaye portrait (Sucafina's, no permission on record) on /origins/ethiopia-guji; phone hero still keep/revert; `.v3 { font-synthesis-style: none; }` for JP italic notes; hero pause/play control (DESIGN.md Motion + WCAG 2.2.2; never existed); reply to 海ノ向こうコーヒー 矢野さん (2026-10-09) on next-season Chirinos quantity.
+
 ## 2026-10-11 (late) — speed fixes 2/4/7/8 shipped, launch-kit decisions
 - LIVE: version 348a8781-c30e-4084-85d1-11580d6bd913 (verify-site PASS on snobi.jp; IndexNow /). Owner "3. okay but test it extensively".
   - Adobe kit xkh1hrz trimmed in the owner's Adobe login: 8 faces (Maiola 400/700, Shuei 400/600, Moret 400/400i/600/700), font-display swap on all three families. VERIFIED in the served kit JS.

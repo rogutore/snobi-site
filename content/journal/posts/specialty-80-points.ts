@@ -1,8 +1,17 @@
 import type { Post } from "../types";
+import { yen } from "../../products";
+import { coffee, priceSpan, processShort } from "../facts";
 
 /* Keyword: スペシャルティコーヒー 80点とは. Scores are not published (owner decision 2026-09-11, vault
    product-facts-chapter-one.md); the only score line is the approved home copy in components/v3/hand-chapter.tsx.
-   External facts opened 2026-10-09 (see `sources`). */
+   External facts opened 2026-10-09 (see `sources`).
+   The four rows and the price spans are read from content/products.ts (SINGLE_SOURCE rule 2); a missing product or
+   field stops the build (../facts). */
+const slugs = ["peru", "ethiopia-guji", "colombia-huila", "mexico-chiapas-decaf"];
+const beans = slugs.map((s) => coffee(s));
+const p100 = priceSpan("100g");
+const p200 = priceSpan("200g");
+
 const post: Post = {
   slug: "specialty-80-points",
   category: "オーガニック",
@@ -94,15 +103,10 @@ const post: Post = {
         {
           table: {
             head: ["豆", "生産者", "標高", "品種", "精製"],
-            rows: [
-              ["ペルー チリノス ゲイシャ", "ミゲル・エステバン・ラミレス・アグルト（チリノス生産者組合）", "1,731m", "ゲイシャ", "ウォッシュド・天日乾燥"],
-              ["エチオピア グジ タデGG農園", "タデGG農園、タスファイ・ベケレさん", "1,800–2,200m", "エチオピア在来種", "ナチュラル・天日乾燥"],
-              ["コロンビア ウィラ", "ウィラ南部の複数農園（ASOBOMBO生産者協会）", "1,700m", "カトゥーラ・コロンビア", "ウォッシュド・天日乾燥"],
-              ["メキシコ チアパス デカフェ", "グラポス農協（GRAPOS）の小規模生産者", "1,400–1,700m", "ブルボン・ムンドノーボ・カトゥーラ", "ウォッシュド → マウンテンウォーター製法"],
-            ],
+            rows: beans.map((c) => [c.title.ja, c.producer.ja, c.elevation, c.variety.ja, processShort(c)]),
           },
         },
-        { p: "全種類、浅煎りで焙煎しています。100gは¥1,410〜¥2,560、200gは¥2,420〜¥4,720（税込）。" },
+        { p: `全種類、浅煎りで焙煎しています。100gは${yen(p100.min)}〜${yen(p100.max)}、200gは${yen(p200.min)}〜${yen(p200.max)}（税込）。` },
       ],
     },
   ],
@@ -128,7 +132,7 @@ const post: Post = {
       a: "別々の基準です。有機JASは育て方とつくり方、スペシャルティは生豆とカップの品質を見ます。SCAの新しい評価法CVAでは、認証はカップの外の情報として扱われます。",
     },
   ],
-  products: ["peru", "ethiopia-guji", "colombia-huila", "mexico-chiapas-decaf"],
+  products: slugs,
   cover: "163",
   coverAlt: "白いケースに落ちていく焙煎前の生豆",
   sources: [

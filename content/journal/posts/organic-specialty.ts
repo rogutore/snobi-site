@@ -1,14 +1,25 @@
 import type { Post } from "../types";
+import { yen } from "../../products";
+import { freeShippingLine } from "../../ordering";
+import { coffee, priceSpan, caffeineCut, processShort, roastDaysLine, restate } from "../facts";
 
 /* Keyword: オーガニック スペシャルティコーヒー. Facts: content/products.ts, content/v2.ts (jas), the approved specialty
-   line in components/v3/hand-chapter.tsx, content/ordering.ts; external facts opened 2026-10-09 (see `sources`). */
+   line in components/v3/hand-chapter.tsx, content/ordering.ts; external facts opened 2026-10-09 (see `sources`).
+   The four rows, the price spans, the caffeine cut and the delivery lines are read from content/products.ts and
+   content/ordering.ts (SINGLE_SOURCE rule 2); a missing product or field stops the build (../facts). */
+const slugs = ["peru", "ethiopia-guji", "colombia-huila", "mexico-chiapas-decaf"];
+const beans = slugs.map((s) => coffee(s));
+const mex = coffee("mexico-chiapas-decaf");
+const p100 = priceSpan("100g");
+const p200 = priceSpan("200g");
+
 const post: Post = {
   slug: "organic-specialty",
   category: "オーガニック",
   title: "オーガニック スペシャルティコーヒーとは。ふたつの基準",
   metaTitle: "オーガニック スペシャルティコーヒーとは｜有機JASと80点",
   description:
-    "オーガニック スペシャルティコーヒーは、有機JASとスペシャルティ、ふたつの基準を満たすコーヒー。両方をそろえるのに何が要るかと、SNöBIの4つの豆を紹介。4種とも有機JASで、100g ¥1,410から（税込）。",
+    `オーガニック スペシャルティコーヒーは、有機JASとスペシャルティ、ふたつの基準を満たすコーヒー。両方をそろえるのに何が要るかと、SNöBIの4つの豆を紹介。4種とも有機JASで、100g ${yen(p100.min)}から（税込）。`,
   keyword: "オーガニック スペシャルティコーヒー",
   related: ["スペシャルティコーヒー オーガニック", "オーガニック スペシャルティ 豆 通販"],
   published: "2026-10-09",
@@ -67,12 +78,7 @@ const post: Post = {
         {
           table: {
             head: ["豆", "産地・生産者", "標高・精製", "味"],
-            rows: [
-              ["ペルー チリノス ゲイシャ", "カハマルカ県サン・イグナシオ、チリノス。ミゲル・エステバン・ラミレス・アグルト（チリノス生産者組合）", "1,731m。ウォッシュド・天日乾燥", "フローラル、みかん、紅茶"],
-              ["エチオピア グジ タデGG農園", "オロミア州グジ、シャキッソ村。タデGG農園、タスファイ・ベケレさん", "1,800–2,200m。ナチュラル・天日乾燥", "ベリー、ドライフルーツ、甘さ"],
-              ["コロンビア ウィラ", "ウィラ県南部、ピタリート。ウィラ南部の複数農園（ASOBOMBO生産者協会）", "1,700m。ウォッシュド・天日乾燥", "シトラス、キャラメル、バランス"],
-              ["メキシコ チアパス デカフェ", "チアパス州。グラポス農協（GRAPOS）の小規模生産者", "1,400–1,700m。ウォッシュド → マウンテンウォーター製法", "スイートポテト、黒糖、やさしい酸味"],
-            ],
+            rows: beans.map((c) => [c.title.ja, `${c.region.ja}。${c.producer.ja}`, `${c.elevation}。${processShort(c)}`, c.notes.ja.join("、")]),
           },
         },
         {
@@ -80,7 +86,7 @@ const post: Post = {
             "ペルー：ゲイシャは、ミゲルさんにとって新しく植えた挑戦の品種。ミゲルさんは2019年、ボストンのSCAに組合代表として参加しました。",
             "エチオピア：収穫した実は、農園から約20kmの自社精選所へ。水槽で選別し、完熟の果実だけを手で選んで乾燥させます。",
             "コロンビア：小さな農園たちの収穫を協会がまとめることで、有機のまま、安定した品質を保っています。",
-            "メキシコ：薬品を使わないマウンテンウォーター製法で、カフェインは99.9%カット。デカフェも有機JASです。",
+            `メキシコ：薬品を使わないマウンテンウォーター製法で、カフェインは${caffeineCut(mex)}カット。デカフェも有機JASです。`,
           ],
         },
       ],
@@ -96,7 +102,7 @@ const post: Post = {
             "豆のままか：SNöBIは豆のままでお届けします。",
           ],
         },
-        { p: "SNöBIの価格は、100gが¥1,410〜¥2,560、200gが¥2,420〜¥4,720。いずれも税込です。¥3,000以上で送料無料。火曜日と金曜日に焙煎、発送します。" },
+        { p: `SNöBIの価格は、100gが${yen(p100.min)}〜${yen(p100.max)}、200gが${yen(p200.min)}〜${yen(p200.max)}。いずれも税込です。${freeShippingLine.ja}。${restate(roastDaysLine, "します")}` },
       ],
     },
   ],
@@ -111,14 +117,14 @@ const post: Post = {
     },
     {
       q: "SNöBIのデカフェもオーガニックですか？",
-      a: "はい。メキシコ チアパス デカフェも有機JASです。カフェインは、薬品を使わないマウンテンウォーター製法で99.9%カットしています。",
+      a: `はい。${mex.title.ja}も有機JASです。カフェインは、薬品を使わないマウンテンウォーター製法で${caffeineCut(mex)}カットしています。`,
     },
     {
       q: "粉で買えますか？",
       a: "SNöBIは豆のままでのお届けです。100gと200gから選べます。",
     },
   ],
-  products: ["peru", "ethiopia-guji", "colombia-huila", "mexico-chiapas-decaf"],
+  products: slugs,
   cover: "130",
   coverAlt: "オーク材のテーブルに並ぶSNöBIの4つの袋とコーヒーのカラフェ、木漏れ日",
   sources: [

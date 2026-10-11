@@ -1,4 +1,16 @@
 import type { Post } from "../types";
+import { yen } from "../../products";
+import { orderingSchedule, freeShippingLine, nextDayLine, roastShipShort } from "../../ordering";
+import { coffee, price, roastOf, caffeineCut, processShort } from "../facts";
+
+/* SNöBI's decaf facts (title, region, producer, elevation, process, caffeine cut, roast, notes, prices) are read from
+   content/products.ts and the delivery lines from content/ordering.ts (SINGLE_SOURCE rule 2); a missing field stops
+   the build (../facts). */
+const mex = coffee("mexico-chiapas-decaf");
+const cut = caffeineCut(mex);
+const roast = roastOf(mex);
+const notes = mex.notes.ja.join("、");
+const prices = `100g ${yen(price(mex, "100g"))}、200g ${yen(price(mex, "200g"))}`;
 
 /* Keyword: オーガニック デカフェ 豆. How to choose: certification, process, roast level, whole bean and delivery.
    No health or pregnancy claims; decaf is described only as chosen by people who want to limit caffeine. */
@@ -8,7 +20,7 @@ const post: Post = {
   title: "オーガニックのデカフェ豆の選び方。認証、製法、焙煎度",
   metaTitle: "オーガニック デカフェ豆の選び方｜有機JAS・製法・浅煎り",
   description:
-    "オーガニックのデカフェ豆は、有機JASマーク、カフェインを抜く製法、焙煎度、豆のままかで選べます。SNöBIのメキシコ チアパス デカフェは有機JAS、マウンテンウォーター製法、浅煎りで、カフェイン99.9%カット。",
+    `オーガニックのデカフェ豆は、有機JASマーク、カフェインを抜く製法、焙煎度、豆のままかで選べます。SNöBIの${mex.title.ja}は有機JAS、マウンテンウォーター製法、${roast}で、カフェイン${cut}カット。`,
   keyword: "オーガニック デカフェ 豆",
   related: ["有機 デカフェ 豆", "オーガニック カフェインレスコーヒー 豆", "デカフェ 浅煎り", "オーガニック コーヒー カフェインレス"],
   published: "2026-10-10",
@@ -58,7 +70,7 @@ const post: Post = {
           p: "カフェインを抜く方法は、使うもので分かれます。有機溶媒（塩化メチレン、酢酸エチル）を使う方法、超臨界状態の二酸化炭素を使う方法、水を使う方法です。水を使う方法には、スイスウォーター製法やマウンテンウォーター製法があります。",
         },
         {
-          p: "SNöBIのメキシコ チアパス デカフェは、マウンテンウォーター製法です。商品資料では、メキシコ最高峰オリサバ山（5,636m）の氷河の水でカフェインを抜き、薬品は使わないとしています。カフェインは99.9%カットです。",
+          p: `SNöBIの${mex.title.ja}は、マウンテンウォーター製法です。商品資料では、メキシコ最高峰オリサバ山（5,636m）の氷河の水でカフェインを抜き、薬品は使わないとしています。カフェインは${cut}カットです。`,
         },
         {
           p: "この製法を行うメキシコの加工会社は、生豆に蒸気をあて、コーヒー豆から得た成分を飽和させた水溶液で、流量・温度・圧力・真空を管理しながらカフェインを抽出し、3段階で乾燥させる、と説明しています。",
@@ -76,7 +88,7 @@ const post: Post = {
           p: "同協会は、生産国や銘柄、精製方法で違うコーヒーの個性を引き出すように焙煎度を決める、とも説明しています。",
         },
         {
-          p: "SNöBIは、豆の味を楽しんでいただけるように、全種類を浅煎りで焙煎しています。デカフェも同じです。メキシコ チアパス デカフェの味は、スイートポテト、黒糖、やさしい酸味です。",
+          p: `SNöBIは、豆の味を楽しんでいただけるように、全種類を浅煎りで焙煎しています。デカフェも同じです。${mex.title.ja}の味は、${notes}です。`,
         },
       ],
     },
@@ -87,16 +99,10 @@ const post: Post = {
           p: "全日本コーヒー協会は、コーヒーを淹れる直前に、必要な分だけ挽くことを勧めています。豆は粉にすると表面積が増え、湿気を吸いやすくなり、酸化が進んで劣化するためです。",
         },
         {
-          p: "SNöBIは、すべて豆のままでお届けしています。メキシコ チアパス デカフェは、100g ¥1,610、200g ¥2,820（税込）です。届き方は次のとおりです。",
+          p: `SNöBIは、すべて豆のままでお届けしています。${mex.title.ja}は、${prices}（税込）です。届き方は次のとおりです。`,
         },
         {
-          list: [
-            "火曜日と金曜日に焙煎、発送。",
-            "当日の正午までのご注文が対象。",
-            "SNöBIの豆は焙煎後に少し寝かせる（エイジング）と味がなじむため、焙煎当日から焙煎後2週間までの豆を発送します。",
-            "本州であれば翌日配達。",
-            "¥3,000以上で送料無料。",
-          ],
+          list: [...orderingSchedule.ja, `${nextDayLine.ja}。`, `${freeShippingLine.ja}。`],
         },
         { p: "メキシコ チアパス デカフェは、焙煎から２ヶ月まで、味をお楽しみいただけます。" },
       ],
@@ -106,14 +112,14 @@ const post: Post = {
       blocks: [
         {
           table: {
-            head: ["目安", "メキシコ チアパス デカフェ"],
+            head: ["目安", mex.title.ja],
             rows: [
               ["認証", "有機JAS"],
-              ["製法", "ウォッシュド → マウンテンウォーター製法（薬品不使用）、カフェイン99.9%カット"],
-              ["焙煎度", "浅煎り（スイートポテト、黒糖、やさしい酸味）"],
-              ["形と届き方", "豆のまま。火・金焙煎・発送、本州であれば翌日配達"],
-              ["産地", "メキシコ、チアパス州。グラポス農協（GRAPOS）の小規模生産者、標高1,400–1,700m"],
-              ["価格", "100g ¥1,610、200g ¥2,820（税込）"],
+              ["製法", `${processShort(mex)}（薬品不使用）、カフェイン${cut}カット`],
+              ["焙煎度", `${roast}（${notes}）`],
+              ["形と届き方", `豆のまま。${roastShipShort.ja}、${nextDayLine.ja}`],
+              ["産地", `メキシコ、${mex.region.ja}。${mex.producer.ja}、標高${mex.elevation}`],
+              ["価格", `${prices}（税込）`],
             ],
           },
         },
@@ -123,11 +129,11 @@ const post: Post = {
   faq: [
     {
       q: "デカフェとカフェインレスは違いますか？",
-      a: "日本のコーヒーの表示ルールでは、カフェインを90%以上除去したコーヒーを「カフェインレスコーヒー」「デカフェネィテッドコーヒー」などと表示します。どちらも同じ条件の表示です。SNöBIのメキシコ チアパス デカフェは、カフェインを99.9%カットしています。",
+      a: `日本のコーヒーの表示ルールでは、カフェインを90%以上除去したコーヒーを「カフェインレスコーヒー」「デカフェネィテッドコーヒー」などと表示します。どちらも同じ条件の表示です。SNöBIの${mex.title.ja}は、カフェインを${cut}カットしています。`,
     },
     {
       q: "浅煎りのデカフェは、酸っぱいですか？",
-      a: "一般的には、浅炒りほど酸味が強くなるとされています（全日本コーヒー協会）。SNöBIのメキシコ チアパス デカフェの味は、スイートポテト、黒糖、やさしい酸味です。",
+      a: `一般的には、浅炒りほど酸味が強くなるとされています（全日本コーヒー協会）。SNöBIの${mex.title.ja}の味は、${notes}です。`,
     },
     {
       q: "粉で買えますか？",

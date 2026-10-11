@@ -1,36 +1,22 @@
 import type { Post } from "../types";
-import { products, yen, type Coffee } from "../../products";
-import { orderingSchedule, freeShippingLine } from "../../ordering";
+import { yen } from "../../products";
+import { orderingSchedule, freeShippingLine, nextDayLine } from "../../ordering";
+import { coffee, price, roastOf } from "../facts";
+import { AJCA_DRIP, ajcaDripNote, cupsIn, cupYen } from "../brew";
 
 /* Product facts and prices are read from content/products.ts, never retyped (SINGLE_SOURCE rule 2).
-   A missing product or size is a visible build error, not a silent fallback. */
-function coffee(slug: string): Coffee {
-  const c = products.find((p) => p.slug === slug);
-  if (!c) throw new Error(`journal/colombia-huila-organic: no product "${slug}" in content/products.ts`);
-  return c;
-}
-function price(c: Coffee, size: "100g" | "200g"): number {
-  const v = c.variants.find((x) => x.size === size);
-  if (!v) throw new Error(`journal/colombia-huila-organic: no ${size} price for "${c.slug}"`);
-  return v.price;
-}
-
+   A missing product or size is a visible build error, not a silent fallback (../facts). The paper-drip dose, cup
+   count and per-cup yen come from ../brew (general guidance, not a tested SNöBI recipe). */
 const col = coffee("colombia-huila");
 const c100 = price(col, "100g");
 const c200 = price(col, "200g");
-
-/* 目安: 全日本コーヒー協会「ペーパードリップ式」1杯140mL分＝中細挽きの粉12g・湯160mL (source below).
-   General guidance, not a tested SNöBI recipe. Per-cup yen is derived here, never typed. */
-const G_PER_CUP = 12;
-const cups100 = Math.round(100 / G_PER_CUP);
-const cupYen = (yenPrice: number, grams: number) => Math.round((yenPrice * G_PER_CUP) / grams);
 
 const post: Post = {
   slug: "colombia-huila-organic",
   category: "産地",
   title: "コロンビアの有機栽培コーヒー。ウィラ県ピタリートから",
   metaTitle: "コロンビア 有機栽培コーヒー｜ウィラの有機JASコーヒー豆",
-  description: `コロンビア・ウィラ県ピタリート、エル・ボンボの小さな農園が育てた有機JASの豆。カトゥーラとコロンビア種、標高1,700m、ウォッシュド。100g ${yen(c100)}（税込）。`,
+  description: `コロンビア・ウィラ県ピタリート、エル・ボンボの小さな農園が育てた有機JASの豆。カトゥーラとコロンビア種、標高${col.elevation}、ウォッシュド。100g ${yen(c100)}（税込）。`,
   keyword: "コロンビア 有機栽培 コーヒー",
   related: ["コロンビア ウィラ", "コロンビア ウイラ", "オーガニック コロンビア コーヒー"],
   published: "2026-10-10",
@@ -65,7 +51,7 @@ const post: Post = {
       ],
     },
     {
-      h2: "標高1,700m、ウォッシュド、天日乾燥",
+      h2: `標高${col.elevation}、ウォッシュド、天日乾燥`,
       blocks: [
         {
           table: {
@@ -76,7 +62,7 @@ const post: Post = {
               ["標高", col.elevation],
               ["品種", col.variety.ja],
               ["精製", col.process.ja],
-              ["焙煎度", col.roast?.ja ?? "—"],
+              ["焙煎度", roastOf(col)],
               ["収穫", "10月〜12月"],
               ["認証", "有機JAS"],
             ],
@@ -91,9 +77,9 @@ const post: Post = {
       h2: "価格と届け方",
       blocks: [
         { p: `${col.title.ja}は、100g ${yen(c100)}、200g ${yen(c200)}（どちらも税込）。` },
-        { note: `淹れ方の目安：全日本コーヒー協会のペーパードリップの例では、1杯140mL分に中細挽きの粉${G_PER_CUP}g、湯160mL。SNöBIで検証したレシピではなく、一般的な目安です。` },
-        { p: `この目安で数えると、100gは約${cups100}杯分。1杯あたり約${cupYen(c100, 100)}円です。200gなら、1杯あたり約${cupYen(c200, 200)}円になります。` },
-        { list: [...orderingSchedule.ja, "本州であれば翌日配達。", `${freeShippingLine.ja}。`] },
+        { note: ajcaDripNote },
+        { p: `この目安で数えると、100gは約${cupsIn(100)}杯分。1杯あたり約${cupYen(c100, 100)}円です。200gなら、1杯あたり約${cupYen(c200, 200)}円になります。` },
+        { list: [...orderingSchedule.ja, `${nextDayLine.ja}。`, `${freeShippingLine.ja}。`] },
       ],
     },
   ],
@@ -117,7 +103,7 @@ const post: Post = {
     { label: "農林水産省「有機食品の検査認証制度」（有機・オーガニック表示の禁止、登録認証機関）", url: "https://www.maff.go.jp/j/jas/jas_kikaku/yuuki.html" },
     { label: "農林水産省 日本農林規格「有機農産物」JAS 1605:2024（4 生産の原則、5.1.2 多年生の植物は最初の収穫前3年以上）", url: "https://www.maff.go.jp/j/jas/jas_kikaku/attach/pdf/yuuki-437.pdf" },
     { label: "全日本コーヒー協会「加工処理・選別」（水洗式＝ウォッシュドの定義）", url: "https://coffee.ajca.or.jp/column/4476/" },
-    { label: "全日本コーヒー協会「ペーパードリップ式」（1杯140mL分＝粉12g・湯160mL）", url: "https://coffee.ajca.or.jp/column/4468/" },
+    { label: `全日本コーヒー協会「ペーパードリップ式」（1杯${AJCA_DRIP.yieldMl}mL分＝粉${AJCA_DRIP.grams}g・湯${AJCA_DRIP.waterMl}mL）`, url: AJCA_DRIP.url },
     { label: "焙煎所の有機加工食品 生産行程管理者の認定：content/v2.ts（jas）" },
     { label: "発送と送料：content/ordering.ts" },
   ],

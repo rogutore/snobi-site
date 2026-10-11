@@ -10,6 +10,7 @@ import { products, yen } from "@/content/products";
 import { FUJI, coffeeAltitudes, compare } from "@/content/altitude";
 import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
+import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 
 type Cfg = {
@@ -180,9 +181,8 @@ export function FujiAltitude({ stock }: { stock: StockMap }) {
   const p = products.find((x) => x.slug === a.slug)!;
   const cmp = compare(a.lo, a.hi);
   const v = p.variants.find((x) => x.size === size)!;
-  const s = stock[v.id];
-  const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
-  const price = s?.price.currencyCode === "JPY" ? Number(s.price.amount) : v.price;
+  const ok = canBuy(stock, v.id);
+  const price = livePrice(stock, v);
   return (
     <section ref={ref} className="v3-sec v3-fuji" aria-labelledby="fuji-h">
       <div className="v3-sec-head">
@@ -231,7 +231,7 @@ export function FujiAltitude({ stock }: { stock: StockMap }) {
             <b className="price">{yen(price)}</b>
           </div>
           <button type="button" className="v3-btn add" disabled={!ok || cart.pending} onClick={() => cart.add(v.id)}>
-            {cart.pending ? <LoaderCircle size={15} className="v3-spin" aria-hidden /> : null}{ok ? "カートに入れる" : s ? "完売" : "在庫確認中"}
+            {cart.pending ? <LoaderCircle size={15} className="v3-spin" aria-hidden /> : null}{buyLabel(stock, v.id)}
           </button>
           <Link href={`/origins/${p.slug}`} className="more">産地について詳しく読みたい方 →</Link>
         </div>

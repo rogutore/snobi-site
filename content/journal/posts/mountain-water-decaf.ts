@@ -1,14 +1,22 @@
 import type { Post } from "../types";
+import { yen } from "../../products";
+import { coffee, price, roastOf, caffeineCut } from "../facts";
 
 /* Keyword: マウンテンウォーター デカフェ. Process facts only; no health or safety claims.
-   The decaf plant for our lot is not confirmed (WRITER-BRIEF): the body never names it. */
+   The decaf plant for our lot is not confirmed (WRITER-BRIEF): the body never names it.
+   SNöBI's own decaf facts (title, region, producer, elevation, variety, process, caffeine cut, roast, notes, prices) are
+   read from content/products.ts (SINGLE_SOURCE rule 2). Swiss Water's own removal figure below is that company's claim,
+   cited as such, and stays as written. */
+const mex = coffee("mexico-chiapas-decaf");
+const cut = caffeineCut(mex);
+
 const post: Post = {
   slug: "mountain-water-decaf",
   category: "オーガニック",
   title: "マウンテンウォーター製法のデカフェ。水でカフェインを抜く仕組み",
   metaTitle: "マウンテンウォーター デカフェとは｜有機溶媒を使わない製法",
   description:
-    "デカフェの製法は、有機溶媒を使う方法と、水や二酸化炭素を使う方法に分かれます。マウンテンウォーター製法は水を使う方法。SNöBIのメキシコ チアパス デカフェは、この製法でカフェインを99.9%カットしています。",
+    `デカフェの製法は、有機溶媒を使う方法と、水や二酸化炭素を使う方法に分かれます。マウンテンウォーター製法は水を使う方法。SNöBIの${mex.title.ja}は、この製法でカフェインを${cut}カットしています。`,
   keyword: "マウンテンウォーター デカフェ",
   related: ["オーガニック マウンテン デカフェ", "デカフェ 有機溶媒", "デカフェ 製法"],
   published: "2026-10-10",
@@ -91,7 +99,7 @@ const post: Post = {
           p: "「デカフェ 有機溶媒」という問いには、製法の事実で答えます。マウンテンウォーター製法は、水を使う製法です。塩化メチレンや酢酸エチルといった有機溶媒は使いません。",
         },
         {
-          p: "SNöBIのメキシコ チアパス デカフェは、ウォッシュドで精製した生豆を、このマウンテンウォーター製法でデカフェにしています。カフェインは99.9%カットです。",
+          p: `SNöBIの${mex.title.ja}は、ウォッシュドで精製した生豆を、このマウンテンウォーター製法でデカフェにしています。カフェインは${cut}カットです。`,
         },
         { note: "この記事は、製法の違いを説明するものです。健康への影響については扱いません。" },
       ],
@@ -104,15 +112,15 @@ const post: Post = {
         },
         {
           list: [
-            "産地：メキシコ、チアパス州",
-            "生産者：グラポス農協（GRAPOS）の小規模生産者",
-            "標高：1,400–1,700m",
-            "品種：ブルボン・ムンドノーボ・カトゥーラ",
-            "精製：ウォッシュド → マウンテンウォーター製法（薬品不使用のデカフェ）",
-            "カフェイン：99.9%カット",
-            "焙煎：浅煎り",
-            "味：スイートポテト、黒糖、やさしい酸味",
-            "価格：100g ¥1,610、200g ¥2,820（税込）",
+            `産地：メキシコ、${mex.region.ja}`,
+            `生産者：${mex.producer.ja}`,
+            `標高：${mex.elevation}`,
+            `品種：${mex.variety.ja}`,
+            `精製：${mex.process.ja}`,
+            `カフェイン：${cut}カット`,
+            `焙煎：${roastOf(mex)}`,
+            `味：${mex.notes.ja.join("、")}`,
+            `価格：100g ${yen(price(mex, "100g"))}、200g ${yen(price(mex, "200g"))}（税込）`,
           ],
         },
         { p: "有機JASの豆を、豆のままお届けします。" },
@@ -130,7 +138,7 @@ const post: Post = {
     },
     {
       q: "デカフェのカフェインはゼロですか？",
-      a: "ゼロではありません。日本の表示ルールでは、カフェインを90%以上除去したコーヒーを「カフェインレスコーヒー」などと表示します。SNöBIのメキシコ チアパス デカフェは、カフェインを99.9%カットしています。",
+      a: `ゼロではありません。日本の表示ルールでは、カフェインを90%以上除去したコーヒーを「カフェインレスコーヒー」などと表示します。SNöBIの${mex.title.ja}は、カフェインを${cut}カットしています。`,
     },
     {
       q: "カフェインは、焙煎の前と後のどちらで抜きますか？",

@@ -1,20 +1,12 @@
 import type { Post } from "../types";
-import { products, yen, type Coffee } from "../../products";
-import { orderingSchedule, freeShippingLine } from "../../ordering";
+import { products, yen } from "../../products";
+import { orderingSchedule, freeShippingLine, nextDayLine } from "../../ordering";
+import { coffee, price } from "../facts";
+import { AJCA_DRIP, ajcaDripNote, cupsIn, cupYen } from "../brew";
 
 /* Product facts and prices are read from content/products.ts, never retyped (SINGLE_SOURCE rule 2).
-   A missing product or size is a visible build error, not a silent fallback. */
-function coffee(slug: string): Coffee {
-  const c = products.find((p) => p.slug === slug);
-  if (!c) throw new Error(`journal/why-geisha-expensive: no product "${slug}" in content/products.ts`);
-  return c;
-}
-function price(c: Coffee, size: "100g" | "200g"): number {
-  const v = c.variants.find((x) => x.size === size);
-  if (!v) throw new Error(`journal/why-geisha-expensive: no ${size} price for "${c.slug}"`);
-  return v.price;
-}
-
+   A missing product or size is a visible build error, not a silent fallback (../facts). The paper-drip dose, cup
+   count and per-cup yen come from ../brew (general guidance, not a tested SNöBI recipe). */
 const peru = coffee("peru");
 const p100 = price(peru, "100g");
 const p200 = price(peru, "200g");
@@ -24,12 +16,6 @@ const peruIsTop = products.every((c) => c.slug === peru.slug || price(c, "100g")
 const priceRows = [...products]
   .sort((a, b) => price(b, "100g") - price(a, "100g"))
   .map((c) => [c.title.ja, yen(price(c, "100g")), yen(price(c, "200g"))]);
-
-/* 目安: 全日本コーヒー協会「ペーパードリップ式」1杯140mL分＝中細挽きの粉12g・湯160mL (source below).
-   General guidance, not a tested SNöBI recipe. Per-cup yen is derived here, never typed. */
-const G_PER_CUP = 12;
-const cups100 = Math.round(100 / G_PER_CUP);
-const cupYen = (yenPrice: number, grams: number) => Math.round((yenPrice * G_PER_CUP) / grams);
 
 const post: Post = {
   slug: "why-geisha-expensive",
@@ -101,10 +87,10 @@ const post: Post = {
     {
       h2: "1杯あたりで考える",
       blocks: [
-        { note: `淹れ方の目安：全日本コーヒー協会のペーパードリップの例では、1杯140mL分に中細挽きの粉${G_PER_CUP}g、湯160mL。SNöBIで検証したレシピではなく、一般的な目安です。` },
-        { p: `この目安で数えると、100gは約${cups100}杯分。100gなら1杯あたり約${cupYen(p100, 100)}円、200gなら約${cupYen(p200, 200)}円です。` },
+        { note: ajcaDripNote },
+        { p: `この目安で数えると、100gは約${cupsIn(100)}杯分。100gなら1杯あたり約${cupYen(p100, 100)}円、200gなら約${cupYen(p200, 200)}円です。` },
         { p: `味は、${peru.notes.ja.join("、")}。${peru.bestFor.ja}` },
-        { list: [...orderingSchedule.ja, "本州であれば翌日配達。", `${freeShippingLine.ja}。`] },
+        { list: [...orderingSchedule.ja, `${nextDayLine.ja}。`, `${freeShippingLine.ja}。`] },
       ],
     },
   ],
@@ -121,7 +107,7 @@ const post: Post = {
     { label: "World Coffee Research, Arabica Coffee Varieties「Geisha (Panama)」（1930年代エチオピアで採取、リャムング、CATIE 1953年 T2722、1960年代パナマへ、枝が折れやすい、2005年の記述、系統の混在、表記、樹高・収量・品質・病害・初収穫）", url: "https://varieties.worldcoffeeresearch.org/varieties/geisha-panama" },
     { label: "World Coffee Research, Arabica Coffee Varieties「Caturra」（樹高・収量・品質・初収穫）", url: "https://varieties.worldcoffeeresearch.org/varieties/caturra" },
     { label: "Hacienda La Esmeralda「Our Story」（1967年取得、CATIEから入手、さび病、標高1,650m超、2004年ベスト・オブ・パナマ優勝とオークション記録）", url: "https://haciendaesmeralda.com/our-story/" },
-    { label: "全日本コーヒー協会「ペーパードリップ式」（1杯140mL分＝粉12g・湯160mL）", url: "https://coffee.ajca.or.jp/column/4468/" },
+    { label: `全日本コーヒー協会「ペーパードリップ式」（1杯${AJCA_DRIP.yieldMl}mL分＝粉${AJCA_DRIP.grams}g・湯${AJCA_DRIP.waterMl}mL）`, url: AJCA_DRIP.url },
     { label: "商品の事実と価格：content/products.ts（4種）" },
     { label: "有機JAS：brain/Handoffs/premium-line/product-facts-chapter-one.md" },
     { label: "焙煎所の有機加工食品 生産行程管理者の認定：content/v2.ts（jas）" },

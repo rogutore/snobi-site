@@ -1,7 +1,7 @@
 /* Read one variant out of the Shopify stock map — the one rule for "can this be bought" and "what does it cost".
    Safe for client components (types only from client.ts). Price: the live Shopify price when Shopify returned it in
    JPY, else the decided price in content/products.ts (the same fallback every buy surface has used so far).
-   TODO: the older v2/v3 surfaces still inline this; move them here when they are next touched. */
+   Every buy surface reads it (the last inline copies moved here 2026-10-11). */
 import type { CoffeeVariant } from "@/content/products";
 import type { StockMap } from "./client";
 
