@@ -114,7 +114,11 @@ export function ShotCycle({ slug, alt, index, sizes, eager = false }: {
     if (!el) return;
     const io = new IntersectionObserver(([e]) => {
       seen.current = e.isIntersecting;
-      if (e.isIntersecting) setArmed(true);
+      // the other shots wait until the page has finished loading, so they never compete with the first paint
+      if (e.isIntersecting) {
+        if (document.readyState === "complete") setArmed(true);
+        else window.addEventListener("load", () => setArmed(true), { once: true });
+      }
     }, { rootMargin: "0px 0px -8% 0px" });
     io.observe(el);
     register(index, { visible: () => seen.current, hovered: () => over.current, image: (n) => imgs.current[n] ?? null });
@@ -132,7 +136,7 @@ export function ShotCycle({ slug, alt, index, sizes, eager = false }: {
           <img key={key} ref={(el) => { imgs.current[n] = el; }} className={n === k ? "in" : n === prev ? "out" : ""}
             src={`/v2/photos/${id}-s.webp`} srcSet={`/v2/photos/${id}-s.webp 700w, /v2/photos/${id}-l.webp 1400w`} sizes={sizes}
             alt={n === 0 ? alt : ""} aria-hidden={n === 0 ? undefined : true} style={{ objectPosition: FRAME_POS[id] ?? POS[key] }}
-            loading={n === 0 && eager ? "eager" : n === 0 ? "lazy" : "eager"} decoding="async" />
+            loading={n === 0 && eager ? "eager" : n === 0 ? "lazy" : "eager"} fetchPriority={n === 0 && eager ? "high" : undefined} decoding="async" />
         );
       })}
     </div>

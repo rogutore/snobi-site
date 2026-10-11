@@ -15,7 +15,8 @@ export type Block =
   | { list: string[] }                             // bullet list
   | { steps: string[] }                            // numbered steps
   | { table: { head: string[]; rows: string[][] } } // small comparison table
-  | { note: string };                              // boxed fact / caution
+  | { note: string }                               // boxed fact / caution
+  | { read: string };                              // link to another post by slug; the title comes from that post (journal audit #23, 2026-10-11)
 
 export type Post = {
   slug: string;                 // URL: /journal/<slug> (ASCII, kebab-case)

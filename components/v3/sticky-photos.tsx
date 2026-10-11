@@ -6,8 +6,9 @@ import { useEffect, useRef, useState } from "react";
 
 export type Frame = { frame: string; alt: string };
 
-export function StickyPhotos({ frames, label, caption, className = "", steps }: {
+export function StickyPhotos({ frames, label, caption, className = "", steps, priority = false }: {
   frames: Frame[];
+  priority?: boolean; // phones: load the first inline photo first (it is the page's largest element on /about)
   label: string;
   caption?: string;
   className?: string;
@@ -28,7 +29,7 @@ export function StickyPhotos({ frames, label, caption, className = "", steps }: 
       <div className="v3-hand-media" aria-hidden>
         {frames.map((s, i) => (
           // eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair
-          <img key={s.frame} src={`/v2/photos/${s.frame}-l.webp`} alt="" style={{ opacity: active === i ? 1 : 0 }} loading={i === 0 ? "eager" : "lazy"} />
+          <img key={s.frame} src={`/v2/photos/${s.frame}-l.webp`} alt="" style={{ opacity: active === i ? 1 : 0 }} loading="lazy" />
         ))}
         {caption ? <p className="v3-hand-cap">{caption}</p> : null}
       </div>
@@ -36,7 +37,7 @@ export function StickyPhotos({ frames, label, caption, className = "", steps }: 
         {steps.map((body, i) => (
           <article key={frames[i].frame} ref={(el) => { refs.current[i] = el; }} data-i={i} className={`v3-hand-step ${active === i ? "on" : ""}`}>
             {/* eslint-disable-next-line @next/next/no-img-element -- phones: the step's own photo */}
-            <img className="v3-hand-inline" src={`/v2/photos/${frames[i].frame}-s.webp`} alt={frames[i].alt} loading="lazy" />
+            <img className="v3-hand-inline" src={`/v2/photos/${frames[i].frame}-s.webp`} alt={frames[i].alt} loading={priority && i === 0 ? "eager" : "lazy"} fetchPriority={priority && i === 0 ? "high" : undefined} />
             {body}
           </article>
         ))}

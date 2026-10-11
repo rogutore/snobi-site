@@ -111,6 +111,7 @@ const post: Post = {
           ],
         },
         { p: "淹れ方の目安は、浅煎りのハンドドリップの記事にまとめています。" },
+        { read: "light-roast-hand-drip" },
       ],
     },
   ],

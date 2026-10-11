@@ -15,7 +15,7 @@
 .v3p-coffee-country { font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 5.6rem); line-height: .95; letter-spacing: -.02em; color: var(--rink); }
 .v3 .v3p-coffee-title { font-size: 1.2rem; font-weight: 600; letter-spacing: .01em; line-height: 1.5; }
 .v3p-coffee-notes { font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.8rem); color: var(--rink); line-height: 1.2; }
-.v3 .v3p-coffee-enjoy { margin-top: -6px; font-size: 13.5px; color: var(--color-sage); }
+.v3 .v3p-coffee-enjoy { margin-top: -6px; font-size: 13.5px; color: var(--color-ink-soft); }
 .v3p-coffee-best { font-size: 15px; }
 .v3p-coffee-facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 12.5px; max-width: 30em; padding-top: 6px; margin: 0; }
 .v3p-coffee-facts dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; color: var(--color-ink-soft); padding-top: 2px; }

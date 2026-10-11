@@ -184,3 +184,4 @@
 .v3p-post-sources ol { margin: 0; padding-left: 1.4em; font-size: 13px; color: var(--color-ink-soft); display: grid; gap: 4px; overflow-wrap: anywhere; }
 .v3p-post-sources a { color: inherit; text-underline-offset: 3px; }
 .v3p-post-sources .v3p-story-postfoot { margin: 18px 0 0; }
+.v3p-post-body .read a { font-weight: 600; color: var(--color-plum); text-underline-offset: 4px; } /* link to another post (journal { read }) */

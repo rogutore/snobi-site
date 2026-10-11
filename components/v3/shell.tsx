@@ -11,7 +11,7 @@ export const NAV: [string, string][] = [
 function CartPill() {
   const cart = useCart();
   return (
-    <button type="button" className="v3-cart" onClick={cart.open} aria-label={`カートを開く（${cart.count}点）`}>
+    <button type="button" className="v3-cart" onClick={cart.open} aria-label={`CART ${cart.count}：カートを開く`}>
       CART <b>{cart.count}</b>
     </button>
   );

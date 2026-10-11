@@ -29,6 +29,11 @@ function Body({ b }: { b: Block }) {
   if ("list" in b) return <ul>{b.list.map((x) => <li key={x}>{x}</li>)}</ul>;
   if ("steps" in b) return <ol>{b.steps.map((x) => <li key={x}>{x}</li>)}</ol>;
   if ("note" in b) return <p className="note">{b.note}</p>;
+  if ("read" in b) {
+    const r = posts.find((x) => x.slug === b.read);
+    if (!r) throw new Error(`journal: { read: "${b.read}" } names no post`);
+    return <p className="read"><Link href={`/journal/${r.slug}`}>{r.title} →</Link></p>;
+  }
   return (
     <div className="tbl">
       <table>

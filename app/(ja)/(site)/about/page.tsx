@@ -40,7 +40,7 @@ export default async function About() {
       </section>
 
       {/* 02 Story — a walk in, from the roofs to the roastery (S1) */}
-      <StickyPhotos className="walk" frames={WALK} label="We’re writing it." caption="撮影：2026年10月1日、東京" steps={[
+      <StickyPhotos className="walk" priority frames={WALK} label="We’re writing it." caption="撮影：2026年10月1日、東京" steps={[
         <Fragment key="roofs">
           <p className="eyebrow">02 · The story</p>
           <h2 className="display v3-walk-h" lang="en">We’re writing it.</h2>
