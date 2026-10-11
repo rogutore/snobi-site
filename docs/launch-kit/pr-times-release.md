@@ -1,6 +1,6 @@
 # PR TIMES release: SNöBI launch (DRAFT, not submitted)
 
-**Status:** draft, 2026-10-09. Nothing submitted, no PR TIMES account created.
+**Status:** draft, 2026-10-09 (headline line updated 2026-10-11 to the live 「有機も、味も。妥協しない。」). Nothing submitted, no PR TIMES account created.
 **Plan task:** T29 (`brain/Handoffs/premium-line/seo-aeo-plan.md`); costing in `research-outputs/2026-10-08-snobi-seo-aeo/05-offsite-aeo.md` row L5.
 **Facts read from:** `content/products.ts` (sha256 `b2a3f4eddbed…`), `content/ordering.ts` (`5fb9a6dfd176…`), `content/legal.ts` (`61db5bf46b43…`), vault `product-facts-chapter-one.md`. If any of these files change before release day, re-check every price and fact line below against them.
 
@@ -40,7 +40,7 @@
 
 **SNöBIについて**
 
-オーガニックのまま、スペシャルティ。
+有機も、味も。妥協しない。
 SNöBIは、東京コーヒーがつくるオーガニック・スペシャルティラインです。JAS有機認証の豆だけを、東京で焙煎します。
 公式サイトでは、豆ごとに産地、生産者、標高、品種、精製方法を公開しています。
 

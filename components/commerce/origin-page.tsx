@@ -1,3 +1,4 @@
+import { OFFER_TERMS } from "@/lib/seo";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,6 +78,7 @@ export async function OriginPage({
                   ? "https://schema.org/InStock"
                   : "https://schema.org/OutOfStock",
               itemCondition: "https://schema.org/NewCondition",
+              ...OFFER_TERMS,
             },
           }
         : {}),

@@ -342,3 +342,7 @@ Rogutore Co., Ltd. (Tokyo Coffee / SNöBI) [contact]
 
 > **Before sending:** decide the bracket in point 1. Recommended: take `/producers/tesfaye.jpg` off live snobi.jp first
 > (needs the owner's OK for a production change), then send with "We have taken it down."
+
+## Replies log
+
+- 2026-10-11 (received 2026-10-09 16:39 JST) 坂ノ途中 / 海ノ向こうコーヒー, 矢野翔大 (yanos@on-the-slope.com), replying to our JP Chirinos Geisha request (not the CAC co-op): will gather photos and share them later via Google Drive; photos in their product sheets and on their website are free to use; drone footage may be hard but will provide what they can; no credit line stated; asks whether we will continue with next season's Chirinos new crop and in what quantity (they must offer to origin). Gmail id 1a11f9a89342e775.

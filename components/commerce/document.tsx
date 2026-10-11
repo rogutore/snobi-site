@@ -36,6 +36,7 @@ export const generateMetadata = async (): Promise<Metadata> => ({
     description:
       "Organic × Specialty × Japan — from the Tokyo Coffee family. Est. 2026.",
     type: "website",
+    images: [{ url: "/v2/photos/130-l.webp" }], // pages without their own og:image (the EN pages) — 2026-10-11
   },
 });
 

@@ -94,6 +94,15 @@ const SHIPPING_DETAILS = (
   freeShippingThreshold: { "@type": "MonetaryAmount", value: FREE_SHIPPING_YEN, currency: "JPY" },
 }));
 
+/** Shipping + returns for every Offer (JA and EN product data read this; 2026-10-11). Returns from the 特商法 row:
+    「送料着払いにてご返品」 = returned by post, carriage paid by us. */
+export const OFFER_TERMS = {
+  shippingDetails: SHIPPING_DETAILS,
+  ...(returnsText
+    ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7, returnMethod: "https://schema.org/ReturnByMail", returnFees: "https://schema.org/FreeReturn", description: returnsText } }
+    : {}),
+};
+
 /** ProductGroup with live price + stock. A variant without readable stock gets no Offer (never a guessed price). */
 export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
   const url = `${SITE}/origins/${p.slug}`;
@@ -136,10 +145,7 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
                 availability: s.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
                 itemCondition: "https://schema.org/NewCondition",
                 seller: { "@id": ORG_ID },
-                shippingDetails: SHIPPING_DETAILS,
-                ...(returnsText ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7,
-                  /* 特商法 返品・交換: 「送料着払いにてご返品」 = returned by post, carriage paid by us */
-                  returnMethod: "https://schema.org/ReturnByMail", returnFees: "https://schema.org/FreeReturn", description: returnsText } } : {}),
+                ...OFFER_TERMS,
               },
             }
           : {}),

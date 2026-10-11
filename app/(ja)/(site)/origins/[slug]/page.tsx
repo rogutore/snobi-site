@@ -9,6 +9,7 @@ import { originFrames } from "@/content/v2";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
 import { OriginGallery } from "@/components/v3/pages/origin-gallery";
 import { FujiMini } from "@/components/v3/fuji-mini";
+import { posts } from "@/content/journal/index";
 import "@/components/v3/pages/origins.css";
 
 export const dynamic = "force-dynamic";
@@ -70,6 +71,12 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
   const f = originFrames[p.slug];
   const { stock } = await getStock();
   const others = products.filter((x) => x.slug !== p.slug);
+  /* SEO plan T26: origin → journal links, derived from each post's own product cards (posts that feature fewer coffees,
+     i.e. are more about this one, first). */
+  const reading = posts
+    .filter((x) => x.products.includes(p.slug))
+    .sort((a, b) => a.products.length - b.products.length || b.published.localeCompare(a.published))
+    .slice(0, 3);
   const facts = [...p.facts.ja, ...(MORE_FACTS[p.slug] ?? [])];
   return (
     <div className="v3p-origins" style={{ "--rink": p.ink } as React.CSSProperties}>
@@ -141,6 +148,19 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
         <FujiMini p={p} />
       </section>
 
+
+      {reading.length > 0 ? (
+        <section className="v3-sec v3p-origins-read" style={{ paddingTop: 0 }} aria-labelledby="o-read">
+          <h2 id="o-read" className="v3-def-h">{p.title.ja.split(" ")[0]}の読みもの</h2>
+          <ul>
+            {reading.map((r) => (
+              <li key={r.slug}>
+                <Link href={`/journal/${r.slug}`}><b>{r.title}</b><span>{r.lead}</span></Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {/* other origins (Mockup D: releases on white; the bags in the dappled light, as on home) */}
       <section className="v3-sec v3p-origins-others" style={{ paddingTop: 0 }} aria-labelledby="o-others">
