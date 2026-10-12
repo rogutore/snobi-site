@@ -1,6 +1,6 @@
 import type { Post } from "../types";
 import { yen } from "../../products";
-import { shippingRates, freeShippingLine, nextDayLine, FREE_SHIPPING_YEN } from "../../ordering";
+import { shippingRates, freeShippingLine, nextDayLine, FREE_SHIPPING_YEN, ORDER_CUTOFF, shipMethodLine } from "../../ordering";
 import { coffee, price, roastOf, caffeineCut, bestForShort, countryJa, roastDaysLine, cutoffLine, agingLine, restate } from "../facts";
 import { AJCA_DRIP, cupsIn } from "../brew";
 
@@ -119,13 +119,13 @@ const post: Post = {
           table: {
             head: ["ご注文", "発送"],
             rows: [
-              ["火曜日の正午まで", "火曜日"],
-              ["火曜日の正午すぎ〜金曜日の正午まで", "金曜日"],
-              ["金曜日の正午すぎ〜火曜日の正午まで", "次の火曜日"],
+              [`火曜日の${ORDER_CUTOFF.ja}まで`, "火曜日"],
+              [`火曜日の${ORDER_CUTOFF.ja}すぎ〜金曜日の${ORDER_CUTOFF.ja}まで`, "金曜日"],
+              [`金曜日の${ORDER_CUTOFF.ja}すぎ〜火曜日の${ORDER_CUTOFF.ja}まで`, "次の火曜日"],
             ],
           },
         },
-        { p: `${agingLine}100g・200gとも、ネコポスで発送します。` },
+        { p: `${agingLine}100g・200gとも、${shipMethodLine.ja}。` },
         { p: `${shippingRates.ja}最終的な送料はレジでご確認いただけます。` },
         { note: "いまのところ、ギフト包装とのしは承っていません。" },
       ],

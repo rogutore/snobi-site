@@ -1,7 +1,7 @@
 /* Ordering and shipping copy — ONE source for every page, cart and FAQ (SINGLE_SOURCE rule 2).
    Wording: Davy's site notes forwarded by the owner, 2026-10-08 ("Snobi Site — Davy and Masaki").
    Owner 2026-10-08: the shipping window is explained by aging — beans ship from roast day up to two weeks after roasting.
-   Facts changed by those notes: roast AND ship on Tue/Fri; cutoff is noon the same day (was "noon the day before",
+   Facts changed by those notes: roast AND ship on Tue/Fri; cutoff the same day (was "noon the day before",
    "next business day"); next-day delivery within Honshu; coffee ships within 2 weeks of roasting.
    EN lines are translations of the JA (English site has its own session, D5). TODO(registry): system.toml. */
 import { yen, type Localized } from "./products";
@@ -51,10 +51,21 @@ export const orderingSummary: Localized = {
   en: `Tax included · ${freeShipping.en} · ${roastShipShort.en}. ${nextDayLine.en}.`,
 };
 
+/* Order cutoff: Tokyo Coffee's 14時, so the roastery works to one deadline (owner 2026-10-12, Davy: "We should just say
+   14:00 and NOT 正午"; it was 正午 from the 2026-10-08 notes). Roast and ship days stay Tue/Fri. */
+export const ORDER_CUTOFF: Localized = { ja: "14時", en: "2 pm" };
+
+/* How the bags travel. ネコポス is post-box delivery and takes no cash on delivery, so 代引き orders go another way
+   (INFERRED from shops' notices, not Yamato's own page; owner 2026-10-12). Callers prefix the sizes. */
+export const shipMethodLine: Localized = {
+  ja: "ネコポスで発送します（代金引換のご注文を除く）",
+  en: "ship by Nekopos (except cash-on-delivery orders)",
+};
+
 /* The schedule, as three short lines (FAQ, origin pages, cart). */
 export const orderingSchedule: Localized<string[]> = {
-  ja: ["火曜日と金曜日に焙煎、発送。", "当日の正午までのご注文が対象。", "SNöBIの豆は焙煎後に少し寝かせる（エイジング）と味がなじむため、焙煎当日から焙煎後2週間までの豆を発送します。"],
-  en: ["Roasted and shipped on Tuesdays and Fridays.", "Orders by noon on the day are included.", "SNöBI beans settle with a little rest after roasting (aging), so we ship them anywhere from roast day to two weeks after roasting."],
+  ja: ["火曜日と金曜日に焙煎、発送。", `当日の${ORDER_CUTOFF.ja}までのご注文が対象。`, "SNöBIの豆は焙煎後に少し寝かせる（エイジング）と味がなじむため、焙煎当日から焙煎後2週間までの豆を発送します。"],
+  en: ["Roasted and shipped on Tuesdays and Fridays.", `Orders by ${ORDER_CUTOFF.en} on the day are included.`, "SNöBI beans settle with a little rest after roasting (aging), so we ship them anywhere from roast day to two weeks after roasting."],
 };
 
 export const freeShippingLine: Localized = freeShipping;

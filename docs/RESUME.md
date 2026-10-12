@@ -5,6 +5,22 @@ Read this first after compaction. Supporting docs:
 - `docs/design-research.md`, `docs/origins-research.md`, `docs/permission-emails.md`
 - Owner rules (memory): positioning = live copy ("Organic. And actually specialty." / 「有機も、味も。妥協しない。」 since 2026-10-09, DESIGN.md), never the old brief's "we show our work"; light/neutral art direction; world-class, not "mid"; plan before big builds.
 
+## 2026-10-12 — PR TIMES release: direction changed (PR session; no site code touched)
+- The 10-09 draft `docs/launch-kit/pr-times-release.md` (site renewal) is NOT news: owner "is that newsworthy?" — scored 515/1000. Left unchanged; superseded by the proposal below until the owner decides.
+- Facts re-checked 2026-10-11: prices and product lines match `products.ts`; all 12 release URLs 200 with own canonical; live JSON-LD prices match (VERIFIED).
+- Ten angles + research + five-member council + ranking (`aggregate.py`): `research-outputs/2026-10-11-snobi-pr-angles/` (ideas.md, council/*.json, proposal.md). Winner = data release: 有機JAS green coffee ≈1.4% of imports + 1,000-person label survey + explainer + four-bag set + owner quote, Thu 11/5 10:00. Owner decisions listed in proposal.md §7 (go by 10/16 for the survey).
+- Live-site risks found (VERIFIED on snobi.jp 2026-10-12; not fixed here — another session owns site code): Mexico decaf page describes lot 1121 (GRAPOS, オリサバ glacier water) while the contract moved to 健友交易 in October; /about 「世界最高峰の品質」 ×9; /en/origins/ethiopia-guji renders Sucafina's Tesfaye photo (Miguel's on /en/origins/peru). Vault: premium-line `_index.md` items N, O.
+- Photos for PR TIMES: originals `~/Downloads/Yuto-20261001_TC/TC_261001_<id>.jpg` (8256×5493, 200 dpi). Spec: ≤10 MB, JPG/PNG/GIF, main ≥1920×1280, OGP 1.91:1 (prtimes.com/magazine). 037 beats 130 as a lineup (Peru's label is hidden in 130). Not exported yet.
+
+## 2026-10-12 — Davy's four changes (owner OK)
+- LIVE: version 5934ac10-edcf-42b0-8195-6cb91ca1d76d. verify-site PASS on snobi.jp; IndexNow 9 URLs. Preview vs live compare: 19 pages differ, every difference one of the four below.
+  1. /about (text + meta description) and /v2/about: 「2020年9月、東久留米・滝山に、東京コーヒーの最初の焙煎所カフェ。」 (was 「東久留米に最初の焙煎所カフェ」, read as the first in 東久留米; Davy). The 2020年9月 date is UNVERIFIED (Davy: ~7 years ago) — ask Davy.
+  2. Shipping rates stay Tokyo Coffee's (same Shopify checkout). New `content/ordering.ts` `shipMethodLine` 「ネコポスで発送します（代金引換のご注文を除く）」 on FAQ (JA/EN), origin pages, gift article — ネコポス takes no COD (INFERRED from shops' notices).
+  3. 特商法 代引き手数料 = tokyocoffee.jp's text verbatim (324円、5,000円以上無料; Davy: same as TC). Checkout never adds it (VERIFIED 10-11) → team Q1 (do staff add it at Yamato; ¥330 at 10% tax?).
+  4. Order cutoff 14時 (Davy: one deadline with TC, not 正午): `ORDER_CUTOFF` in content/ordering.ts → every page, cart, FAQ, legal, articles, gift table; Tue/Fri unchanged. Open: with stock shipped up to 2 weeks after roasting, ship every weekday like TC? (Davy). Pitch facts sheet updated; PR TIMES session updated its draft; the info@ Gmail draft and the filled CAFEND form still say 正午 (fix before sending).
+- Not decided yet (owner saw mocks in design/review-2026-10-12/): phone hero pour vs bag, JP italic fix, hero pause button. Tesfaye photo open.
+- From the PR TIMES session (owner decisions, vault brain/Handoffs/premium-line/_index.md N/O): Mexico decaf page still describes lot 1121 (GRAPOS, Orizaba glacier water, 99.9%) while the decaf contract moved to 健友交易 in October (producer UNKNOWN) — 優良誤認 risk if the new lot ships; /about says 「世界最高峰の品質」 ×9 (unprovable superlative); Tesfaye (Sucafina) and Miguel photos rights not cleared, also on /en.
+
 ## 2026-10-11 (night) — single-source sweep (no visible change)
 - LIVE: version f8c52aa2-d646-4e83-ad76-15ce39e9477b. verify-site PASS on snobi.jp. 18 pages (home, coffee, the 5 origin pages, trade, 10 journal posts) compared against the pre-change live HTML: visible text, JSON-LD and buttons identical (comparer checked against deliberate edits).
 - Stock rule: every buy surface (v3 shop/releases/fuji/fuji-climb, v2 buy, commerce buy-card, origin-page JSON-LD) calls `lib/shopify/stock.ts` canBuy/livePrice/buyLabel; the TODO there is closed.

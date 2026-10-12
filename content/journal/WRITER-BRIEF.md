@@ -30,7 +30,7 @@ Goal: 15 SEO/AEO articles live on snobi.jp by Sunday 2026-10-11, each answering 
 - Decaf: say only what products.ts says about the process and caffeine figure. The decaf plant name is NOT confirmed
   for our lot — don't name the plant unless products.ts does, and then attribute it 「仕様書によると」.
 - Brewing numbers: general guidance labelled 「目安」 with a source; not presented as a lab-tested SNöBI recipe.
-- Shipping/ordering lines: copy from content/ordering.ts (roast + ship Tue/Fri; noon cutoff; aging window line;
+- Shipping/ordering lines: copy from content/ordering.ts (roast + ship Tue/Fri; 14時 cutoff (owner 2026-10-12, same as Tokyo Coffee); aging window line;
   free shipping over ¥3,000; next-day within Honshu).
 
 ## Voice (DESIGN.md)

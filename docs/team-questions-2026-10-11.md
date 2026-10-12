@@ -3,7 +3,7 @@
 Short answers are enough. Each answer goes back into the repo or vault so nobody is asked twice.
 
 ## Shipping / store (Shopify)
-1. 代引き: on orders under ¥5,000, do you add a ¥324 fee to the Yamato collection amount? snobi.jp now says 代引き手数料は無料 (Shopify never charged it). If you add it, please stop, and tell us so tokyocoffee.jp's policy page can say the same.
+1. 代引き: on orders under ¥5,000, do you add a ¥324 fee to the Yamato collection amount? Shopify checkout never adds it (all 8 recent COD orders were charged exactly the order total). Since 2026-10-12 snobi.jp says the same as tokyocoffee.jp (「代引き手数料は324円…5,000円以上のご注文で無料」, owner + Davy). If you do add it: both pages are right, but the amount should probably be ¥330 at 10% tax (324 = 300 × 1.08). If you don't: both pages should say 無料. Also: how do 代引き orders ship, since ネコポス takes no cash on delivery?
 2. 代引き orders stay 「支払い待ち（pending）」 in Shopify after Yamato pays us (all 8 recent ones). Who should mark them paid, and when?
 3. Shopify → 配送 → Wholesale profile, Hokkaido/Okinawa zone: 通常配送 ¥800 runs up to ¥4,999 while free shipping starts at ¥3,000 (other zones stop at ¥2,999). Please change ¥800 to "up to ¥2,999".
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getStock } from "@/lib/shopify/client";
 import { products, yen, type Coffee } from "@/content/products";
-import { orderingSchedule, freeShippingLine } from "@/content/ordering";
+import { orderingSchedule, freeShippingLine, shipMethodLine } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
 import { OriginGallery } from "@/components/v3/pages/origin-gallery";
@@ -123,7 +123,7 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
           <h2 id="o-bag">豆のまま。</h2>
           <p>100g・200gとも豆のままお届けします。</p>
           <ul>{orderingSchedule.ja.map((t) => <li key={t}>{t}</li>)}</ul>
-          <p>ネコポスで発送。</p>
+          <p>{shipMethodLine.ja}。</p>
         </div>
       </section>
 

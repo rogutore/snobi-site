@@ -65,7 +65,7 @@ export default function About() {
           <div className="v2-split">
             <div className="v2-stack v2-measure">
               <h2 className="t-ja-heading">SNöBIはTokyo Coffeeがつくる、オーガニック・スペシャルティライン。</h2>
-              <p className="t-ja-body">2020年9月、東久留米に最初の焙煎所カフェ。</p>
+              <p className="t-ja-body">2020年9月、東久留米・滝山に、東京コーヒーの最初の焙煎所カフェ。</p>
               <p className="v2-slot">創業の物語（兄弟とTED「コーヒーは生鮮食品」）と創業年：ご確認後にここへ。</p>
             </div>
             <Photo id="187" alt="二台の焙煎機にもたれる二人" caption="焙煎機の前で（お名前：ご確認後）" sizes="(min-width:860px) 56vw, 100vw" />

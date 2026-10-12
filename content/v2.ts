@@ -4,7 +4,7 @@
    When v2 replaces the live pages, sections.tsx's copies of these lines are deleted, not kept (SINGLE_SOURCE). */
 
 import { trade } from "./trade";
-import { FREE_SHIPPING_YEN, shippingRates } from "./ordering";
+import { FREE_SHIPPING_YEN, shippingRates, ORDER_CUTOFF, shipMethodLine, freeShippingLine, roastShipShort } from "./ordering";
 import { yen } from "./products";
 import { orderingSchedule } from "./ordering";
 
@@ -53,10 +53,10 @@ export const jas: [string, string][] = [
 
 /* Ordering logistics. TODO(registry): move to system.toml (site-plan §4); kept once here for the preview. */
 export const ordering = {
-  roast: "火・金焙煎・発送",
-  cutoff: "当日正午までのご注文",
+  roast: roastShipShort.ja,
+  cutoff: `当日${ORDER_CUTOFF.ja}までのご注文`,
   ship: "本州は翌日配達",
-  free: "¥3,000以上で送料無料",
+  free: freeShippingLine.ja,
 }; // Davy 2026-10-08; full lines live in content/ordering.ts
 
 /* FAQ — live Q&A (sections.tsx:324-350), grouped. The price answer is built from products.ts in the page. */
@@ -75,7 +75,7 @@ export const faqGroups: { title: string; items: { q: string; a: string }[] }[] =
     title: "注文と発送",
     items: [
       { q: "価格とサイズについて教えて。", a: "__PRICES__" },
-      { q: "送料はいくら？", a: `${yen(FREE_SHIPPING_YEN)}以上のご注文で送料無料。${shippingRates.ja}100g・200gともネコポスで発送します。最終的な送料はレジでご確認いただけます。` },
+      { q: "送料はいくら？", a: `${yen(FREE_SHIPPING_YEN)}以上のご注文で送料無料。${shippingRates.ja}100g・200gとも、${shipMethodLine.ja}。最終的な送料はレジでご確認いただけます。` },
       { q: "いつ焙煎して、いつ届く？", a: `${orderingSchedule.ja.join("")}本州であれば翌日配達。` },
       { q: "どこで決済するの？", a: "決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。ご利用いただける支払方法は決済画面に表示されます。" },
     ],

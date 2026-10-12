@@ -15,7 +15,7 @@ import "@/components/v3/pages/story.css";
    S3 the home buy bar; S4 the JAS sack photo beside the numbers, no second photo row.
    Captions are DRAFTS that say only what the frame shows (design/plan/PHOTO-INVENTORY.md).
    Never write "organic-only roastery": the roastery is certified 有機・非有機併用 (COPY-INVENTORY §4.2). */
-export const metadata = pageMeta({ path: "/about", title: "ストーリー｜有機JASとスペシャルティを、東京で", description: "世界最高峰の品質、オーガニックという信念、地球への責任。SNöBIはTokyo Coffeeがつくるオーガニック・スペシャルティライン。2020年9月、東久留米に最初の焙煎所カフェ。", image: "/v2/photos/187-l.webp" });
+export const metadata = pageMeta({ path: "/about", title: "ストーリー｜有機JASとスペシャルティを、東京で", description: "世界最高峰の品質、オーガニックという信念、地球への責任。SNöBIはTokyo Coffeeがつくるオーガニック・スペシャルティライン。2020年9月、東久留米・滝山に、東京コーヒーの最初の焙煎所カフェ。", image: "/v2/photos/187-l.webp" });
 export const dynamic = "force-dynamic";
 
 const W = "(min-width:700px)";
@@ -86,7 +86,7 @@ export default async function About() {
         <div className="copy">
           <p className="eyebrow" lang="en">Tokyo Coffee</p>
           <h2 id="st-tc" className="v3p-story-h">SNöBIはTokyo Coffeeがつくる、オーガニック・スペシャルティライン。</h2>
-          <p className="v3p-story-fact">2020年9月、東久留米に最初の焙煎所カフェ。</p>
+          <p className="v3p-story-fact">2020年9月、東久留米・滝山に、東京コーヒーの最初の焙煎所カフェ。</p>
         </div>
         <Photo className="v3p-story-fig" id="187" alt="二台の焙煎機にもたれて立つ二人" caption="二台の焙煎機の前で" sizes={`${W} 52vw, 100vw`} />
       </section>
