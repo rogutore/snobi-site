@@ -27,7 +27,7 @@ farms and exporters if they are clear. Save drafts for the version we discussed 
 **Status 2026-10-08: ON HOLD — confirm with the purchasing team before anything is sent (owner).** Questions for them:
 1. Are the four vendors in §1 the ones SNöBI's beans come from (not other stock of the same origin)?
 2. Colombia: is SNöBI roasted only from コーヒー流通センター 7005A, never from the むそう Colombia?
-3. Decaf: when the オリジン lot 1121 runs out, does SNöBI decaf switch to the 健友 lot (016/2222/0722), or do we keep some オリジン stock?
+3. Decaf: when the オリジン lot 1121 runs out, does SNöBI decaf switch to the 健友 lot (016/2222/0722), or do we keep some オリジン stock? **Answered 2026-10-13 (owner): the 健友 decaf is a different, non-specialty product; SNöBI stays on the オリジン / GRAPOS line.** #5 健友交易 is dropped.
 4. Who should sign each email (the person who orders from that vendor)?
 
 ## 1. Who we actually buy from (the chain, farm → our vendor)
@@ -345,4 +345,6 @@ Rogutore Co., Ltd. (Tokyo Coffee / SNöBI) [contact]
 
 ## Replies log
 
+- 2026-10-13 (owner) 小川珈琲 (Ethiopia vendor) **phoned Sharon** in reply to our 10-09 email: they can get us some photos soon. No email yet. Sharon also answers 矢野さん's next-season Chirinos quantity question (owner 2026-10-12).
+- Still no reply (as of 2026-10-13, info@ searched): コーヒー流通センター (7005A), オリジンコーヒートレーダーズ 田久保様 (decaf), CAC La Prosperidad de Chirinos, Café Colsuaves. No bounces.
 - 2026-10-11 (received 2026-10-09 16:39 JST) 坂ノ途中 / 海ノ向こうコーヒー, 矢野翔大 (yanos@on-the-slope.com), replying to our JP Chirinos Geisha request (not the CAC co-op): will gather photos and share them later via Google Drive; photos in their product sheets and on their website are free to use; drone footage may be hard but will provide what they can; no credit line stated; asks whether we will continue with next season's Chirinos new crop and in what quantity (they must offer to origin). Gmail id 1a11f9a89342e775.

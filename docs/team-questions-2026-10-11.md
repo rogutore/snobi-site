@@ -20,7 +20,7 @@ Short answers are enough. Each answer goes back into the repo or vault so nobody
 ## Product / labels / buying
 10. Peru back label: ask JASCERT whether the reprint must change the certifier name (Leafearth → JASCERT). At the reprint, add plain 「SNOBI」 (Amazon needs it).
 11. **Decision needed: the 80-point claim.** Four journal articles say all four coffees score 80+, but only Peru (84.25) and Colombia (82.67) are documented. Please send a cup-score record for Ethiopia and Mexico (importer sheet or our own cupping form). **If none is found by 2026-10-18, we reword every article to name only Peru and Colombia** (the main legal exposure on the site today).
-12. Purchasing: are the four vendors in `docs/permission-emails.md` SNöBI's source? Is Colombia roasted only from lot 7005A? Which decaf lot follows #1121, and who produced it?
+12. Purchasing: are the four vendors in `docs/permission-emails.md` SNöBI's source? Is Colombia roasted only from lot 7005A? Which decaf lot follows #1121, and who produced it? (Owner 2026-10-13: the 健友交易 decaf is a different, non-specialty product, so the next lot comes from オリジンコーヒートレーダーズ — which one?)
 13. Is SNöBI roasted at the 滝山 roastery, and may we say so publicly?
 
 ## Cafés / content
