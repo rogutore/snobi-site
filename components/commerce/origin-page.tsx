@@ -11,6 +11,7 @@ import { BuyCard } from "./buy-card";
 import { Nav } from "@/components/site/nav";
 import { Footer } from "@/components/site/footer";
 import { orderingSchedule } from "@/content/ordering";
+import { OriginPhotos } from "@/components/v3/origin-photos";
 export function originMetadata(slug: string, lang: Locale): Metadata {
   const p = products.find((p) => p.slug === slug);
   if (!p) return {};
@@ -144,18 +145,7 @@ export async function OriginPage({
             ))}
           </dl>
         </section>
-        {p.photo && (
-          <figure className="producer-photo">
-            <Image
-              src={p.photo.src}
-              alt={p.photo.caption[lang]}
-              width={p.slug === "peru" ? 800 : 1000}
-              height={p.slug === "peru" ? 600 : 666}
-              sizes="(min-width:1024px) 760px,100vw"
-            />
-            <figcaption>{p.photo.caption[lang]}</figcaption>
-          </figure>
-        )}
+        <OriginPhotos slug={p.slug} lang={lang} />
         <section id="buy" className="origin-buy">
           <BuyCard
             product={p}

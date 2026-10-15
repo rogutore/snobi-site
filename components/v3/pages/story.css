@@ -161,6 +161,10 @@
 .v3 .v3p-post-body h2 { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.25rem, 2.2vw, 1.6rem); line-height: 1.5; letter-spacing: .01em; color: var(--color-plum); }
 .v3p-post-lead { font-size: 1.12rem; line-height: 1.9; padding: 18px 0; border-block: 1px solid var(--color-plum); }
 .v3p-post-body ul, .v3p-post-body ol { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+.v3p-post-body .photo { margin: 0; display: grid; gap: 0.5em; }
+.v3p-post-body .photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-media); background: var(--color-paper-2); }
+.v3p-post-body .photo figcaption { color: var(--color-ink-soft); }
+.v3p-post-body .photo .credit { white-space: nowrap; }
 .v3p-post-body .note { background: var(--color-paper-2); padding: 14px 18px; border-radius: 3px; font-size: 14.5px; }
 .v3p-post-body .tbl { overflow-x: auto; }
 .v3p-post-body table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; line-height: 1.7; }

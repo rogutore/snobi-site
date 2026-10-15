@@ -9,6 +9,7 @@ import { originFrames } from "@/content/v2";
 import { Photo } from "@/components/v2/photo";
 import { BuyBar } from "@/components/v3/buy-bar";
 import { pageMeta, JsonLd, article, breadcrumb, faqPage, fromPrice } from "@/lib/seo";
+import { journalPhoto, photoCredit, photoSrc, photoSrcSet } from "@/content/origin-media";
 import "@/components/v3/pages/story.css";
 
 /* One journal post (content/journal/posts/*.ts, typed by content/journal/types.ts): the one-sentence answer first,
@@ -24,7 +25,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return pageMeta({ path: `/journal/${p.slug}`, title: p.metaTitle, description: p.description, image: `/v2/photos/${p.cover}-l.webp`, type: "article" });
 }
 
-function Body({ b }: { b: Block }) {
+function Body({ b, slug }: { b: Block; slug: string }) {
+  if ("photo" in b) {
+    const ph = journalPhoto(b.photo, slug);
+    return (
+      <figure className="photo">
+        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
+        <img src={photoSrc(ph, "l")} srcSet={photoSrcSet(ph)} sizes="(min-width: 820px) 720px, 100vw" width={ph.width} height={ph.height} alt={ph.caption.ja} loading="lazy" decoding="async" />
+        <figcaption className="t-ja-note">{ph.caption.ja} <span className="credit">{photoCredit(ph, "ja")}</span></figcaption>
+      </figure>
+    );
+  }
   if ("p" in b) return <p>{b.p}</p>;
   if ("list" in b) return <ul>{b.list.map((x) => <li key={x}>{x}</li>)}</ul>;
   if ("steps" in b) return <ol>{b.steps.map((x) => <li key={x}>{x}</li>)}</ol>;
@@ -76,7 +87,7 @@ export default async function JournalPost({ params }: { params: Promise<{ slug: 
           {p.sections.map((s) => (
             <section key={s.h2}>
               <h2>{s.h2}</h2>
-              {s.blocks.map((b, i) => <Body key={i} b={b} />)}
+              {s.blocks.map((b, i) => <Body key={i} b={b} slug={p.slug} />)}
             </section>
           ))}
           {p.faq?.length ? (

@@ -29,7 +29,7 @@ export type Coffee = {
   caffeineCut?: string; // decaf only: the share of caffeine removed, as printed ("99.9%"); journal and narrative read it
   color: string;
   ink: string;
-  photo: { src: string; caption: Localized } | null;
+  // producer photos: content/origin-media.ts (owner 2026-10-15), not here
   variants: CoffeeVariant[];
 };
 /* The Mexico decaf's caffeine cut, stored once: its narrative below and the journal read it (the journal through the
@@ -106,13 +106,6 @@ export const products: Coffee[] = [
     decaf: false,
     color: "#dce7d5",
     ink: "#77688f",
-    photo: {
-      src: "/producers/miguel.jpg",
-      caption: {
-        ja: "チリノス生産者組合のミゲル・ラミレスさん",
-        en: "Miguel Ramirez of the Chirinos cooperative",
-      },
-    },
     variants: [
       {
         id: "gid://shopify/ProductVariant/48418096152765",
@@ -198,13 +191,6 @@ export const products: Coffee[] = [
     decaf: false,
     color: "#f8f3e4",
     ink: "#386e8d", // was #417fa3 (4.02:1 on paper); darkened to 5.09:1 / 4.67:1 on paper-2 for text (owner 2026-10-11)
-    photo: {
-      src: "/producers/tesfaye.jpg",
-      caption: {
-        ja: "タデGG農園のタスファイ・ベケレさん",
-        en: "Tesfaye Bekele of Tade GG Farm",
-      },
-    },
     variants: [
       {
         id: "gid://shopify/ProductVariant/48418099921085",
@@ -290,7 +276,6 @@ export const products: Coffee[] = [
     decaf: false,
     color: "#f5d8c0",
     ink: "#80532d",
-    photo: null,
     variants: [
       {
         id: "gid://shopify/ProductVariant/48418099986621",
@@ -377,7 +362,6 @@ export const products: Coffee[] = [
     caffeineCut: MEXICO_CAFFEINE_CUT,
     color: "#f8e29b",
     ink: "#64502a",
-    photo: null,
     variants: [
       {
         id: "gid://shopify/ProductVariant/48418100084925",

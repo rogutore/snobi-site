@@ -16,7 +16,8 @@ export type Block =
   | { steps: string[] }                            // numbered steps
   | { table: { head: string[]; rows: string[][] } } // small comparison table
   | { note: string }                               // boxed fact / caution
-  | { read: string };                              // link to another post by slug; the title comes from that post (journal audit #23, 2026-10-11)
+  | { read: string }                               // link to another post by slug; the title comes from that post (journal audit #23, 2026-10-11)
+  | { photo: string };                             // a supply-chain photo by id; content/origin-media.ts must list this post for it
 
 export type Post = {
   slug: string;                 // URL: /journal/<slug> (ASCII, kebab-case)

@@ -1473,21 +1473,6 @@ summary::-webkit-details-marker {
 .origin-spec {
   padding: 20px 0;
 }
-.producer-photo {
-  margin: 28px 0;
-}
-.producer-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 620px;
-  object-fit: contain;
-}
-.producer-photo figcaption {
-  font-size: 13px;
-  line-height: 1.8;
-  margin-top: 10px;
-}
 .origin-buy {
   max-width: 560px;
   margin: 40px auto;

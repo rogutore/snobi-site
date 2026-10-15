@@ -1,0 +1,85 @@
+{
+  "_doc": "Supply-chain photos approved for snobi.jp and Amazon — the ONLY origin photos any page may show (owner 2026-10-15, 'lock it in'). Hand-edited decisions; content/origin-media.ts validates them at build (quotas, slots, quality bar) and scripts/export-origin-media.py turns `src` (relative to Drive My Drive/SNOBI/) into public/origin-media/<id>-s.webp (800w) and -l.webp (≤1600w) plus sizes.json. Rules: DESIGN.md › Imagery. Product page 1–3 (product: 1 = lead), journal ≤4 per post, Amazon ≤2 (slot8 = image slot 8, aplus = A+ module 3). Long edge ≥1600px unless `small: true` (shown at small size only). Resize/crop to display sizes is fine; never text on the photo, composites, colour changes or a caption that names a person the supplier has not named. Pending, not listed: 小川 ① (two men under a tree — needs their names from 鈴木様).",
+  "suppliers": {
+    "ogawa": {
+      "credit": { "ja": "写真提供：小川珈琲", "en": "Photo: Ogawa Coffee" },
+      "permission": "小川珈琲 鈴木晴人様, email 2026-10-13 (after a call with Sharon): 「添付ファイルにて、ご用命の写真を送付致します。」 in reply to our 2026-10-09 request naming snobi.jp, SNS and print use. Scope and credit wording not stated (asked again)."
+    },
+    "oct": {
+      "credit": { "ja": "写真提供：オリジンコーヒートレーダーズ", "en": "Photo: Origin Coffee Traders" },
+      "permission": "オリジンコーヒートレーダーズ 田久保様, email 2026-10-13: 「販促用途としてご使用いただいて差し支えございません。※写真の二次加工はご遠慮いただいております。」 Owner reading 2026-10-15: resizing/cropping to display sizes is fine; no text, compositing or misrepresentation."
+    },
+    "umi": {
+      "credit": { "ja": "写真提供：海ノ向こうコーヒー", "en": "Photo: Umi no Mukou Coffee" },
+      "permission": "海ノ向こうコーヒー（坂ノ途中）矢野翔大様, email 2026-10-09: 「商品資料にある写真や弊社サイトに載せている写真は、ご自由にお使いいただいて結構です。」 The Miguel portrait is the one we said came from their 商品資料."
+    }
+  },
+  "photos": [
+    {
+      "id": "eth-sorting", "origin": "ethiopia-guji", "supplier": "ogawa",
+      "src": "Ethiopia Tade GG Guji Natural/Photos/From 小川珈琲/エチオピア・タデGG③.webp",
+      "caption": { "ja": "タデGG農園。乾燥台の上で、実を手で選り分ける。", "en": "Tade GG. Sorting the cherries by hand on the raised beds." },
+      "product": 1, "journal": [], "amazon": "slot8"
+    },
+    {
+      "id": "eth-forest", "origin": "ethiopia-guji", "supplier": "ogawa",
+      "src": "Ethiopia Tade GG Guji Natural/Photos/From 小川珈琲/エチオピア・タデGG②.webp",
+      "caption": { "ja": "タデGG農園の森。", "en": "The forest at Tade GG." },
+      "product": 2, "journal": [], "amazon": null
+    },
+    {
+      "id": "eth-drying", "origin": "ethiopia-guji", "supplier": "ogawa",
+      "src": "Ethiopia Tade GG Guji Natural/Photos/From 小川珈琲/エチオピア・タデGG④.webp",
+      "caption": { "ja": "乾燥台の上で乾くコーヒーの実。", "en": "Coffee cherries drying on the raised beds." },
+      "product": 3, "journal": [], "amazon": null
+    },
+    {
+      "id": "eth-station", "origin": "ethiopia-guji", "supplier": "ogawa",
+      "src": "Ethiopia Tade GG Guji Natural/Photos/From 小川珈琲/エチオピア・タデGG⑥.webp",
+      "caption": { "ja": "タデGG農園の乾燥場。", "en": "The drying station at Tade GG." },
+      "product": null, "journal": ["ethiopia-guji-natural"], "amazon": "aplus"
+    },
+    {
+      "id": "eth-sacks", "origin": "ethiopia-guji", "supplier": "ogawa",
+      "src": "Ethiopia Tade GG Guji Natural/Photos/From 小川珈琲/エチオピア・タデGG⑦.webp",
+      "caption": { "ja": "麻袋に入ったコーヒーの実。", "en": "Coffee cherries in jute sacks." },
+      "product": null, "journal": ["ethiopia-guji-natural"], "amazon": null
+    },
+    {
+      "id": "mex-patio", "origin": "mexico-chiapas-decaf", "supplier": "oct",
+      "src": "Decaf Mexico Honey Chiapas/Photos from Origin Coffee Traders/IMG_3035.jpg",
+      "caption": { "ja": "チアパス州。パティオで乾かすコーヒー。", "en": "Chiapas. Coffee drying on a patio." },
+      "product": 1, "journal": [], "amazon": "slot8"
+    },
+    {
+      "id": "mex-flowers", "origin": "mexico-chiapas-decaf", "supplier": "oct",
+      "src": "Decaf Mexico Honey Chiapas/Photos from Origin Coffee Traders/IMG_3025.jpg",
+      "caption": { "ja": "コーヒーの花。", "en": "Coffee in flower." },
+      "product": 2, "journal": [], "amazon": "aplus"
+    },
+    {
+      "id": "mex-mill", "origin": "mexico-chiapas-decaf", "supplier": "oct",
+      "src": "Decaf Mexico Honey Chiapas/Photos from Origin Coffee Traders/IMG_303701.jpg",
+      "caption": { "ja": "農園の精製設備。", "en": "Processing at the farm." },
+      "product": 3, "journal": [], "amazon": null
+    },
+    {
+      "id": "mex-slope", "origin": "mexico-chiapas-decaf", "supplier": "oct",
+      "src": "Decaf Mexico Honey Chiapas/Photos from Origin Coffee Traders/IMG_3026.jpg",
+      "caption": { "ja": "斜面のコーヒー畑。", "en": "Coffee on the slope." },
+      "product": null, "journal": ["mexico-chiapas-organic"], "amazon": null
+    },
+    {
+      "id": "mex-village", "origin": "mexico-chiapas-decaf", "supplier": "oct",
+      "src": "Decaf Mexico Honey Chiapas/Photos from Origin Coffee Traders/IMG_3031.jpg",
+      "caption": { "ja": "チアパス州の村。", "en": "A village in Chiapas." },
+      "product": null, "journal": ["mexico-chiapas-organic"], "amazon": null
+    },
+    {
+      "id": "peru-miguel", "origin": "peru", "supplier": "umi", "small": true,
+      "src": "Peru Geisha/Photos/ミゲルさん.png",
+      "caption": { "ja": "チリノス生産者組合のミゲル・ラミレスさん", "en": "Miguel Ramirez of the Chirinos cooperative" },
+      "product": 1, "journal": [], "amazon": null
+    }
+  ]
+}

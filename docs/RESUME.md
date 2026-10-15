@@ -12,6 +12,12 @@ Read this first after compaction. Supporting docs:
 - Live-site risks found (VERIFIED on snobi.jp 2026-10-12; not fixed here — another session owns site code): Mexico decaf page describes lot 1121 (GRAPOS, オリサバ glacier water) while the contract moved to 健友交易 in October; /about 「世界最高峰の品質」 ×9; /en/origins/ethiopia-guji renders Sucafina's Tesfaye photo (Miguel's on /en/origins/peru). Vault: premium-line `_index.md` items N, O.
 - Photos for PR TIMES: originals `~/Downloads/Yuto-20261001_TC/TC_261001_<id>.jpg` (8256×5493, 200 dpi). Spec: ≤10 MB, JPG/PNG/GIF, main ≥1920×1280, OGP 1.91:1 (prtimes.com/magazine). 037 beats 130 as a lineup (Peru's label is hidden in 130). Not exported yet.
 
+## 2026-10-15 — supply-chain photos locked (PREVIEW, not live)
+- Preview 892c5048-ed… (https://892c5048-snobi-site.rogutore.workers.dev). verify-site PASS. vs live: exactly 8 pages differ (JP+EN Ethiopia, Mexico, Peru origin pages; journal ethiopia-guji-natural, mexico-chiapas-organic). Owner reviews before deploy.
+- One list: `content/origin-media.json` (decisions, supplier permission quotes, credits, slots) → `content/origin-media.ts` checks at build: product ≤3 with a lead, journal ≤4 per post, Amazon ≤2 (slot8/aplus), long edge ≥1600 unless `small`. Files: `scripts/export-origin-media.py` → `public/origin-media/` (800/1600 webp + sizes.json). Rendered by `components/v3/origin-photos.tsx` in the producer section (JP + EN) and a journal `{ photo: id }` block.
+- Live picks: Ethiopia (小川) sorting / forest / drying; journal station + sacks. Mexico (OCT) patio / flowers / mill; journal slope + village. Peru: Miguel only, small. Colombia: none. Pending: 小川 ① (two men) until 鈴木様 names them.
+- Removed: products.ts `photo` field and `public/producers/` (the Sucafina Tesfaye portrait no longer exists on the site; /producers/tesfaye.jpg → 404). DESIGN.md › Imagery amended (quotas, quality bar, owner's crop rule). Amazon handoff (vault snobi-amazon/_index.md) updated: slot 8 + A+ module 3.
+
 ## 2026-10-12 — Davy's four changes (owner OK)
 - LIVE: version 5934ac10-edcf-42b0-8195-6cb91ca1d76d. verify-site PASS on snobi.jp; IndexNow 9 URLs. Preview vs live compare: 19 pages differ, every difference one of the four below.
   1. /about (text + meta description) and /v2/about: 「2020年9月、東久留米・滝山に、東京コーヒーの最初の焙煎所カフェ。」 (was 「東久留米に最初の焙煎所カフェ」, read as the first in 東久留米; Davy). The 2020年9月 date is UNVERIFIED (Davy: ~7 years ago) — ask Davy.

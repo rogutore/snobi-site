@@ -183,7 +183,13 @@ Almost shadowless; depth comes from real light and the object, not from cards.
 
 ## Imagery
 
-- Real photography and footage from the 2026-10-01 shoot only (consent for all faces, owner 2026-10-06). Release photos are on paper (the dapple set), with the white-background set reserved for the cart and Shopify.
+- Real photography and footage from the 2026-10-01 shoot (consent for all faces, owner 2026-10-06), plus the supply-chain photos below. Release photos are on paper (the dapple set), with the white-background set reserved for the cart and Shopify.
+- **Supply-chain photos** (owner 2026-10-15): only photos listed in `content/origin-media.json`, each with the supplier's written permission quoted, a credit line and its slot. `content/origin-media.ts` checks the rules at build; `scripts/export-origin-media.py` makes the files.
+  - Product page: 1–3, in the producer section (one lead, two beside it). The top gallery stays our own bag shots.
+  - Journal: up to 4 per article, each after the paragraph it shows.
+  - Amazon: up to 2, image slot 8 and A+ module 3; never the main image.
+  - Long edge at least 1,600 px, unless marked `small` (shown small). No good photo means an empty slot, never filler.
+  - Resizing and cropping to display sizes are fine. Never text on the photo, composites, colour changes, or a caption naming a person the supplier has not named. The credit sits under the photo.
 - Footage uses and timecodes: `docs/footage-uses-2026-10-06.md`. Use front labels only until the Peru back-label misprint is fixed.
 - No 3D bag (owner, 2026-10-06). No generated imagery presented as real, and no stock.
 

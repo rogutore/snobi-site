@@ -8,6 +8,7 @@ import { orderingSchedule, freeShippingLine, shipMethodLine } from "@/content/or
 import { originFrames } from "@/content/v2";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
 import { OriginGallery } from "@/components/v3/pages/origin-gallery";
+import { OriginPhotos } from "@/components/v3/origin-photos";
 import { FujiMini } from "@/components/v3/fuji-mini";
 import { posts } from "@/content/journal/index";
 import "@/components/v3/pages/origins.css";
@@ -127,7 +128,7 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
         </div>
       </section>
 
-      {/* the producer, in type only (where Mockup D had the belt map) */}
+      {/* the producer: type, then the supply-chain photos from content/origin-media.ts (none = none; owner 2026-10-15) */}
       <section className="v3p-origins-producer" aria-labelledby="o-who">
         <div className="lead">
           <p className="eyebrow">The producer</p>
@@ -135,6 +136,7 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
           {p.narrative.ja.slice(1).map((t) => <p key={t}>{t}</p>)}
         </div>
         <ol>{facts.map((t) => <li key={t}>{t}</li>)}</ol>
+        <OriginPhotos slug={p.slug} lang="ja" />
       </section>
 
       {/* 富士山で測る: the home page's Fuji plate, small and still, with this farm's height (numbers from compare()) */}
