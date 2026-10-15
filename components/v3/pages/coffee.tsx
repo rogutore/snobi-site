@@ -11,15 +11,15 @@ import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule } from "@/content/ordering";
 import { ShotCycle, ShotRotation } from "@/components/v3/shot-cycle";
 import type { StockMap } from "@/lib/shopify/client";
+import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 
 function Row({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
   const [size, setSize] = useState<"100g" | "200g">("100g");
   const cart = useCart();
   const v = p.variants.find((x) => x.size === size)!;
-  const s = stock[v.id];
-  const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
-  const label = ok ? "カートに入れる" : s ? "完売" : "在庫確認中";
+  const ok = canBuy(stock, v.id);
+  const label = buyLabel(stock, v.id);
   const n = (k: number) => String(k).padStart(2, "0");
   return (
     <article className="v3p-coffee-row" id={p.slug} style={{ "--rink": p.ink } as React.CSSProperties} aria-labelledby={`c-${p.slug}`}>
@@ -45,8 +45,7 @@ function Row({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
           <fieldset className="v3p-coffee-sizes">
             <legend className="v3-sr">サイズ</legend>
             {p.variants.map((x) => {
-              const xs = stock[x.id];
-              const price = xs?.price.currencyCode === "JPY" ? Number(xs.price.amount) : x.price;
+              const price = livePrice(stock, x);
               return (
                 <label key={x.id}>
                   <input type="radio" name={`size-${p.slug}`} value={x.size} checked={size === x.size} onChange={() => setSize(x.size)} />

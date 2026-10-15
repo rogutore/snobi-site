@@ -8,6 +8,7 @@ import { products, yen } from "@/content/products";
 import { FREE_SHIPPING_YEN } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
+import { canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 
 const minPrice = Math.min(...products.flatMap((p) => p.variants.map((v) => v.price)));
@@ -36,11 +37,10 @@ export function BuyBar({ stock }: { stock: StockMap }) {
       <div className="bags">
         {products.map((p) => {
           const v = p.variants.find((x) => x.size === "100g")!;
-          const s = stock[v.id];
-          const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
+          const ok = canBuy(stock, v.id);
           return (
             <button key={p.slug} type="button" disabled={!ok || cart.pending} tabIndex={show ? 0 : -1}
-              onClick={() => cart.add(v.id)} aria-label={`${p.title.ja} 100g ${yen(v.price)} をカートに入れる`} title={`${p.title.ja} 100g`}>
+              onClick={() => cart.add(v.id)} aria-label={`${p.title.ja} 100g ${yen(livePrice(stock, v))} をカートに入れる`} title={`${p.title.ja} 100g`}>
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP */}
               <img src={`/v2/photos/${originFrames[p.slug].table}-s.webp`} alt="" loading="lazy" decoding="async" />
               <span aria-hidden>＋</span>

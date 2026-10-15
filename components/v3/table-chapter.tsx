@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { products, yen } from "@/content/products";
 import type { StockMap } from "@/lib/shopify/client";
+import { buyLabel, canBuy } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 
 const FRAMES = ["025", "022", "024", "023"]; // Peru, Ethiopia, Colombia, Mexico (PHOTO-INVENTORY §3.3)
@@ -58,8 +59,8 @@ export function TableChapter({ stock }: { stock: StockMap }) {
         <div className="v3-st st-d" style={{ opacity: op(3) }}><p className="eyebrow">Chapter One — 4 origins</p><p className="v3-mid">第一章、4つの産地。</p><p className="v3-ja">袋を押すと、その産地へ。</p></div>
 
         {products.map((pr, i) => {
-          const v = pr.variants[0]; const s = stock[v.id];
-          const ok = !!s?.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0);
+          const v = pr.variants[0];
+          const ok = canBuy(stock, v.id);
           return (
             <div key={pr.slug} className="v3-label" data-i={i} style={{ left: `${LINEUP_X[pr.slug]}%`, opacity: op(4), visibility: op(4) < 0.01 ? "hidden" : "visible" }}>
               <Link href={`/origins/${pr.slug}`} className="v3-label-name">
@@ -70,7 +71,7 @@ export function TableChapter({ stock }: { stock: StockMap }) {
               </Link>
               <div className="v3-lb">
                 <span className="v3-lp">{yen(pr.variants[0].price)}〜</span>
-                <button type="button" className="v3-add" disabled={!ok || cart.pending} onClick={() => cart.add(v.id)}>{ok ? "カートに入れる" : s ? "完売" : "在庫確認中"}</button>
+                <button type="button" className="v3-add" disabled={!ok || cart.pending} onClick={() => cart.add(v.id)}>{buyLabel(stock, v.id)}</button>
               </div>
             </div>
           );
