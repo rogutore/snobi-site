@@ -7,6 +7,7 @@ import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule, freeShippingLine, shipMethodLine } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
+import { BRAND_PLAIN } from "@/content/brand";
 import { OriginGallery } from "@/components/v3/pages/origin-gallery";
 import { OriginPhotos } from "@/components/v3/origin-photos";
 import { FujiMini } from "@/components/v3/fuji-mini";
@@ -101,6 +102,7 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
           <p className="best">{p.bestFor.ja}</p>
           <p className="story">{p.narrative.ja[0]}</p>
           <dl className="facts">
+            <dt>ブランド</dt><dd>{BRAND_PLAIN}</dd>
             <dt>認証</dt><dd>有機JAS（オーガニック）</dd>
             <dt>地域</dt><dd>{p.region.ja}</dd>
             <dt>生産者</dt><dd>{p.producer.ja}</dd>
