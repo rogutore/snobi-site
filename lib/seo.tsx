@@ -10,8 +10,9 @@ import { FREE_SHIPPING_YEN, SHIPPING_YEN, SHIPPING_REGIONS } from "@/content/ord
 import type { StockMap } from "@/lib/shopify/client";
 
 export const SITE = "https://snobi.jp";
+import { BRAND_PLAIN } from "@/content/brand";
 export const BRAND = "SNöBI";
-export const BRAND_ALT = ["Snobi", "SNOBI", "スノビ"];
+export const BRAND_ALT = ["Snobi", BRAND_PLAIN, "スノビ"];
 export const ORG_ID = `${SITE}/#org`;
 
 /** Per-page metadata: own canonical (never the home page's), OG, optional EN twin. `title` gets "｜SNöBI" from the

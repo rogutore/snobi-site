@@ -4,6 +4,7 @@
    variety was missing), live price + real cart, the schedule line from content/ordering.ts, the origin link label.
    2026-10-09: the 「写真」 switch is gone; each row plays its own photos (components/v3/shot-cycle.tsx, owner after Masaki). */
 import Link from "next/link";
+import { BRAND_PLAIN } from "@/content/brand";
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { products, yen, type Coffee } from "@/content/products";
@@ -33,6 +34,7 @@ function Row({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
         <p className="v3p-coffee-enjoy">{p.enjoyWithin.ja}</p>
         <p className="v3p-coffee-best">{p.bestFor.ja}</p>
         <dl className="v3p-coffee-facts">
+          <dt>ブランド</dt><dd>{BRAND_PLAIN}</dd>
           <dt>地域</dt><dd>{p.region.ja}</dd>
           <dt>標高</dt><dd>{p.elevation}</dd>
           <dt>品種</dt><dd>{p.variety.ja}</dd>
