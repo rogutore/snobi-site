@@ -10,8 +10,7 @@ Read in this order before touching anything:
 ## 0. The site in one paragraph
 snobi.jp is SNöBI, Tokyo Coffee's 有機JAS × specialty line (株式会社ローグトレード). Next.js 16 on Cloudflare Workers via OpenNext; Japanese first, `/en` pages in an older design. Four coffees (Peru Chirinos Geisha, Ethiopia Guji Tade GG natural, Colombia Huila El Bombo, Mexico Chiapas GRAPOS decaf), 100 g / 200 g, whole bean. The cart hands off to the tokyocoffee.jp Shopify checkout; live stock and price come from the Storefront API (`lib/shopify/`). Pages: home, /coffee, /origins + 4 origin pages, /about (Story), /journal (15 articles + an essay), /faq, /specialty, /trade (ホールセール), /contact, /legal (特商法), /en/*.
 
-**Live:** Worker version `0290186b-831c-471a-80b1-1a260d53eaa5` (2026-10-15) = commit `0d21686` + the trademark row (branch `tm-snobi-live`, cherry-pick `584cb0d`).
-**Preview awaiting the owner:** `20719b59` (https://20719b59-snobi-site.rogutore.workers.dev) = `claude/v2-pages` at `35f3502`: supply-chain photos + the trademark row + stock-rule cleanup. Against live, exactly 8 pages differ (JP+EN Ethiopia, Mexico and Peru origin pages; journal ethiopia-guji-natural, mexico-chiapas-organic).
+**Live:** Worker version `20719b59-cded-4ea3-a992-f9cd14f642de` (deployed 2026-10-16) = `claude/v2-pages` code at `35f3502` (later commits are docs and `scripts/gates` only): supply-chain photos, the trademark row, the single stock rule. **Live = branch; there are no undeployed versions.** Rollback to the version before the photos: `npx wrangler versions deploy 0290186b-831c-471a-80b1-1a260d53eaa5@100% --yes` (owner only). Old branches were archived as tags `archive/2026-10-16/*`; only `claude/v2-pages` deploys.
 
 ## 1. Hard rules (no exceptions; the owner decides these, not you)
 - **Workspace:** a git worktree, not the main checkout (other Claude sessions work there). `git worktree add ../snobi-site-codex -b codex/audit-weekend-2026-10-17 claude/v2-pages`, then `cp -cR ../snobi-site/node_modules ../snobi-site-codex/` (APFS clone; Turbopack rejects a `node_modules` symlink that leaves the project). Commit on that branch only. Do not push, merge, rebase or touch other branches.
@@ -100,7 +99,6 @@ e. **Speed baseline** with devtools throttling, committed under `docs/codex/`.
 Stop at Monday 2026-10-19 09:00 JST, or when a–e are done. Anything that needs the owner goes under "Owner questions" in the worklog and you move to the next item; never wait on it, never guess it.
 
 ## 5. Owner decisions pending — list them, never act on them
-- Deploy the photo preview (20719b59).
 - Phone hero still: pour, or the bag frame.
 - JP italic fix.
 - Hero pause button.
