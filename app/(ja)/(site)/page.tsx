@@ -1,4 +1,5 @@
 import { pageMeta, allFromPrice } from "@/lib/seo";
+import { BELIEF_JA } from "@/content/brand";
 import Link from "next/link";
 import { HeroFilm } from "@/components/v3/hero-film";
 import { getStock } from "@/lib/shopify/client";
@@ -39,7 +40,7 @@ export default async function Home() {
           <p className="eyebrow" style={{ color: "var(--color-paper)" }}>Organic × Specialty × Japan — Est. 2026</p>
           <h1 className="display" lang="en">Organic.<br /><em>And actually specialty.</em></h1>
           {/* owner 2026-10-09: JA line + proof subline; EN h1 unchanged */}
-          <p className="ja">有機も、味も。妥協しない。</p>
+          <p className="ja">{BELIEF_JA}</p>
           <p className="ja proof">認証は、有機JAS。評価は、スペシャルティ。</p>
           <div className="v3-filmcta">
             <Link className="v3-btn light" href="/coffee">4つの産地から選ぶ</Link>

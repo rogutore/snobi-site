@@ -2,6 +2,7 @@
    Left: one photo held in place, changing per step (each point its own photo, see STEPS).
    Right: four short steps, each a door to its page. Mechanics: components/v3/sticky-photos.tsx (shared with Story). */
 import { Fragment } from "react";
+import { BELIEF_JA } from "@/content/brand";
 import Link from "next/link";
 import { freeShippingLine } from "@/content/ordering";
 import { ScoreScale } from "@/components/v3/score-scale";
@@ -19,7 +20,7 @@ const STEPS = [
 
 export function HandChapter() {
   return (
-    <StickyPhotos frames={STEPS} label="有機も、味も。妥協しない。" caption="撮影：2026年10月1日、東京" steps={[
+    <StickyPhotos frames={STEPS} label={BELIEF_JA} caption="撮影：2026年10月1日、東京" steps={[
         <Fragment key="organic">
           <p className="eyebrow">01 · Organic</p>
           <p className="v3-big" lang="en">Organic.</p>

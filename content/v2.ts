@@ -29,14 +29,35 @@ export const producerNumbers: Record<string, [string, string][]> = {
 /* About (ストーリー) — the five agreed chapters, live copy (sections.tsx line refs). */
 export const statementJa = ["世界最高峰の品質。オーガニックという信念。地球への責任。", "三つは同時には成り立たない — そう言われてきました。", "SNöBI は、その常識を変えていく。"]; // :133-137
 export const storyJa = ["オーガニックスペシャルティコーヒーの未来は、まだ完成していないと私たちは考えています。これは、私たちの第一章。", "もし、この挑戦に共感していただけたなら、次の章を、ぜひご一緒に。"]; // :219, :224
-/* The walk's interim lines (owner 2026-10-10: Story's temporary state is idea 2, "the story is being written — join us";
-   layout and photos unchanged, a few lines so the reader gets that message). One line per walk step. */
-export const storyWritingJa = [
-  "このページも、いま書いている途中です。",
-  "物語の主役は、この場所と、ここで働く私たち。",
-  "コーヒーが好きな仲間と、新しい章を始めました。",
-  "農園の写真と話が届いたら、ここに書き足していきます。",
+/* Story = one journey, Organic → People → Excellence → SNöBI (owner 2026-10-19 via the Codex hand-back, docs/codex/CC-HANDOFF-2026-10-19.md:
+   "our starting point because of our love for organic, through our experiences and growth with people and community, and our
+   commitment to excellence led us to snobi"). Every line rests on what the owner supplied: the organic conviction (humans and
+   ecology), 12 years of roasting, customers / staff / fellow coffee travellers, "the best coffee I've ever had" heard many times
+   (no single named review: never set it as a testimonial with a name), cupping and testing every organic bean they can get.
+   DRAFT for owner review; not invented events, dates or farm relationships. Not 「オーガニック専門」/"organic-only": the roastery's
+   JAS certificate is 有機・非有機併用 (COPY-INVENTORY §4.2). */
+export const storyJourneyJa: { label: string; frame: string; alt: string; cap: string; lines: string[] }[] = [
+  {
+    label: "Organic.", frame: "161", alt: "有機JASマークとMayacertの表示がある麻袋", cap: "01 — 有機JASマークの麻袋",
+    lines: ["出発点は、オーガニックでした。", "人にとっても、生態系にとっても、有機農業は大切。東京コーヒーは、その信念から始まりました。"],
+  },
+  {
+    label: "People.", frame: "215", alt: "建物の入口の前に集まるチーム", cap: "02 — 建物の前で",
+    lines: [
+      "12年、コーヒーを焙煎してきました。",
+      "お客さま、スタッフ、コーヒーを旅する仲間。出会った人たちと味わい、学び、育ってきました。",
+      "「今まで飲んだ中で、いちばんおいしい」。何度も、そう言っていただきました。その一言のために、焙煎しています。",
+    ],
+  },
+  {
+    label: "Excellence.", frame: "211", alt: "焙煎機を操作する人", cap: "03 — 焙煎中",
+    lines: ["手に入る有機の豆は、すべて試します。", "カッピングして、調べて、また焙煎する。", "有機のままで、どこまでおいしくなれるか。それを確かめ続けています。"],
+  },
 ];
+export const storySnobiJa = {
+  h: "想いと、出会いと、探求が重なって。SNöBIが生まれました。",
+  lines: ["オーガニックとスペシャルティが、重なるところ。"],
+};
 export const signOff = "まあ、見てなって。"; // :227
 export const roadAhead: [string, string, string][] = [
   ["01 / NOW", "第一章", "4つの産地。妥協のない、一つの基準。"],
