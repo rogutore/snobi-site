@@ -38,7 +38,7 @@ export const storyJa = ["オーガニックスペシャルティコーヒーの�
    JAS certificate is 有機・非有機併用 (COPY-INVENTORY §4.2). */
 export const storyJourneyJa: { label: string; frame: string; alt: string; cap: string; lines: string[] }[] = [
   {
-    label: "Organic.", frame: "161", alt: "有機JASマークとMayacertの表示がある麻袋", cap: "01 — 有機JASマークの麻袋",
+    label: "Organic.", frame: "162", alt: "スコップですくった生豆", cap: "01 — 生豆",
     lines: ["出発点は、オーガニックでした。", "人にとっても、生態系にとっても、有機農業は大切。東京コーヒーは、その信念から始まりました。"],
   },
   {

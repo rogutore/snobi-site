@@ -61,7 +61,7 @@ export default async function About() {
 
       {/* 04 JAS organic — the proof (S4; #jas is linked from home) */}
       <section id="jas" className="v3p-story-jas" aria-labelledby="st-jas">
-        <Photo className="v3p-story-fig" id="160" alt="生豆の麻袋が並ぶ棚。手前の袋に有機JASマーク" caption="生豆の麻袋" sizes={`${W} 46vw, 100vw`} />
+        <Photo className="v3p-story-fig" id="161" alt="有機JASマークとMayacertの表示がある麻袋" caption="麻袋の有機JASマーク" sizes={`${W} 46vw, 100vw`} />
         <div className="copy">
           <p className="eyebrow" lang="en">JAS Organic</p>
           <h2 id="st-jas" className="v3p-story-h">JAS有機認証の豆だけを、東京で焙煎。</h2>
