@@ -7,7 +7,6 @@
 .v3-ophotos figure { margin: 0; display: grid; gap: 0.5em; }
 .v3-ophotos img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-media); background: var(--color-paper-2); }
 .v3-ophotos figcaption { color: var(--color-ink-soft); }
-.v3-ophotos .credit { white-space: nowrap; }
 @media (max-width: 820px) {
   .v3-ophotos { grid-template-columns: minmax(0, 1fr); }
   .v3-ophotos .side { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }

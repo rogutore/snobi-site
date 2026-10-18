@@ -165,7 +165,6 @@
 .v3p-post-body .photo { margin: 0; display: grid; gap: 0.5em; }
 .v3p-post-body .photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-media); background: var(--color-paper-2); }
 .v3p-post-body .photo figcaption { color: var(--color-ink-soft); }
-.v3p-post-body .photo .credit { white-space: nowrap; }
 .v3p-post-body .note { background: var(--color-paper-2); padding: 14px 18px; border-radius: 3px; font-size: 14.5px; }
 .v3p-post-body .tbl { overflow-x: auto; }
 .v3p-post-body table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; line-height: 1.7; }
