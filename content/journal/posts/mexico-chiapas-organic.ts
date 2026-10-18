@@ -1,10 +1,11 @@
+import { SYSTEM } from "../../system.generated";
 import type { Post } from "../types";
 import { yen } from "../../products";
 import { freeShippingLine, nextDayLine } from "../../ordering";
 import { coffee, price, roastOf, caffeineCut, roastDaysLine, cutoffLine } from "../facts";
 
 /* Keyword: メキシコ オーガニック コーヒー. Producer facts only from products.ts and the ✅ items in
-   product-facts-chapter-one.md / docs/origins-research.md; members = 3,253 (products.ts).
+   product-facts-chapter-one.md / docs/origins-research.md; members = ${SYSTEM.mexico_members.toLocaleString(`en-US`)} (products.ts).
    Elevation, producer, variety, process, roast, notes, caffeine cut and prices are read from content/products.ts and
    the delivery lines from content/ordering.ts (SINGLE_SOURCE rule 2); a missing field stops the build (../facts). */
 const mex = coffee("mexico-chiapas-decaf");
@@ -16,7 +17,7 @@ const post: Post = {
   title: "メキシコのオーガニックコーヒー。チアパスとグラポス農協",
   metaTitle: "メキシコ オーガニック コーヒー｜チアパス、グラポス農協のデカフェ",
   description:
-    `メキシコは有機コーヒーの主な生産国のひとつで、最大の産地はチアパス州です。SNöBIのメキシコは、チアパス州のグラポス農協に集う3,253軒の小規模生産者の豆。有機JASのデカフェで、標高${mex.elevation}。`,
+    `メキシコは有機コーヒーの主な生産国のひとつで、最大の産地はチアパス州です。SNöBIのメキシコは、チアパス州のグラポス農協に集う${SYSTEM.mexico_members.toLocaleString("en-US")}軒の小規模生産者の豆。有機JASのデカフェで、標高${mex.elevation}。`,
   keyword: "メキシコ オーガニック コーヒー",
   related: ["メキシコ チアパス デカフェ", "メキシコ オーガニック デカフェ"],
   published: "2026-10-10",
@@ -59,7 +60,7 @@ const post: Post = {
           p: "正式名は、Grupo de Agricultores Positivos S.P.R. de R.L.。2007年に、90軒の生産者で始まった農協です。",
         },
         {
-          p: "いまは、平均約3haの小さな農園を3,253軒が持ち寄っています。生産者の4人に1人が女性です。",
+          p: `いまは、平均約3haの小さな農園を${SYSTEM.mexico_members.toLocaleString("en-US")}軒が持ち寄っています。生産者の4人に1人が女性です。`,
         },
         {
           list: [
@@ -91,7 +92,7 @@ const post: Post = {
           p: "SNöBIは、Tokyo Coffeeがつくるオーガニック・スペシャルティのコーヒーです。第一章のメキシコは、デカフェです。",
         },
         {
-          p: `グラポス農協の豆をウォッシュドで精製し、マウンテンウォーター製法でカフェインを抜いています。商品資料では、カフェインを抜く水はメキシコ最高峰オリサバ山（5,636m）の氷河の水で、薬品は使いません。カフェインは${caffeineCut(mex)}カットです。`,
+          p: `グラポス農協の豆をウォッシュドで精製し、マウンテンウォーター製法でカフェインを抜いています。商品資料では、カフェインを抜く水はメキシコ最高峰オリサバ山（${SYSTEM.orizaba_elevation_m.toLocaleString("en-US")}m）の氷河の水で、薬品は使いません。カフェインは${caffeineCut(mex)}カットです。`,
         },
         {
           p: "マウンテンウォーター製法は、メキシコで行われている水を使う製法です。この製法を行う加工会社は、生豆に蒸気をあて、コーヒー豆から得た成分を飽和させた水溶液でカフェインを抽出し、3段階で乾燥させる、と説明しています。",
@@ -132,7 +133,7 @@ const post: Post = {
     },
     {
       q: "グラポス農協とは？",
-      a: "チアパス州の小規模生産者の農協です。2007年に90軒で始まり、いまは平均約3haの農園を3,253軒が持ち寄っています。エル・トリウンフォ生物圏保護区のすぐそばにあります。",
+      a: `チアパス州の小規模生産者の農協です。2007年に90軒で始まり、いまは平均約3haの農園を${SYSTEM.mexico_members.toLocaleString("en-US")}軒が持ち寄っています。エル・トリウンフォ生物圏保護区のすぐそばにあります。`,
     },
     {
       q: "メキシコ チアパス デカフェのカフェインは？",

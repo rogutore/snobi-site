@@ -1,3 +1,5 @@
+import { roastDays } from "./schedule";
+import { SYSTEM } from "./system.generated";
 /* Ordering and shipping copy — ONE source for every page, cart and FAQ (SINGLE_SOURCE rule 2).
    Wording: Davy's site notes forwarded by the owner, 2026-10-08 ("Snobi Site — Davy and Masaki").
    Owner 2026-10-08: the shipping window is explained by aging — beans ship from roast day up to two weeks after roasting.
@@ -6,7 +8,15 @@
    EN lines are translations of the JA (English site has its own session, D5). TODO(registry): system.toml. */
 import { yen, type Localized } from "./products";
 
-export const FREE_SHIPPING_YEN = 3000; // Shopify general shipping profile (site-plan §1.2)
+export const FREE_SHIPPING_YEN = SYSTEM.free_shipping_yen;
+
+/** Shared display calculation; Shopify still determines checkout eligibility and rates. */
+export function shippingProgress(subtotal: number) {
+  return {
+    left: Math.max(0, FREE_SHIPPING_YEN - subtotal),
+    pct: Math.min(100, (subtotal / FREE_SHIPPING_YEN) * 100),
+  };
+}
 
 /* Shipping below FREE_SHIPPING_YEN, by region: the 特商法 page of the shared Shopify checkout
    (tokyocoffee.jp/pages/policy, read 2026-10-08). Remote islands are quoted separately. The legal page, FAQ, contact page,
@@ -41,8 +51,8 @@ export const nextDayLine: Localized = {
   en: "Next-day delivery within Honshu",
 };
 export const roastShipShort: Localized = {
-  ja: "火・金焙煎・発送",
-  en: "Roasted and shipped Tue / Fri",
+  ja: `${roastDays.map((d) => d.ja).join("・")}焙煎・発送`,
+  en: `Roasted and shipped ${roastDays.map((d) => d.short).join(" / ")}`,
 };
 
 /* One-line summary under heroes and buy cards. */
@@ -64,8 +74,8 @@ export const shipMethodLine: Localized = {
 
 /* The schedule, as three short lines (FAQ, origin pages, cart). */
 export const orderingSchedule: Localized<string[]> = {
-  ja: ["火曜日と金曜日に焙煎、発送。", `当日の${ORDER_CUTOFF.ja}までのご注文が対象。`, "SNöBIの豆は焙煎後に少し寝かせる（エイジング）と味がなじむため、焙煎当日から焙煎後2週間までの豆を発送します。"],
-  en: ["Roasted and shipped on Tuesdays and Fridays.", `Orders by ${ORDER_CUTOFF.en} on the day are included.`, "SNöBI beans settle with a little rest after roasting (aging), so we ship them anywhere from roast day to two weeks after roasting."],
+  ja: [`${roastDays.map((d) => `${d.ja}曜日`).join("と")}に焙煎、発送。`, `当日の${ORDER_CUTOFF.ja}までのご注文が対象。`, "SNöBIの豆は焙煎後に少し寝かせる（エイジング）と味がなじむため、焙煎当日から焙煎後2週間までの豆を発送します。"],
+  en: [`Roasted and shipped on ${roastDays.map((d) => `${d.en}s`).join(" and ")}.`, `Orders by ${ORDER_CUTOFF.en} on the day are included.`, "SNöBI beans settle with a little rest after roasting (aging), so we ship them anywhere from roast day to two weeks after roasting."],
 };
 
 export const freeShippingLine: Localized = freeShipping;

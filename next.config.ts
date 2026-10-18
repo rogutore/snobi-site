@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 import { SITE_HOST } from "./lib/site-host";
 
+// The registry check (python3 scripts/system-registry.py --check) runs as the first step of the
+// `build` and `cf:build` scripts in package.json, not here: this file loads in every Next process.
+
 const nextConfig: NextConfig = {
   turbopack: { root: process.cwd() },
   // One 404 for unmatched URLs across both root layouts (app/global-not-found.tsx).

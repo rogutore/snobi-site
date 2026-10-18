@@ -46,7 +46,7 @@ function Body({ b, slug }: { b: Block; slug: string }) {
     return <p className="read"><Link href={`/journal/${r.slug}`}>{r.title} →</Link></p>;
   }
   return (
-    <div className="tbl">
+    <div className="tbl" tabIndex={0} role="region" aria-label={b.table.head.join(" / ")}>
       <table>
         <thead><tr>{b.table.head.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
         <tbody>{b.table.rows.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j}>{c}</td>)}</tr>)}</tbody>

@@ -11,7 +11,7 @@ export default async function Page({
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ size?: string }>;
+  searchParams: Promise<{ size?: string | string[] }>;
 }) {
   return (
     <OriginPage

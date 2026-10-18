@@ -21,8 +21,9 @@ async function load(path: string, base: string): Promise<ArrayBuffer> {
 }
 
 export async function GET(req: Request, { params }: { params: Promise<{ name: string }> }) {
-  const path = FILES[(await params).name];
-  if (!path) return new Response("Not found", { status: 404 });
+  const { name } = await params;
+  if (!Object.hasOwn(FILES, name)) return new Response("Not found", { status: 404 });
+  const path = FILES[name];
   const body = await load(path, req.url);
   const size = body.byteLength;
   const headers: Record<string, string> = {

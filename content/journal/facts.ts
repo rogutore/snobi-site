@@ -65,3 +65,10 @@ export function restate(line: string, ending: string): string {
   if (!line.endsWith("。")) throw new Error(`journal: schedule line "${line}" no longer ends in 。`);
   return `${line.slice(0, -1)}${ending}。`;
 }
+
+/** Preserve existing full/half-width editorial forms while sourcing the product window once. */
+export function enjoyPeriod(p: Coffee, fullWidth = false): string {
+  const period = p.enjoyWithin.ja.match(/^[０-９]+ヶ月(?:半)?/);
+  if (!period) throw new Error(`journal: missing enjoyment period for ${p.slug}`);
+  return fullWidth ? period[0] : period[0].replace(/[０-９]/g, (digit) => String.fromCharCode(digit.charCodeAt(0) - 0xfee0));
+}

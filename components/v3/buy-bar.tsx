@@ -5,7 +5,7 @@
    threshold in content/ordering.ts. */
 import { useEffect, useState } from "react";
 import { products, yen } from "@/content/products";
-import { FREE_SHIPPING_YEN } from "@/content/ordering";
+import { shippingProgress } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
 import { canBuy, livePrice } from "@/lib/shopify/stock";
@@ -30,8 +30,7 @@ export function BuyBar({ stock }: { stock: StockMap }) {
     [hero, ...sellers].forEach((el) => el && io.observe(el));
     return () => io.disconnect();
   }, []);
-  const left = Math.max(0, FREE_SHIPPING_YEN - cart.subtotal);
-  const pct = Math.min(100, (cart.subtotal / FREE_SHIPPING_YEN) * 100);
+  const { left, pct } = shippingProgress(cart.subtotal);
   return (
     <div className={`v3-buybar ${show ? "on" : ""}`} role="region" aria-label="購入" aria-hidden={!show}>
       <div className="bags">

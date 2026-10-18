@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { yen, type Coffee } from "@/content/products";
-import { orderingSummary, FREE_SHIPPING_YEN } from "@/content/ordering";
+import { orderingSummary, shippingProgress } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
 import { canBuy, livePrice, buyLabel } from "@/lib/shopify/stock";
@@ -14,8 +14,8 @@ import { useCart } from "@/components/commerce/cart";
 
 type Size = "100g" | "200g";
 
-export function OriginBuy({ p, stock }: { p: Coffee; stock: StockMap }) {
-  const [size, setSize] = useState<Size>("100g");
+export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMap; initialSize: Size }) {
+  const [size, setSize] = useState<Size>(initialSize);
   const cart = useCart();
   const box = useRef<HTMLDivElement>(null);
   const [past, setPast] = useState(false);
@@ -29,8 +29,7 @@ export function OriginBuy({ p, stock }: { p: Coffee; stock: StockMap }) {
   const v = p.variants.find((x) => x.size === size)!;
   const ok = canBuy(stock, v.id);
   const label = buyLabel(stock, v.id);
-  const left = Math.max(0, FREE_SHIPPING_YEN - cart.subtotal);
-  const pct = Math.min(100, (cart.subtotal / FREE_SHIPPING_YEN) * 100);
+  const { left, pct } = shippingProgress(cart.subtotal);
   return (
     <div className="v3p-origins-buy" ref={box}>
       <fieldset className="v3p-origins-sizes">

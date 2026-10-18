@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { minimumPrice, yen } from "@/content/products";
+import { FREE_SHIPPING_YEN } from "@/content/ordering";
 import { Button } from "@/components/ui/button";
 
 /* Chisel-style hero: full-bleed photo, the custom SNOBI wordmark (SVG) set
@@ -65,8 +66,8 @@ export function Hero({ en = false }: { en?: boolean }) {
           </Link>
           <p className="mt-3 text-sm text-paper">
             {en
-              ? "Free shipping on orders of ¥3,000 or more"
-              : "¥3,000以上で送料無料"}
+              ? `Free shipping on orders of ${yen(FREE_SHIPPING_YEN)} or more`
+              : `${yen(FREE_SHIPPING_YEN)}以上で送料無料`}
           </p>
         </div>
       </div>

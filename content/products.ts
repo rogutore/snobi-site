@@ -1,3 +1,4 @@
+import { SYSTEM } from "./system.generated";
 // Product facts: vault product-facts-chapter-one.md (2026-09-11).
 // Final tax-inclusive prices: pricing-and-costs.md DECIDED block.
 export type Locale = "ja" | "en";
@@ -34,7 +35,9 @@ export type Coffee = {
 };
 /* The Mexico decaf's caffeine cut, stored once: its narrative below and the journal read it (the journal through the
    product's `caffeineCut`), SINGLE_SOURCE 2026-10-11. */
-const MEXICO_CAFFEINE_CUT = "99.9%";
+const MEXICO_CAFFEINE_CUT = `${SYSTEM.mexico_caffeine_cut}%`;
+const enjoyShort = Object.freeze({ ja: SYSTEM.enjoy_short[0], en: SYSTEM.enjoy_short[1] });
+const enjoyLong = Object.freeze({ ja: SYSTEM.enjoy_long[0], en: SYSTEM.enjoy_long[1] });
 export const products: Coffee[] = [
   {
     handle: "snobi-peru",
@@ -77,10 +80,7 @@ export const products: Coffee[] = [
       ja: "紅茶のように軽やかに飲みたい人へ。ミルクなしで、朝の一杯に。",
       en: "For a light, tea-like cup. A morning coffee without milk.",
     },
-    enjoyWithin: {
-      ja: "１ヶ月半まで、味をお楽しみいただけます！",
-      en: "Enjoy it at its best for up to six weeks.",
-    },
+    enjoyWithin: enjoyShort,
     narrative: {
       ja: [
         "カハマルカ県サン・イグナシオ、チリノス、814軒の農家が集う生産者組合で、1995年からコーヒーをつくるミゲル・ラミレスさんが育てた有機のゲイシャ。",
@@ -162,10 +162,7 @@ export const products: Coffee[] = [
       ja: "果実感と甘さをとりたい人へ。ベリーとドライフルーツ。",
       en: "For fruit and sweetness. Berries and dried fruit.",
     },
-    enjoyWithin: {
-      ja: "１ヶ月半まで、味をお楽しみいただけます！",
-      en: "Enjoy it at its best for up to six weeks.",
-    },
+    enjoyWithin: enjoyShort,
     narrative: {
       ja: [
         "オロミア州グジ、シャキッソ村、農学者でもあるタスファイ・ベケレさんのタデGG農園。",
@@ -247,10 +244,7 @@ export const products: Coffee[] = [
       ja: "毎日の一杯に。キャラメルとオレンジ、ちょうどいいバランス。",
       en: "For your everyday cup. Caramel and orange, in balance.",
     },
-    enjoyWithin: {
-      ja: "２ヶ月まで、味をお楽しみいただけます！",
-      en: "Enjoy it at its best for up to two months.",
-    },
+    enjoyWithin: enjoyLong,
     narrative: {
       ja: [
         "ウィラ県南部、ピタリート、ASOBOMBO生産者協会に集う小さな農園の豆を、ひとつのロットに。",
@@ -332,28 +326,25 @@ export const products: Coffee[] = [
       ja: "夜にも、もう一杯。スイートポテトの甘さ、そのまま。",
       en: "Another cup, even at night. The same sweet-potato sweetness.",
     },
-    enjoyWithin: {
-      ja: "２ヶ月まで、味をお楽しみいただけます！",
-      en: "Enjoy it at its best for up to two months.",
-    },
+    enjoyWithin: enjoyLong,
     narrative: {
       ja: [
-        "チアパス州、エル・トリウンフォ生物圏保護区のすぐそば、平均約3haの小さな農園を3,253軒が持ち寄るグラポス農協の豆。",
+        `チアパス州、エル・トリウンフォ生物圏保護区のすぐそば、平均約3haの小さな農園を${SYSTEM.mexico_members.toLocaleString("en-US")}軒が持ち寄るグラポス農協の豆。`,
         `ブルボン、ムンドノーボ、カトゥーラ、薬品を使わないマウンテンウォーター製法で、カフェインは${MEXICO_CAFFEINE_CUT}カット。`,
       ],
       en: [
-        "Beside the El Triunfo biosphere reserve in Chiapas, 3,253 smallholders of the GRAPOS co-op grow coffee on farms averaging 3ha.",
+        `Beside the El Triunfo biosphere reserve in Chiapas, ${SYSTEM.mexico_members.toLocaleString("en-US")} smallholders of the GRAPOS co-op grow coffee on farms averaging 3ha.`,
         `Bourbon, Mundo Novo and Caturra are decaffeinated by the chemical-free Mountain Water Process — ${MEXICO_CAFFEINE_CUT} caffeine-free.`,
       ],
     },
     facts: {
       ja: [
-        "カフェインを抜くのは、メキシコ最高峰オリサバ山（5,636m）の氷河の水。薬品は使わない。",
+        `カフェインを抜くのは、メキシコ最高峰オリサバ山（${SYSTEM.orizaba_elevation_m.toLocaleString("en-US")}m）の氷河の水。薬品は使わない。`,
         "農協の生産者の4人に1人が女性。",
         "収穫は11月から3月。それ以外の季節は、バナナやカカオ、ランブータンを育てている。",
       ],
       en: [
-        "The caffeine is washed out with glacier water from Pico de Orizaba, Mexico’s highest peak (5,636m). No chemicals are used.",
+        `The caffeine is washed out with glacier water from Pico de Orizaba, Mexico’s highest peak (${SYSTEM.orizaba_elevation_m.toLocaleString("en-US")}m). No chemicals are used.`,
         "One in four co-op growers is a woman.",
         "Harvest runs November–March. The rest of the year, the same families grow bananas, cacao and rambutan.",
       ],

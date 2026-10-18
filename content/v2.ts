@@ -1,10 +1,11 @@
+import { SYSTEM } from "./system.generated";
 /* v2 preview content that is not in content/products.ts: which shoot frame goes where, and its caption.
    Copy rules: product facts come from products.ts; the lines below are LIVE copy (sections.tsx, trade-page.tsx)
    or ✅ facts from design/plan/COPY-INVENTORY.md, cited per line. Captions are DRAFTS for the owner (plan Q4).
    When v2 replaces the live pages, sections.tsx's copies of these lines are deleted, not kept (SINGLE_SOURCE). */
 
 import { trade } from "./trade";
-import { FREE_SHIPPING_YEN, shippingRates, ORDER_CUTOFF, shipMethodLine, freeShippingLine, roastShipShort } from "./ordering";
+import { FREE_SHIPPING_YEN, shippingRates, ORDER_CUTOFF, shipMethodLine, freeShippingLine, roastShipShort, nextDayLine } from "./ordering";
 import { yen } from "./products";
 import { orderingSchedule } from "./ordering";
 
@@ -23,7 +24,7 @@ export const producerNumbers: Record<string, [string, string][]> = {
   peru: [["814", "組合に集う農家（ロット資料）"], ["1995", "ミゲルさんがコーヒーをつくりはじめた年"], ["1968", "チリノス組合の設立（FS ✅）"]], // P:77-78; FS:105
   "ethiopia-guji": [["221ha", "タデGG農園の広さ（FS ✅）"], ["約20km", "農園から自社精選所まで"], ["2,200m", "畑の最も高いところ"]], // FS:114; P:175; P:138
   "colombia-huila": [["10–12月", "収穫の季節"], ["1,700m", "ピタリートの畑"], ["ひとつ", "小さな農園の豆を、ひとつのロットに"]], // P:261; P:226; P:250
-  "mexico-chiapas-decaf": [["5,636m", "オリサバ山。デカフェに使う氷河の水"], ["99.9%", "カフェインカット（薬品不使用）"], ["3,253", "グラポス農協の生産者"]], // P:339; P:330; P:329
+  "mexico-chiapas-decaf": [[`${SYSTEM.orizaba_elevation_m.toLocaleString("en-US")}m`, "オリサバ山。デカフェに使う氷河の水"], [`${SYSTEM.mexico_caffeine_cut}%`, "カフェインカット（薬品不使用）"], [SYSTEM.mexico_members.toLocaleString("en-US"), "グラポス農協の生産者"]], // P:339; P:330; P:329
 };
 
 /* About (ストーリー) — the five agreed chapters, live copy (sections.tsx line refs). */
@@ -76,7 +77,7 @@ export const faqGroups: { title: string; items: { q: string; a: string }[] }[] =
     items: [
       { q: "価格とサイズについて教えて。", a: "__PRICES__" },
       { q: "送料はいくら？", a: `${yen(FREE_SHIPPING_YEN)}以上のご注文で送料無料。${shippingRates.ja}100g・200gとも、${shipMethodLine.ja}。最終的な送料はレジでご確認いただけます。` },
-      { q: "いつ焙煎して、いつ届く？", a: `${orderingSchedule.ja.join("")}本州であれば翌日配達。` },
+      { q: "いつ焙煎して、いつ届く？", a: `${orderingSchedule.ja.join("")}${nextDayLine.ja}。` },
       { q: "どこで決済するの？", a: "決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。ご利用いただける支払方法は決済画面に表示されます。" },
     ],
   },

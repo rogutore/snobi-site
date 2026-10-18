@@ -1,4 +1,5 @@
 "use client";
+import { roastDays } from "@/content/schedule";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
@@ -25,7 +26,7 @@ const BEATS = [
   {
     no: "02",
     en: "Roast",
-    ja: "東京で焙煎。火曜・金曜に焼いて、",
+    ja: `東京で焙煎。${roastDays.map((d) => `${d.ja}曜`).join("・")}に焼いて、`,
     img: "/photos/snobi/roast-trier.webp",
     w: 1800,
     h: 1198,

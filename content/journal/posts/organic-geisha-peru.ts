@@ -1,3 +1,4 @@
+import { enjoyPeriod } from "../facts";
 import type { Post } from "../types";
 import { yen } from "../../products";
 import { orderingSchedule, freeShippingLine, nextDayLine, FREE_SHIPPING_YEN } from "../../ordering";
@@ -69,7 +70,7 @@ const post: Post = {
       blocks: [
         { p: `カップの印象は、${peru.notes.ja.join("、")}。花の香りがあり、みかんのようにやさしく、紅茶のように軽い一杯です。` },
         { p: peru.bestFor.ja },
-        { p: "SNöBIの豆は4種とも浅煎りです。豆のままでお届けします。焙煎後1ヶ月半まで、味を楽しめます。" },
+        { p: `SNöBIの豆は4種とも浅煎りです。豆のままでお届けします。焙煎後${enjoyPeriod(peru)}まで、味を楽しめます。` },
         { note: ajcaDripNote },
       ],
     },
@@ -85,7 +86,7 @@ const post: Post = {
   faq: [
     { q: "オーガニックのゲイシャは、普通のゲイシャと何が違う？", a: "品種は同じゲイシャです。違うのは育て方と認証。有機JASの基準で育てられ、認証を受けたものだけが「有機」と表示できます。" },
     { q: "粉でも買える？", a: "豆のままでのお届けです。100gと200gから選べます。" },
-    { q: "どれくらいで飲みきればいい？", a: "焙煎後1ヶ月半まで、味を楽しめます。" },
+    { q: "どれくらいで飲みきればいい？", a: `焙煎後${enjoyPeriod(peru)}まで、味を楽しめます。` },
     { q: "いつ届く？", a: `${orderingSchedule.ja.join("")}${nextDayLine.ja}。` },
   ],
   products: ["peru"],

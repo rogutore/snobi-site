@@ -1,3 +1,4 @@
+import { enjoyPeriod } from "../facts";
 import type { Post } from "../types";
 import { yen } from "../../products";
 import { orderingSchedule, freeShippingLine, nextDayLine } from "../../ordering";
@@ -70,7 +71,7 @@ const post: Post = {
         },
         { p: "ウォッシュドは、コーヒーの実から果肉を取り除き、豆についた粘液質（ミューシレージ）を発酵させてから、きれいな水で洗って乾燥させる方法です。このロットは、そのあと天日で乾かしています。" },
         { p: `味は、${col.notes.ja.join("、")}。シトラスの酸とキャラメルの甘さ。${col.bestFor.ja}` },
-        { p: "豆のままでお届けします。焙煎後2ヶ月まで、味を楽しめます。" },
+        { p: `豆のままでお届けします。焙煎後${enjoyPeriod(col)}まで、味を楽しめます。` },
       ],
     },
     {

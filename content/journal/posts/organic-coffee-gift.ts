@@ -1,3 +1,6 @@
+import { roastDays } from "../../schedule";
+import { enjoyPeriod } from "../facts";
+import { SYSTEM } from "../../system.generated";
 import type { Post } from "../types";
 import { yen } from "../../products";
 import { shippingRates, freeShippingLine, nextDayLine, FREE_SHIPPING_YEN, ORDER_CUTOFF, shipMethodLine } from "../../ordering";
@@ -66,7 +69,7 @@ const post: Post = {
           },
         },
         { p: `いくつかの産地を試してほしいなら、100gを2袋から。毎日飲む人には、200gを1袋。1日${twoADay}杯飲む人なら、200gで約${Math.floor(cupsIn(200) / twoADay)}日分です。` },
-        { p: "SNöBIの豆は、焙煎から、ペルーとエチオピアが1ヶ月半まで、コロンビアとメキシコが2ヶ月まで、味をお楽しみいただけます。飲み切れる量を選ぶと、その間に味わえます。" },
+        { p: `SNöBIの豆は、焙煎から、ペルーとエチオピアが${enjoyPeriod(beans[0])}まで、コロンビアとメキシコが${enjoyPeriod(beans[2])}まで、味をお楽しみいただけます。飲み切れる量を選ぶと、その間に味わえます。` },
         { note: "杯数は目安です。淹れ方や好みの濃さで変わります。" },
       ],
     },
@@ -104,7 +107,7 @@ const post: Post = {
             "ペルー：814軒の農家が集う生産者組合で、1995年からコーヒーをつくるミゲル・ラミレスさんが育てた有機のゲイシャ。",
             "エチオピア：かつて山火事で森を失ったシャキッソ村。タスファイ・ベケレさんは、コーヒーで森と雇用を取り戻してきました。",
             "コロンビア：ウィラ県南部、ピタリート。ASOBOMBO生産者協会に集う小さな農園の豆を、ひとつのロットに。",
-            "メキシコ：チアパス州、エル・トリウンフォ生物圏保護区のすぐそば。3,253軒の小さな農園が持ち寄るグラポス農協の豆。",
+            `メキシコ：チアパス州、エル・トリウンフォ生物圏保護区のすぐそば。${SYSTEM.mexico_members.toLocaleString("en-US")}軒の小さな農園が持ち寄るグラポス農協の豆。`,
           ],
         },
       ],
@@ -119,9 +122,9 @@ const post: Post = {
           table: {
             head: ["ご注文", "発送"],
             rows: [
-              [`火曜日の${ORDER_CUTOFF.ja}まで`, "火曜日"],
-              [`火曜日の${ORDER_CUTOFF.ja}すぎ〜金曜日の${ORDER_CUTOFF.ja}まで`, "金曜日"],
-              [`金曜日の${ORDER_CUTOFF.ja}すぎ〜火曜日の${ORDER_CUTOFF.ja}まで`, "次の火曜日"],
+              [`${roastDays[0].ja}曜日の${ORDER_CUTOFF.ja}まで`, `${roastDays[0].ja}曜日`],
+              [`${roastDays[0].ja}曜日の${ORDER_CUTOFF.ja}すぎ〜${roastDays[1].ja}曜日の${ORDER_CUTOFF.ja}まで`, `${roastDays[1].ja}曜日`],
+              [`${roastDays[1].ja}曜日の${ORDER_CUTOFF.ja}すぎ〜${roastDays[0].ja}曜日の${ORDER_CUTOFF.ja}まで`, `次の${roastDays[0].ja}曜日`],
             ],
           },
         },

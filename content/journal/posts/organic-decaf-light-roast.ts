@@ -1,3 +1,5 @@
+import { enjoyPeriod } from "../facts";
+import { SYSTEM } from "../../system.generated";
 import type { Post } from "../types";
 import { yen } from "../../products";
 import { orderingSchedule, freeShippingLine, nextDayLine, roastShipShort } from "../../ordering";
@@ -70,7 +72,7 @@ const post: Post = {
           p: "カフェインを抜く方法は、使うもので分かれます。有機溶媒（塩化メチレン、酢酸エチル）を使う方法、超臨界状態の二酸化炭素を使う方法、水を使う方法です。水を使う方法には、スイスウォーター製法やマウンテンウォーター製法があります。",
         },
         {
-          p: `SNöBIの${mex.title.ja}は、マウンテンウォーター製法です。商品資料では、メキシコ最高峰オリサバ山（5,636m）の氷河の水でカフェインを抜き、薬品は使わないとしています。カフェインは${cut}カットです。`,
+          p: `SNöBIの${mex.title.ja}は、マウンテンウォーター製法です。商品資料では、メキシコ最高峰オリサバ山（${SYSTEM.orizaba_elevation_m.toLocaleString("en-US")}m）の氷河の水でカフェインを抜き、薬品は使わないとしています。カフェインは${cut}カットです。`,
         },
         {
           p: "この製法を行うメキシコの加工会社は、生豆に蒸気をあて、コーヒー豆から得た成分を飽和させた水溶液で、流量・温度・圧力・真空を管理しながらカフェインを抽出し、3段階で乾燥させる、と説明しています。",
@@ -104,7 +106,7 @@ const post: Post = {
         {
           list: [...orderingSchedule.ja, `${nextDayLine.ja}。`, `${freeShippingLine.ja}。`],
         },
-        { p: "メキシコ チアパス デカフェは、焙煎から２ヶ月まで、味をお楽しみいただけます。" },
+        { p: `メキシコ チアパス デカフェは、焙煎から${enjoyPeriod(mex, true)}まで、味をお楽しみいただけます。` },
       ],
     },
     {

@@ -2,7 +2,7 @@ import { pageMeta, allFromPrice } from "@/lib/seo";
 import Link from "next/link";
 import { HeroFilm } from "@/components/v3/hero-film";
 import { getStock } from "@/lib/shopify/client";
-import { products, yen } from "@/content/products";
+import { yen } from "@/content/products";
 import { freeShippingLine } from "@/content/ordering";
 import { HandChapter } from "@/components/v3/hand-chapter";
 import { FujiClimb } from "@/components/v3/fuji-climb";
@@ -20,8 +20,6 @@ export const metadata = pageMeta({
   description: `有機JASのスペシャルティコーヒー豆。ペルーのゲイシャ、エチオピア・グジ、コロンビア・ウィラ、メキシコの有機デカフェ。すべて浅煎り、豆のまま100g ${yen(allFromPrice)}から。${freeShippingLine.ja}。`,
   image: "/v3/hero-still-og.jpg", // the four bags (was the chaff-sack frame)
 });
-
-const minPrice = Math.min(...products.flatMap((p) => p.variants.map((v) => v.price)));
 
 /* v3 home = Mockup D (the Daylight version the owner chose), restored 2026-10-08 after an over-reach.
    Only the owner-rejected parts are replaced: the 3D bag → HandChapter (option A, 2026-10-08), the belt map →
@@ -43,7 +41,7 @@ export default async function Home() {
           <p className="ja proof">認証は、有機JAS。評価は、スペシャルティ。</p>
           <div className="v3-filmcta">
             <Link className="v3-btn light" href="/coffee">4つの産地から選ぶ</Link>
-            <span className="price">{yen(minPrice)}〜（税込）・豆のまま</span>
+            <span className="price">{yen(allFromPrice)}〜（税込）・豆のまま</span>
           </div>
         </div>
       </section>

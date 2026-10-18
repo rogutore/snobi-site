@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { products, yen } from "@/content/products";
+import { FREE_SHIPPING_YEN } from "@/content/ordering";
 import type { StockMap } from "@/lib/shopify/client";
 import { buyLabel, canBuy } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
@@ -55,7 +56,7 @@ export function TableChapter({ stock }: { stock: StockMap }) {
 
         <div className="v3-st st-a" style={{ opacity: op(0) }}><p className="eyebrow">Organic × Specialty × Japan — Est. 2026</p><p className="v3-big" lang="en">Organic.</p><p className="v3-ja">オーガニックのまま、スペシャルティ。</p></div>
         <div className="v3-st st-b" style={{ opacity: op(1) }}><p className="v3-big" lang="en"><em>And actually<br />specialty.</em></p><p className="v3-ja">JAS有機認証の豆だけを、東京で焙煎。</p></div>
-        <div className="v3-st st-c" style={{ opacity: op(2) }}><p className="v3-big">豆のまま。</p><p className="v3-ja">100g / 200g · 価格はすべて税込 · <b>¥3,000以上で送料無料</b></p></div>
+        <div className="v3-st st-c" style={{ opacity: op(2) }}><p className="v3-big">豆のまま。</p><p className="v3-ja">100g / 200g · 価格はすべて税込 · <b>{yen(FREE_SHIPPING_YEN)}以上で送料無料</b></p></div>
         <div className="v3-st st-d" style={{ opacity: op(3) }}><p className="eyebrow">Chapter One — 4 origins</p><p className="v3-mid">第一章、4つの産地。</p><p className="v3-ja">袋を押すと、その産地へ。</p></div>
 
         {products.map((pr, i) => {

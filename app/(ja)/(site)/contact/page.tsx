@@ -2,7 +2,7 @@ import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { trade } from "@/content/trade";
 import { company, legalRows } from "@/content/legal";
-import { orderingSchedule, freeShippingLine, shippingRates } from "@/content/ordering";
+import { nextDayLine, orderingSchedule, freeShippingLine, shippingRates } from "@/content/ordering";
 import { Copy } from "@/components/v3/copy";
 
 /* お問い合わせ — modeled on Daylight's support hub (support.daylightcomputer.com, read 2026-10-08): a warm one-line
@@ -53,7 +53,7 @@ export default function Contact() {
             <Link href="/faq" className="v3-more">すべての質問を見る →</Link>
           </div>
           <dl>
-            <div><dt>いつ届く？</dt><dd>{orderingSchedule.ja.join("")}本州であれば翌日配達。</dd></div>
+            <div><dt>いつ届く？</dt><dd>{orderingSchedule.ja.join("")}{`${nextDayLine.ja}。`}</dd></div>
             <div><dt>送料は？</dt><dd>{freeShippingLine.ja}。{shippingRates.ja}</dd></div>
             <div><dt>どこで決済するの？</dt><dd>決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。</dd></div>
           </dl>

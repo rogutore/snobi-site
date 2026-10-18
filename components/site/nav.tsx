@@ -23,7 +23,7 @@ export function Nav({
   const root = en ? "/en" : "/";
   return (
     <header className={`commerce-nav ${dark ? "paper-nav" : "photo-nav"}`}>
-      <nav>
+      <nav aria-label={en ? "Main navigation" : "メインナビゲーション"}>
         <Link href={home ? "#top" : root} aria-label="Snobi — home">
           <Logo invert={!dark} />
         </Link>

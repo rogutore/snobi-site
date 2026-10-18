@@ -1,4 +1,5 @@
 import { OFFER_TERMS } from "@/lib/seo";
+import { requestedSize, variantUrl } from "@/lib/product-variant";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,14 +40,15 @@ export function originMetadata(slug: string, lang: Locale): Metadata {
 export async function OriginPage({
   slug,
   lang = "ja",
-  size = "100g",
+  size,
 }: {
   slug: string;
   lang?: Locale;
-  size?: string;
+  size?: string | string[];
 }) {
   const p = products.find((p) => p.slug === slug);
   if (!p) notFound();
+  const selectedSize = requestedSize(p, size);
   const en = lang === "en";
   const { stock } = await getStock();
   const url = `https://snobi.jp${en ? "/en" : ""}/origins/${slug}`;
@@ -65,13 +67,13 @@ export async function OriginPage({
       name: `SNöBI ${p.title[lang]} ${v.size}`,
       sku: v.sku,
       size: v.size,
-      url: `${url}?size=${v.size}`,
+      url: variantUrl(url, v.size),
       image: `https://snobi.jp/products/${p.handle}-${v.size}.jpg`,
       ...(stock[v.id]
         ? {
             offers: {
               "@type": "Offer",
-              url: `${url}?size=${v.size}`,
+              url: variantUrl(url, v.size),
               price: stock[v.id].price.amount,
               priceCurrency: stock[v.id].price.currencyCode,
               availability: canBuy(stock, v.id)
@@ -148,12 +150,13 @@ export async function OriginPage({
         <OriginPhotos slug={p.slug} lang={lang} />
         <section id="buy" className="origin-buy">
           <BuyCard
+            key={`${p.slug}:${JSON.stringify(size)}`}
             product={p}
             index={products.indexOf(p)}
             stock={stock}
             lang={lang}
             detail
-            initialSize={size === "200g" ? "200g" : "100g"}
+            initialSize={selectedSize}
           />
           <p className="small-print">
             {orderingSchedule[en ? "en" : "ja"].join(en ? " " : "")}

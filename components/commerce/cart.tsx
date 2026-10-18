@@ -18,7 +18,7 @@ import {
   removeLine,
 } from "@/lib/shopify/actions";
 import { ShippingProgress } from "./shipping-progress";
-import type { Cart } from "@/lib/shopify/client";
+import type { CartView } from "@/lib/shopify/cart-view";
 import { orderingSchedule, shippingRatesShort } from "@/content/ordering";
 type Context = {
   add: (id: string | string[]) => void;
@@ -72,7 +72,7 @@ export function CartProvider({
   lang?: Locale;
 }) {
   const en = lang === "en";
-  const [cart, setCart] = useState<Cart | null>(null);
+  const [cart, setCart] = useState<CartView | null>(null);
   const [opened, setOpened] = useState(false);
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
@@ -107,7 +107,7 @@ export function CartProvider({
     }
   }, [opened]);
   function run(
-    action: () => Promise<{ cart: Cart | null; error?: string }>,
+    action: () => Promise<{ cart: CartView | null; error?: string }>,
     open = true,
   ) {
     if (busy.current) return;

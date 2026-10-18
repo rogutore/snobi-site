@@ -6,6 +6,7 @@ import { getStock } from "@/lib/shopify/client";
 import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule, freeShippingLine, shipMethodLine } from "@/content/ordering";
 import { originFrames } from "@/content/v2";
+import { requestedSize } from "@/lib/product-variant";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
 import { BRAND_PLAIN } from "@/content/brand";
 import { OriginGallery } from "@/components/v3/pages/origin-gallery";
@@ -65,10 +66,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   });
 }
 
-export default async function Origin({ params }: { params: Promise<{ slug: string }> }) {
+export default async function Origin({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ size?: string | string[] }> }) {
   const { slug } = await params;
   const p = find(slug);
   if (!p) notFound();
+  const sizeQuery = (await searchParams).size;
+  const size = requestedSize(p, sizeQuery);
   const i = products.indexOf(p);
   const f = originFrames[p.slug];
   const { stock } = await getStock();
@@ -111,7 +114,7 @@ export default async function Origin({ params }: { params: Promise<{ slug: strin
             <dt>精製・乾燥</dt><dd>{p.process.ja}</dd>
             {p.roast ? <><dt>焙煎度</dt><dd>{p.roast.ja}</dd></> : null}
           </dl>
-          <OriginBuy p={p} stock={stock} />
+          <OriginBuy key={`${p.slug}:${JSON.stringify(sizeQuery)}`} p={p} stock={stock} initialSize={size} />
         </div>
       </section>
 

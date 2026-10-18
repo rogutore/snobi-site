@@ -18,8 +18,8 @@ export function Footer({ en = false }: { en?: boolean }) {
           </div>
 
           <div className="flex flex-wrap gap-x-10 gap-y-6">
-            <nav className="flex flex-col gap-3">
-              <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
+            <nav aria-labelledby="footer-explore" className="flex flex-col gap-3">
+              <span id="footer-explore" className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
                 Explore
               </span>
               {[
@@ -37,8 +37,8 @@ export function Footer({ en = false }: { en?: boolean }) {
               ))}
             </nav>
 
-            <nav className="flex flex-col gap-3">
-              <span className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
+            <nav aria-labelledby="footer-follow" className="flex flex-col gap-3">
+              <span id="footer-follow" className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
                 Follow
               </span>
               <a href={FORM_URL} className="text-sm text-paper/75">

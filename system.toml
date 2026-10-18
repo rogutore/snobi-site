@@ -1,0 +1,74 @@
+[meta]
+about = "Incremental registry: existing values migrated without changing policy. Untouched contracts remain in their existing content sources; audit F22 tracks the remaining migration."
+
+[value.mexico_caffeine_cut]
+value = 99.9
+unit = "percent"
+origin = "Existing products.ts marketing claim, owner-preserved 2026-10-16; assay basis remains owner question F10. No measurement claim is added by this migration."
+consumers = ["content/products.ts", "content/v2.ts"]
+
+[value.mexico_members]
+value = 3253
+unit = "count"
+origin = "OCT reply 2026-10-13, docs/permission-emails.md Replies log; existing product material."
+consumers = ["content/products.ts", "content/v2.ts", "content/journal/posts/mexico-chiapas-organic.ts", "content/journal/posts/organic-coffee-gift.ts"]
+
+[value.orizaba_elevation_m]
+value = 5636
+unit = "m"
+origin = "Existing product material in product-facts-chapter-one.md; water-source attribution remains proposal F09."
+consumers = ["content/products.ts", "content/v2.ts", "content/journal/posts/organic-decaf-light-roast.ts", "content/journal/posts/mexico-chiapas-organic.ts", "content/journal/posts/mountain-water-decaf.ts"]
+
+[value.roast_days]
+value = [2, 5]
+unit = "iso_weekdays"
+origin = "Davy/owner 2026-10-08; Tue/Fri retained by owner 2026-10-12. ISO Monday=1."
+consumers = ["content/schedule.ts"]
+
+[value.enjoy_short]
+value = ["１ヶ月半まで、味をお楽しみいただけます！", "Enjoy it at its best for up to six weeks."]
+unit = "localized_text_pair"
+origin = "Existing Peru/Ethiopia product copy from Davy's 2026-10-08 notes; JA/EN wording preserved verbatim, no calendar conversion added."
+consumers = ["content/products.ts"]
+
+[value.enjoy_long]
+value = ["２ヶ月まで、味をお楽しみいただけます！", "Enjoy it at its best for up to two months."]
+unit = "localized_text_pair"
+origin = "Existing Colombia/Mexico product copy from Davy's 2026-10-08 notes; wording preserved verbatim."
+consumers = ["content/products.ts"]
+
+[output.registry]
+derived_by = "scripts/system-registry.py#render"
+binds_to = "SYSTEM"
+reads = ["value.mexico_caffeine_cut", "value.mexico_members", "value.orizaba_elevation_m", "value.roast_days", "value.enjoy_short", "value.enjoy_long", "value.free_shipping_yen"]
+consumers = ["content/products.ts", "content/v2.ts", "content/schedule.ts", "content/journal/posts/mexico-chiapas-organic.ts", "content/journal/posts/organic-coffee-gift.ts", "content/journal/posts/organic-decaf-light-roast.ts", "content/journal/posts/mountain-water-decaf.ts", "content/ordering.ts"]
+
+[output.schedule]
+derived_by = "content/schedule.ts#roastDays"
+binds_to = "roastDays"
+reads = ["value.roast_days"]
+consumers = ["content/ordering.ts", "app/(en)/en/page.tsx", "content/journal/posts/organic-coffee-gift.ts", "components/lab/film-beats.tsx"]
+
+[output.enjoy_period]
+derived_by = "content/journal/facts.ts#enjoyPeriod"
+binds_to = "enjoyPeriod"
+reads = ["value.enjoy_short", "value.enjoy_long"]
+consumers = ["content/journal/posts/organic-coffee-gift.ts", "content/journal/posts/organic-geisha-peru.ts", "content/journal/posts/colombia-huila-organic.ts", "content/journal/posts/organic-decaf-light-roast.ts"]
+
+[value.free_shipping_yen]
+value = 3000
+unit = "JPY"
+origin = "Existing content/ordering.ts policy (site-plan section 1.2), migrated unchanged 2026-10-17. Production Shopify eligibility/profile configuration remains unverified; this is the site's existing display threshold."
+consumers = ["content/ordering.ts"]
+
+[output.shipping_threshold]
+derived_by = "content/ordering.ts#FREE_SHIPPING_YEN"
+binds_to = "FREE_SHIPPING_YEN"
+reads = ["value.free_shipping_yen"]
+consumers = ["content/ordering.ts", "content/legal.ts", "content/trade.ts", "content/v2.ts", "content/journal/posts/organic-geisha-peru.ts", "content/journal/posts/organic-coffee-gift.ts", "lib/seo.tsx", "components/commerce/sections.tsx", "components/site/hero.tsx", "components/v3/table-chapter.tsx"]
+
+[output.shipping_progress]
+derived_by = "content/ordering.ts#shippingProgress"
+binds_to = "shippingProgress"
+reads = ["value.free_shipping_yen"]
+consumers = ["components/commerce/shipping-progress.tsx", "components/v3/buy-bar.tsx", "components/v3/pages/origins-buy.tsx"]

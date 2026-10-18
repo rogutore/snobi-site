@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "python3 scripts/system-registry.py --check && next build",
     "start": "next start",
     "lint": "eslint",
-    "cf:build": "tsx scripts/with-storefront-env.ts -- opennextjs-cloudflare build",
+    "cf:build": "python3 scripts/system-registry.py --check && tsx scripts/with-storefront-env.ts -- opennextjs-cloudflare build",
     "cf:preview": "tsx scripts/with-storefront-env.ts -- sh -c 'opennextjs-cloudflare build && opennextjs-cloudflare preview'",
     "cf:deploy": "tsx scripts/with-storefront-env.ts -- sh -c 'opennextjs-cloudflare build && opennextjs-cloudflare deploy'",
     "cf:secrets": "tsx scripts/with-storefront-env.ts -- sh -c 'printf %s \"$SHOPIFY_STORE_DOMAIN\" | wrangler secret put SHOPIFY_STORE_DOMAIN && printf %s \"$SHOPIFY_STOREFRONT_TOKEN\" | wrangler secret put SHOPIFY_STOREFRONT_TOKEN'",

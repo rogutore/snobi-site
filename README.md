@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SNöBI storefront
 
-## Getting Started
+Japanese-first organic specialty coffee storefront for Tokyo Coffee. Next.js App Router; Cloudflare Workers through OpenNext is the production hosting path. Shopify supplies stock, cart and hosted checkout. A local build does not establish what is deployed.
 
-First, run the development server:
+## Project entry points
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [AGENTS.md](AGENTS.md) and [DESIGN.md](DESIGN.md): implementation and design rules. Read relevant installed guides in `node_modules/next/dist/docs/` before changing framework code.
+- [RESUME.md](docs/RESUME.md): deployment/history record; older entries may be superseded.
+- [Worklog](docs/codex/CODEX_WORKLOG.md): audit, local fixes, proposals and verification limits.
+- [Current work](docs/research/2026-10-17-next/README.md) and [remaining-work inventory](docs/research/2026-10-17-next/WEBSITE-REMAINING.md): commerce, SEO, Story and next actions.
+
+During the audit weekend, use the isolated worktree and follow [the brief](docs/codex/CODEX_AUDIT_WEEKEND_2026-10-17.md). No deployment, sends, Shopify/Cloudflare changes or vault writes are authorized by development instructions. Stop deadline: Monday 2026-10-19 09:00 JST.
+
+## Local checks
+
+Use the existing dependency installation. `npm run dev` starts development; `npm run build` builds and `npm run start` serves the local production build. Python 3.11+ is required by the registry validator, which runs as the first step of `npm run build` and `npm run cf:build` (and so of every OpenNext build, which calls `npm run build`); invalid or stale generated registry data refuses the build. `next dev` and `next start` do not run it.
+
+```sh
+python3 scripts/system-registry.py --check
+python3 scripts/gates/registry-regression.py
+node scripts/tests/cart-response.mjs
+node scripts/tests/shipping-linkage.mjs
+npm run build
+node node_modules/typescript/bin/tsc --noEmit -p .
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Cart unit tests use synthetic services. Browser tests in `scripts/tests/variant-browser.mjs` require a local server started with `scripts/tests/shopify-fixture.mjs` and synthetic environment values; see [test evidence](docs/research/2026-10-17-next/implementation/E04/). Do not substitute a live add/checkout flow. A local build may read stock if real Storefront configuration is present; credentials stay outside the repository and logs.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Source map
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Concern | Source |
+|---|---|
+| Japanese / English routes | `app/(ja)/(site)/` / `app/(en)/en/` |
+| Current Japanese UI | `components/v3/`; some older components are unmounted |
+| Products and wording | `content/products.ts`, `content/ordering.ts`, `content/journal/` |
+| Registered policies | `system.toml` → `scripts/system-registry.py` → `content/system.generated.ts`; generate, never hand-edit |
+| Shopify and private cart boundary | `lib/shopify/`; `cart-view.ts` projects browser responses |
+| SEO | `lib/seo.tsx`, route metadata, sitemap/robots |
+| Design tokens | `app/globals.css` and generated `DESIGN.md` |
+| Supplier rights | `content/origin-media.json`, `content/origin-media.ts`, `docs/permission-emails.md` |
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Registry coverage is incremental; formal linkcheck opt-in remains unfinished. Tests, responsive screenshots, physical-device checks and production verification are separate evidence. Local success is not release approval.

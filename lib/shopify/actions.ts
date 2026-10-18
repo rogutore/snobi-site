@@ -2,7 +2,8 @@
 import { cookies } from "next/headers";
 import { products, type Locale } from "@/content/products";
 import { storefront, CART_FIELDS, type Cart } from "./client";
-type Result = { cart: Cart | null; error?: string };
+import { cartView, type CartView } from "./cart-view";
+type Result = { cart: CartView | null; error?: string };
 type Payload = {
   cart: Cart | null;
   userErrors: { message: string; code?: string }[];
@@ -13,17 +14,9 @@ const message = (lang: Locale) =>
   lang === "en"
     ? "We could not update your bag. Please try again."
     : "カートを更新できませんでした。もう一度お試しください。";
-function localize(cart: Cart | null, lang: Locale) {
-  if (cart) {
-    const url = new URL(cart.checkoutUrl);
-    url.searchParams.set("locale", lang);
-    cart.checkoutUrl = url.toString();
-  }
-  return cart;
-}
 function unpack(payload: Payload, lang: Locale): Result {
   return {
-    cart: localize(payload.cart, lang),
+    cart: cartView(payload.cart, lang),
     error: payload.userErrors.length
       ? message(lang)
       : payload.warnings?.length
@@ -76,7 +69,7 @@ export async function getCart(lang: Locale = "ja"): Promise<Result> {
       );
       return unpack(data.cartAttributesUpdate, lang);
     }
-    return { cart: localize(cart, lang) };
+    return { cart: cartView(cart, lang) };
   } catch {
     return { cart: null, error: message(lang) };
   }
@@ -155,7 +148,7 @@ export async function updateLine(
   try {
     const cart = await readCart();
     if (!cart || !cart.lines.nodes.some((l) => l.id === lineId))
-      return { cart, error: message(lang) };
+      return { cart: cartView(cart, lang), error: message(lang) };
     const data = await storefront<{ cartLinesUpdate: Payload }>(
       `mutation Update($id:ID!,$lines:[CartLineUpdateInput!]!) @inContext(country:JP) { cartLinesUpdate(cartId:$id,lines:$lines) { ${mutationFields} } }`,
       { id: cart.id, lines: [{ id: lineId, quantity }] },
@@ -173,7 +166,7 @@ export async function removeLine(
   try {
     const cart = await readCart();
     if (!cart || !cart.lines.nodes.some((l) => l.id === lineId))
-      return { cart, error: message(lang) };
+      return { cart: cartView(cart, lang), error: message(lang) };
     const data = await storefront<{ cartLinesRemove: Payload }>(
       `mutation Remove($id:ID!,$lines:[ID!]!) @inContext(country:JP) { cartLinesRemove(cartId:$id,lineIds:$lines) { ${mutationFields} } }`,
       { id: cart.id, lines: [lineId] },

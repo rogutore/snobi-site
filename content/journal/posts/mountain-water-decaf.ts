@@ -1,3 +1,4 @@
+import { SYSTEM } from "../../system.generated";
 import type { Post } from "../types";
 import { yen } from "../../products";
 import { coffee, price, roastOf, caffeineCut } from "../facts";
@@ -88,7 +89,7 @@ const post: Post = {
           p: "スイスウォーター製法と同じく、コーヒーの成分を溶かした水でカフェインを抜く、という説明です。",
         },
         {
-          p: "SNöBI（スノビ）の商品資料では、カフェインを抜く水は、メキシコ最高峰オリサバ山（5,636m）の氷河の水とされています。薬品は使いません。",
+          p: `SNöBI（スノビ）の商品資料では、カフェインを抜く水は、メキシコ最高峰オリサバ山（${SYSTEM.orizaba_elevation_m.toLocaleString("en-US")}m）の氷河の水とされています。薬品は使いません。`,
         },
       ],
     },

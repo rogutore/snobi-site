@@ -8,6 +8,8 @@ import { products, type Coffee } from "@/content/products";
 import { company, legalRows } from "@/content/legal";
 import { FREE_SHIPPING_YEN, SHIPPING_YEN, SHIPPING_REGIONS } from "@/content/ordering";
 import type { StockMap } from "@/lib/shopify/client";
+import { canBuy, livePrice } from "@/lib/shopify/stock";
+import { variantUrl } from "@/lib/product-variant";
 
 export const SITE = "https://snobi.jp";
 import { BRAND_PLAIN } from "@/content/brand";
@@ -128,6 +130,7 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
     ],
     hasVariant: p.variants.map((v) => {
       const s = stock[v.id];
+      const selectedUrl = variantUrl(url, v.size);
       return {
         "@type": "Product",
         name: `${BRAND} ${p.title.ja} ${v.size}`,
@@ -135,15 +138,15 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
         description: p.narrative.ja.join(" "),
         sku: s?.sku || v.sku,
         size: v.size,
-        url,
+        url: selectedUrl,
         ...(s && s.price.currencyCode === "JPY"
           ? {
               offers: {
                 "@type": "Offer",
-                url,
-                price: Number(s.price.amount),
+                url: selectedUrl,
+                price: livePrice(stock, v),
                 priceCurrency: "JPY",
-                availability: s.availableForSale && (s.quantityAvailable === null || s.quantityAvailable > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                availability: canBuy(stock, v.id) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
                 itemCondition: "https://schema.org/NewCondition",
                 seller: { "@id": ORG_ID },
                 ...OFFER_TERMS,
