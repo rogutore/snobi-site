@@ -189,7 +189,8 @@ Almost shadowless; depth comes from real light and the object, not from cards.
   - Journal: up to 4 per article, each after the paragraph it shows.
   - Amazon: up to 2, image slot 8 and A+ module 3; never the main image.
   - Long edge at least 1,600 px, unless marked `small` (shown small). No good photo means an empty slot, never filler.
-  - Resizing and cropping to display sizes are fine. Never text on the photo, composites, colour changes, or a caption naming a person the supplier has not named. The credit sits under the photo.
+  - Resizing and cropping to display sizes are fine. Never text on the photo, composites, colour changes, or a caption naming a person the supplier has not named.
+  - No visible 「写真提供：」 credit (owner 2026-10-19). The supplier, its permission and the agreed credit wording stay in `content/origin-media.json`; captions and alt text stay.
 - Footage uses and timecodes: `docs/footage-uses-2026-10-06.md`. Use front labels only until the Peru back-label misprint is fixed.
 - No 3D bag (owner, 2026-10-06). No generated imagery presented as real, and no stock.
 

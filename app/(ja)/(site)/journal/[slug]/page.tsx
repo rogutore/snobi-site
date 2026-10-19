@@ -9,7 +9,7 @@ import { originFrames } from "@/content/v2";
 import { Photo } from "@/components/v2/photo";
 import { BuyBar } from "@/components/v3/buy-bar";
 import { pageMeta, JsonLd, article, breadcrumb, faqPage, fromPrice } from "@/lib/seo";
-import { journalPhoto, photoCredit, photoSrc, photoSrcSet } from "@/content/origin-media";
+import { journalPhoto, photoSrc, photoSrcSet } from "@/content/origin-media";
 import "@/components/v3/pages/story.css";
 
 /* One journal post (content/journal/posts/*.ts, typed by content/journal/types.ts): the one-sentence answer first,
@@ -32,7 +32,7 @@ function Body({ b, slug }: { b: Block; slug: string }) {
       <figure className="photo">
         {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
         <img src={photoSrc(ph, "l")} srcSet={photoSrcSet(ph)} sizes="(min-width: 820px) 720px, 100vw" width={ph.width} height={ph.height} alt={ph.caption.ja} loading="lazy" decoding="async" />
-        <figcaption className="t-ja-note">{ph.caption.ja} <span className="credit">{photoCredit(ph, "ja")}</span></figcaption>
+        <figcaption className="t-ja-note">{ph.caption.ja}</figcaption>
       </figure>
     );
   }

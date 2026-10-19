@@ -4,3 +4,6 @@
    「© 2026 Snobi」 counts as a copyright notice, and 「SNöBI」 is not identical (Toreru's 弁理士, owner OK 2026-10-15).
    Keep until the registration is granted. */
 export const BRAND_PLAIN = "SNOBI";
+
+/* The one headline line (owner 2026-10-09; DESIGN.md › Belief). Home hero, the hand chapter label and the Story read it. */
+export const BELIEF_JA = "有機も、味も。妥協しない。";
