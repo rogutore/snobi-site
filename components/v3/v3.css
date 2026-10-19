@@ -238,6 +238,7 @@
 .v3-hand-media .v3-hand-fig img { position: static; }
 .v3-hand-fig figcaption, .v3-hand-inline-fig figcaption { padding: 10px var(--gutter); color: var(--color-ink-soft); }
 .v3-hand-inline-fig { display: none; margin: 0; }
+.v3-hand-fig figcaption { padding-bottom: calc(var(--spacing-nav) + 28px); } /* clear of the floating buy bar */
 .v3-more { font-size: 14px; text-underline-offset: 5px; color: var(--color-plum); }
 @media (max-width: 860px) {
   .v3-hand { grid-template-columns: minmax(0, 1fr); }
