@@ -14,6 +14,7 @@ import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
 import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
+import { shotThumb } from "@/components/v2/photo";
 
 const W = 1000, H = 760, GROUND = 690, TOP = 96, CX = 560, CW = 22, XL = 196, XR = 924, P = 1.9;
 const S = (GROUND - TOP) / 4000;
@@ -241,7 +242,7 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
                 <h3>4つ全部、集めました。</h3>
                 <div className="minis">{products.map((x) => (
                   // eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP
-                  <img key={x.slug} src={`/v2/photos/${originFrames[x.slug].hero}-s.webp`} alt={x.title.ja} />
+                  <img key={x.slug} src={shotThumb(originFrames[x.slug].hero)} alt={x.title.ja} />
                 ))}</div>
                 <p className="small">100g × 4（{products.map((x) => x.title.ja.split(" ")[0]).join("・")}）· {yen(allPrice)}（税込）</p>
                 <button type="button" className="v3-btn add" disabled={!allOk || cart.pending} onClick={() => cart.add(allIds)}>

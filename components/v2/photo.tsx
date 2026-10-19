@@ -4,11 +4,23 @@ import manifest from "@/public/v2/photos/manifest.json";
 
 type Frame = keyof typeof manifest;
 
-/** The srcset for one shoot photo, from the manifest: -l is the exported width, -s exactly half (checked for all files). */
-export function shotSrcSet(id: string) {
-  const dims = manifest[id as Frame] as [number, number] | undefined;
+/* manifest: frame → [l width, l height, m width, t width, t height] (scripts/export-v2-photos.py). */
+function dimsOf(id: string) {
+  const dims = manifest[id as Frame] as [number, number, number, number, number] | undefined;
   if (!dims) throw new Error(`v2 photo ${id} is not exported (scripts/export-v2-photos.py)`);
-  return `/v2/photos/${id}-s.webp ${dims[0] / 2}w, /v2/photos/${id}-l.webp ${dims[0]}w`;
+  return dims;
+}
+
+/** The srcset for one shoot photo: -s is exactly half of -l (checked for all files), -m and -l widths from the manifest. */
+export function shotSrcSet(id: string) {
+  const [w, , m] = dimsOf(id);
+  return `/v2/photos/${id}-s.webp ${w / 2}w, /v2/photos/${id}-m.webp ${m}w, /v2/photos/${id}-l.webp ${w}w`;
+}
+
+/** The thumbnail (short edge 240px) for boxes of about 80px, e.g. the buy bars and the gallery strip. */
+export function shotThumb(id: string) {
+  dimsOf(id);
+  return `/v2/photos/${id}-t.webp`;
 }
 
 export function Photo({
@@ -28,9 +40,7 @@ export function Photo({
   className?: string;
   position?: string;
 }) {
-  const dims = manifest[id as Frame] as [number, number] | undefined;
-  if (!dims) throw new Error(`v2 photo ${id} is not exported (scripts/export-v2-photos.py)`);
-  const [w, h] = dims;
+  const [w, h] = dimsOf(id);
   return (
     <figure className={`v2-photo ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair, no runtime optimiser on Workers */}

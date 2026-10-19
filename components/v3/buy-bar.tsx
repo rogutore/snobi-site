@@ -10,6 +10,7 @@ import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
 import { canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
+import { shotThumb } from "@/components/v2/photo";
 
 const minPrice = Math.min(...products.flatMap((p) => p.variants.map((v) => v.price)));
 
@@ -41,7 +42,7 @@ export function BuyBar({ stock }: { stock: StockMap }) {
             <button key={p.slug} type="button" disabled={!ok || cart.pending} tabIndex={show ? 0 : -1}
               onClick={() => cart.add(v.id)} aria-label={`${p.title.ja} 100g ${yen(livePrice(stock, v))} をカートに入れる`} title={`${p.title.ja} 100g`}>
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP */}
-              <img src={`/v2/photos/${originFrames[p.slug].table}-s.webp`} alt="" loading="lazy" decoding="async" />
+              <img src={shotThumb(originFrames[p.slug].table)} alt="" loading="lazy" decoding="async" />
               <span aria-hidden>＋</span>
             </button>
           );

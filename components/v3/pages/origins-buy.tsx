@@ -11,6 +11,7 @@ import { originFrames } from "@/content/v2";
 import type { StockMap } from "@/lib/shopify/client";
 import { canBuy, livePrice, buyLabel } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
+import { shotThumb } from "@/components/v2/photo";
 
 type Size = "100g" | "200g";
 
@@ -77,7 +78,7 @@ export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMa
       <div className={`v3-buybar v3-prodbar ${showBar ? "on" : ""}`} role="region" aria-label={`${p.title.ja}を購入`} aria-hidden={!showBar}
         onFocusCapture={() => setBarFocused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setBarFocused(false); }}>
         {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP */}
-        <img className="thumb" src={`/v2/photos/${originFrames[p.slug].table}-s.webp`} alt="" />
+        <img className="thumb" src={shotThumb(originFrames[p.slug].table)} alt="" />
         <div className="meta">
           <p className="name">{p.title.ja}</p>
           <div className="ship">

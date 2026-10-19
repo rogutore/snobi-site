@@ -4,7 +4,7 @@
    light, the roasted beans, the cup, brewing, the dark table, held at the waist. The white-background studio frame is
    left out (small, off-centre bag). One large photo + a thumbnail row; the large one keeps a fixed 3:4 frame. */
 import { useState } from "react";
-import { shotSrcSet } from "@/components/v2/photo";
+import { shotSrcSet, shotThumb } from "@/components/v2/photo";
 
 export type Shot = { id: string; alt: string; position?: string };
 
@@ -29,7 +29,7 @@ export function OriginGallery({ shots }: { shots: Shot[] }) {
         {shots.map((x, n) => (
           <button key={x.id} type="button" aria-label={`写真${n + 1}：${x.alt}`} aria-current={n === i} onClick={() => setI(n)}>
             {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP thumb */}
-            <img src={`/v2/photos/${x.id}-s.webp`} alt="" loading="lazy" style={x.position ? { objectPosition: x.position } : undefined} />
+            <img src={shotThumb(x.id)} alt="" loading="lazy" style={x.position ? { objectPosition: x.position } : undefined} />
           </button>
         ))}
       </div>

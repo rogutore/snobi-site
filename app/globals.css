@@ -294,8 +294,13 @@ section[id] {
   gap: 24px;
   font-size: 12px;
 }
+.nav-links > a {
+  min-height: var(--spacing-touch-target);
+  display: inline-flex;
+  align-items: center;
+}
 .cart-trigger {
-  height: 42px;
+  height: var(--spacing-touch-target);
   min-width: 60px;
   display: flex;
   align-items: center;
