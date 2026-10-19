@@ -19,7 +19,7 @@ export function OriginGallery({ shots }: { shots: Shot[] }) {
           key={s.id}
           src={`/v2/photos/${s.id}-s.webp`}
           srcSet={shotSrcSet(s.id)}
-          sizes="(min-width:860px) 52vw, 100vw"
+          sizes="(min-width:860px) 52vw, 90vw"
           alt={s.alt}
           style={s.position ? { objectPosition: s.position } : undefined}
           fetchPriority={i === 0 ? "high" : "auto"}

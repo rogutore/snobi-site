@@ -123,7 +123,7 @@ export default async function Origin({ params, searchParams }: { params: Promise
       <section className="v3p-origins-bag" aria-labelledby="o-bag">
         <div className="ph">
           {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-          <img {...img(f.hand)} sizes="(min-width:860px) 40vw, 100vw" alt={`${p.title.ja}の袋を手渡す`} loading="lazy" />
+          <img {...img(f.hand)} sizes="(min-width:860px) 40vw, 90vw" alt={`${p.title.ja}の袋を手渡す`} loading="lazy" />
         </div>
         <div className="text">
           <p className="eyebrow">The bag</p>
