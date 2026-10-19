@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Read-only stock-boundary and rendered supplier-credit gate. Optional URL is GET-only."""
+"""Read-only stock-boundary and supplier-photo gate. Optional URL is GET-only.
+Owner 2026-10-19: no visible 「写真提供：」 credit; every supplier keeps its agreed credit wording in content/origin-media.json."""
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -50,8 +51,9 @@ class Credits(HTMLParser):
             self.caption = False
         elif tag == "figure" and self.figure is not None:
             for photo_id in self.figure["ids"]:
-                expected = MEDIA["suppliers"][PHOTOS[photo_id]["supplier"]]["credit"][self.lang]
-                assert expected and expected in self.figure["caption"], f"missing {self.lang} credit: {photo_id}"
+                assert self.figure["caption"].strip(), f"supplier photo without a caption: {photo_id}"
+                credit = MEDIA["suppliers"][PHOTOS[photo_id]["supplier"]]["credit"][self.lang]
+                assert credit not in self.figure["caption"], f"visible credit (owner 2026-10-19: hide): {photo_id}"
             self.figure = None
 
 
@@ -65,17 +67,20 @@ def main():
     assert not stock_copies(files), stock_copies(files)
     assert stock_copies([("components/regression.ts", "s.availableForSale")]), "copy-detector self-test"
     photo_id = next(iter(PHOTOS))
-    try:
-        Credits("ja").feed(f'<figure><img src="/origin-media/{photo_id}-l.webp"><figcaption>missing</figcaption></figure>')
-    except AssertionError:
-        pass
-    else:
-        raise AssertionError("missing-credit self-test did not fail")
+    credit = MEDIA["suppliers"][PHOTOS[photo_id]["supplier"]]["credit"]["ja"]
+    for bad in (f"caption {credit}", ""):
+        try:
+            Credits("ja").feed(f'<figure><img src="/origin-media/{photo_id}-l.webp"><figcaption>{bad}</figcaption></figure>')
+        except AssertionError:
+            pass
+        else:
+            raise AssertionError(f"self-test did not fail for caption {bad!r}")
     pages = photos = 0
     if len(sys.argv) == 2:
         base = sys.argv[1].rstrip("/")
         def get(route):
-            with urllib.request.urlopen(base + route, timeout=30) as response:
+            req = urllib.request.Request(base + route, headers={"User-Agent": "Mozilla/5.0 snobi-verify"})  # Cloudflare refuses Python's default UA
+            with urllib.request.urlopen(req, timeout=30) as response:
                 return response.read().decode()
         sitemap = ET.fromstring(get("/sitemap.xml"))
         for loc in sitemap.findall(".//{*}loc"):

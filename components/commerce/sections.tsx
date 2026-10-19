@@ -5,6 +5,16 @@ import { products, minimumPrice, yen, type Locale } from "@/content/products";
 import { getStock } from "@/lib/shopify/client";
 import { BuyCard } from "./buy-card";
 import { orderingSummary, orderingSchedule, freeShippingLine, FREE_SHIPPING_YEN, shippingRates, shipMethodLine } from "@/content/ordering";
+
+/* The FAQ price answer, read from content/products.ts (it was typed by hand; audit 2026-10-19). */
+const sizePrice = (p: (typeof products)[number], size: "100g" | "200g") => {
+  const v = p.variants.find((x) => x.size === size);
+  if (!v) throw new Error(`sections: ${p.slug} has no ${size} variant`);
+  return yen(v.price);
+};
+const priceListEn = products.map((p) => `${p.country}${p.decaf ? " decaf" : ""} ${sizePrice(p, "100g")} / ${sizePrice(p, "200g")}`).join("; ");
+const priceListJa = products.map((p) => `${p.title.ja.split(" ")[0]}${p.decaf ? " デカフェ" : ""} ${sizePrice(p, "100g")} / ${sizePrice(p, "200g")}`).join("、");
+
 export async function ShopSection({ lang = "ja" }: { lang?: Locale }) {
   const { stock, error } = await getStock();
   const en = lang === "en";
@@ -292,7 +302,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "Why this price?",
-          "100g / 200g, including tax: Peru ¥2,560 / ¥4,720; Ethiopia ¥1,605 / ¥2,810; Colombia ¥1,410 / ¥2,420; Mexico decaf ¥1,610 / ¥2,820. Whole bean only.",
+          `100g / 200g, including tax: ${priceListEn}. Whole bean only.`,
         ],
         [
           "Organic? Roast level? Whole bean?",
@@ -322,7 +332,7 @@ export function FAQ({ lang = "ja" }: { lang?: Locale }) {
         ],
         [
           "価格とサイズについて教えて。",
-          "100g / 200gの税込価格は、ペルー ¥2,560 / ¥4,720、エチオピア ¥1,605 / ¥2,810、コロンビア ¥1,410 / ¥2,420、メキシコ デカフェ ¥1,610 / ¥2,820。豆のままでのお届けです。",
+          `100g / 200gの税込価格は、${priceListJa}。豆のままでのお届けです。`,
         ],
         [
           "有機？ 焙煎度は？ 粉でも買える？",

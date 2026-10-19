@@ -7,9 +7,9 @@ Japanese-first organic specialty coffee storefront for Tokyo Coffee. Next.js App
 - [AGENTS.md](AGENTS.md) and [DESIGN.md](DESIGN.md): implementation and design rules. Read relevant installed guides in `node_modules/next/dist/docs/` before changing framework code.
 - [RESUME.md](docs/RESUME.md): deployment/history record; older entries may be superseded.
 - [Worklog](docs/codex/CODEX_WORKLOG.md): audit, local fixes, proposals and verification limits.
-- [Current work](docs/research/2026-10-17-next/README.md) and [remaining-work inventory](docs/research/2026-10-17-next/WEBSITE-REMAINING.md): commerce, SEO, Story and next actions.
+- Codex weekend review and hand-back: `docs/codex/CC-REVIEW-2026-10-17.md`; the research pack stays on Codex's branch `codex/ready-fixes-2026-10-17` (not in this repo's main line).
 
-During the audit weekend, use the isolated worktree and follow [the brief](docs/codex/CODEX_AUDIT_WEEKEND_2026-10-17.md). No deployment, sends, Shopify/Cloudflare changes or vault writes are authorized by development instructions. Stop deadline: Monday 2026-10-19 09:00 JST.
+Only `claude/v2-pages` deploys; live state and rollback are in [RESUME.md](docs/RESUME.md). The Codex audit weekend (2026-10-17 → 10-19) is closed; its brief is `docs/codex/CODEX_AUDIT_WEEKEND_2026-10-17.md`.
 
 ## Local checks
 
@@ -25,7 +25,7 @@ node node_modules/typescript/bin/tsc --noEmit -p .
 npm run lint
 ```
 
-Cart unit tests use synthetic services. Browser tests in `scripts/tests/variant-browser.mjs` require a local server started with `scripts/tests/shopify-fixture.mjs` and synthetic environment values; see [test evidence](docs/research/2026-10-17-next/implementation/E04/). Do not substitute a live add/checkout flow. A local build may read stock if real Storefront configuration is present; credentials stay outside the repository and logs.
+Cart unit tests use synthetic services. Browser tests in `scripts/tests/variant-browser.mjs` require a local server started with `scripts/tests/shopify-fixture.mjs` and synthetic environment values. Do not substitute a live add/checkout flow. A local build may read stock if real Storefront configuration is present; credentials stay outside the repository and logs.
 
 ## Source map
 
