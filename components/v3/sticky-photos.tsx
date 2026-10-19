@@ -5,8 +5,8 @@
 import { useEffect, useRef, useState } from "react";
 
 /* A frame is one of our 2026-10-01 shoot photos (`frame`, /v2/photos/<frame>-s|l.webp), or a supply-chain photo from
-   content/origin-media.ts (`src`/`srcSmall` + its own `note`): the shoot caption is hidden while it shows, and its note sits
-   under the phone photo / at the end of the step, never on the photo (DESIGN.md › Imagery). */
+   content/origin-media.ts (`src`/`srcSmall` + its own `note`): that one is a <figure> whose caption sits under the photo, never
+   on it, and the shoot caption is hidden while it shows (DESIGN.md › Imagery; scripts/gates/weekend-rules.py checks it). */
 export type Frame = { frame: string; alt: string; src?: string; srcSmall?: string; note?: string };
 const large = (f: Frame) => f.src ?? `/v2/photos/${f.frame}-l.webp`;
 const small = (f: Frame) => f.srcSmall ?? `/v2/photos/${f.frame}-s.webp`;
@@ -32,7 +32,13 @@ export function StickyPhotos({ frames, label, caption, className = "", steps, pr
   return (
     <section className={`v3-hand ${className}`} aria-label={label}>
       <div className="v3-hand-media" aria-hidden>
-        {frames.map((s, i) => (
+        {frames.map((s, i) => s.src ? (
+          <figure key={s.frame} className="v3-hand-fig" style={{ opacity: active === i ? 1 : 0 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
+            <img src={large(s)} alt="" loading="lazy" />
+            <figcaption className="t-ja-note">{s.note}</figcaption>
+          </figure>
+        ) : (
           // eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair
           <img key={s.frame} src={large(s)} alt="" style={{ opacity: active === i ? 1 : 0 }} loading="lazy" />
         ))}
@@ -41,9 +47,16 @@ export function StickyPhotos({ frames, label, caption, className = "", steps, pr
       <div className="v3-hand-steps">
         {steps.map((body, i) => (
           <article key={frames[i].frame} ref={(el) => { refs.current[i] = el; }} data-i={i} className={`v3-hand-step ${active === i ? "on" : ""}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- phones: the step's own photo */}
-            <img className="v3-hand-inline" src={small(frames[i])} alt={frames[i].alt} loading={priority && i === 0 ? "eager" : "lazy"} fetchPriority={priority && i === 0 ? "high" : undefined} />
-            {frames[i].note ? <p className="v3-hand-note t-ja-note">{frames[i].note}</p> : null}
+            {frames[i].src ? (
+              <figure className="v3-hand-inline-fig">
+                {/* eslint-disable-next-line @next/next/no-img-element -- phones: the step's own photo */}
+                <img className="v3-hand-inline" src={small(frames[i])} alt={frames[i].alt} loading="lazy" />
+                <figcaption className="t-ja-note">{frames[i].note}</figcaption>
+              </figure>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element -- phones: the step's own photo
+              <img className="v3-hand-inline" src={small(frames[i])} alt={frames[i].alt} loading={priority && i === 0 ? "eager" : "lazy"} fetchPriority={priority && i === 0 ? "high" : undefined} />
+            )}
             {body}
           </article>
         ))}

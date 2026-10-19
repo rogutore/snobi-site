@@ -189,7 +189,7 @@ Almost shadowless; depth comes from real light and the object, not from cards.
   - Product page: 1–3, in the producer section (one lead, two beside it). The top gallery stays our own bag shots.
   - Journal: up to 4 per article, each after the paragraph it shows.
   - Amazon: up to 2, image slot 8 and A+ module 3; never the main image.
-  - Home: one photo site-wide (`home: true`), step 02 of the four-points chapter, in place of the roaster shot (owner 2026-10-19). Its caption sits under the phone photo and at the end of the step on desktop; the shoot caption is hidden while it shows.
+  - Home: one photo site-wide (`home: true`), step 02 of the four-points chapter, in place of the roaster shot (owner 2026-10-19). It is a figure with its caption under the photo (desktop stage and phone); the shoot caption is hidden while it shows.
   - Long edge at least 1,600 px, unless marked `small` (shown small). No good photo means an empty slot, never filler.
   - Resizing and cropping to display sizes are fine. Never text on the photo, composites, colour changes, or a caption naming a person the supplier has not named.
   - No visible 「写真提供：」 credit (owner 2026-10-19). The supplier, its permission and the agreed credit wording stay in `content/origin-media.json`; captions and alt text stay.
