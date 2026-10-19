@@ -7,13 +7,15 @@ import Link from "next/link";
 import { freeShippingLine } from "@/content/ordering";
 import { ScoreScale } from "@/components/v3/score-scale";
 import { StickyPhotos } from "@/components/v3/sticky-photos";
+import { homePhoto, photoSrc } from "@/content/origin-media";
 
 /* Each point has its own photo (owner 2026-10-10, after Masaki: the four hand-off frames looked alike). 161 the JAS mark
-   on the green-bean sack · 006 roasting (a hand at the roaster over the cooling tray) · 152 roasted beans close up ·
-   030 the four bags on the desk by the window. */
+   on the green-bean sack · 02 the farm (owner 2026-10-19: a farm photo replaces the roaster shot 006; the one home photo in
+   content/origin-media.json) · 152 roasted beans close up · 030 the four bags on the desk by the window. */
+const farm = homePhoto();
 const STEPS = [
   { frame: "161", alt: "有機JASマークのある生豆の麻袋" },
-  { frame: "006", alt: "焙煎機の前で、冷却中の豆を見る" },
+  { frame: farm.id, alt: farm.caption.ja, src: photoSrc(farm, "l"), srcSmall: photoSrc(farm, "s"), note: farm.caption.ja },
   { frame: "152", alt: "焙煎した豆" },
   { frame: "030", alt: "窓辺の机に並ぶ4つの産地の袋" },
 ];

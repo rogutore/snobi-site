@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
       { source: "/v2", destination: "/", permanent: true },
       { source: "/v2/:page(coffee|origins|about|faq|journal|trade)", destination: "/:page", permanent: true },
       { source: "/v2/origins/:slug", destination: "/origins/:slug", permanent: true },
+      { source: "/v2/journal/roastery", destination: "/journal/roastery", permanent: true },
       { source: "/lab/:path*", destination: "/", permanent: true },
     ];
     return [

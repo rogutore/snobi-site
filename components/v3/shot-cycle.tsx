@@ -13,6 +13,7 @@
    Frames: content/v2.ts originFrames. */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { originFrames } from "@/content/v2";
+import { shotSrcSet } from "@/components/v2/photo";
 
 type Key = keyof (typeof originFrames)["peru"];
 const SHOTS: Key[] = ["hero", "beans", "cup", "brew", "hand"];
@@ -24,6 +25,18 @@ const FRAME_POS: Record<string, string> = { "126": "62% 60%" };
 type CardApi = { visible: () => boolean; hovered: () => boolean; image: (n: number) => HTMLImageElement | null };
 type Rotation = { shot: number[]; prev: number[]; register: (i: number, api: CardApi | null) => void };
 const Ctx = createContext<Rotation | null>(null);
+
+/* Nothing rotates, and the other shots do not load, until the reader's first scroll, tap or key. Chrome stops counting the
+   largest paint at the first input, so a later shot can never become the page's LCP (2026-10-19: /coffee measured
+   15.6 s, the cup shot painted ~14 s in; reduced motion, which never rotates, measured 1.7 s). */
+const FIRST_INPUT = ["scroll", "wheel", "pointerdown", "keydown", "touchstart"] as const;
+function onFirstInput(cb: () => void) {
+  let done = false;
+  const go = () => { if (done) return; done = true; off(); cb(); };
+  const off = () => FIRST_INPUT.forEach((t) => window.removeEventListener(t, go));
+  FIRST_INPUT.forEach((t) => window.addEventListener(t, go, { passive: true }));
+  return () => { done = true; off(); };
+}
 
 const pickOne = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)];
 const pickWeighted = (xs: number[], w: (x: number) => number): number => {
@@ -85,8 +98,8 @@ export function ShotRotation({ count, pace = [2200, 3800], children }: { count: 
       }
       if (!stopped) timer = window.setTimeout(tick, gap());
     };
-    timer = window.setTimeout(tick, 1400 + Math.random() * 1000);
-    return () => { stopped = true; window.clearTimeout(timer); };
+    const cancelStart = onFirstInput(() => { if (!stopped) timer = window.setTimeout(tick, 1400 + Math.random() * 1000); });
+    return () => { stopped = true; cancelStart(); window.clearTimeout(timer); };
   }, [lo, hi]);
   const value = useMemo(() => ({ ...state, register }), [state, register]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
@@ -107,22 +120,23 @@ export function ShotCycle({ slug, alt, index, sizes, eager = false }: {
   const imgs = useRef<(HTMLImageElement | null)[]>([]);
   const seen = useRef(false);
   const over = useRef(false);
-  const [armed, setArmed] = useState(false); // the other shots load once the card has been on screen
+  const [armed, setArmed] = useState(false); // the other shots load once the card has been on screen after the first input
   const { register } = rot;
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      seen.current = e.isIntersecting;
-      // the other shots wait until the page has finished loading, so they never compete with the first paint
-      if (e.isIntersecting) {
-        if (document.readyState === "complete") setArmed(true);
-        else window.addEventListener("load", () => setArmed(true), { once: true });
-      }
-    }, { rootMargin: "0px 0px -8% 0px" });
+    let input = false;
+    // the other shots wait for the page to finish loading and for the first input, so they never compete with the first paint
+    const arm = () => {
+      if (!input || !seen.current) return;
+      if (document.readyState === "complete") setArmed(true);
+      else window.addEventListener("load", () => setArmed(true), { once: true });
+    };
+    const cancelInput = onFirstInput(() => { input = true; arm(); });
+    const io = new IntersectionObserver(([e]) => { seen.current = e.isIntersecting; arm(); }, { rootMargin: "0px 0px -8% 0px" });
     io.observe(el);
     register(index, { visible: () => seen.current, hovered: () => over.current, image: (n) => imgs.current[n] ?? null });
-    return () => { io.disconnect(); register(index, null); };
+    return () => { cancelInput(); io.disconnect(); register(index, null); };
   }, [index, register]);
   const k = rot.shot[index] ?? 0;
   const prev = rot.prev[index] ?? -1;
@@ -134,7 +148,7 @@ export function ShotCycle({ slug, alt, index, sizes, eager = false }: {
         return (
           // eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair
           <img key={key} ref={(el) => { imgs.current[n] = el; }} className={n === k ? "in" : n === prev ? "out" : ""}
-            src={`/v2/photos/${id}-s.webp`} srcSet={`/v2/photos/${id}-s.webp 700w, /v2/photos/${id}-l.webp 1400w`} sizes={sizes}
+            src={`/v2/photos/${id}-s.webp`} srcSet={shotSrcSet(id)} sizes={sizes}
             alt={n === 0 ? alt : ""} aria-hidden={n === 0 ? undefined : true} style={{ objectPosition: FRAME_POS[id] ?? POS[key] }}
             loading={n === 0 && eager ? "eager" : n === 0 ? "lazy" : "eager"} fetchPriority={n === 0 && eager ? "high" : undefined} decoding="async" />
         );

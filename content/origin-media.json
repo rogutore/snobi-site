@@ -1,5 +1,5 @@
 {
-  "_doc": "Supply-chain photos approved for snobi.jp and Amazon — the ONLY origin photos any page may show (owner 2026-10-15, 'lock it in'). Hand-edited decisions; content/origin-media.ts validates them at build (quotas, slots, quality bar) and scripts/export-origin-media.py turns `src` (relative to Drive My Drive/SNOBI/) into public/origin-media/<id>-s.webp (800w) and -l.webp (≤1600w) plus sizes.json. Rules: DESIGN.md › Imagery. Product page 1–3 (product: 1 = lead), journal ≤4 per post, Amazon ≤2 (slot8 = image slot 8, aplus = A+ module 3). Long edge ≥1600px unless `small: true` (shown at small size only). No visible credit on the site (owner 2026-10-19); `credit` below is the agreed wording, kept for records and for any surface that needs it. Resize/crop to display sizes is fine; never text on the photo, composites, colour changes or a caption that names a person the supplier has not named. Pending, not listed: 小川 ① (two men under a tree — needs their names from 鈴木様).",
+  "_doc": "Supply-chain photos approved for snobi.jp and Amazon — the ONLY origin photos any page may show (owner 2026-10-15, 'lock it in'). Hand-edited decisions; content/origin-media.ts validates them at build (quotas, slots, quality bar) and scripts/export-origin-media.py turns `src` (relative to Drive My Drive/SNOBI/) into public/origin-media/<id>-s.webp (800w) and -l.webp (≤1600w) plus sizes.json. Rules: DESIGN.md › Imagery. Product page 1–3 (product: 1 = lead), journal ≤4 per post, Amazon ≤2 (slot8 = image slot 8, aplus = A+ module 3). Home: at most one photo site-wide (`home: true`), step 02 of the four-points chapter (owner 2026-10-19: replace a roaster photo with a farm photo). Long edge ≥1600px unless `small: true` (shown at small size only). No visible credit on the site (owner 2026-10-19); `credit` below is the agreed wording, kept for records and for any surface that needs it. Resize/crop to display sizes is fine; never text on the photo, composites, colour changes or a caption that names a person the supplier has not named. Pending, not listed: 小川 ① (two men under a tree — needs their names from 鈴木様).",
   "suppliers": {
     "ogawa": {
       "credit": { "ja": "写真提供：小川珈琲", "en": "Photo: Ogawa Coffee" },
@@ -19,7 +19,7 @@
       "id": "eth-sorting", "origin": "ethiopia-guji", "supplier": "ogawa",
       "src": "Ethiopia Tade GG Guji Natural/Photos/From 小川珈琲/エチオピア・タデGG③.webp",
       "caption": { "ja": "タデGG農園。乾燥台の上で、実を手で選り分ける。", "en": "Tade GG. Sorting the cherries by hand on the raised beds." },
-      "product": 1, "journal": [], "amazon": "slot8"
+      "product": 1, "journal": [], "amazon": "slot8", "home": true
     },
     {
       "id": "eth-forest", "origin": "ethiopia-guji", "supplier": "ogawa",

@@ -52,6 +52,7 @@
   --spacing-gutter: clamp(1.0000rem, 0.5714rem + 2.1429vw, 2.5000rem); /* 16→40px */
   --spacing-section: clamp(4.0000rem, 3.4286rem + 2.8571vw, 6.0000rem); /* 64→96px vertical section pad */
   --spacing-nav: 4rem; /* 64px header */
+  --spacing-touch-target: 2.75rem; /* DESIGN.md minimum interactive target */
   --container-content: 83rem; /* 1328px, existing content width */
   --container-measure: 36em; /* JP body measure (~36 kana) */
 

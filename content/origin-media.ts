@@ -14,12 +14,13 @@ export type OriginPhoto = {
   product: 1 | 2 | 3 | null;
   journal: string[];
   amazon: "slot8" | "aplus" | null;
+  home?: boolean;
   width: number;
   height: number;
 };
 
 const QUALITY_PX = 1600; // long edge, unless `small`
-const LIMIT = { product: 3, journal: 4, amazon: 2 } as const;
+const LIMIT = { product: 3, journal: 4, amazon: 2, home: 1 } as const;
 
 const photos: OriginPhoto[] = data.photos.map((p) => {
   const size = (sizes as Record<string, number[]>)[p.id];
@@ -41,6 +42,15 @@ for (const c of products) {
 }
 for (const post of new Set(photos.flatMap((p) => p.journal))) {
   if (photos.filter((p) => p.journal.includes(post)).length > LIMIT.journal) throw new Error(`origin-media: ${post} has more than ${LIMIT.journal} photos`);
+}
+
+if (photos.filter((p) => p.home).length > LIMIT.home) throw new Error(`origin-media: more than ${LIMIT.home} home photo`);
+
+/** The one supply-chain photo approved for the home page (step 02 of the four-points chapter); throws if none is. */
+export function homePhoto(): OriginPhoto {
+  const p = photos.find((x) => x.home);
+  if (!p) throw new Error("origin-media: no photo is approved for home");
+  return p;
 }
 
 /** Product-page photos for one origin, lead first (0–3). */

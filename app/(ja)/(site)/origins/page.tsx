@@ -3,6 +3,7 @@ import Link from "next/link";
 import { products } from "@/content/products";
 import { originFrames } from "@/content/v2";
 import "@/components/v3/pages/origins.css";
+import { shotSrcSet } from "@/components/v2/photo";
 
 /* Mockup D origins.html, ported with the real fonts. Replaced (owner): the coffee-belt map ("it stinks") → four large
    entries, each one bag on the old table in a shaft of sun (frames 025/022/024/023 = originFrames.table).
@@ -27,7 +28,7 @@ export default function Origins() {
               <Link href={`/origins/${p.slug}`} className="v3p-origins-entry">
                 <span className="ph">
                   {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-                  <img src={`/v2/photos/${id}-s.webp`} srcSet={`/v2/photos/${id}-s.webp 700w, /v2/photos/${id}-l.webp 1400w`}
+                  <img src={`/v2/photos/${id}-s.webp`} srcSet={shotSrcSet(id)}
                     sizes="(min-width:860px) 45vw, 100vw" alt={`SNöBI ${p.title.ja}の袋。古いテーブルに差す光の中`} loading={i < 2 ? "eager" : "lazy"} />
                 </span>
                 <span className="no">{String(i + 1).padStart(2, "0")}</span>

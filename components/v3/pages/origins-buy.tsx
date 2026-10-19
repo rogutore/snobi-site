@@ -19,12 +19,37 @@ export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMa
   const cart = useCart();
   const box = useRef<HTMLDivElement>(null);
   const [past, setPast] = useState(false);
+  const [barFocused, setBarFocused] = useState(false);
+  const showBar = past || barFocused;
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting && e.boundingClientRect.top < 0));
-    io.observe(el);
-    return () => io.disconnect();
+    const button = el.querySelector<HTMLButtonElement>(".v3p-origins-add");
+    if (!button) return;
+    const mobile = window.matchMedia("(max-width: 860px)");
+    const headerBottom = () => Math.max(0, document.querySelector(".v3-nav")?.getBoundingClientRect().bottom ?? 0);
+    const update = () => {
+      const r = button.getBoundingClientRect();
+      const top = headerBottom();
+      const fullyVisible = r.top >= top && r.bottom <= window.innerHeight;
+      setPast(!fullyVisible && (mobile.matches || r.bottom <= top));
+    };
+    let io: IntersectionObserver;
+    let frame = 0;
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(() => { frame = 0; update(); });
+    };
+    const observe = () => {
+      io?.disconnect();
+      io = new IntersectionObserver(update, { threshold: [0, 1], rootMargin: `-${headerBottom()}px 0px 0px 0px` });
+      io.observe(button);
+      update();
+    };
+    mobile.addEventListener("change", observe);
+    window.addEventListener("resize", observe);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    observe();
+    return () => { io.disconnect(); mobile.removeEventListener("change", observe); window.removeEventListener("resize", observe); window.removeEventListener("scroll", onScroll); window.cancelAnimationFrame(frame); };
   }, []);
   const v = p.variants.find((x) => x.size === size)!;
   const ok = canBuy(stock, v.id);
@@ -49,7 +74,8 @@ export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMa
       </button>
       <p className="v3p-origins-fine">{orderingSummary.ja}</p>
 
-      <div className={`v3-buybar v3-prodbar ${past ? "on" : ""}`} role="region" aria-label={`${p.title.ja}を購入`} aria-hidden={!past}>
+      <div className={`v3-buybar v3-prodbar ${showBar ? "on" : ""}`} role="region" aria-label={`${p.title.ja}を購入`} aria-hidden={!showBar}
+        onFocusCapture={() => setBarFocused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setBarFocused(false); }}>
         {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP */}
         <img className="thumb" src={`/v2/photos/${originFrames[p.slug].table}-s.webp`} alt="" />
         <div className="meta">
@@ -61,12 +87,12 @@ export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMa
         </div>
         <div className="seg" role="radiogroup" aria-label="サイズ">
           {p.variants.map((x) => (
-            <button key={x.id} type="button" role="radio" aria-checked={size === x.size} tabIndex={past ? 0 : -1} onClick={() => setSize(x.size)}>
+            <button key={x.id} type="button" role="radio" aria-checked={size === x.size} tabIndex={showBar ? 0 : -1} onClick={() => setSize(x.size)}>
               {x.size}
             </button>
           ))}
         </div>
-        <button type="button" className="v3-btn add" disabled={!ok || cart.pending} tabIndex={past ? 0 : -1} onClick={() => cart.add(v.id)}
+        <button type="button" className="v3-btn add" disabled={!ok || cart.pending} tabIndex={showBar ? 0 : -1} onClick={() => cart.add(v.id)}
           aria-label={`${p.title.ja} ${size} ${yen(livePrice(stock, v))} — ${label}`}>
           {cart.pending ? <LoaderCircle size={14} className="v3-spin" aria-hidden /> : null}
           {ok ? <><span className="lbl">カートへ</span><b>{yen(livePrice(stock, v))}</b></> : <span>{label}</span>}

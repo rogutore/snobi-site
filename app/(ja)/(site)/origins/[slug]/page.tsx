@@ -14,6 +14,7 @@ import { OriginPhotos } from "@/components/v3/origin-photos";
 import { FujiMini } from "@/components/v3/fuji-mini";
 import { posts } from "@/content/journal/index";
 import "@/components/v3/pages/origins.css";
+import { shotSrcSet } from "@/components/v2/photo";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +42,7 @@ const MORE_FACTS: Record<string, string[]> = {
 };
 
 const find = (slug: string) => products.find((x) => x.slug === slug);
-const img = (id: string) => ({ src: `/v2/photos/${id}-s.webp`, srcSet: `/v2/photos/${id}-s.webp 700w, /v2/photos/${id}-l.webp 1400w` });
+const img = (id: string) => ({ src: `/v2/photos/${id}-s.webp`, srcSet: shotSrcSet(id) });
 const tags = (p: Coffee) => [p.roast?.ja, p.decaf ? "デカフェ" : null].filter(Boolean).join(" · ");
 
 /* Organic-first titles (plan §3, owner 2026-10-08: "the whole point is specialty organic"). */

@@ -1,6 +1,8 @@
 "use client";
 /* Mockup D header/footer, ported with the real marks. */
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { Menu } from "lucide-react";
 import { useCart } from "@/components/commerce/cart";
 
 /* /v3 pages are Mockup D's pages ported with the real fonts. Trade stays on the old preview until the owner and Davy decide. */
@@ -18,6 +20,14 @@ function CartPill() {
 }
 
 export function Header() {
+  const menu = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !menu.current?.contains(event.target)) menu.current?.removeAttribute("open");
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, []);
   return (
     <header className="v3-nav">
       <Link className="v3-mark" href="/" aria-label="SNöBI ホーム">
@@ -26,7 +36,15 @@ export function Header() {
         {/* eslint-disable-next-line @next/next/no-img-element -- brand SVG */}
         <img className="wm" src="/brand/snobi_font1.svg" alt="SNöBI" width={110} height={31} />
       </Link>
-      <ul>{NAV.map(([l, h]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul>
+      <nav className="v3-desktop-nav" aria-label="メインナビゲーション"><ul>{NAV.map(([l, h]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul></nav>
+      <details className="v3-mobile-nav" ref={menu} onKeyDown={(event) => {
+        if (event.key === "Escape") { menu.current?.removeAttribute("open"); menu.current?.querySelector("summary")?.focus(); }
+      }} onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) menu.current?.removeAttribute("open");
+      }}>
+        <summary><Menu aria-hidden="true" /><span className="v3-sr">メニュー</span></summary>
+        <nav aria-label="メインナビゲーション"><ul>{NAV.map(([label, href]) => <li key={href}><Link href={href} onClick={() => menu.current?.removeAttribute("open")}>{label}</Link></li>)}</ul></nav>
+      </details>
       <CartPill />
     </header>
   );

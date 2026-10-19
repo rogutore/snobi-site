@@ -9,6 +9,7 @@ import { taste, tasteAxes, tasteDraft } from "@/content/taste";
 import type { StockMap } from "@/lib/shopify/client";
 import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
+import { shotSrcSet } from "@/components/v2/photo";
 
 function Card({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
   const [size, setSize] = useState<"100g" | "200g">("100g");
@@ -21,7 +22,7 @@ function Card({ p, i, stock }: { p: Coffee; i: number; stock: StockMap }) {
     <article className="v3-card" aria-labelledby={`card-${p.slug}`}>
       <Link href={`/origins/${p.slug}`} className="ph" aria-label={`${p.title.ja}の産地ページへ`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair */}
-        <img src={`/v2/photos/${originFrames[p.slug].hero}-s.webp`} srcSet={`/v2/photos/${originFrames[p.slug].hero}-s.webp 700w, /v2/photos/${originFrames[p.slug].hero}-l.webp 1400w`}
+        <img src={`/v2/photos/${originFrames[p.slug].hero}-s.webp`} srcSet={shotSrcSet(originFrames[p.slug].hero)}
           sizes="(min-width:1000px) 23vw, 80vw" alt={`SNöBI ${p.title.ja}`} loading="lazy" />
       </Link>
       <p className="n">{String(i + 1).padStart(2, "0")} — {p.country.toUpperCase()}</p>

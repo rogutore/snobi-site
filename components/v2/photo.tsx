@@ -4,6 +4,13 @@ import manifest from "@/public/v2/photos/manifest.json";
 
 type Frame = keyof typeof manifest;
 
+/** The srcset for one shoot photo, from the manifest: -l is the exported width, -s exactly half (checked for all files). */
+export function shotSrcSet(id: string) {
+  const dims = manifest[id as Frame] as [number, number] | undefined;
+  if (!dims) throw new Error(`v2 photo ${id} is not exported (scripts/export-v2-photos.py)`);
+  return `/v2/photos/${id}-s.webp ${dims[0] / 2}w, /v2/photos/${id}-l.webp ${dims[0]}w`;
+}
+
 export function Photo({
   id,
   alt,
@@ -24,13 +31,12 @@ export function Photo({
   const dims = manifest[id as Frame] as [number, number] | undefined;
   if (!dims) throw new Error(`v2 photo ${id} is not exported (scripts/export-v2-photos.py)`);
   const [w, h] = dims;
-  const small = w > h ? 1000 : 700;
   return (
     <figure className={`v2-photo ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP pair, no runtime optimiser on Workers */}
       <img
         src={`/v2/photos/${id}-s.webp`}
-        srcSet={`/v2/photos/${id}-s.webp ${small}w, /v2/photos/${id}-l.webp ${w}w`}
+        srcSet={shotSrcSet(id)}
         sizes={sizes}
         width={w}
         height={h}

@@ -4,6 +4,7 @@
    light, the roasted beans, the cup, brewing, the dark table, held at the waist. The white-background studio frame is
    left out (small, off-centre bag). One large photo + a thumbnail row; the large one keeps a fixed 3:4 frame. */
 import { useState } from "react";
+import { shotSrcSet } from "@/components/v2/photo";
 
 export type Shot = { id: string; alt: string; position?: string };
 
@@ -17,7 +18,7 @@ export function OriginGallery({ shots }: { shots: Shot[] }) {
         <img
           key={s.id}
           src={`/v2/photos/${s.id}-s.webp`}
-          srcSet={`/v2/photos/${s.id}-s.webp 700w, /v2/photos/${s.id}-l.webp 1400w`}
+          srcSet={shotSrcSet(s.id)}
           sizes="(min-width:860px) 52vw, 100vw"
           alt={s.alt}
           style={s.position ? { objectPosition: s.position } : undefined}

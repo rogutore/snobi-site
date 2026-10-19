@@ -136,6 +136,7 @@ The Latin display line is about 4.4× body at 1440, deliberately below Mockup D'
 - **Width:** content max `--container-content` (1328px). JP body measure `--container-measure` (36em ≈ 36 kana); Latin body 65ch.
 - **Section pad:** `--spacing-section`, 64→96px. Sections alternate `paper` / `paper-2`: no two adjacent sections share a ground. Brand chapters use `--spacing-chapter-sm/md/lg` (50 / 65 / 80svh, Kettl); the bag chapter is a sticky stage.
 - **Header:** `--spacing-nav` (64px) with the real boar and wordmark SVGs from `public/brand/`. Nav (last item ホールセール) and the cart are always present.
+- **Minimum interactive target:** `--spacing-touch-target` in `app/globals.css`; the mobile-usability proposal binds header, button and summary hit areas to this shared presentation token.
 - **Product page:** media ≈ 60% | buy panel ≈ 40%, both sticky below the header (Daylight 62/38, Kettl 883/453). On mobile the buy button sits inside the first screen, and a sticky buy bar appears once the main button scrolls away (Kettl).
 - **Breakpoint checks:** 1440 / 768 / 390×667 / 360.
 
@@ -176,7 +177,7 @@ Almost shadowless; depth comes from real light and the object, not from cards.
 | `--duration-base` | 250ms | hover lift on release photos (4px / scale 1.03, Kettl) |
 | `--duration-slow` | 450ms | settle of the bag and the smoothed scroll (Oryzo ≈ 444ms to 99.5%) |
 
-- **What moves:** the footage: the four-arrive film on Home, the roast band on Story, and the /coffee header. One owner-approved exception (2026-10-10): the coffee photos on the Home releases row and /coffee change on their own, one card at a time at random, as a slow dissolve with a ≤6% centred drift (`components/v3/shot-cycle.tsx`); hovered cards wait, reduced motion keeps the first photo. Nothing else changes by itself. Films autoplay muted and inline once in view, hold on their last frame (or a verified seamless loop), and have a pause control. Scrolling is native everywhere; no wheel `preventDefault`, no scroll-smoothing library.
+- **What moves:** the footage: the four-arrive film on Home, the roast band on Story, and the /coffee header. One owner-approved exception (2026-10-10): the coffee photos on the Home releases row and /coffee change on their own, one card at a time at random, as a slow dissolve with a ≤6% centred drift (`components/v3/shot-cycle.tsx`), starting after the reader's first scroll, tap or key (2026-10-19, so a later photo never becomes the LCP); hovered cards wait, reduced motion keeps the first photo. Nothing else changes by itself. Films autoplay muted and inline once in view, hold on their last frame (or a verified seamless loop), and have a pause control. Scrolling is native everywhere; no wheel `preventDefault`, no scroll-smoothing library.
 - **What never moves:** the header, prices, cart totals, body copy. No fade-up on every section, no parallax-only motion, no wheel hijack.
 - **Footage:** dissolves of 8–12 frames are the only transition. Falling beans play at 100% (slowing them ghosts the streaks).
 - **Reduced motion:** still frames in normal flow, with the explanation kept.
@@ -188,6 +189,7 @@ Almost shadowless; depth comes from real light and the object, not from cards.
   - Product page: 1–3, in the producer section (one lead, two beside it). The top gallery stays our own bag shots.
   - Journal: up to 4 per article, each after the paragraph it shows.
   - Amazon: up to 2, image slot 8 and A+ module 3; never the main image.
+  - Home: one photo site-wide (`home: true`), step 02 of the four-points chapter, in place of the roaster shot (owner 2026-10-19). Its caption sits under the phone photo and at the end of the step on desktop; the shoot caption is hidden while it shows.
   - Long edge at least 1,600 px, unless marked `small` (shown small). No good photo means an empty slot, never filler.
   - Resizing and cropping to display sizes are fine. Never text on the photo, composites, colour changes, or a caption naming a person the supplier has not named.
   - No visible 「写真提供：」 credit (owner 2026-10-19). The supplier, its permission and the agreed credit wording stay in `content/origin-media.json`; captions and alt text stay.
