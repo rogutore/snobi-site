@@ -12,6 +12,13 @@ Read this first after compaction. Supporting docs:
 - Live-site risks found (VERIFIED on snobi.jp 2026-10-12; not fixed here — another session owns site code): Mexico decaf page describes lot 1121 (GRAPOS, オリサバ glacier water) while the contract moved to 健友交易 in October; /about 「世界最高峰の品質」 ×9; /en/origins/ethiopia-guji renders Sucafina's Tesfaye photo (Miguel's on /en/origins/peru). Vault: premium-line `_index.md` items N, O.
 - Photos for PR TIMES: originals `~/Downloads/Yuto-20261001_TC/TC_261001_<id>.jpg` (8256×5493, 200 dpi). Spec: ≤10 MB, JPG/PNG/GIF, main ≥1920×1280, OGP 1.91:1 (prtimes.com/magazine). 037 beats 130 as a lineup (Peru's label is hidden in 130). Not exported yet.
 
+## 2026-10-23 — hand-drawn Fuji LIVE
+- LIVE: `d80039f1-e3c1-4246-9c26-ba996dd5ed24` (owner supplied the painting: "I wanted a more handdrawn natural feel"). Rollback: `npx wrangler versions deploy bb1aa987-980e-4db9-ad59-752985d953bd@100% --yes`.
+- Source: `My Drive/SNOBI/Art/Fuji/fuji-plate-source-2026-10-23.webp` (1491x1055 — ask the owner for a larger original; it is soft on retina desktops). `scripts/export-fuji-art.py` → `public/v3/fuji/plate-l|s.webp` + `content/fuji-art.json` (ground 840 / summit 57 px, ridges, staff, towers). Painted stamps removed (rough heights; エ painted as 土); code burns them in at true heights.
+- Home section 4 (`fuji-climb.tsx`): painting + stamps, boar on the painted left ridge, dotted farm lines to the staff, glow at the summit; painting loads lazily (IntersectionObserver, 900px). Phones hide in-plate words. Origin minis (`fuji-mini.tsx`): same painting without the staff, lazy img + srcset. Old engraved code, scale ruler and 1823 note gone; footnote now says the towers are approximate (drawn ≈661 m / ≈357 m at the painting's scale).
+- VERIFIED on preview + live: verify-site PASS, photo gate PASS; vs previous live only home + 4 origin pages differ (scale numbers out, new footnote, mini Skytree label); no page errors at 1440/390 across the climb.
+- `components/v3/fuji.tsx` is dead code (unused since 10-09); delete when convenient.
+
 ## 2026-10-19 (last) — photo sizes LIVE
 - LIVE: `bb1aa987-980e-4db9-ad59-752985d953bd` (owner: "do the remaining ones too. hold cupping score question"). Rollback: `npx wrangler versions deploy 7ea31a7a-a5e3-4b3b-986a-40058f156a64@100% --yes`.
 - In: `scripts/export-v2-photos.py` now makes -m (1100w) and -t (short edge 240) besides -s/-l (re-run: -s/-l byte-identical, +188 files, photos 15→21 MB); manifest entries [l w, l h, m w, t w, t h]; `shotSrcSet()` has s/m/l, `shotThumb()` feeds the buy bars, Peru-style gallery strip and summit minis; origin photos' phone `sizes` 100vw→90vw (measured box); EN header links/cart 44px.
