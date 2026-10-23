@@ -193,6 +193,7 @@ Almost shadowless; depth comes from real light and the object, not from cards.
   - Long edge at least 1,600 px, unless marked `small` (shown small). No good photo means an empty slot, never filler.
   - Resizing and cropping to display sizes are fine. Never text on the photo, composites, colour changes, or a caption naming a person the supplier has not named.
   - No visible 「写真提供：」 credit (owner 2026-10-19). The supplier, its permission and the agreed credit wording stay in `content/origin-media.json`; captions and alt text stay.
+- **Fuji painting** (owner 2026-10-23, "a more handdrawn natural feel"): the one illustration on the site, home section 4 and the origin-page minis. Source `My Drive/SNOBI/Art/Fuji/`; `scripts/export-fuji-art.py` cuts it from its paper, removes its painted stamps and writes `content/fuji-art.json` (scale, ridges, staff). Code draws only what moves or must be exact on top: stamps at true heights, labels, the boar, the summit glow.
 - Footage uses and timecodes: `docs/footage-uses-2026-10-06.md`. Use front labels only until the Peru back-label misprint is fixed.
 - No 3D bag (owner, 2026-10-06). No generated imagery presented as real, and no stock.
 

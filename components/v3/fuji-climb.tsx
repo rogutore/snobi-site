@@ -1,29 +1,39 @@
 "use client";
-/* 「富士山」(was 富士登山; owner 2026-10-09) — home section 4, the owner's "Combine. Surprise me." (2026-10-08). Three proven references in one:
-   - the look: an antique comparative-heights plate (Darton & Gardner, 1823): framed, hand-tinted, engraved, numbered;
+/* 「富士山」 — home section 4. The plate is the owner's hand-drawn painting (2026-10-23: "a more handdrawn natural
+   feel"), cut out of its paper by scripts/export-fuji-art.py, which also writes its geometry (content/fuji-art.json:
+   ground and summit rows, both ridge lines, the staff). Over it, code draws only what moves or must be exact:
    - the mechanic: neal.fun "The Deep Sea", upside down: native scroll climbs, a big live altimeter counts;
-   - the reward: Fuji's 金剛杖 焼印: as the boar passes each farm's true height, that coffee is branded onto the staff.
-   One vertical scale (metres → px) is shared by the mountain, the trail and the staff. Heights come from products.ts
-   (via content/altitude.ts); comparisons are computed. Native scroll only (sticky stage, no wheel hijack). */
+   - the reward: Fuji's 金剛杖 焼印: as the boar walks the left ridge past each farm's true height, that coffee is
+     branded onto the painted staff (the painting's own stamps were removed: rough heights, and エ drawn as 土).
+   One vertical scale (metres → px, ground to crater rim) is shared by the boar, the labels and the staff. Heights come
+   from products.ts via content/altitude.ts; comparisons are computed. Native scroll only (sticky stage, no wheel hijack). */
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { products, yen } from "@/content/products";
 import { FUJI, coffeeAltitudes, compare } from "@/content/altitude";
 import { originFrames } from "@/content/v2";
+import art from "@/content/fuji-art.json";
 import type { StockMap } from "@/lib/shopify/client";
 import { buyLabel, canBuy, livePrice } from "@/lib/shopify/stock";
 import { useCart } from "@/components/commerce/cart";
 import { shotThumb } from "@/components/v2/photo";
 
-const W = 1000, H = 760, GROUND = 690, TOP = 96, CX = 560, CW = 22, XL = 196, XR = 924, P = 1.9;
-const S = (GROUND - TOP) / 4000;
+const { width: W, height: H, ground: GROUND, summit: SUMMIT } = art;
+const S = (GROUND - SUMMIT) / FUJI;
 const y = (m: number) => GROUND - m * S;
-const eL = CX - CW, eR = CX + CW;
-const xAt = (m: number, side: -1 | 1) => { const t = 1 - Math.pow(Math.min(m, FUJI) / FUJI, 1 / P); return side < 0 ? eL - t * (eL - XL) : eR + t * (XR - eR); };
-const STAFF = 966; // staff centre x, outside the mountain's right foot
+const STAFF = (art.staff[0] + art.staff[1]) / 2;
+/** x of the painted ridge line at row yy (-1 left slope, 1 right slope), interpolated from the traced points. */
+function ridgeX(yy: number, side: -1 | 1) {
+  const pts = side < 0 ? art.ridge.L : art.ridge.R;
+  if (yy <= pts[0][0]) return pts[0][1];
+  for (let i = 1; i < pts.length; i++) {
+    if (yy <= pts[i][0]) { const [y0, x0] = pts[i - 1], [y1, x1] = pts[i]; return x0 + ((x1 - x0) * (yy - y0)) / (y1 - y0); }
+  }
+  return pts[pts.length - 1][1];
+}
 
-/* Each coffee: which face of the (square) staff its stamp goes on, its stamp shape, and the katakana it carries.
+/* Each coffee: which face of the staff its stamp goes on, its stamp shape, and the katakana it carries.
    Colombia (1,700 m) and Peru (1,731 m) are 31 m apart, so they sit on opposite faces, as on a real 金剛杖. */
 const STAMP: Record<string, { face: -1 | 1; shape: "gourd" | "circle" | "square" | "hex"; kana: string; at: number; label: -1 | 1 }> = {
   "mexico-chiapas-decaf": { face: -1, shape: "gourd", kana: "メ", at: 0, label: -1 }, // branded on entering its range (1,400 m) so it clears Peru on the same face
@@ -31,45 +41,13 @@ const STAMP: Record<string, { face: -1 | 1; shape: "gourd" | "circle" | "square"
   peru: { face: -1, shape: "square", kana: "ペ", at: 0.5, label: -1 },
   "ethiopia-guji": { face: 1, shape: "hex", kana: "エ", at: 0.5, label: 1 },
 };
+const FACE = 17; // stamp offset from the staff's centre line: two stamps (~34 px each, scaled in v3.css) side by side fill the ~66 px staff
 const order = [...coffeeAltitudes].sort((a, b) => a.lo - b.lo); // the order you climb past them
 const MARKS = [
   { m: 333, text: "東京タワーを越えた" }, { m: 634, text: "スカイツリーを越えた" }, { m: 1000, text: "雲の上へ" },
   { m: 1400, text: "メキシコ・チアパスの畑の高さ" }, { m: 1700, text: "コロンビアとペルーの畑の高さ" }, { m: 2000, text: "エチオピア・グジの畑の高さ" },
   { m: 2305, text: "富士スバルライン五合目" }, { m: 3700, text: "まもなく頂上" }, { m: 3776, text: "頂上。御来光。" },
 ];
-
-function useGeometry() {
-  return useMemo(() => {
-    const pts: [number, number][] = [];
-    for (let i = 0; i <= 60; i++) { const t = i / 60; pts.push([XL + (eL - XL) * t, y(FUJI * Math.pow(t, P))]); }
-    pts.push([CX - CW * 0.45, y(FUJI - 70)], [CX + CW * 0.45, y(FUJI - 70)]);
-    for (let i = 0; i <= 60; i++) { const t = i / 60; pts.push([eR + (XR - eR) * t, y(FUJI * Math.pow(1 - t, P))]); }
-    const outline = "M" + pts.map(([a, b]) => `${a.toFixed(1)},${b.toFixed(1)}`).join(" L");
-    const fill = `${outline} L${XR},${GROUND} L${XL},${GROUND} Z`;
-    const cap: string[] = [];
-    for (let x = XL; x <= XR; x += 3) cap.push(`${x},${y(3280 + 40 * Math.sin(x * 0.05) + 22 * Math.sin(x * 0.13 + 0.7)).toFixed(1)}`);
-    const snow = `M${cap.join(" L")} L${XR},0 L${XL},0 Z`;
-    const hach: { d: string; o: number }[] = []; const streaks: string[] = [];
-    for (let j = 0; j <= 76; j++) {
-      const u = j / 76, xb = XL + (XR - XL) * u, xt = CX + (xb - CX) * 0.035, yt = y(FUJI - 40);
-      const endM = 100 + 360 * (0.5 + 0.5 * Math.sin(j * 2.3)), yb = y(endM), cxp = xt + (xb - xt) * 0.18, cyp = y(FUJI * 0.42);
-      hach.push({ d: `M${xt.toFixed(1)},${yt.toFixed(1)} Q${cxp.toFixed(1)},${cyp.toFixed(1)} ${xb.toFixed(1)},${yb.toFixed(1)}`, o: xb < CX ? 0.1 : 0.24 });
-      if (j % 3 === 1 && Math.abs(u - 0.5) < 0.42) {
-        const q = (t: number): [number, number] => [(1 - t) ** 2 * xt + 2 * (1 - t) * t * cxp + t * t * xb, (1 - t) ** 2 * yt + 2 * (1 - t) * t * cyp + t * t * yb];
-        const stopM = 2450 + 420 * (0.5 + 0.5 * Math.sin(j * 1.9)); let tEnd = 0; while (tEnd < 1 && q(tEnd)[1] < y(stopM)) tEnd += 0.005;
-        const Lp: string[] = [], Rp: string[] = [];
-        for (let k = 0; k <= 20; k++) { const t = (tEnd * k) / 20, [px, py] = q(t), [nx, ny] = q(Math.min(1, t + 0.004)); const dx = nx - px, dy = ny - py, len = Math.hypot(dx, dy) || 1, w = 3.6 * (1 - k / 20) ** 0.8; Lp.push(`${(px - (dy / len) * w).toFixed(1)},${(py + (dx / len) * w).toFixed(1)}`); Rp.unshift(`${(px + (dy / len) * w).toFixed(1)},${(py - (dx / len) * w).toFixed(1)}`); }
-        streaks.push(`M${Lp.join(" L")} L${Rp.join(" L")} Z`);
-      }
-    }
-    // the trail: switchbacks up the left face, inside the mountain at every height
-    const trail: [number, number][] = [];
-    for (let m = 0; m <= FUJI; m += 18) { const left = xAt(m, -1), half = CX - left; trail.push([left + half * (0.42 + 0.22 * Math.sin(m / 150)), y(m)]); }
-    // foreground band with little trees (the 1823 plate's lower edge)
-    const trees: [number, number][] = Array.from({ length: 46 }, (_, i) => [30 + i * 21 + 6 * Math.sin(i * 1.7), GROUND - 6 - 5 * Math.abs(Math.sin(i * 2.1))]);
-    return { outline, fill, snow, hach, streaks, trail, trees };
-  }, []);
-}
 
 function StampShape({ shape, x, yy, kana }: { shape: string; x: number; yy: number; kana: string }) {
   return (
@@ -84,12 +62,19 @@ function StampShape({ shape, x, yy, kana }: { shape: string; x: number; yy: numb
 }
 
 export function FujiClimb({ stock }: { stock: StockMap }) {
-  const g = useGeometry();
   const sec = useRef<HTMLElement>(null);
   const [alt, setAlt] = useState(0);
   const [reduced, setReduced] = useState(false);
   const [size, setSize] = useState<"100g" | "200g">("100g");
+  const [near, setNear] = useState(false); // the painting (111 KB) loads once the section is within a screen or so
   const cart = useCart();
+
+  useEffect(() => {
+    const el = sec.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setNear(true); io.disconnect(); } }, { rootMargin: "900px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -111,12 +96,9 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
   const latest = got[got.length - 1];
   const summit = alt >= FUJI - 1;
   const mark = summit ? MARKS[MARKS.length - 1] : [...MARKS].reverse().find((k) => alt >= k.m);
-  // climber position on the trail
-  const idx = Math.min(g.trail.length - 1, Math.max(0, Math.round((alt / FUJI) * (g.trail.length - 1))));
-  const [bx, by] = g.trail[idx];
-  const dir = g.trail[Math.min(g.trail.length - 1, idx + 1)][0] >= bx ? 1 : -1;
-  const done = g.trail.slice(0, idx + 1).map(([a, b]) => `${a.toFixed(1)},${b.toFixed(1)}`).join(" ");
-  const all = g.trail.map(([a, b]) => `${a.toFixed(1)},${b.toFixed(1)}`).join(" ");
+  // the boar stands on the painted left ridge at the current height
+  const by = y(alt), bx = ridgeX(by, -1);
+  const top = (ridgeX(SUMMIT, -1) + ridgeX(SUMMIT, 1)) / 2;
 
   const p = latest ? products.find((x) => x.slug === latest.slug)! : null;
   const v = p?.variants.find((x) => x.size === size);
@@ -135,92 +117,57 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
         </div>
         <div className="v3-climb-body">
           <div className="v3-climb-plate">
-            <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`富士山（3,776m）を登りながら、4つの畑の標高で杖に焼印。${products.map((x) => `${x.title.ja} ${x.elevation}`).join("、")}`}>
+            <svg viewBox={`0 0 ${W} ${H}`} style={{ aspectRatio: `${W} / ${H}` }} role="img" aria-label={`富士山（3,776m）を登りながら、4つの畑の標高で杖に焼印。${products.map((x) => `${x.title.ja} ${x.elevation}`).join("、")}`}>
               <defs>
-                <radialGradient id="fc-paper" cx="50%" cy="42%" r="75%"><stop offset="0.55" stopColor="#f6efe0" /><stop offset="1" stopColor="#e7d9bd" /></radialGradient>
-                <linearGradient id="fc-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#a9b6c0" /><stop offset="0.62" stopColor="#9ea791" /><stop offset="1" stopColor="#a5a07a" /></linearGradient>
-                <linearGradient id="fc-wood" x1="0" x2="1"><stop offset="0" stopColor="#ecd1a4" /><stop offset="0.5" stopColor="#ecd1a4" /><stop offset="0.5" stopColor="#d4ac77" /><stop offset="1" stopColor="#c99f69" /></linearGradient>
                 <radialGradient id="fc-sun" cx="50%" cy="50%" r="50%"><stop offset="0" stopColor="#f7c97c" stopOpacity="0.9" /><stop offset="1" stopColor="#f7c97c" stopOpacity="0" /></radialGradient>
-                <clipPath id="fc-m"><path d={g.fill} /></clipPath>
-                <filter id="fc-burn" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" /><feDisplacementMap in="SourceGraphic" scale="1.8" /></filter>
+                <filter id="fc-burn" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" /><feDisplacementMap in="SourceGraphic" scale="2.2" /></filter>
               </defs>
-              {/* the plate */}
-              <rect width={W} height={H} fill="url(#fc-paper)" />
-              <circle cx={CX} cy={y(FUJI) + 10} r={190} fill="url(#fc-sun)" className="sun" style={{ opacity: summit ? 1 : 0 }} />
-              <rect x={10} y={10} width={W - 20} height={H - 20} className="rule" />
-              <rect x={17} y={17} width={W - 34} height={H - 34} className="rule thin" />
-              {/* title, set vertically in the open sky like a print's title (owner 2026-10-09: no frame, 「富士山」) */}
+              <circle cx={top} cy={y(FUJI) + 60} r={170} fill="url(#fc-sun)" className="sun" style={{ opacity: summit ? 1 : 0 }} />
+              {near ? <image href="/v3/fuji/plate-l.webp" width={W} height={H} /> : null}
+              {/* title, set vertically in the open sky like a print's title (owner 2026-10-09: 「富士山」) */}
               <g className="ttl" aria-hidden>
-                <text x={128} y={112} className="ttl-main" style={{ writingMode: "vertical-rl" }}>富士山</text>
-                <text x={90} y={116} className="ttl-sub" style={{ writingMode: "vertical-rl" }}>第一章　四つの畑の高さ</text>
+                <text x={150} y={70} className="ttl-main" style={{ writingMode: "vertical-rl" }}>富士山</text>
+                <text x={98} y={76} className="ttl-sub" style={{ writingMode: "vertical-rl" }}>第一章　四つの畑の高さ</text>
               </g>
-              {/* scale in the margin */}
-              <line x1={58} x2={58} y1={y(0)} y2={y(4000)} className="ink" />
-              {[0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000].map((m) => (
-                <g key={m}><line x1={52} x2={58} y1={y(m)} y2={y(m)} className="ink" /><text x={48} y={y(m) + 4} textAnchor="end" className="scale">{m.toLocaleString()}</text></g>
-              ))}
-              {/* Fuji, hand-tinted and engraved */}
-              <path d={g.fill} fill="url(#fc-body)" />
-              <g clipPath="url(#fc-m)">
-                {g.hach.map((h, i) => <path key={i} d={h.d} className="hach" style={{ strokeOpacity: h.o }} />)}
-                <path d={g.snow} className="snow" />
-                {g.streaks.map((d, i) => <path key={i} d={d} className="snow" />)}
-                {order.map((a) => (
-                  <g key={a.slug} className={`farm-line ${got.includes(a) ? "on" : ""}`}>
-                    {a.hi !== a.lo ? <rect x={0} width={W} y={y(a.hi)} height={y(a.lo) - y(a.hi)} className="band" /> : null}
-                    <line x1={0} x2={W} y1={y(a.lo + (a.hi - a.lo) * STAMP[a.slug].at)} y2={y(a.lo + (a.hi - a.lo) * STAMP[a.slug].at)} />
-                  </g>
-                ))}
+              <text x={top} y={y(FUJI) - 50} textAnchor="middle" className="lbl strong">山頂 3,776m</text>
+              <g className="go">
+                <text x={ridgeX(y(2305), 1) + 18} y={y(2305) + 5} className="lbl">五合目 2,305m</text>
               </g>
-              <path d={g.outline} className="ink fuji-edge" />
-              {/* farm labels, numbered like the 1823 key, outside the slopes */}
+              {/* each farm's height: a dotted line from the right slope to the staff, and a numbered label outside its slope */}
               {order.map((a) => {
                 const pr = products.find((x) => x.slug === a.slug)!, i = products.indexOf(pr) + 1, sd = STAMP[a.slug].label;
-                const m = a.lo + (a.hi - a.lo) * STAMP[a.slug].at, lx = xAt(m, sd) + sd * 14;
+                const m = a.lo + (a.hi - a.lo) * STAMP[a.slug].at, yy = y(m), lx = ridgeX(yy, sd) + sd * 16;
                 return (
-                  <g key={a.slug} className={`farm-label ${got.includes(a) ? "on" : ""}`}>
-                    <circle cx={lx + sd * 9} cy={y(m) - 4} r={8.5} />
-                    <text x={lx + sd * 9} y={y(m) - 0.5} textAnchor="middle" className="num">{i}</text>
-                    <text x={lx + sd * 22} y={y(m)} textAnchor={sd < 0 ? "end" : "start"} className="lbl">{pr.title.ja.split(" ")[0]} {pr.elevation}</text>
+                  <g key={a.slug} className={`farm ${got.includes(a) ? "on" : ""}`}>
+                    <line x1={ridgeX(yy, 1) + 8} x2={art.staff[0] - 4} y1={yy} y2={yy} className="farm-line" />
+                    <g className="farm-label">
+                      <circle cx={lx + sd * 12} cy={yy - 5} r={11} />
+                      <text x={lx + sd * 12} y={yy - 0.5} textAnchor="middle" className="num">{i}</text>
+                      <text x={lx + sd * 30} y={yy} textAnchor={sd < 0 ? "end" : "start"} className="lbl">{pr.title.ja.split(" ")[0]} {pr.elevation}</text>
+                    </g>
                   </g>
                 );
               })}
-              <g className="go">
-                <line x1={xAt(2305, 1) + 4} x2={xAt(2305, 1) + 18} y1={y(2305)} y2={y(2305)} className="ink" />
-                <text x={xAt(2305, 1) + 22} y={y(2305) + 4} className="lbl">五合目 2,305m</text>
+              <text x={art.towers.tokyo} y={H - 8} textAnchor="middle" className="scale">東京タワー</text>
+              <text x={art.towers.skytree + 18} y={H - 8} textAnchor="start" className="scale">スカイツリー</text>
+              {/* the climber, on the painted left ridge */}
+              <g transform={`translate(${bx + 4},${by - 18})`} className="boar">
+                <image href="/brand/snobi.svg" x={-22} y={-19} width={44} height={38} />
               </g>
-              <text x={CX} y={y(FUJI) - 34} textAnchor="middle" className="lbl strong">山頂 3,776m</text>
-              {/* foreground hills, trees and the two Tokyo towers (to scale) */}
-              <path d={`M20,${GROUND} C160,${GROUND - 20} 300,${GROUND - 6} 420,${GROUND - 16} S700,${GROUND - 4} 820,${GROUND - 14} S960,${GROUND - 6} 980,${GROUND - 10} L980,${GROUND} Z`} className="hills" />
-              {g.trees.map(([tx, ty], i) => <path key={i} d={`M${tx},${ty - 10} l4.5,10 h-9 Z`} className="tree" />)}
-              <path d={`M104,${GROUND} L109,${y(333)} L111,${y(333)} L116,${GROUND} Z`} className="tower" />
-              <path d={`M140,${GROUND} L143,${y(634)} L145,${y(634)} L148,${GROUND} Z`} className="sky" />
-              <text x={110} y={GROUND + 18} textAnchor="middle" className="scale">東京タワー</text>
-              <text x={144} y={y(634) - 6} textAnchor="middle" className="scale">スカイツリー</text>
-              <line x1={20} x2={W - 20} y1={GROUND} y2={GROUND} className="ink" />
-              {/* the trail and the climber */}
-              <polyline points={all} className="trail" />
-              <polyline points={done} className="trail done" />
-              <g transform={`translate(${bx},${by - 12}) scale(${dir},1)`} className="boar">
-                <image href="/brand/snobi.svg" x={-15} y={-13} width={30} height={26} />
-              </g>
-              {/* the 金剛杖: same vertical scale as the mountain; stamps burn in as the boar passes their height */}
+              {/* the 金剛杖 is painted; the stamps burn in as the boar passes their height */}
               <g className="staff">
-                <path d={`M${STAFF - 22},${y(FUJI) - 26} L${STAFF},${y(FUJI) - 38} L${STAFF + 22},${y(FUJI) - 26} L${STAFF + 22},${GROUND + 4} L${STAFF - 22},${GROUND + 4} Z`} fill="url(#fc-wood)" className="staff-body" />
-                <path d={`M${STAFF - 22},${y(FUJI) - 20} l-10,56 l15,-9 l11,17 l2,-64 Z`} className="cloth" />
-                <circle cx={STAFF + 26} cy={y(FUJI) - 6} r={6.5} className="bell" />
                 {order.map((a) => {
-                  const sp = STAMP[a.slug], m = a.lo + (a.hi - a.lo) * sp.at, on = got.includes(a);
+                  const sp = STAMP[a.slug], m = a.lo + (a.hi - a.lo) * sp.at, on = got.includes(a), sx = STAFF + sp.face * FACE;
                   return (
                     <g key={a.slug} className={`stamp ${on ? "on" : ""}`}>
-                      <StampShape shape={sp.shape} x={STAFF + sp.face * 11} yy={y(m)} kana={sp.kana} />
-                      <g className="puff"><circle cx={STAFF + sp.face * 11 - 14} cy={y(m) - 18} r={7} /><circle cx={STAFF + sp.face * 11 - 4} cy={y(m) - 30} r={9} /><circle cx={STAFF + sp.face * 11 + 8} cy={y(m) - 20} r={6} /></g>
-                      <text x={STAFF - 24} y={y(m) - 14} textAnchor="end" className="jyu">ジュッ</text>
+                      <StampShape shape={sp.shape} x={sx} yy={y(m)} kana={sp.kana} />
+                      <g className="puff"><circle cx={sx - 16} cy={y(m) - 22} r={9} /><circle cx={sx - 4} cy={y(m) - 38} r={11} /><circle cx={sx + 10} cy={y(m) - 25} r={8} /></g>
+                      <text x={art.staff[0] - 10} y={y(m) - 18} textAnchor="end" className="jyu">ジュッ</text>
                     </g>
                   );
                 })}
-                <g className={`stamp ${alt >= 2305 ? "on" : ""}`}><StampShape shape="square" x={STAFF - 11} yy={y(2305)} kana="五" /></g>
-                <g className={`stamp ${summit ? "on" : ""}`}><StampShape shape="circle" x={STAFF} yy={y(FUJI) + 2} kana="頂" /></g>
+                <g className={`stamp ${alt >= 2305 ? "on" : ""}`}><StampShape shape="square" x={STAFF - FACE} yy={y(2305)} kana="五" /></g>
+                <g className={`stamp ${summit ? "on" : ""}`}><StampShape shape="circle" x={STAFF} yy={y(FUJI) + 6} kana="頂" /></g>
               </g>
             </svg>
           </div>
@@ -275,7 +222,7 @@ export function FujiClimb({ stock }: { stock: StockMap }) {
             )}
           </aside>
         </div>
-        <p className="v3-climb-note">高さは実寸、横幅は縮めています。富士山 3,776m（国土地理院）· 富士スバルライン五合目 2,305m · 東京スカイツリー 634m · 東京タワー 333m。図の様式は1823年の「山の高さくらべ」図にならいました。</p>
+        <p className="v3-climb-note">富士山・五合目・4つの畑の高さは同じ縮尺です（横幅は縮めています。塔の絵は目安）。富士山 3,776m（国土地理院）· 富士スバルライン五合目 2,305m · 東京スカイツリー 634m · 東京タワー 333m。</p>
       </div>
     </section>
   );
