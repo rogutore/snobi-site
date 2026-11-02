@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 
 const ROWS = [
   ...posts.map((p) => ({ href: `/journal/${p.slug}`, date: p.published, category: p.category, title: p.title, cover: p.cover })),
-  { href: ROASTERY_POST.href, date: "2026-10-01", category: ROASTERY_POST.category, title: ROASTERY_POST.title, cover: "205" },
+  { href: ROASTERY_POST.href, date: ROASTERY_POST.published, category: ROASTERY_POST.category, title: ROASTERY_POST.title, cover: "205" },
 ];
 const CATEGORIES = [...new Set(ROWS.map((r) => r.category))];
 

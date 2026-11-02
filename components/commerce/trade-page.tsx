@@ -61,7 +61,7 @@ export function TradePage({ lang = "ja" }: { lang?: Locale }) {
             : trade.closing}
         </p>
       </main>
-      <Footer en={en} />
+      <Footer en={en} ja="/trade" />
     </CartProvider>
   );
 }

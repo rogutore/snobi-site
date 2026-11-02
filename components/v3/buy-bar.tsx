@@ -18,8 +18,9 @@ export function BuyBar({ stock }: { stock: StockMap }) {
   const cart = useCart();
   const [show, setShow] = useState(false);
   useEffect(() => {
-    // Home: after the film. Brand pages (Story, Journal, FAQ; owner OK 2026-10-08, S3): after their first section.
-    const hero = document.querySelector(".v3-film") ?? document.querySelector("main section");
+    // Home: after the film. Brand pages (Story, Journal, FAQ; owner OK 2026-10-08, S3): once the page heading has
+    // scrolled away (2026-11-02: watching the first section never fired on FAQ/Journal, whose first section is the page).
+    const hero = document.querySelector(".v3-film") ?? document.querySelector("main h1");
     const sellers = [...document.querySelectorAll(".v3-climb-stage, #releases")];
     const vis = new Map<Element, boolean>();
     const update = () => {

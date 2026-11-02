@@ -113,7 +113,7 @@
 .v3p-story-faq summary::after { content: "＋"; font-family: var(--font-mono); color: var(--color-ink-soft); flex: none; }
 .v3p-story-faq details[open] summary::after { content: "－"; }
 .v3p-story-faq .a { padding-top: 10px; font-size: 14px; color: var(--color-ink-soft); max-width: 60ch; }
-.v3p-story-faq .a a { color: var(--color-plum); text-underline-offset: 4px; }
+.v3p-story-faq .a a { color: var(--color-plum); text-decoration: underline; text-underline-offset: 4px; } /* a link inside text needs more than colour (a11y, 2026-11-02) */
 @media (max-width: 860px) { .v3p-story-faq { grid-template-columns: minmax(0, 1fr); } }
 
 /* journal page head (Mockup D .page-head) and contents (.toc) */

@@ -879,6 +879,9 @@ summary::-webkit-details-marker {
   font-size: 30px;
   margin-top: 8px;
 }
+.cart-head h2:lang(ja) {
+  font-weight: 600; /* the JP face has no 700 (DESIGN.md › Typography) */
+}
 .icon-button {
   display: grid;
   place-items: center;

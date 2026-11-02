@@ -5,6 +5,13 @@ import { SYSTEM } from "./system.generated";
    When v2 replaces the live pages, sections.tsx's copies of these lines are deleted, not kept (SINGLE_SOURCE). */
 
 import { trade } from "./trade";
+import { legalRows } from "./legal";
+
+const legalRow = (k: string) => {
+  const row = legalRows.find((r) => r.k === k);
+  if (!row) throw new Error(`v2 faq: 特商法 row "${k}" missing (content/legal.ts)`);
+  return row.v;
+};
 import { FREE_SHIPPING_YEN, shippingRates, ORDER_CUTOFF, shipMethodLine, freeShippingLine, roastShipShort, nextDayLine } from "./ordering";
 import { yen } from "./products";
 import { orderingSchedule } from "./ordering";
@@ -100,6 +107,9 @@ export const faqGroups: { title: string; items: { q: string; a: string }[] }[] =
       { q: "送料はいくら？", a: `${yen(FREE_SHIPPING_YEN)}以上のご注文で送料無料。${shippingRates.ja}100g・200gとも、${shipMethodLine.ja}。最終的な送料はレジでご確認いただけます。` },
       { q: "いつ焙煎して、いつ届く？", a: `${orderingSchedule.ja.join("")}${nextDayLine.ja}。` },
       { q: "どこで決済するの？", a: "決済はTokyo Coffeeが承ります。選んだ豆とサイズを引き継いで、Tokyo Coffeeの決済ページに進みます。ご利用いただける支払方法は決済画面に表示されます。" },
+      /* 2026-11-02 (audit: no payment / returns answer). Text is the 特商法 row itself (content/legal.ts), never retyped. */
+      { q: "支払い方法は？", a: legalRow("お支払い方法").join("") },
+      { q: "返品・交換はできる？", a: legalRow("返品・交換について").join("") },
     ],
   },
   {

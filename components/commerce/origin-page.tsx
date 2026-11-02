@@ -178,7 +178,7 @@ export async function OriginPage({
           }}
         />
       </main>
-      <Footer en={en} />
+      <Footer en={en} ja={`/origins/${p.slug}`} />
     </CartProvider>
   );
 }

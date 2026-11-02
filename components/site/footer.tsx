@@ -5,7 +5,8 @@ import { Logo } from "./logo";
 
 /* Quiet endorsed-brand footer — room for JAS + USDA Organic marks, socials,
    EN/JP, boar mark (brief §3). */
-export function Footer({ en = false }: { en?: boolean }) {
+/** `ja`: the matching Japanese page for the 日本語 link on English pages (2026-11-02; it always went to "/"). */
+export function Footer({ en = false, ja = "/" }: { en?: boolean; ja?: string }) {
   return (
     <footer className="bg-plum px-6 py-16 text-paper lg:px-10">
       <div className="mx-auto max-w-7xl">
@@ -41,17 +42,14 @@ export function Footer({ en = false }: { en?: boolean }) {
               <span id="footer-follow" className="spec text-[0.7rem] uppercase tracking-[0.18em] text-paper/65">
                 Follow
               </span>
-              <a href={FORM_URL} className="text-sm text-paper/75">
+              <a href={en ? "mailto:info@tokyocoffee.jp" : FORM_URL} className="text-sm text-paper/75">
                 {en
-                  ? "Launch information & enquiries ↗"
+                  ? "Enquiries: info@tokyocoffee.jp"
                   : "発売案内・お問い合わせ ↗"}
               </a>
-              <a
-                href="https://tokyocoffee.jp/pages/policy"
-                className="text-sm text-paper/75"
-              >
-                {en ? "Legal & sales terms" : "特定商取引法に基づく表記"}
-              </a>
+              <Link href="/legal" className="text-sm text-paper/75">
+                {en ? "Legal & sales terms (Japanese)" : "特定商取引法に基づく表記"}
+              </Link>
             </nav>
           </div>
         </div>
@@ -67,7 +65,7 @@ export function Footer({ en = false }: { en?: boolean }) {
           <div className="flex flex-wrap items-center gap-4">
             <a href={en ? "https://rogutore.com/en/company" : "https://rogutore.com/company"} className="text-paper/70 hover:text-paper">{en ? "Rogutore · Our company" : "運営会社 · 株式会社ローグトレード"}</a>
             <Link
-              href="/"
+              href={ja} hrefLang="ja"
               className={en ? "text-paper/70 hover:text-paper" : "text-paper"}
             >
               日本語

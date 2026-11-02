@@ -109,13 +109,13 @@ export const products: Coffee[] = [
     variants: [
       {
         id: "gid://shopify/ProductVariant/48418096152765",
-        sku: "SNB-PER-100",
+        sku: "SNB-PERGE-100",
         size: "100g",
         price: 2560,
       },
       {
         id: "gid://shopify/ProductVariant/48418096185533",
-        sku: "SNB-PER-200",
+        sku: "SNB-PERGE-200",
         size: "200g",
         price: 4720,
       },
@@ -191,13 +191,13 @@ export const products: Coffee[] = [
     variants: [
       {
         id: "gid://shopify/ProductVariant/48418099921085",
-        sku: "SNB-ETH-100",
+        sku: "SNB-ETHGU-100",
         size: "100g",
         price: 1605,
       },
       {
         id: "gid://shopify/ProductVariant/48418099953853",
-        sku: "SNB-ETH-200",
+        sku: "SNB-ETHGU-200",
         size: "200g",
         price: 2810,
       },

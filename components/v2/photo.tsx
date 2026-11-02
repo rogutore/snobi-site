@@ -11,10 +11,11 @@ function dimsOf(id: string) {
   return dims;
 }
 
-/** The srcset for one shoot photo: -s is exactly half of -l (checked for all files), -m and -l widths from the manifest. */
+/** The srcset for one shoot photo: -t, -m and -l widths from the manifest, -s exactly half of -l (checked for all files).
+    -t is in the set so small boxes (e.g. the /journal list, 2026-11-02 audit: ~650 KB of 1000w files) take it. */
 export function shotSrcSet(id: string) {
-  const [w, , m] = dimsOf(id);
-  return `/v2/photos/${id}-s.webp ${w / 2}w, /v2/photos/${id}-m.webp ${m}w, /v2/photos/${id}-l.webp ${w}w`;
+  const [w, , m, t] = dimsOf(id);
+  return `/v2/photos/${id}-t.webp ${t}w, /v2/photos/${id}-s.webp ${w / 2}w, /v2/photos/${id}-m.webp ${m}w, /v2/photos/${id}-l.webp ${w}w`;
 }
 
 /** The thumbnail (short edge 240px) for boxes of about 80px, e.g. the buy bars and the gallery strip. */

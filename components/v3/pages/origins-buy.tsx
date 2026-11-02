@@ -27,13 +27,11 @@ export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMa
     if (!el) return;
     const button = el.querySelector<HTMLButtonElement>(".v3p-origins-add");
     if (!button) return;
-    const mobile = window.matchMedia("(max-width: 860px)");
+    // DESIGN.md › Layout: the main button sits in the first screen; the bar appears once it has scrolled up past the
+    // header (2026-11-02; Codex's 10-19 version also showed it while the button was still below the fold).
     const headerBottom = () => Math.max(0, document.querySelector(".v3-nav")?.getBoundingClientRect().bottom ?? 0);
     const update = () => {
-      const r = button.getBoundingClientRect();
-      const top = headerBottom();
-      const fullyVisible = r.top >= top && r.bottom <= window.innerHeight;
-      setPast(!fullyVisible && (mobile.matches || r.bottom <= top));
+      setPast(button.getBoundingClientRect().bottom <= headerBottom());
     };
     let io: IntersectionObserver;
     let frame = 0;
@@ -46,11 +44,10 @@ export function OriginBuy({ p, stock, initialSize }: { p: Coffee; stock: StockMa
       io.observe(button);
       update();
     };
-    mobile.addEventListener("change", observe);
     window.addEventListener("resize", observe);
     window.addEventListener("scroll", onScroll, { passive: true });
     observe();
-    return () => { io.disconnect(); mobile.removeEventListener("change", observe); window.removeEventListener("resize", observe); window.removeEventListener("scroll", onScroll); window.cancelAnimationFrame(frame); };
+    return () => { io.disconnect(); window.removeEventListener("resize", observe); window.removeEventListener("scroll", onScroll); window.cancelAnimationFrame(frame); };
   }, []);
   const v = p.variants.find((x) => x.size === size)!;
   const ok = canBuy(stock, v.id);

@@ -64,7 +64,7 @@ export function Footer() {
         <p className="small">ORGANIC SPECIALTY BY TOKYO COFFEE<br />JAS有機認証の豆だけを、東京で焙煎。<br />© 2026 Snobi · 株式会社ローグトレード</p>
       </div>
       <ul>{NAV.map(([l, h]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul>
-      <ul><li><Link href="/contact">お問い合わせ</Link></li><li><Link href="/legal">特定商取引法に基づく表記</Link></li><li><Link href="/trade#enquiry">ホールセールのご相談</Link></li></ul>
+      <ul><li><Link href="/contact">お問い合わせ</Link></li><li><Link href="/legal">特定商取引法に基づく表記</Link></li><li><Link href="/trade#enquiry">ホールセールのご相談</Link></li><li><Link href="/en" hrefLang="en" lang="en">English</Link></li></ul>
     </footer>
   );
 }

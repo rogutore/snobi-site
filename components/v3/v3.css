@@ -420,7 +420,7 @@
 /* ---- improvement 2: the always-visible buy bar ---- */
 .v3-buybar { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 45; transform: translate(-50%, 140%); opacity: 0;
   display: flex; align-items: center; gap: 18px; padding: 10px 10px 10px 12px; width: min(760px, calc(100% - 24px));
-  background: color-mix(in srgb, var(--color-paper) 92%, transparent); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  background: var(--color-paper); /* solid: text behind it must never show through (audit 2026-10-26) */
   border: 1px solid var(--color-line); border-radius: 999px; box-shadow: 0 14px 40px rgb(42 34 48 / .14), 0 2px 6px rgb(42 34 48 / .06);
   transition: transform .5s var(--ease-house), opacity .35s var(--ease-house); }
 .v3-buybar.on { transform: translate(-50%, 0); opacity: 1; }
@@ -681,3 +681,15 @@
   .v3-prodbar .seg { justify-self: start; }
   .v3-prodbar .add { justify-self: end; }
 }
+
+/* Japanese is never italic (DESIGN.md › Typography; the kit has no JP italic, so the browser slants it). These roles
+   are italic for Latin; on Japanese pages they hold Japanese (cup notes, subtitles), so :lang(ja) sets them upright.
+   Latin inside them keeps its italic only with lang="en". (audit 2026-10-26, fixed 2026-11-02) */
+.v3 :is(.v3-ls, .v3-rel .s, .v3-card .s, .v3-fuji-card .notes, .v3-climb-side .card .notes, .v3-trade-coffees li .n, .v3p-coffee-notes, .v3p-origins-entry .place .c, .v3p-origins-hero .notes):lang(ja) { font-style: normal; }
+/* Japanese headings are 600 and Japanese never goes above 600: the kit's 秀英角ゴシック銀 has 400/600 only, so 700 is
+   a browser-made fake bold and a 400 heading breaks the role (DESIGN.md › Typography). Latin headlines carry lang="en"
+   and keep their own weight. (audit 2026-10-26, fixed 2026-11-02) */
+.v3 :is(h1, h2, h3):lang(ja), .v3 :is(b, strong):lang(ja), .v3-climb-plate .stamp .jyu { font-weight: 600; }
+/* JP headings set proportional kana (palt, DESIGN.md › Japanese): in full-width boxes タ leaves a hole before デ in
+   「タデGG農園」 (Masaki 2026-11-02). Body text stays full-width. */
+.v3 :is(h1, h2, h3):lang(ja) { font-feature-settings: "palt"; }

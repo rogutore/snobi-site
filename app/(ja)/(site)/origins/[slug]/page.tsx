@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { getStock } from "@/lib/shopify/client";
 import { products, yen, type Coffee } from "@/content/products";
 import { orderingSchedule, freeShippingLine, shipMethodLine } from "@/content/ordering";
-import { originFrames } from "@/content/v2";
+import { originFrames, jas } from "@/content/v2";
 import { requestedSize } from "@/lib/product-variant";
 import { OriginBuy } from "@/components/v3/pages/origins-buy";
 import { BRAND_PLAIN } from "@/content/brand";
@@ -15,6 +15,11 @@ import { FujiMini } from "@/components/v3/fuji-mini";
 import { posts } from "@/content/journal/index";
 import "@/components/v3/pages/origins.css";
 import { shotSrcSet } from "@/components/v2/photo";
+
+/* 有機JAS proof on every product page (audit 2026-10-26: it was only on Story). From the one list in content/v2.ts. */
+const JAS_NO = jas.find(([, what]) => what.includes("認定番号"))?.[0];
+const JAS_BODY = jas.find(([, what]) => what.includes("認証機関"))?.[0];
+if (!JAS_NO || !JAS_BODY) throw new Error("origins: JAS number or certifier missing from content/v2.ts jas");
 
 export const dynamic = "force-dynamic";
 
@@ -107,7 +112,7 @@ export default async function Origin({ params, searchParams }: { params: Promise
           <p className="story">{p.narrative.ja[0]}</p>
           <dl className="facts">
             <dt>ブランド</dt><dd>{BRAND_PLAIN}</dd>
-            <dt>認証</dt><dd>有機JAS（オーガニック）</dd>
+            <dt>認証</dt><dd><Link href="/about#jas">有機JAS</Link>（焙煎所の認定番号 {JAS_NO}・認証機関 {JAS_BODY}）</dd>
             <dt>地域</dt><dd>{p.region.ja}</dd>
             <dt>生産者</dt><dd>{p.producer.ja}</dd>
             <dt>標高</dt><dd>{p.elevation}</dd>

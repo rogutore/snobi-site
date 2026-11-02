@@ -9,7 +9,7 @@ type Category = (typeof JOURNAL_CATEGORIES)[number];
 
 export type PlannedPost = { href: string | null; status: string; category: Category; title: string; cover: string; alt: string };
 
-export const ROASTERY_POST = { href: "/journal/roastery", category: "焙煎所", title: "生豆から、一杯まで。" } as const;
+export const ROASTERY_POST = { href: "/journal/roastery", category: "焙煎所", title: "生豆から、一杯まで。", published: "2026-10-01" } as const; // the date the journal list shows
 
 /* Mockup D's three bracketed rows, replaced: the Roastery essay (drafted) and two planned posts (v2 journal plan). */
 export const PLANNED_POSTS: PlannedPost[] = [

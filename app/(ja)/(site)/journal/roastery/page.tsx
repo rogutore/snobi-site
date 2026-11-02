@@ -1,4 +1,4 @@
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, JsonLd, article } from "@/lib/seo";
 import { getStock } from "@/lib/shopify/client";
 import { BuyBar } from "@/components/v3/buy-bar";
 import Link from "next/link";
@@ -9,7 +9,8 @@ import "@/components/v3/pages/story.css";
 
 /* The Roastery photo essay (PHOTO-INVENTORY §3 sequence 1, eight of its frames), in Mockup D's page head and figure
    style. Photographs with short factual captions (published 2026-10-09). */
-export const metadata = pageMeta({ path: "/journal/roastery", title: `${ROASTERY_POST.title}｜焙煎所`, type: "article", description: "東京の焙煎所で、生豆の麻袋から焙煎、冷却、一杯まで。写真で追う、SNöBIのつくり方。", image: "/v2/photos/205-l.webp" });
+const DESCRIPTION = "東京の焙煎所で、生豆の麻袋から焙煎、冷却、一杯まで。写真で追う、SNöBIのつくり方。";
+export const metadata = pageMeta({ path: "/journal/roastery", title: `${ROASTERY_POST.title}｜焙煎所`, type: "article", description: DESCRIPTION, image: "/v2/photos/205-l.webp" });
 export const dynamic = "force-dynamic";
 
 /* Wide frames run alone; the pairs sit side by side. */
@@ -19,6 +20,8 @@ export default async function RoasteryPost() {
   const { stock } = await getStock();
   return (
     <>
+    {/* Article markup like the other 15 posts (audit 2026-10-26: this was the one without it) */}
+    <JsonLd data={article({ path: ROASTERY_POST.href, title: ROASTERY_POST.title, description: DESCRIPTION, published: ROASTERY_POST.published, updated: ROASTERY_POST.published, image: `/v2/photos/${ROASTERY_STEPS[0][0]}-l.webp` })} />
     <article className="v3p-story-post" aria-labelledby="post-h1">
       <header className="v3p-story-head">
         <p className="eyebrow"><Link href="/journal" lang="en">Journal</Link> · {ROASTERY_POST.category}</p>
