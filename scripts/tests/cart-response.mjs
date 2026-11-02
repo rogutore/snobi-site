@@ -22,6 +22,7 @@ function load(file, overrides = {}, cache = new Map()) {
       const base = name.startsWith('@/') ? path.join(root, name.slice(2)) : path.resolve(path.dirname(file), name);
       const resolved = [base, base + '.ts', base + '.tsx', path.join(base, 'index.ts')].find(p => fs.existsSync(p) && fs.statSync(p).isFile());
       if (!resolved) throw new Error('Unresolved test import: ' + name);
+      if (resolved.endsWith('.json')) return JSON.parse(fs.readFileSync(resolved, 'utf8')); // e.g. the photo manifest
       return load(resolved, overrides, cache);
     }
     return requireFromRoot(name);
