@@ -31,9 +31,9 @@
 - `brain/Handoffs/seo-geo/reports/` (panel runs)
 
 **Open questions for Noah:**
-1. Search Console: can Claude get read access to the snobi.jp property (add savenoahsark@gmail.com as a user)? Or a monthly export? Without it, the index check is blind.
-2. Bing Webmaster Tools (T3) needs a Microsoft sign-in: you, or staff?
-3. Theme access for the Shopify app (to add the TC footer link and `brand`, T8): yes or no?
+1. ~~Search Console access~~ resolved 2026-11-13: Claude reads it in Chrome "Browser 2" (info@tokyocoffee.jp owns it).
+2. ~~Bing Webmaster~~ already live since 2026-10-09 (DNS-verified, sitemap submitted).
+3. Theme access for the Shopify app: Noah yes 2026-11-13; exact scope list awaiting OK (PROGRESS 11-13).
 
 **Progress note:** `docs/seo-aeo/PROGRESS.md`.
 
