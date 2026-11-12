@@ -98,11 +98,12 @@ const SHIPPING_DETAILS = (
 }));
 
 /** Shipping + returns for every Offer (JA and EN product data read this; 2026-10-11). Returns from the 特商法 row:
-    「送料着払いにてご返品」 = returned by post, carriage paid by us. */
+    defective or wrong items only, reported within 7 days, returned by post with carriage paid by us (着払い). Owner
+    2026-11-12: defects only, so the data claims free returns for defects, not a free return for any reason. */
 export const OFFER_TERMS = {
   shippingDetails: SHIPPING_DETAILS,
   ...(returnsText
-    ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7, returnMethod: "https://schema.org/ReturnByMail", returnFees: "https://schema.org/FreeReturn", description: returnsText } }
+    ? { hasMerchantReturnPolicy: { "@type": "MerchantReturnPolicy", applicableCountry: "JP", returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow", merchantReturnDays: 7, returnMethod: "https://schema.org/ReturnByMail", itemDefectReturnFees: "https://schema.org/FreeReturn", merchantReturnLink: `${SITE}/legal`, description: returnsText } }
     : {}),
 };
 
