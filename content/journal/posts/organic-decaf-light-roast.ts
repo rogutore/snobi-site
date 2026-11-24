@@ -147,6 +147,7 @@ const post: Post = {
     },
   ],
   products: ["mexico-chiapas-decaf"],
+  inlineLink: { text: "メキシコ チアパス デカフェ", product: "mexico-chiapas-decaf" },
   cover: "135",
   coverAlt: "木のテーブルに、コーヒーを注いだガラスのカップとSNöBI メキシコの袋",
   sources: [

@@ -91,6 +91,7 @@ const post: Post = {
     { q: "粉でも買える？", a: "豆のままでのお届けです。100gと200gから選べます。" },
   ],
   products: ["colombia-huila"],
+  inlineLink: { text: "コロンビア ウィラ", product: "colombia-huila" },
   cover: "146",
   coverAlt: "朝の光と葉の影のなか、木のテーブルに置かれたSNöBI コロンビア ウィラ（有機JAS）の袋",
   sources: [

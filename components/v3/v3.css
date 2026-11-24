@@ -40,8 +40,11 @@
 .v3-filmplay.on { opacity: 1; }
 .v3-film::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(42 34 48 / 0) 45%, rgb(42 34 48 / .42) 100%); pointer-events: none; }
 .v3-filmcopy { position: absolute; left: var(--gutter); bottom: clamp(28px, 8vh, 72px); z-index: 36; color: var(--color-paper); max-width: min(760px, calc(100% - 2 * var(--gutter))); }
-.v3-filmcopy h1 { font-size: clamp(2.6rem, 7vw, 6.4rem); line-height: .95; color: var(--color-paper); margin-top: 12px; letter-spacing: -.02em; }
-.v3-filmcopy .ja { margin-top: 12px; font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 600; letter-spacing: .01em; }
+/* the EN display line (a p since 2026-11-24); p:where() keeps the old h1 rule's specificity so .v3 .display still wins where it did */
+.v3-filmcopy p:where(.display) { font-size: clamp(2.6rem, 7vw, 6.4rem); line-height: .95; color: var(--color-paper); margin-top: 12px; letter-spacing: -.02em; text-wrap: balance; }
+.v3-filmcopy .v3-film-h1 { text-wrap: wrap; } /* the JA H1: keep the look of the two former p lines (no balance, no palt) */
+.v3-filmcopy .v3-film-h1 .ja { font-feature-settings: normal; } /* on the lines: .v3 :is(h1):lang(ja) would out-rank a rule on the h1 */
+.v3-filmcopy .ja { display: block; margin-top: 12px; font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 600; letter-spacing: .01em; }
 .v3-filmcta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 20px; }
 .v3-filmcta .price { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; opacity: .9; }
 

@@ -20,7 +20,7 @@ const post: Post = {
   slug: "ethiopia-guji-natural",
   category: "産地",
   title: "エチオピアのオーガニックコーヒー、グジのナチュラル",
-  metaTitle: "エチオピア グジ ナチュラル｜オーガニックコーヒー豆（有機JAS）",
+  metaTitle: "グジのナチュラルとは｜タデGG農園の有機コーヒー",
   description: `${eth.region.ja}のタデGG農園で育った${eth.variety.ja}を、果肉ごと天日で乾かしたナチュラル。有機JASの${roast}で、ノートは${notes}。100g ${yen(price(eth, "100g"))}（税込）。`,
   keyword: "エチオピア オーガニック コーヒー",
   related: ["エチオピア グジ ナチュラル", "エチオピア グジ", "グジ タデGG"],
@@ -133,6 +133,7 @@ const post: Post = {
     },
   ],
   products: ["ethiopia-guji"],
+  inlineLink: { text: "SNöBIのエチオピア", product: "ethiopia-guji" },
   cover: "022",
   coverAlt: "日の当たる木のテーブルに置いた、SNöBIのエチオピア グジの袋。東京で撮影。",
   sources: [

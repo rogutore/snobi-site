@@ -147,6 +147,7 @@ const post: Post = {
     },
   ],
   products: ["mexico-chiapas-decaf"],
+  inlineLink: { text: "メキシコ チアパス デカフェ", product: "mexico-chiapas-decaf" },
   cover: "157",
   coverAlt: "白い台に広げた、メキシコ チアパス デカフェの焙煎豆",
   sources: [
