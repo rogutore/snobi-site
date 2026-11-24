@@ -22,11 +22,17 @@ function CartPill() {
 export function Header() {
   const menu = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
-    const closeOutside = (event: PointerEvent) => {
+    const closeOutside = (event: Event) => {
       if (event.target instanceof Node && !menu.current?.contains(event.target)) menu.current?.removeAttribute("open");
     };
     document.addEventListener("pointerdown", closeOutside);
-    return () => document.removeEventListener("pointerdown", closeOutside);
+    // Safari can blur summary with relatedTarget=null before a tapped link clicks.
+    // Close on a confirmed outside target, never on that intermediate blur.
+    document.addEventListener("focusin", closeOutside);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("focusin", closeOutside);
+    };
   }, []);
   return (
     <header className="v3-nav">
@@ -39,11 +45,9 @@ export function Header() {
       <nav className="v3-desktop-nav" aria-label="メインナビゲーション"><ul>{NAV.map(([l, h]) => <li key={h}><Link href={h}>{l}</Link></li>)}</ul></nav>
       <details className="v3-mobile-nav" ref={menu} onKeyDown={(event) => {
         if (event.key === "Escape") { menu.current?.removeAttribute("open"); menu.current?.querySelector("summary")?.focus(); }
-      }} onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) menu.current?.removeAttribute("open");
       }}>
         <summary><Menu aria-hidden="true" /><span className="v3-sr">メニュー</span></summary>
-        <nav aria-label="メインナビゲーション"><ul>{NAV.map(([label, href]) => <li key={href}><Link href={href} onClick={() => menu.current?.removeAttribute("open")}>{label}</Link></li>)}</ul></nav>
+        <nav aria-label="メインナビゲーション"><ul>{NAV.map(([label, href]) => <li key={href}><Link href={href} onNavigate={() => menu.current?.removeAttribute("open")}>{label}</Link></li>)}</ul></nav>
       </details>
       <CartPill />
     </header>

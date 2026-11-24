@@ -62,7 +62,8 @@ export function organization() {
     telephone: company.tel,
     address: { "@type": "PostalAddress", addressCountry: "JP", streetAddress: company.address },
     parentOrganization: { "@type": "Organization", name: company.name, alternateName: "TOKYO COFFEE", url: "https://tokyocoffee.jp" },
-    sameAs: ["https://tokyocoffee.jp"],
+    // Profiles verified in docs/launch-kit/social-profiles.md (2026-10-30), posting since the 2026-11-13 launch.
+    sameAs: ["https://tokyocoffee.jp", "https://www.instagram.com/snobi.jp/", "https://x.com/snobi_coffee", "https://www.youtube.com/@snobi-coffee", "https://note.com/snobi"],
   };
 }
 
@@ -156,6 +157,14 @@ export function productGroup(p: Coffee, stock: StockMap, images: string[]) {
           : {}),
       };
     }),
+  };
+}
+
+export function itemList(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((x, i) => ({ "@type": "ListItem", position: i + 1, name: x.name, url: `${SITE}${x.path}` })),
   };
 }
 
