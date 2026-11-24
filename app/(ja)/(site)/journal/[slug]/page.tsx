@@ -25,7 +25,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return pageMeta({ path: `/journal/${p.slug}`, title: p.metaTitle, description: p.description, image: `/v2/photos/${p.cover}-l.webp`, type: "article" });
 }
 
-function Body({ b, slug }: { b: Block; slug: string }) {
+type InlineLink = { text: string; href: string };
+
+/* The post's one early link to its coffee: the first occurrence of inlineLink.text, in the lead or else the first paragraph
+   that has it (same pattern as the FAQ's LINKS). A phrase that is in neither stops the page instead of silently not linking. */
+function linkPlace(p: (typeof posts)[number]): { at: "lead" | string; link: InlineLink } | null {
+  if (!p.inlineLink) return null;
+  const { text, product } = p.inlineLink;
+  if (!products.some((c) => c.slug === product)) throw new Error(`journal ${p.slug}: inlineLink names no product "${product}"`);
+  const link = { text, href: `/origins/${product}` };
+  if (p.lead.includes(text)) return { at: "lead", link };
+  for (const [si, s] of p.sections.entries())
+    for (const [bi, b] of s.blocks.entries()) if ("p" in b && b.p.includes(text)) return { at: `${si}-${bi}`, link };
+  throw new Error(`journal ${p.slug}: inlineLink text "${text}" is in no lead or paragraph`);
+}
+
+function withLink(text: string, link?: InlineLink) {
+  if (!link) return text;
+  const at = text.indexOf(link.text);
+  return <>{text.slice(0, at)}<Link href={link.href}>{link.text}</Link>{text.slice(at + link.text.length)}</>;
+}
+
+function Body({ b, slug, link }: { b: Block; slug: string; link?: InlineLink }) {
   if ("photo" in b) {
     const ph = journalPhoto(b.photo, slug);
     return (
@@ -36,7 +57,7 @@ function Body({ b, slug }: { b: Block; slug: string }) {
       </figure>
     );
   }
-  if ("p" in b) return <p>{b.p}</p>;
+  if ("p" in b) return <p>{withLink(b.p, link)}</p>;
   if ("list" in b) return <ul>{b.list.map((x) => <li key={x}>{x}</li>)}</ul>;
   if ("steps" in b) return <ol>{b.steps.map((x) => <li key={x}>{x}</li>)}</ol>;
   if ("note" in b) return <p className="note">{b.note}</p>;
@@ -58,6 +79,7 @@ function Body({ b, slug }: { b: Block; slug: string }) {
 export default async function JournalPost({ params }: { params: Promise<{ slug: string }> }) {
   const p = find((await params).slug);
   if (!p) notFound();
+  const place = linkPlace(p);
   const { stock } = await getStock();
   const coffees = p.products.map((slug) => {
     const c = products.find((x) => x.slug === slug);
@@ -83,11 +105,11 @@ export default async function JournalPost({ params }: { params: Promise<{ slug: 
         </header>
         <Photo className="v3p-post-cover" id={p.cover} alt={p.coverAlt} sizes="(min-width:900px) 820px, 100vw" priority />
         <div className="v3p-post-body">
-          <p className="v3p-post-lead">{p.lead}</p>
-          {p.sections.map((s) => (
+          <p className="v3p-post-lead">{withLink(p.lead, place?.at === "lead" ? place.link : undefined)}</p>
+          {p.sections.map((s, si) => (
             <section key={s.h2}>
               <h2>{s.h2}</h2>
-              {s.blocks.map((b, i) => <Body key={i} b={b} slug={p.slug} />)}
+              {s.blocks.map((b, i) => <Body key={i} b={b} slug={p.slug} link={place?.at === `${si}-${i}` ? place.link : undefined} />)}
             </section>
           ))}
           {p.faq?.length ? (

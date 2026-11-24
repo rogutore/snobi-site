@@ -36,10 +36,13 @@ export default async function Home() {
         <HeroFilm />
         <div className="v3-filmcopy">
           <p className="eyebrow" style={{ color: "var(--color-paper)" }}>Organic × Specialty × Japan — Est. 2026</p>
-          <h1 className="display" lang="en">Organic.<br /><em>And actually specialty.</em></h1>
-          {/* owner 2026-10-09: JA line + proof subline; EN h1 unchanged */}
-          <p className="ja">{BELIEF_JA}</p>
-          <p className="ja proof">認証は、有機JAS。評価は、スペシャルティ。</p>
+          <p className="display" lang="en">Organic.<br /><em>And actually specialty.</em></p>
+          {/* owner 2026-10-09: JA line + proof subline. Since 2026-11-24 (SEO Batch B, Noah's yes) the two JA lines are the
+              page's H1 and the EN line is display text; same look (components/v3/v3.css .v3-film-h1) */}
+          <h1 className="v3-film-h1">
+            <span className="ja">{BELIEF_JA}</span>
+            <span className="ja proof">認証は、有機JAS。評価は、スペシャルティ。</span>
+          </h1>
           <div className="v3-filmcta">
             <Link className="v3-btn light" href="/coffee">4つの産地から選ぶ</Link>
             <span className="price">{yen(allFromPrice)}〜（税込）・豆のまま</span>

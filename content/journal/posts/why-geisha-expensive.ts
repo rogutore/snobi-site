@@ -101,6 +101,7 @@ const post: Post = {
     { q: "SNöBIのゲイシャは有機？", a: "有機JASです。生豆が有機JASの認証を受けたもので、焙煎するTokyo Coffeeも有機加工食品の生産行程管理者として認定を受けています。" },
   ],
   products: ["peru"],
+  inlineLink: { text: "ペルー チリノス ゲイシャ", product: "peru" },
   cover: "152",
   coverAlt: "明るい台の上に散らばった、SNöBI ペルー チリノス ゲイシャの焙煎豆",
   sources: [

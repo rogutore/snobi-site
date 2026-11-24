@@ -33,6 +33,7 @@ export type Post = {
   sections: { h2: string; blocks: Block[] }[];
   faq?: { q: string; a: string }[];
   products: Coffee["slug"][];   // product cards at the end (1–4)
+  inlineLink?: { text: string; product: Coffee["slug"] }; // early link to /origins/<product>: the first occurrence of `text` in the lead or a paragraph (SEO Batch B 2026-11-24)
   cover: string;                // photo id from public/v2/photos (e.g. "161")
   coverAlt: string;
   sources: { label: string; url?: string }[]; // every external fact; internal facts cite the file

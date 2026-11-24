@@ -90,6 +90,7 @@ const post: Post = {
     { q: "いつ届く？", a: `${orderingSchedule.ja.join("")}${nextDayLine.ja}。` },
   ],
   products: ["peru"],
+  inlineLink: { text: "オーガニック ゲイシャ", product: "peru" },
   cover: "144",
   coverAlt: "朝の光と葉の影のなか、木のテーブルに置かれたSNöBI ペルー チリノス ゲイシャ（有機JAS）の袋",
   sources: [

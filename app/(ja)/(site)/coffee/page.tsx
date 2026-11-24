@@ -21,6 +21,8 @@ export default async function Coffee() {
       <div className="v3p-coffee-head">
         <p className="eyebrow">Chapter One — Organic Coffee</p>
         <h1>4つの産地、4つの個性。すべてオーガニック。</h1>
+        {/* SEO Batch B 2026-11-24: the page for 有機JAS / オーガニック コーヒー豆 says both in its text */}
+        <p>4種とも、有機JASのスペシャルティコーヒー豆です。焙煎は浅煎り、豆のまま届きます。</p>
         <p>{summary[0]}<strong>{freeShippingLine.ja}</strong>{summary[1]}</p>
       </div>
       <CoffeeRows stock={stock} />

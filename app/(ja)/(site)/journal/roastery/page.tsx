@@ -9,7 +9,7 @@ import "@/components/v3/pages/story.css";
 
 /* The Roastery photo essay (PHOTO-INVENTORY §3 sequence 1, eight of its frames), in Mockup D's page head and figure
    style. Photographs with short factual captions (published 2026-10-09). */
-const DESCRIPTION = "東京の焙煎所で、生豆の麻袋から焙煎、冷却、一杯まで。写真で追う、SNöBIのつくり方。";
+const DESCRIPTION = `東京の焙煎所で、生豆が一杯になるまで。有機JASマークのついた麻袋から、焙煎機、冷却槽、グラスに注ぐまで。${ROASTERY_STEPS.length}枚の写真で追う、SNöBIのつくり方。`;
 export const metadata = pageMeta({ path: "/journal/roastery", title: `${ROASTERY_POST.title}｜焙煎所`, type: "article", description: DESCRIPTION, image: "/v2/photos/205-l.webp" });
 export const dynamic = "force-dynamic";
 

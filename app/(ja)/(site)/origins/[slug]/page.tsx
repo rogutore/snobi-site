@@ -50,10 +50,11 @@ const find = (slug: string) => products.find((x) => x.slug === slug);
 const img = (id: string) => ({ src: `/v2/photos/${id}-s.webp`, srcSet: shotSrcSet(id) });
 const tags = (p: Coffee) => [p.roast?.ja, p.decaf ? "デカフェ" : null].filter(Boolean).join(" · ");
 
-/* Organic-first titles (plan §3, owner 2026-10-08: "the whole point is specialty organic"). */
+/* Organic-first titles (plan §3, owner 2026-10-08: "the whole point is specialty organic"). Peru and Ethiopia lost
+   「（有機JAS）」 on 2026-11-24 (SEO Batch B) so コーヒー豆 shows on phones; 有機JAS stays in the description and text. */
 const SEO_TITLE: Record<string, string> = {
-  peru: "ペルー チリノス ゲイシャ｜オーガニック（有機JAS）コーヒー豆",
-  "ethiopia-guji": "エチオピア グジ ナチュラル｜オーガニック（有機JAS）コーヒー豆",
+  peru: "ペルー チリノス ゲイシャ｜オーガニック コーヒー豆",
+  "ethiopia-guji": "エチオピア グジ ナチュラル｜オーガニック コーヒー豆",
   "colombia-huila": "コロンビア ウィラ｜有機栽培（有機JAS）コーヒー豆",
   "mexico-chiapas-decaf": "オーガニック デカフェ 浅煎り｜メキシコ チアパス 有機JAS コーヒー豆",
 };

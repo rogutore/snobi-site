@@ -4,12 +4,14 @@ import { BuyBar } from "@/components/v3/buy-bar";
 import Link from "next/link";
 import { products, yen, type Coffee } from "@/content/products";
 import { faqGroups } from "@/content/v2";
+import { FREE_SHIPPING_YEN } from "@/content/ordering";
 import "@/components/v3/pages/story.css";
 
 /* Mockup D faq.html (heading left, open/close list right), carrying the live Q&A from content/v2.ts faqGroups with
    Davy's 2026-10-08 answers. The price answer is built from products.ts, never retyped. The group titles from
    faqGroups sit as small labels over each group; everything else is Mockup D's layout. */
-export const metadata = pageMeta({ path: "/faq", title: "よくある質問｜有機JAS・価格・送料・デカフェ", description: "SNöBIのよくある質問。有機JASとスペシャルティ、価格とサイズ、送料と発送、決済、デカフェについて。", image: "/v2/photos/161-l.webp" });
+/* Title and description name only questions this page answers (SEO Batch B 2026-11-24: the old ones promised デカフェ). */
+export const metadata = pageMeta({ path: "/faq", title: "よくある質問｜有機JAS・価格・送料・届く日", description: `SNöBIのよくある質問。有機JASか、焙煎度、粉で買えるか、100g・200gの価格、送料（${yen(FREE_SHIPPING_YEN)}以上で無料）、焙煎して届く日、決済と返品、お店での取り扱いに答えます。`, image: "/v2/photos/161-l.webp" });
 export const dynamic = "force-dynamic";
 
 function price(p: Coffee, size: "100g" | "200g"): string {
