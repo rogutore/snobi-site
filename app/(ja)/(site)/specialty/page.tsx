@@ -1,4 +1,4 @@
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, JsonLd, breadcrumb } from "@/lib/seo";
 import Link from "next/link";
 import { products } from "@/content/products";
 import { ScoreScale } from "@/components/v3/score-scale";
@@ -13,6 +13,7 @@ export const metadata = pageMeta({ path: "/specialty", title: "スペシャル�
 export default function Specialty() {
   return (
     <>
+      <JsonLd data={breadcrumb([["ホーム", "/"], ["スペシャルティコーヒーとは", "/specialty"]])} />
       <section className="v3-sec" aria-labelledby="sp-h1">
         <div className="v3-sec-head" style={{ alignItems: "start" }}>
           <div>

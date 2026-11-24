@@ -1,4 +1,4 @@
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, JsonLd, breadcrumb } from "@/lib/seo";
 import Link from "next/link";
 import { getStock } from "@/lib/shopify/client";
 import { statementJa, storyJa, storyJourneyJa, storySnobiJa, jas, signOff } from "@/content/v2";
@@ -24,6 +24,7 @@ export default async function About() {
   const { stock } = await getStock();
   return (
     <div className="v3p-story">
+      <JsonLd data={breadcrumb([["ホーム", "/"], ["ストーリー", "/about"]])} />
       {/* 01 Statement — set large, no photo (unchanged) */}
       <section className="v3p-story-statement" aria-labelledby="st-h1">
         <p className="eyebrow" lang="en">The story</p>

@@ -1,4 +1,4 @@
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, JsonLd, breadcrumb } from "@/lib/seo";
 import Link from "next/link";
 import { products } from "@/content/products";
 import { originFrames } from "@/content/v2";
@@ -14,6 +14,7 @@ export const metadata = pageMeta({ path: "/origins", title: "有機JASコーヒ�
 export default function Origins() {
   return (
     <div className="v3p-origins">
+      <JsonLd data={breadcrumb([["ホーム", "/"], ["産地", "/origins"]])} />
       <div className="v3p-origins-head">
         <p className="eyebrow">Origins — the coffee belt</p>
         <h1>だれが、どこで、どうつくったか。</h1>

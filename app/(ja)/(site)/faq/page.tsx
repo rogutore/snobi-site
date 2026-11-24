@@ -1,4 +1,4 @@
-import { pageMeta, JsonLd, faqPage } from "@/lib/seo";
+import { pageMeta, JsonLd, faqPage, breadcrumb } from "@/lib/seo";
 import { getStock } from "@/lib/shopify/client";
 import { BuyBar } from "@/components/v3/buy-bar";
 import Link from "next/link";
@@ -40,6 +40,7 @@ export default async function Faq() {
   const { stock } = await getStock();
   return (
     <>
+    <JsonLd data={breadcrumb([["ホーム", "/"], ["FAQ", "/faq"]])} />
     <JsonLd data={faqPage(faqGroups.flatMap((g) => g.items).map((it) => ({ q: it.q, a: it.a === "__PRICES__" ? prices : it.a })))} />
     <section className="v3p-story-faq" aria-labelledby="faq-h1">
       <h1 id="faq-h1" className="v3p-story-h">最初の一杯の、<br />その前に。</h1>

@@ -1,4 +1,5 @@
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, JsonLd, breadcrumb, itemList } from "@/lib/seo";
+import { products } from "@/content/products";
 import { getStock } from "@/lib/shopify/client";
 import { orderingSummary, freeShippingLine } from "@/content/ordering";
 import { CoffeeRows } from "@/components/v3/pages/coffee";
@@ -16,6 +17,7 @@ export default async function Coffee() {
   const { stock } = await getStock();
   return (
     <>
+      <JsonLd data={[breadcrumb([["ホーム", "/"], ["コーヒー", "/coffee"]]), itemList(products.map((p) => ({ name: `SNöBI ${p.title.ja}`, path: `/origins/${p.slug}` })))]} />
       <div className="v3p-coffee-head">
         <p className="eyebrow">Chapter One — Organic Coffee</p>
         <h1>4つの産地、4つの個性。すべてオーガニック。</h1>

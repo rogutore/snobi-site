@@ -73,7 +73,7 @@ export function BuyCard({
             </p>
             <Image
               src={`/products/${product.handle}-cutout.webp`}
-              alt=""
+              alt={en ? `SNöBI ${product.title.en} bag` : `SNöBI ${product.title.ja}の袋`}
               width={514}
               height={600}
               sizes="(min-width:1024px) 160px,115px"

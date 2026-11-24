@@ -1,4 +1,4 @@
-import { OFFER_TERMS } from "@/lib/seo";
+import { OFFER_TERMS, ORG_ID } from "@/lib/seo";
 import { requestedSize, variantUrl } from "@/lib/product-variant";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -21,7 +21,7 @@ export function originMetadata(slug: string, lang: Locale): Metadata {
     description: p.narrative[lang].join(" "),
     alternates: {
       canonical: `${lang === "en" ? "/en" : ""}/origins/${slug}`,
-      languages: { ja: `/origins/${slug}`, en: `/en/origins/${slug}` },
+      languages: { ja: `/origins/${slug}`, en: `/en/origins/${slug}`, "x-default": `/origins/${slug}` },
     },
     openGraph: {
       title: `${p.title[lang]} — SNöBI`,
@@ -58,6 +58,8 @@ export async function OriginPage({
     name: `SNöBI ${p.title[lang]}`,
     productGroupID: p.handle,
     brand: { "@type": "Brand", name: "SNöBI" },
+    manufacturer: { "@id": ORG_ID },
+    countryOfOrigin: p.country,
     description: p.narrative[lang].join(" "),
     image: [`https://snobi.jp/products/${p.handle}-200g.jpg`],
     url,
@@ -80,6 +82,7 @@ export async function OriginPage({
                   ? "https://schema.org/InStock"
                   : "https://schema.org/OutOfStock",
               itemCondition: "https://schema.org/NewCondition",
+              seller: { "@id": ORG_ID },
               ...OFFER_TERMS,
             },
           }

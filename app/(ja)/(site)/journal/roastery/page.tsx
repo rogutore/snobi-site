@@ -1,4 +1,4 @@
-import { pageMeta, JsonLd, article } from "@/lib/seo";
+import { pageMeta, JsonLd, article, breadcrumb } from "@/lib/seo";
 import { getStock } from "@/lib/shopify/client";
 import { BuyBar } from "@/components/v3/buy-bar";
 import Link from "next/link";
@@ -22,6 +22,7 @@ export default async function RoasteryPost() {
     <>
     {/* Article markup like the other 15 posts (audit 2026-10-26: this was the one without it) */}
     <JsonLd data={article({ path: ROASTERY_POST.href, title: ROASTERY_POST.title, description: DESCRIPTION, published: ROASTERY_POST.published, updated: ROASTERY_POST.published, image: `/v2/photos/${ROASTERY_STEPS[0][0]}-l.webp` })} />
+    <JsonLd data={breadcrumb([["ホーム", "/"], ["ジャーナル", "/journal"], [ROASTERY_POST.title, ROASTERY_POST.href]])} />
     <article className="v3p-story-post" aria-labelledby="post-h1">
       <header className="v3p-story-head">
         <p className="eyebrow"><Link href="/journal" lang="en">Journal</Link> · {ROASTERY_POST.category}</p>
